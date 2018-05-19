@@ -7,19 +7,47 @@
 //
 
 import UIKit
+import AWSUserPoolsSignIn
+import AWSAuthUI
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if !AWSSignInManager.sharedInstance().isLoggedIn {
+            showSignIn()
+        }
+        else {
+            print("Logged In")
+            AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, error: Error?) in
+                self.showSignIn()
+                print("Sign-out Successful");
+                
+            })
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func showSignIn() {
+        let config = AWSAuthUIConfiguration()
+        config.enableUserPoolsUI = true
+        AWSAuthUIViewController
+            .presentViewController(with: self.navigationController!,
+                                   configuration: config,
+                                   completionHandler: { (provider: AWSSignInProvider, error: Error?) in
+                                    if error != nil {
+                                        print("Error occurred: \(String(describing: error))")
+                                    } else {
+                                       // let user = User()
+                                       // user?.createUser(userId: AWSIdentityManager.default().identityId!)
+                                        //let exercise = Exercise()
+                                        //exercise?.queryExercise()
+                                        //exercise?.createExercise()
+                                        let activity = Activity()
+                                        activity?.createActivity()
+                                        print("User ID: ", AWSIdentityManager.default().identityId!)
+                                    }
+            })
     }
-
 
 }
 
