@@ -77,8 +77,8 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         // Create data object using data models you downloaded from Mobile Hub
         let userItem: User = User()
         userItem._userId = userId
-        userItem._firstName = "HBA"
-        userItem._lastName = "Freelance"
+        userItem._firstName = "James"
+        userItem._lastName = "Hetfield"
         userItem._trainerEmail = "none"
         userItem._biceps = 31
         userItem._calves = 32
@@ -104,5 +104,30 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             }
             print("An item was saved.")
         })
+    }
+    
+    func queryUser(userId: String) {
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "#userId = :userId"
+        
+        queryExpression.expressionAttributeNames = [
+            "#userId": "userId",
+        ]
+        queryExpression.expressionAttributeValues = [
+            ":userId": userId
+        ]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        dynamoDbObjectMapper.query(Activity.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+            if error != nil {
+                print("The request failed. Error: \(String(describing: error))")
+            }
+            if output != nil {
+                for user in output!.items {
+                    let userItem = user as? User
+                    print("\(userItem!._firstName!)")
+                }
+            }
+        }
     }
 }

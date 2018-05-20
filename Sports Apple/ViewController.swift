@@ -43,8 +43,9 @@ class ViewController: UIViewController {
                                         //exercise?.queryExercise()
                                         //exercise?.createExercise()
                                         let activity = Activity()
-                                        activity?.createActivity()
-                                        print("User ID: ", AWSIdentityManager.default().identityId!)
+                                        //activity?.createActivity()
+                                        activity?.queryActivity(userId: AWSIdentityManager.default().identityId!, date: Date().toString(dateFormat: "dd-MM-yyyy"))
+                                        //print("User ID: ", AWSIdentityManager.default().identityId!)
                                     }
             })
     }

@@ -15,17 +15,16 @@ import Foundation
 import UIKit
 import AWSDynamoDB
 import AWSAuthCore
-import SwiftyJSON
 
 @objcMembers
 class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     var _userId: String?
+    var _activityId: String?
     var _bodyWeight: NSNumber?
     var _calories: NSNumber?
     var _date: String?
     var _exerciseList: [[String: Any]]?
-    //var _exerciseList: JSON?
     var _location: String?
     var _workoutComment: String?
     
@@ -39,9 +38,15 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         return "_userId"
     }
     
+    class func rangeKeyAttribute() -> String {
+
+        return "_activityId"
+    }
+    
     override class func jsonKeyPathsByPropertyKey() -> [AnyHashable: Any] {
         return [
                "_userId" : "userId",
+               "_activityId" : "activityId",
                "_bodyWeight" : "Body Weight",
                "_calories" : "Calories",
                "_date" : "Date",
@@ -53,56 +58,42 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     func createActivity() {
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
-        
         // Create data object using data models you downloaded from Mobile Hub
         let activityItem: Activity = Activity()
-        
         activityItem._userId = AWSIdentityManager.default().identityId
-        
-        activityItem._bodyWeight = 23
-        activityItem._calories = 587
+        activityItem._activityId = UUID().uuidString
+        activityItem._bodyWeight = 1123
+        activityItem._calories = 11587
         activityItem._date = Date().toString(dateFormat: "dd-MM-yyyy")
-        activityItem._location = "Gym"
-        activityItem._workoutComment = "Hey this is a comment"
-        
+        activityItem._location = "Gym123"
+        activityItem._workoutComment = "Hey this is a comment 3"
         var stringDictionary = [[String: Any]]()
+        
         var exerciseDictionary: Dictionary = [String: Any]()
         var exerciseDictionary2: Dictionary = [String: Any]()
-    
-        exerciseDictionary["exerciseID"] = 1
+
+        exerciseDictionary["exerciseID"] = 3
         exerciseDictionary["Weight Amount"] = 55
         exerciseDictionary["Reps"] = 12
         exerciseDictionary["Sets"] = 5
         exerciseDictionary["Count"] = 0
         exerciseDictionary["Time"] = 0
         exerciseDictionary["Distance"] = 0
-        exerciseDictionary["Exercise Comment"] = "none"
+        exerciseDictionary["Exercise Comment"] = "newest"
         
-        exerciseDictionary2["exerciseID"] = 2
+        exerciseDictionary2["exerciseID"] = 4
         exerciseDictionary2["Weight Amount"] = 155
         exerciseDictionary2["Reps"] = 112
         exerciseDictionary2["Sets"] = 15
         exerciseDictionary2["Count"] = 10
         exerciseDictionary2["Time"] = 10
         exerciseDictionary2["Distance"] = 10
-        exerciseDictionary2["Exercise Comment"] = "none"
+        exerciseDictionary2["Exercise Comment"] = "newest"
         
         stringDictionary.append(exerciseDictionary)
         stringDictionary.append(exerciseDictionary2)
-        
-        let data = JSON([
-            "exerciseID": 3,
-            "Weight Amount": 55,
-            "Reps": 145,
-            "Sets": 132,
-            "Count": 111,
-            "Time": 0,
-            "Distance": 0,
-            "Exercise Comment": "newest"]
-        )
-        
+
         activityItem._exerciseList = stringDictionary
-        
         //Save a new item
         dynamoDbObjectMapper.save(activityItem, completionHandler: {
             (error: Error?) -> Void in
@@ -114,6 +105,18 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             print("An item was saved.")
         })
     }
+    
+    /* let data = JSON([
+     "exerciseID": 3,
+     "Weight Amount": 55,
+     "Reps": 145,
+     "Sets": 132,
+     "Count": 111,
+     "Time": 0,
+     "Distance": 0,
+     "Exercise Comment": "newest"]
+     ) */
+    
     
     func getActivity() {
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
@@ -134,5 +137,33 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                 }
                 print("An item was read.")
         })
+    }
+    
+    func queryActivity(userId: String, date: String) {
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.indexName = "UserActivityDate"
+        queryExpression.keyConditionExpression = "#Date >= :Date AND #userId = :userId"
+        
+        queryExpression.expressionAttributeNames = [
+            "#userId": "userId",
+            "#Date": "Date"
+        ]
+        queryExpression.expressionAttributeValues = [
+            ":Date": date,
+            ":userId": userId
+        ]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        dynamoDbObjectMapper.query(Activity.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+            if error != nil {
+                print("The request failed. Error: \(String(describing: error))")
+            }
+            if output != nil {
+                for activity in output!.items {
+                    let activityItem = activity as? Activity
+                    print("\(activityItem!._activityId!)")
+                }
+            }
+        }
     }
 }

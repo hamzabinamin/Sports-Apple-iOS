@@ -14,12 +14,12 @@
 		F541B7CB209C49930053C9DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F541B7CA209C49930053C9DB /* Assets.xcassets */; };
 		F541B7CE209C49930053C9DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7CC209C49930053C9DB /* LaunchScreen.storyboard */; };
 		F54AB64720B044C200720B70 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64220B044C100720B70 /* User.swift */; };
-		F54AB64820B044C200720B70 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64320B044C100720B70 /* Activity.swift */; };
 		F54AB64920B044C200720B70 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64420B044C100720B70 /* Favorites.swift */; };
 		F54AB64A20B044C200720B70 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64520B044C200720B70 /* Exercise.swift */; };
 		F54AB64B20B044C200720B70 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64620B044C200720B70 /* Goal.swift */; };
+		F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55A28A520B18F3E00F0ED98 /* Activity.swift */; };
+		F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F55A28A720B1904A00F0ED98 /* awsconfiguration.json */; };
 		F5C29A2F20B04A91006A16EB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C29A2E20B04A91006A16EB /* Extensions.swift */; };
-		F5C29A3120B096AD006A16EB /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F5C29A3020B096AD006A16EB /* awsconfiguration.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,12 +34,12 @@
 		F541B7CD209C49930053C9DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F541B7CF209C49930053C9DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F54AB64220B044C100720B70 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		F54AB64320B044C100720B70 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		F54AB64420B044C100720B70 /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		F54AB64520B044C200720B70 /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		F54AB64620B044C200720B70 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		F55A28A520B18F3E00F0ED98 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		F55A28A720B1904A00F0ED98 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		F5C29A2E20B04A91006A16EB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		F5C29A3020B096AD006A16EB /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +99,7 @@
 				F541B7C7209C49930053C9DB /* Main.storyboard */,
 				F541B7CA209C49930053C9DB /* Assets.xcassets */,
 				F541B7CC209C49930053C9DB /* LaunchScreen.storyboard */,
-				F5C29A3020B096AD006A16EB /* awsconfiguration.json */,
+				F55A28A720B1904A00F0ED98 /* awsconfiguration.json */,
 				F541B7CF209C49930053C9DB /* Info.plist */,
 			);
 			path = "Sports Apple";
@@ -108,7 +108,7 @@
 		F54AB64120B044B200720B70 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				F54AB64320B044C100720B70 /* Activity.swift */,
+				F55A28A520B18F3E00F0ED98 /* Activity.swift */,
 				F54AB64520B044C200720B70 /* Exercise.swift */,
 				F54AB64420B044C100720B70 /* Favorites.swift */,
 				F54AB64620B044C200720B70 /* Goal.swift */,
@@ -186,7 +186,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5C29A3120B096AD006A16EB /* awsconfiguration.json in Resources */,
+				F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */,
 				F541B7CE209C49930053C9DB /* LaunchScreen.storyboard in Resources */,
 				F541B7CB209C49930053C9DB /* Assets.xcassets in Resources */,
 				F541B7C9209C49930053C9DB /* Main.storyboard in Resources */,
@@ -261,11 +261,11 @@
 			files = (
 				F541B7C6209C49930053C9DB /* ViewController.swift in Sources */,
 				F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */,
-				F54AB64820B044C200720B70 /* Activity.swift in Sources */,
 				F5C29A2F20B04A91006A16EB /* Extensions.swift in Sources */,
 				F54AB64920B044C200720B70 /* Favorites.swift in Sources */,
 				F54AB64720B044C200720B70 /* User.swift in Sources */,
 				F54AB64A20B044C200720B70 /* Exercise.swift in Sources */,
+				F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */,
 				F54AB64B20B044C200720B70 /* Goal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
