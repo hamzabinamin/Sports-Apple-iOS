@@ -7,13 +7,90 @@
 //
 
 import Foundation
+import UIKit
 
-extension Date
-{
-    func toString( dateFormat format  : String ) -> String
-    {
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+extension Date {
+    func toString( dateFormat format  : String ) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
+    }
+}
+
+extension UIColor {
+    convenience init(hex: String, alpha: CGFloat = 1) {
+        assert(hex[hex.startIndex] == "#", "Expected hex string of format #RRGGBB")
+        
+        let scanner = Scanner(string: hex)
+        scanner.scanLocation = 1  // skip #
+        
+        var rgb: UInt32 = 0
+        scanner.scanHexInt32(&rgb)
+        
+        self.init(
+            red:   CGFloat((rgb & 0xFF0000) >> 16)/255.0,
+            green: CGFloat((rgb &   0xFF00) >>  8)/255.0,
+            blue:  CGFloat((rgb &     0xFF)      )/255.0,
+            alpha: alpha)
+    }
+}
+
+extension UITextField {
+    func roundCorners(corners:UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        self.layer.masksToBounds = true
+        self.layer.mask = mask
+    }
+}
+
+extension UITextField {
+    
+    enum PaddingSide {
+        case left(CGFloat)
+        case right(CGFloat)
+        case both(CGFloat)
+    }
+    
+    func addPadding(_ padding: PaddingSide) {
+        
+        self.leftViewMode = .always
+        self.layer.masksToBounds = true
+        
+        
+        switch padding {
+            
+        case .left(let spacing):
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: spacing, height: self.frame.height))
+            self.leftView = paddingView
+            self.rightViewMode = .always
+            
+        case .right(let spacing):
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: spacing, height: self.frame.height))
+            self.rightView = paddingView
+            self.rightViewMode = .always
+            
+        case .both(let spacing):
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: spacing, height: self.frame.height))
+            // left
+            self.leftView = paddingView
+            self.leftViewMode = .always
+            // right
+            self.rightView = paddingView
+            self.rightViewMode = .always
+        }
     }
 }

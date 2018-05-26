@@ -10,10 +10,21 @@ import UIKit
 import AWSUserPoolsSignIn
 import AWSAuthUI
 
-class ViewController: UIViewController {
+class LoginVC: UIViewController {
+    
+    @IBOutlet weak var emailTF: UITextField!
+    @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loginButton.layer.cornerRadius = 18
+        emailTF.addPadding(.left(35))
+        passwordTF.addPadding(.left(35))
+    }
+
+    func checkLoginStatus() {
         if !AWSSignInManager.sharedInstance().isLoggedIn {
             showSignIn()
         }
@@ -26,7 +37,7 @@ class ViewController: UIViewController {
             })
         }
     }
-
+    
     func showSignIn() {
         let config = AWSAuthUIConfiguration()
         config.enableUserPoolsUI = true

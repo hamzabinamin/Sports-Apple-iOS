@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A3D53582B79DBC49273BC20 /* Pods_Sports_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */; };
 		F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C3209C49930053C9DB /* AppDelegate.swift */; };
-		F541B7C6209C49930053C9DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C5209C49930053C9DB /* ViewController.swift */; };
+		F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C5209C49930053C9DB /* LoginVC.swift */; };
 		F541B7C9209C49930053C9DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7C7209C49930053C9DB /* Main.storyboard */; };
 		F541B7CB209C49930053C9DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F541B7CA209C49930053C9DB /* Assets.xcassets */; };
 		F541B7CE209C49930053C9DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7CC209C49930053C9DB /* LaunchScreen.storyboard */; };
@@ -28,7 +28,7 @@
 		D5DDD9DF0466111C9E549E78 /* Pods-Sports Apple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple.release.xcconfig"; sourceTree = "<group>"; };
 		F541B7C0209C49930053C9DB /* Sports Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sports Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F541B7C3209C49930053C9DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F541B7C5209C49930053C9DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F541B7C5209C49930053C9DB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		F541B7C8209C49930053C9DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F541B7CA209C49930053C9DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F541B7CD209C49930053C9DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -92,11 +92,11 @@
 		F541B7C2209C49930053C9DB /* Sports Apple */ = {
 			isa = PBXGroup;
 			children = (
+				F5717A5A20B9B87400623A6E /* View Controllers */,
 				F5C29A2D20B04A75006A16EB /* Utilities */,
 				F54AB64120B044B200720B70 /* Data Models */,
+				F5717A5920B9B85F00623A6E /* Storyboards */,
 				F541B7C3209C49930053C9DB /* AppDelegate.swift */,
-				F541B7C5209C49930053C9DB /* ViewController.swift */,
-				F541B7C7209C49930053C9DB /* Main.storyboard */,
 				F541B7CA209C49930053C9DB /* Assets.xcassets */,
 				F541B7CC209C49930053C9DB /* LaunchScreen.storyboard */,
 				F55A28A720B1904A00F0ED98 /* awsconfiguration.json */,
@@ -115,6 +115,22 @@
 				F54AB64220B044C100720B70 /* User.swift */,
 			);
 			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		F5717A5920B9B85F00623A6E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				F541B7C7209C49930053C9DB /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		F5717A5A20B9B87400623A6E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F541B7C5209C49930053C9DB /* LoginVC.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		F5C29A2D20B04A75006A16EB /* Utilities */ = {
@@ -259,7 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F541B7C6209C49930053C9DB /* ViewController.swift in Sources */,
+				F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */,
 				F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */,
 				F5C29A2F20B04A91006A16EB /* Extensions.swift in Sources */,
 				F54AB64920B044C200720B70 /* Favorites.swift in Sources */,
