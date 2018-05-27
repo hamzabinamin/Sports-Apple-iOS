@@ -20,6 +20,15 @@
 		F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55A28A520B18F3E00F0ED98 /* Activity.swift */; };
 		F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F55A28A720B1904A00F0ED98 /* awsconfiguration.json */; };
 		F5C29A2F20B04A91006A16EB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C29A2E20B04A91006A16EB /* Extensions.swift */; };
+		F5DF29AF20BAFB1300E3EFF2 /* ForgotPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DF29AE20BAFB1300E3EFF2 /* ForgotPassword.storyboard */; };
+		F5DF29B120BB02E700E3EFF2 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DF29B020BB02E700E3EFF2 /* ForgotPasswordVC.swift */; };
+		F5DF29B320BB0BEB00E3EFF2 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DF29B220BB0BEB00E3EFF2 /* SignUp.storyboard */; };
+		F5DF29B520BB245D00E3EFF2 /* SignUp1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DF29B420BB245D00E3EFF2 /* SignUp1VC.swift */; };
+		F5DF29B720BB246B00E3EFF2 /* SignUp2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DF29B620BB246A00E3EFF2 /* SignUp2VC.swift */; };
+		F5DF29B920BB247600E3EFF2 /* SignUp3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DF29B820BB247600E3EFF2 /* SignUp3VC.swift */; };
+		F5DF29BB20BB248200E3EFF2 /* SignUp4VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DF29BA20BB248200E3EFF2 /* SignUp4VC.swift */; };
+		F5DF29BD20BB34E400E3EFF2 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DF29BC20BB34E400E3EFF2 /* TabBar.storyboard */; };
+		F5DF29BF20BB429100E3EFF2 /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DF29BE20BB429100E3EFF2 /* ActivityVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +49,15 @@
 		F55A28A520B18F3E00F0ED98 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		F55A28A720B1904A00F0ED98 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		F5C29A2E20B04A91006A16EB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F5DF29AE20BAFB1300E3EFF2 /* ForgotPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ForgotPassword.storyboard; sourceTree = "<group>"; };
+		F5DF29B020BB02E700E3EFF2 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		F5DF29B220BB0BEB00E3EFF2 /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		F5DF29B420BB245D00E3EFF2 /* SignUp1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp1VC.swift; sourceTree = "<group>"; };
+		F5DF29B620BB246A00E3EFF2 /* SignUp2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2VC.swift; sourceTree = "<group>"; };
+		F5DF29B820BB247600E3EFF2 /* SignUp3VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp3VC.swift; sourceTree = "<group>"; };
+		F5DF29BA20BB248200E3EFF2 /* SignUp4VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp4VC.swift; sourceTree = "<group>"; };
+		F5DF29BC20BB34E400E3EFF2 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		F5DF29BE20BB429100E3EFF2 /* ActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +116,6 @@
 				F5717A5920B9B85F00623A6E /* Storyboards */,
 				F541B7C3209C49930053C9DB /* AppDelegate.swift */,
 				F541B7CA209C49930053C9DB /* Assets.xcassets */,
-				F541B7CC209C49930053C9DB /* LaunchScreen.storyboard */,
 				F55A28A720B1904A00F0ED98 /* awsconfiguration.json */,
 				F541B7CF209C49930053C9DB /* Info.plist */,
 			);
@@ -120,7 +137,11 @@
 		F5717A5920B9B85F00623A6E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				F541B7CC209C49930053C9DB /* LaunchScreen.storyboard */,
 				F541B7C7209C49930053C9DB /* Main.storyboard */,
+				F5DF29AE20BAFB1300E3EFF2 /* ForgotPassword.storyboard */,
+				F5DF29B220BB0BEB00E3EFF2 /* SignUp.storyboard */,
+				F5DF29BC20BB34E400E3EFF2 /* TabBar.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -129,6 +150,12 @@
 			isa = PBXGroup;
 			children = (
 				F541B7C5209C49930053C9DB /* LoginVC.swift */,
+				F5DF29B020BB02E700E3EFF2 /* ForgotPasswordVC.swift */,
+				F5DF29B420BB245D00E3EFF2 /* SignUp1VC.swift */,
+				F5DF29B620BB246A00E3EFF2 /* SignUp2VC.swift */,
+				F5DF29B820BB247600E3EFF2 /* SignUp3VC.swift */,
+				F5DF29BA20BB248200E3EFF2 /* SignUp4VC.swift */,
+				F5DF29BE20BB429100E3EFF2 /* ActivityVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -204,7 +231,10 @@
 			files = (
 				F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */,
 				F541B7CE209C49930053C9DB /* LaunchScreen.storyboard in Resources */,
+				F5DF29B320BB0BEB00E3EFF2 /* SignUp.storyboard in Resources */,
+				F5DF29AF20BAFB1300E3EFF2 /* ForgotPassword.storyboard in Resources */,
 				F541B7CB209C49930053C9DB /* Assets.xcassets in Resources */,
+				F5DF29BD20BB34E400E3EFF2 /* TabBar.storyboard in Resources */,
 				F541B7C9209C49930053C9DB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,14 +305,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5DF29B920BB247600E3EFF2 /* SignUp3VC.swift in Sources */,
 				F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */,
+				F5DF29BB20BB248200E3EFF2 /* SignUp4VC.swift in Sources */,
 				F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */,
 				F5C29A2F20B04A91006A16EB /* Extensions.swift in Sources */,
+				F5DF29BF20BB429100E3EFF2 /* ActivityVC.swift in Sources */,
 				F54AB64920B044C200720B70 /* Favorites.swift in Sources */,
 				F54AB64720B044C200720B70 /* User.swift in Sources */,
+				F5DF29B120BB02E700E3EFF2 /* ForgotPasswordVC.swift in Sources */,
 				F54AB64A20B044C200720B70 /* Exercise.swift in Sources */,
 				F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */,
+				F5DF29B520BB245D00E3EFF2 /* SignUp1VC.swift in Sources */,
 				F54AB64B20B044C200720B70 /* Goal.swift in Sources */,
+				F5DF29B720BB246B00E3EFF2 /* SignUp2VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
