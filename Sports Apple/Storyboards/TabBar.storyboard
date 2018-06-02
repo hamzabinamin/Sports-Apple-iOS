@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nx0-1A-g7w">
-    <device id="retina5_9" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,32 +20,92 @@
             <objects>
                 <viewController id="lMz-JK-QY2" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D27-TP-GOB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="hMF-iD-6Ih">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="91" id="pC1-K7-GhE"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IsQ-mC-6iO">
+                                <rect key="frame" x="166" y="40" width="43.5" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Goals Header" translatesAutoresizingMaskIntoConstraints="NO" id="Smn-QL-ZlO">
+                                <rect key="frame" x="35" y="20" width="56" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="1WT-yB-Q7X"/>
+                                    <constraint firstAttribute="width" constant="56" id="Mnp-Iz-JGd"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hMF-iD-6Ih" firstAttribute="trailing" secondItem="2yl-Tk-szi" secondAttribute="trailing" id="7Rr-ss-KC6"/>
+                            <constraint firstItem="IsQ-mC-6iO" firstAttribute="centerX" secondItem="D27-TP-GOB" secondAttribute="centerX" id="EjT-gA-bBu"/>
+                            <constraint firstItem="hMF-iD-6Ih" firstAttribute="leading" secondItem="2yl-Tk-szi" secondAttribute="leading" id="RlO-Ph-I3p"/>
+                            <constraint firstItem="IsQ-mC-6iO" firstAttribute="top" secondItem="D27-TP-GOB" secondAttribute="top" constant="40" id="Xd3-z3-DDV"/>
+                            <constraint firstItem="Smn-QL-ZlO" firstAttribute="leading" secondItem="2yl-Tk-szi" secondAttribute="leading" constant="35" id="cRa-ee-nA0"/>
+                            <constraint firstItem="hMF-iD-6Ih" firstAttribute="top" secondItem="D27-TP-GOB" secondAttribute="top" id="ihg-sz-5kp"/>
+                            <constraint firstItem="Smn-QL-ZlO" firstAttribute="top" secondItem="D27-TP-GOB" secondAttribute="top" constant="20" id="x3J-RU-JKA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2yl-Tk-szi"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Goals" image="Goals" id="GZc-yf-YhZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1bW-c1-1Y0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-423" y="143"/>
+            <point key="canvasLocation" x="-1799" y="209"/>
         </scene>
         <!--Reports-->
         <scene sceneID="9q9-BH-m3F">
             <objects>
                 <viewController id="1Wr-af-oCQ" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Mh-hI-KiN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="QB9-2q-BQJ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="91" id="RtG-JR-w73"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reports" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dx-Mf-Eeo">
+                                <rect key="frame" x="157.5" y="40" width="59" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Reports Header" translatesAutoresizingMaskIntoConstraints="NO" id="9bp-0Y-662">
+                                <rect key="frame" x="35" y="20" width="56" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="56" id="220-Mv-I5f"/>
+                                    <constraint firstAttribute="height" constant="57" id="GAM-hI-IIj"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QB9-2q-BQJ" firstAttribute="top" secondItem="4Mh-hI-KiN" secondAttribute="top" id="Rqd-s5-UKI"/>
+                            <constraint firstItem="6dx-Mf-Eeo" firstAttribute="top" secondItem="4Mh-hI-KiN" secondAttribute="top" constant="40" id="V7H-MR-XkO"/>
+                            <constraint firstItem="QB9-2q-BQJ" firstAttribute="leading" secondItem="PWH-g1-l5D" secondAttribute="leading" id="a8J-CB-oJe"/>
+                            <constraint firstItem="9bp-0Y-662" firstAttribute="top" secondItem="4Mh-hI-KiN" secondAttribute="top" constant="20" id="gAF-vg-2yv"/>
+                            <constraint firstItem="QB9-2q-BQJ" firstAttribute="trailing" secondItem="PWH-g1-l5D" secondAttribute="trailing" id="hcB-H0-Cvq"/>
+                            <constraint firstItem="6dx-Mf-Eeo" firstAttribute="centerX" secondItem="4Mh-hI-KiN" secondAttribute="centerX" id="i6J-qM-nQw"/>
+                            <constraint firstItem="9bp-0Y-662" firstAttribute="leading" secondItem="PWH-g1-l5D" secondAttribute="leading" constant="35" id="mfK-Mx-tdN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="PWH-g1-l5D"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Reports" image="Reports" id="fvK-Kt-5ql"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BHq-YG-5zN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-404" y="-573"/>
+            <point key="canvasLocation" x="-1799" y="-537"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zek-qd-VXD">
@@ -65,30 +125,60 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L3m-PS-Ff4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2908" y="-226"/>
+            <point key="canvasLocation" x="-2846" y="-336"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Mcg-OL-RuW">
             <objects>
                 <viewController id="XNR-xb-YjV" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Whp-pf-bKf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="exU-PH-Y1m">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="91" id="MeG-Xj-VMT"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VlD-fL-jbK">
+                                <rect key="frame" x="157" y="40" width="61.5" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Settings Header" translatesAutoresizingMaskIntoConstraints="NO" id="v7V-kb-weZ">
+                                <rect key="frame" x="35" y="20" width="56" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="56" id="fMm-hN-K26"/>
+                                    <constraint firstAttribute="height" constant="57" id="q36-R9-kJ2"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="exU-PH-Y1m" firstAttribute="top" secondItem="Whp-pf-bKf" secondAttribute="top" id="7jF-Np-3j0"/>
+                            <constraint firstItem="VlD-fL-jbK" firstAttribute="top" secondItem="Whp-pf-bKf" secondAttribute="top" constant="40" id="Vx1-lf-CqD"/>
+                            <constraint firstItem="exU-PH-Y1m" firstAttribute="leading" secondItem="AK1-hO-rFX" secondAttribute="leading" id="Wcn-Rk-p6T"/>
+                            <constraint firstItem="exU-PH-Y1m" firstAttribute="trailing" secondItem="AK1-hO-rFX" secondAttribute="trailing" id="cNf-dl-Qly"/>
+                            <constraint firstItem="v7V-kb-weZ" firstAttribute="leading" secondItem="AK1-hO-rFX" secondAttribute="leading" constant="35" id="fV8-tJ-Rtd"/>
+                            <constraint firstItem="VlD-fL-jbK" firstAttribute="centerX" secondItem="Whp-pf-bKf" secondAttribute="centerX" id="osG-3W-GIC"/>
+                            <constraint firstItem="v7V-kb-weZ" firstAttribute="top" secondItem="Whp-pf-bKf" secondAttribute="top" constant="20" id="seN-mH-JPK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="AK1-hO-rFX"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="Settings" id="U63-jJ-6Qi"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Heo-Fy-ITU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2116" y="520"/>
+            <point key="canvasLocation" x="-3857" y="-537"/>
         </scene>
         <!--Activity-->
         <scene sceneID="ryx-af-G5D">
             <objects>
-                <viewController id="X8C-LM-UkC" customClass="ActivityVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ActivitySessionsVC" id="X8C-LM-UkC" customClass="ActivitySessionsVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gVR-Yg-ZZC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="rtL-z7-ecq">
@@ -104,39 +194,55 @@
                                     <constraint firstAttribute="height" constant="57" id="njh-iY-A7o"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add an Activity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDV-D4-2cS">
-                                <rect key="frame" x="129.66666666666666" y="35" width="116" height="23.666666666666671"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity Sessions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDV-D4-2cS">
+                                <rect key="frame" x="125" y="40" width="125" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Add" translatesAutoresizingMaskIntoConstraints="NO" id="Jay-ez-900">
+                                <rect key="frame" x="336" y="20" width="24" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="i77-5B-x4d"/>
+                                    <constraint firstAttribute="width" constant="24" id="uQK-QL-jRq"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Jay-ez-900" firstAttribute="top" secondItem="gVR-Yg-ZZC" secondAttribute="top" constant="20" id="BGj-dt-Bpl"/>
                             <constraint firstItem="rtL-z7-ecq" firstAttribute="top" secondItem="gVR-Yg-ZZC" secondAttribute="top" id="DXr-Hy-OsX"/>
                             <constraint firstItem="kqo-Tn-sWI" firstAttribute="top" secondItem="gVR-Yg-ZZC" secondAttribute="top" constant="20" id="Dw5-dB-OWI"/>
                             <constraint firstItem="rtL-z7-ecq" firstAttribute="trailing" secondItem="FOP-sY-2fR" secondAttribute="trailing" id="ERX-fX-h2K"/>
-                            <constraint firstItem="cDV-D4-2cS" firstAttribute="top" secondItem="gVR-Yg-ZZC" secondAttribute="top" constant="35" id="MM0-HI-1Aa"/>
+                            <constraint firstItem="cDV-D4-2cS" firstAttribute="top" secondItem="gVR-Yg-ZZC" secondAttribute="top" constant="40" id="MM0-HI-1Aa"/>
                             <constraint firstItem="rtL-z7-ecq" firstAttribute="leading" secondItem="gVR-Yg-ZZC" secondAttribute="leading" id="RiF-VQ-VY3"/>
                             <constraint firstItem="cDV-D4-2cS" firstAttribute="centerX" secondItem="gVR-Yg-ZZC" secondAttribute="centerX" id="d4g-4I-hAq"/>
                             <constraint firstItem="kqo-Tn-sWI" firstAttribute="leading" secondItem="FOP-sY-2fR" secondAttribute="leading" constant="35" id="gAx-U8-ITW"/>
+                            <constraint firstItem="FOP-sY-2fR" firstAttribute="trailing" secondItem="Jay-ez-900" secondAttribute="trailing" constant="15" id="v2g-mJ-jr5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FOP-sY-2fR"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" image="Activity" id="aMr-L6-3zW"/>
+                    <connections>
+                        <outlet property="addSessionImageView" destination="kqo-Tn-sWI" id="sPk-Hg-scW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3di-kj-ZyX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1295.2" y="497.90104947526243"/>
+            <point key="canvasLocation" x="-3858" y="208"/>
         </scene>
     </scenes>
     <resources>
         <image name="Activity" width="30" height="30"/>
         <image name="Activity Header" width="53" height="62"/>
+        <image name="Add" width="42" height="42"/>
         <image name="Goals" width="30" height="30"/>
+        <image name="Goals Header" width="53" height="62"/>
         <image name="Header" width="375" height="182"/>
         <image name="Reports" width="30" height="30"/>
+        <image name="Reports Header" width="53" height="62"/>
         <image name="Settings" width="30" height="30"/>
+        <image name="Settings Header" width="53" height="62"/>
         <image name="Tab Bar" width="375" height="60"/>
     </resources>
 </document>
