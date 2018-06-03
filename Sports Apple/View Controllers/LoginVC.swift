@@ -27,6 +27,8 @@ class LoginVC: UIViewController {
         self.navigationController!.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.isTranslucent = true
         
+        loginButton.addTarget(self, action: #selector(goToActivitySessionsVC), for: .touchUpInside)
+        
         loginButton.layer.cornerRadius = 18
         emailTF.addPadding(.left(35))
         passwordTF.addPadding(.left(35))
@@ -38,6 +40,13 @@ class LoginVC: UIViewController {
         signUpLabel.isUserInteractionEnabled = true
         signUpLabel.addGestureRecognizer(tap2)
         
+    }
+    
+    @objc func goToActivitySessionsVC() {
+        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
+        self.navigationController?.pushViewController(destVC, animated: true)
+        self.navigationController?.isNavigationBarHidden = true
     }
 
     @objc func goToForgotPasswordVC() {

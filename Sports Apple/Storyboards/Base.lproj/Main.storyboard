@@ -67,9 +67,6 @@
                                         <state key="normal" title="Log In">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <connections>
-                                            <segue destination="Nbz-Vf-zep" kind="show" id="B6q-Qf-Wri"/>
-                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mail" translatesAutoresizingMaskIntoConstraints="NO" id="DJl-iU-mOl">
                                         <rect key="frame" x="55" y="104" width="12" height="12"/>
@@ -153,14 +150,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-416.25" y="-78.16901408450704"/>
-        </scene>
-        <!--TabBar-->
-        <scene sceneID="CHe-mA-aeP">
-            <objects>
-                <viewControllerPlaceholder storyboardName="TabBar" id="Nbz-Vf-zep" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ae6-WU-iHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="259" y="124"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5d1-rj-Rqg">

@@ -8,16 +8,38 @@
 
 import UIKit
 
-class AddSessionVC: UIViewController {
+class AddSessionVC: UIViewController, UITextViewDelegate {
 
-    @IBOutlet weak var backImageView: UIImageView!
+    @IBOutlet weak var locationTF: UITextField!
+    @IBOutlet weak var commentTV: UITextView!
+    @IBOutlet weak var caloriesTF: UITextField!
+    @IBOutlet weak var weightTF: UITextField!
+    @IBOutlet weak var nextLabel: UILabel!
+    @IBOutlet weak var prevImageView: UIImageView!
     @IBOutlet weak var forwardImageView: UIImageView!
+    @IBOutlet weak var backImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         rotateArrow()
         setupTaps()
+        setupTextFields()
+        setupTextView()
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Workout Comment"
+            textView.textColor = UIColor.greyPlaceholderColor()
+        }
     }
     
     func rotateArrow() {
@@ -26,11 +48,29 @@ class AddSessionVC: UIViewController {
     
     func setupTaps() {
         let tapPrev = UITapGestureRecognizer(target: self, action: #selector(previousDate))
-        let tapNext = UITapGestureRecognizer(target: self, action: #selector(nextDate))
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tapPrev)
+        let tapForward = UITapGestureRecognizer(target: self, action: #selector(nextDate))
+        let tapBack = UITapGestureRecognizer(target: self, action: #selector(back))
+        let tapNext = UITapGestureRecognizer(target: self, action: #selector(goToAddActivityInSession))
+        prevImageView.isUserInteractionEnabled = true
+        prevImageView.addGestureRecognizer(tapPrev)
         forwardImageView.isUserInteractionEnabled = true
-        forwardImageView.addGestureRecognizer(tapNext)
+        forwardImageView.addGestureRecognizer(tapForward)
+        backImageView.isUserInteractionEnabled = true
+        backImageView.addGestureRecognizer(tapBack)
+        nextLabel.isUserInteractionEnabled = true
+        nextLabel.addGestureRecognizer(tapNext)
+    }
+    
+    func setupTextFields() {
+        locationTF.addPadding(.left(35))
+        caloriesTF.addPadding(.left(35))
+        weightTF.addPadding(.left(35))
+    }
+    
+    func setupTextView() {
+        commentTV.delegate = self
+        commentTV.text = "Workout Comment"
+        commentTV.textColor = UIColor.lightGray
     }
     
     @objc func previousDate() {
@@ -39,6 +79,16 @@ class AddSessionVC: UIViewController {
     
     @objc func nextDate() {
         
+    }
+    
+    @objc func goToAddActivityInSession() {
+        let storyboard = UIStoryboard(name: "AddActivityInSession", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "AddActivityInSessionVC")
+        self.present(destVC, animated: true, completion: .none)
+    }
+    
+    @objc func back() {
+        self.dismiss(animated: true, completion: nil)
     }
 
 
