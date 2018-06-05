@@ -29,7 +29,7 @@ class AddSessionVC: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
+        if textView.textColor == UIColor.init(hex: "#c7c7cd") {
             textView.text = nil
             textView.textColor = UIColor.black
         }
@@ -37,8 +37,8 @@ class AddSessionVC: UIViewController, UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Workout Comment"
-            textView.textColor = UIColor.greyPlaceholderColor()
+            textView.text = "Session Comment"
+            textView.textColor = UIColor.init(hex: "#c7c7cd")
         }
     }
     
@@ -70,7 +70,7 @@ class AddSessionVC: UIViewController, UITextViewDelegate {
     func setupTextView() {
         commentTV.delegate = self
         commentTV.text = "Workout Comment"
-        commentTV.textColor = UIColor.lightGray
+        commentTV.textColor = UIColor.init(hex: "#c7c7cd")
     }
     
     @objc func previousDate() {

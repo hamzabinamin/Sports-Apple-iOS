@@ -16,7 +16,7 @@ class SignUp3VC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        hideKeyboardWhenTappedAround()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         nextButton.layer.cornerRadius = 18
         unitsTF.addPadding(.left(35))

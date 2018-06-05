@@ -138,12 +138,12 @@
                         <outlet property="emailTF" destination="n6p-HH-DwZ" id="dSc-hF-1OP"/>
                         <outlet property="nextButton" destination="8dN-GM-rCV" id="srO-8N-vrl"/>
                         <outlet property="passwordTF" destination="FzD-HW-nMu" id="I5V-UA-bad"/>
-                        <segue destination="O9Z-oD-K3f" kind="show" id="oqW-eR-jRD"/>
+                        <segue destination="O9Z-oD-K3f" kind="show" identifier="SignUp2VC" id="oqW-eR-jRD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u3B-gL-DLp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1616" y="75"/>
+            <point key="canvasLocation" x="-1804" y="75"/>
         </scene>
         <!--Sign Up2VC-->
         <scene sceneID="Mci-zH-Qgs">
@@ -321,12 +321,12 @@
                         <outlet property="lastNameTF" destination="sPP-FD-Ewu" id="5QQ-Oz-mJl"/>
                         <outlet property="nextButton" destination="hv5-U5-NSD" id="mri-4C-j4K"/>
                         <outlet property="trainerEmailTF" destination="aUp-ie-OnY" id="uOa-p9-h0o"/>
-                        <segue destination="S0L-cH-WbH" kind="show" id="Tew-1C-eLy"/>
+                        <segue destination="S0L-cH-WbH" kind="show" identifier="SignUp3VC" id="Tew-1C-eLy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZ0-Qx-jDT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-979" y="75"/>
+            <point key="canvasLocation" x="-1123" y="75"/>
         </scene>
         <!--Sign Up3VC-->
         <scene sceneID="Tdm-1L-Glb">
@@ -450,7 +450,7 @@
                         <outlet property="locationTF" destination="hba-PG-urx" id="IvQ-d2-0UN"/>
                         <outlet property="nextButton" destination="L8i-sg-VgS" id="MmW-Yt-Jw8"/>
                         <outlet property="unitsTF" destination="faC-pJ-xgH" id="RbC-ct-x4S"/>
-                        <segue destination="wEK-Kh-u2W" kind="show" id="SKf-Fr-hhy"/>
+                        <segue destination="wEK-Kh-u2W" kind="show" identifier="SignUp4VC" id="SKf-Fr-hhy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nGH-5W-JZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -744,7 +744,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agS-0I-opk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="298" y="75"/>
+            <point key="canvasLocation" x="118" y="75"/>
         </scene>
     </scenes>
     <resources>

@@ -50,7 +50,7 @@ extension UIColor {
 extension UIColor {
     
     class func greyPlaceholderColor() -> UIColor {
-        return UIColor(red: 4, green: 4, blue: 30, alpha: 0.1)
+        return UIColor(red: 199, green: 199, blue: 205, alpha: 1)
     }
     
 }

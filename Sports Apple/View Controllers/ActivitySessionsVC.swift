@@ -8,39 +8,85 @@
 
 import UIKit
 
-class ActivitySessionsVC: UIViewController {
-    
-    @IBOutlet weak var addSessionImageView: UIImageView!
+class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var addImageView: UIImageView!
+    @IBOutlet weak var backImageView: UIImageView!
+    @IBOutlet weak var forwardImageView: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var constraintHeading: NSLayoutConstraint!
+    @IBOutlet weak var constraintAddImageView: NSLayoutConstraint!
+    var array: [SessionItem] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setupTaps()
+        setupTaps()
+        rotateArrow()
+        array.append(SessionItem(sessionDate: "30th May, 2018", sessionLocation: "At the Gym", sessionBodyWeight: "64 KG", sessionCalories: "516 Calories", sessionComment: "Great Session!!!"))
+        array.append(SessionItem(sessionDate: "30th May, 2018", sessionLocation: "At Home", sessionBodyWeight: "64 KG", sessionCalories: "499 Calories", sessionComment: "None"))
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        addSessionImageView.isUserInteractionEnabled = true
-        addSessionImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return array.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! SessionTVCell
+        cell.bodyWeightLabel.text = array[indexPath.row].sessionBodyWeight
+        cell.caloriesLabel.text = array[indexPath.row].sessionCalories
+        cell.locationLabel.text = "(" + array[indexPath.row].sessionLocation + ")"
+        cell.sessionCommentLabel.text = array[indexPath.row].sessionComment
+        cell.nextImageView.transform = CGAffineTransform(rotationAngle: .pi);
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(goToSessionActivitiesVC))
+        cell.nextImageView.isUserInteractionEnabled = true
+        cell.nextImageView.addGestureRecognizer(tap)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func rotateArrow() {
+        self.forwardImageView.transform = CGAffineTransform(rotationAngle: .pi);
     }
     
     func setupTaps() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(goToAddSessionVC))
-        addSessionImageView.isUserInteractionEnabled = true
-        addSessionImageView.addGestureRecognizer(tap)
+        let tapPrev = UITapGestureRecognizer(target: self, action: #selector(previousDate))
+        let tapNext = UITapGestureRecognizer(target: self, action: #selector(nextDate))
+        let tapAdd = UITapGestureRecognizer(target: self, action: #selector(goToAddSessionVC))
+        backImageView.isUserInteractionEnabled = true
+        backImageView.addGestureRecognizer(tapPrev)
+        forwardImageView.isUserInteractionEnabled = true
+        forwardImageView.addGestureRecognizer(tapNext)
+        addImageView.isUserInteractionEnabled = true
+        addImageView.addGestureRecognizer(tapAdd)
+    }
+    
+    @objc func previousDate() {
+        
+    }
+    
+    @objc func nextDate() {
+        
     }
     
     @objc func goToAddSessionVC() {
-        print("Tapped")
         let storyboard = UIStoryboard(name: "AddSession", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "AddSessionVC")
         self.present(destVC, animated: true, completion: .none)
     }
     
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-        print("Tapped")
-        let storyboard = UIStoryboard(name: "AddSession", bundle: nil)
-        let destVC = storyboard.instantiateViewController(withIdentifier: "AddSessionVC")
+    @objc func goToSessionActivitiesVC() {
+        let storyboard = UIStoryboard(name: "SessionActivities", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "SessionActivitiesVC")
         self.present(destVC, animated: true, completion: .none)
-        
-        // Your action
     }
 }

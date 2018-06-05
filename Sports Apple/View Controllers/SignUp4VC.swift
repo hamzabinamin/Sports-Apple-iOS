@@ -25,7 +25,7 @@ class SignUp4VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        hideKeyboardWhenTappedAround()
         completeButton.layer.cornerRadius = 18
         weightTF.addPadding(.left(35))
         chestTF.addPadding(.left(35))

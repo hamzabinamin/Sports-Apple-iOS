@@ -21,6 +21,11 @@
 		F54AB64920B044C200720B70 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64420B044C100720B70 /* Favorites.swift */; };
 		F54AB64A20B044C200720B70 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64520B044C200720B70 /* Exercise.swift */; };
 		F54AB64B20B044C200720B70 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64620B044C200720B70 /* Goal.swift */; };
+		F5504FDA20C6D2F2002907DC /* ExerciseDetailsPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5504FD920C6D2F2002907DC /* ExerciseDetailsPopupVC.swift */; };
+		F5504FDC20C6E612002907DC /* SessionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5504FDB20C6E612002907DC /* SessionTVCell.swift */; };
+		F5504FDE20C6E8C9002907DC /* SessionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5504FDD20C6E8C9002907DC /* SessionItem.swift */; };
+		F5504FE020C6F08E002907DC /* SessionActivities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5504FDF20C6F08E002907DC /* SessionActivities.storyboard */; };
+		F5504FE220C6F103002907DC /* SessionActivitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5504FE120C6F103002907DC /* SessionActivitiesVC.swift */; };
 		F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55A28A520B18F3E00F0ED98 /* Activity.swift */; };
 		F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F55A28A720B1904A00F0ED98 /* awsconfiguration.json */; };
 		F55FD36720C2AFAE003408DF /* AddSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F55FD36620C2AFAE003408DF /* AddSession.storyboard */; };
@@ -56,6 +61,11 @@
 		F54AB64420B044C100720B70 /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		F54AB64520B044C200720B70 /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		F54AB64620B044C200720B70 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		F5504FD920C6D2F2002907DC /* ExerciseDetailsPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailsPopupVC.swift; sourceTree = "<group>"; };
+		F5504FDB20C6E612002907DC /* SessionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTVCell.swift; sourceTree = "<group>"; };
+		F5504FDD20C6E8C9002907DC /* SessionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionItem.swift; sourceTree = "<group>"; };
+		F5504FDF20C6F08E002907DC /* SessionActivities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SessionActivities.storyboard; sourceTree = "<group>"; };
+		F5504FE120C6F103002907DC /* SessionActivitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionActivitiesVC.swift; sourceTree = "<group>"; };
 		F55A28A520B18F3E00F0ED98 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		F55A28A720B1904A00F0ED98 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		F55FD36620C2AFAE003408DF /* AddSession.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddSession.storyboard; sourceTree = "<group>"; };
@@ -105,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				F517813D20C4377C0059B294 /* ExerciseItem.swift */,
+				F5504FDD20C6E8C9002907DC /* SessionItem.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -113,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				F517814020C438970059B294 /* ActivityTVCell.swift */,
+				F5504FDB20C6E612002907DC /* SessionTVCell.swift */,
 			);
 			path = "TableView Cells";
 			sourceTree = "<group>";
@@ -174,6 +186,7 @@
 				F5DF29BC20BB34E400E3EFF2 /* TabBar.storyboard */,
 				F55FD36620C2AFAE003408DF /* AddSession.storyboard */,
 				F517813820C42D9B0059B294 /* AddActivityInSession.storyboard */,
+				F5504FDF20C6F08E002907DC /* SessionActivities.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -190,6 +203,8 @@
 				F55FD36820C2D7F3003408DF /* AddSessionVC.swift */,
 				F55FD36A20C2D865003408DF /* ActivitySessionsVC.swift */,
 				F517813A20C432C50059B294 /* AddActivityInSessionVC.swift */,
+				F5504FD920C6D2F2002907DC /* ExerciseDetailsPopupVC.swift */,
+				F5504FE120C6F103002907DC /* SessionActivitiesVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -263,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5504FE020C6F08E002907DC /* SessionActivities.storyboard in Resources */,
 				F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */,
 				F541B7CE209C49930053C9DB /* LaunchScreen.storyboard in Resources */,
 				F5DF29B320BB0BEB00E3EFF2 /* SignUp.storyboard in Resources */,
@@ -343,18 +359,22 @@
 			files = (
 				F517814120C438970059B294 /* ActivityTVCell.swift in Sources */,
 				F55FD36B20C2D865003408DF /* ActivitySessionsVC.swift in Sources */,
+				F5504FE220C6F103002907DC /* SessionActivitiesVC.swift in Sources */,
+				F5504FDE20C6E8C9002907DC /* SessionItem.swift in Sources */,
 				F517813B20C432C50059B294 /* AddActivityInSessionVC.swift in Sources */,
 				F5DF29B920BB247600E3EFF2 /* SignUp3VC.swift in Sources */,
 				F517813E20C4377C0059B294 /* ExerciseItem.swift in Sources */,
 				F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */,
 				F5DF29BB20BB248200E3EFF2 /* SignUp4VC.swift in Sources */,
 				F55FD36920C2D7F3003408DF /* AddSessionVC.swift in Sources */,
+				F5504FDC20C6E612002907DC /* SessionTVCell.swift in Sources */,
 				F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */,
 				F5C29A2F20B04A91006A16EB /* Extensions.swift in Sources */,
 				F54AB64920B044C200720B70 /* Favorites.swift in Sources */,
 				F54AB64720B044C200720B70 /* User.swift in Sources */,
 				F5DF29B120BB02E700E3EFF2 /* ForgotPasswordVC.swift in Sources */,
 				F54AB64A20B044C200720B70 /* Exercise.swift in Sources */,
+				F5504FDA20C6D2F2002907DC /* ExerciseDetailsPopupVC.swift in Sources */,
 				F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */,
 				F5DF29B520BB245D00E3EFF2 /* SignUp1VC.swift in Sources */,
 				F54AB64B20B044C200720B70 /* Goal.swift in Sources */,
