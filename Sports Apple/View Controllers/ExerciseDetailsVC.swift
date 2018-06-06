@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExerciseDetailsPopupVC: UIViewController, UITextViewDelegate {
+class ExerciseDetailsVC: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var exerciseListTF: UITextField!

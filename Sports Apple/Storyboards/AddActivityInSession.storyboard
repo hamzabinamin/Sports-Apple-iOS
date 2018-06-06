@@ -250,10 +250,10 @@
             </objects>
             <point key="canvasLocation" x="-3073" y="451"/>
         </scene>
-        <!--Exercise Details PopupVC-->
+        <!--Exercise DetailsVC-->
         <scene sceneID="NDX-10-VEA">
             <objects>
-                <viewController storyboardIdentifier="SignUp4VC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="8ge-TV-Rai" customClass="ExerciseDetailsPopupVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExerciseDetailsVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="8ge-TV-Rai" customClass="ExerciseDetailsVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1GO-5q-GeH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
