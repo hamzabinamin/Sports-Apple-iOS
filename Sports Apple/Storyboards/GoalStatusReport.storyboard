@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Avenir.ttc">
+            <string>Avenir-Book</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Goal Status ReportVC-->
+        <scene sceneID="TnF-js-cry">
+            <objects>
+                <viewController storyboardIdentifier="GoalStatusReportVC" id="roX-zr-iQe" customClass="GoalStatusReportVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OZa-Oy-mgq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="Yej-uV-DVW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="106" id="iDF-pd-Mu3"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YTB G. S. Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZIJ-5b-fhQ">
+                                <rect key="frame" x="123.5" y="40" width="128" height="24"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Activity Header" translatesAutoresizingMaskIntoConstraints="NO" id="uVI-xF-aAf">
+                                <rect key="frame" x="35" y="30" width="56" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="MDe-EW-dJt"/>
+                                    <constraint firstAttribute="width" constant="56" id="MlJ-7g-mLj"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7zk-SZ-me3">
+                                <rect key="frame" x="49" y="45" width="25" height="25"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Back" translatesAutoresizingMaskIntoConstraints="NO" id="Laz-gs-Wnd">
+                                        <rect key="frame" x="-0.5" y="-0.5" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="GHO-NC-jRS"/>
+                                            <constraint firstAttribute="height" constant="25" id="XhL-zy-mgk"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.37664103510000002" green="0.82411009069999996" blue="0.94497829680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Laz-gs-Wnd" secondAttribute="trailing" id="KUR-bS-C5D"/>
+                                    <constraint firstItem="Laz-gs-Wnd" firstAttribute="top" secondItem="7zk-SZ-me3" secondAttribute="top" id="Pei-Dc-uth"/>
+                                    <constraint firstAttribute="bottom" secondItem="Laz-gs-Wnd" secondAttribute="bottom" id="Tjw-5N-PCN"/>
+                                    <constraint firstItem="Laz-gs-Wnd" firstAttribute="leading" secondItem="7zk-SZ-me3" secondAttribute="leading" id="eok-8d-ZdN"/>
+                                    <constraint firstAttribute="height" constant="25" id="t3R-XP-0gy"/>
+                                    <constraint firstAttribute="width" constant="25" id="uPX-CT-Out"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Yej-uV-DVW" firstAttribute="top" secondItem="OZa-Oy-mgq" secondAttribute="top" id="6Qw-Wo-ASN"/>
+                            <constraint firstItem="7zk-SZ-me3" firstAttribute="top" secondItem="OZa-Oy-mgq" secondAttribute="top" constant="45" id="BiR-AH-hvU"/>
+                            <constraint firstItem="ZIJ-5b-fhQ" firstAttribute="centerX" secondItem="OZa-Oy-mgq" secondAttribute="centerX" id="CCh-mO-Wrp"/>
+                            <constraint firstItem="Yej-uV-DVW" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" id="MEJ-f9-N5z"/>
+                            <constraint firstItem="uVI-xF-aAf" firstAttribute="top" secondItem="OZa-Oy-mgq" secondAttribute="top" constant="30" id="OHf-ij-4s1"/>
+                            <constraint firstItem="7zk-SZ-me3" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" constant="49" id="Pbf-h2-CaN"/>
+                            <constraint firstItem="uVI-xF-aAf" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" constant="35" id="SmY-yQ-5wJ"/>
+                            <constraint firstItem="ZIJ-5b-fhQ" firstAttribute="top" secondItem="caG-4x-dSf" secondAttribute="top" constant="20" id="tN3-CO-atK"/>
+                            <constraint firstItem="Yej-uV-DVW" firstAttribute="trailing" secondItem="caG-4x-dSf" secondAttribute="trailing" id="wZc-AY-bCc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="caG-4x-dSf"/>
+                    </view>
+                    <connections>
+                        <outlet property="backImageView" destination="Laz-gs-Wnd" id="qOC-Ac-1Ax"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="guZ-cC-lfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-82.400000000000006" y="58.920539730134934"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Activity Header" width="53" height="62"/>
+        <image name="Back" width="32" height="32"/>
+        <image name="Header" width="375" height="182"/>
+    </resources>
+</document>

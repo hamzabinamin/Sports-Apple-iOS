@@ -12,6 +12,32 @@
 		F517813B20C432C50059B294 /* AddActivityInSessionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517813A20C432C50059B294 /* AddActivityInSessionVC.swift */; };
 		F517813E20C4377C0059B294 /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517813D20C4377C0059B294 /* ExerciseItem.swift */; };
 		F517814120C438970059B294 /* ActivityTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517814020C438970059B294 /* ActivityTVCell.swift */; };
+		F51D96A220CD754A001AF442 /* ReportsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96A120CD754A001AF442 /* ReportsTVCell.swift */; };
+		F51D96A420CD75C5001AF442 /* ReportsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96A320CD75C5001AF442 /* ReportsVC.swift */; };
+		F51D96A620CD7667001AF442 /* Reports.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96A520CD7667001AF442 /* Reports.swift */; };
+		F51D96A820CD7D30001AF442 /* SummaryReport.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F51D96A720CD7D30001AF442 /* SummaryReport.storyboard */; };
+		F51D96AA20CD8590001AF442 /* SummaryReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96A920CD8590001AF442 /* SummaryReportVC.swift */; };
+		F51D96AC20CD9670001AF442 /* GoalStatusReport.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F51D96AB20CD9670001AF442 /* GoalStatusReport.storyboard */; };
+		F51D96AE20CD968A001AF442 /* GoalStatusReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96AD20CD968A001AF442 /* GoalStatusReportVC.swift */; };
+		F51D96B020CD9D22001AF442 /* YearTotalsReport.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F51D96AF20CD9D22001AF442 /* YearTotalsReport.storyboard */; };
+		F51D96B220CD9D55001AF442 /* YearTotalsReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96B120CD9D55001AF442 /* YearTotalsReportVC.swift */; };
+		F51D96B420CDA34A001AF442 /* DailyActivityReport.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F51D96B320CDA34A001AF442 /* DailyActivityReport.storyboard */; };
+		F51D96B620CDA399001AF442 /* DailyActivityReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96B520CDA399001AF442 /* DailyActivityReportVC.swift */; };
+		F51D96B820CDABD9001AF442 /* Charts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F51D96B720CDABD9001AF442 /* Charts.storyboard */; };
+		F51D96BA20CDAC09001AF442 /* ChartsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96B920CDAC09001AF442 /* ChartsVC.swift */; };
+		F51D96BC20CDAE38001AF442 /* TotalCaloriesChart.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F51D96BB20CDAE38001AF442 /* TotalCaloriesChart.storyboard */; };
+		F51D96BE20CDAE50001AF442 /* CumulativeGoalsChart.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F51D96BD20CDAE50001AF442 /* CumulativeGoalsChart.storyboard */; };
+		F51D96C020CDAE63001AF442 /* TotalCaloriesChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96BF20CDAE63001AF442 /* TotalCaloriesChartVC.swift */; };
+		F51D96C220CDAE77001AF442 /* CumulativeGoalsChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96C120CDAE77001AF442 /* CumulativeGoalsChartVC.swift */; };
+		F51D96CF20CDB007001AF442 /* AAChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96C520CDB006001AF442 /* AAChartModel.swift */; };
+		F51D96D020CDB007001AF442 /* AAChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96C620CDB006001AF442 /* AAChartView.swift */; };
+		F51D96D120CDB007001AF442 /* AASerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96C720CDB006001AF442 /* AASerializable.swift */; };
+		F51D96D220CDB007001AF442 /* AASeriesElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51D96C820CDB006001AF442 /* AASeriesElement.swift */; };
+		F51D96D320CDB007001AF442 /* AAChartView.html in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CA20CDB006001AF442 /* AAChartView.html */; };
+		F51D96D420CDB007001AF442 /* AAFunnel.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CB20CDB006001AF442 /* AAFunnel.js */; };
+		F51D96D520CDB007001AF442 /* AAHighchartsLib.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CC20CDB006001AF442 /* AAHighchartsLib.js */; };
+		F51D96D620CDB007001AF442 /* AAHighchartsMore.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CD20CDB006001AF442 /* AAHighchartsMore.js */; };
+		F51D96D720CDB007001AF442 /* AAOptionsConstructor.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */; };
 		F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C3209C49930053C9DB /* AppDelegate.swift */; };
 		F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C5209C49930053C9DB /* LoginVC.swift */; };
 		F541B7C9209C49930053C9DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7C7209C49930053C9DB /* Main.storyboard */; };
@@ -59,6 +85,32 @@
 		F517813A20C432C50059B294 /* AddActivityInSessionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityInSessionVC.swift; sourceTree = "<group>"; };
 		F517813D20C4377C0059B294 /* ExerciseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
 		F517814020C438970059B294 /* ActivityTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTVCell.swift; sourceTree = "<group>"; };
+		F51D96A120CD754A001AF442 /* ReportsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsTVCell.swift; sourceTree = "<group>"; };
+		F51D96A320CD75C5001AF442 /* ReportsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsVC.swift; sourceTree = "<group>"; };
+		F51D96A520CD7667001AF442 /* Reports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reports.swift; sourceTree = "<group>"; };
+		F51D96A720CD7D30001AF442 /* SummaryReport.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SummaryReport.storyboard; sourceTree = "<group>"; };
+		F51D96A920CD8590001AF442 /* SummaryReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryReportVC.swift; sourceTree = "<group>"; };
+		F51D96AB20CD9670001AF442 /* GoalStatusReport.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GoalStatusReport.storyboard; sourceTree = "<group>"; };
+		F51D96AD20CD968A001AF442 /* GoalStatusReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusReportVC.swift; sourceTree = "<group>"; };
+		F51D96AF20CD9D22001AF442 /* YearTotalsReport.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = YearTotalsReport.storyboard; sourceTree = "<group>"; };
+		F51D96B120CD9D55001AF442 /* YearTotalsReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearTotalsReportVC.swift; sourceTree = "<group>"; };
+		F51D96B320CDA34A001AF442 /* DailyActivityReport.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DailyActivityReport.storyboard; sourceTree = "<group>"; };
+		F51D96B520CDA399001AF442 /* DailyActivityReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyActivityReportVC.swift; sourceTree = "<group>"; };
+		F51D96B720CDABD9001AF442 /* Charts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Charts.storyboard; sourceTree = "<group>"; };
+		F51D96B920CDAC09001AF442 /* ChartsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsVC.swift; sourceTree = "<group>"; };
+		F51D96BB20CDAE38001AF442 /* TotalCaloriesChart.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TotalCaloriesChart.storyboard; sourceTree = "<group>"; };
+		F51D96BD20CDAE50001AF442 /* CumulativeGoalsChart.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CumulativeGoalsChart.storyboard; sourceTree = "<group>"; };
+		F51D96BF20CDAE63001AF442 /* TotalCaloriesChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCaloriesChartVC.swift; sourceTree = "<group>"; };
+		F51D96C120CDAE77001AF442 /* CumulativeGoalsChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CumulativeGoalsChartVC.swift; sourceTree = "<group>"; };
+		F51D96C520CDB006001AF442 /* AAChartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAChartModel.swift; sourceTree = "<group>"; };
+		F51D96C620CDB006001AF442 /* AAChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAChartView.swift; sourceTree = "<group>"; };
+		F51D96C720CDB006001AF442 /* AASerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AASerializable.swift; sourceTree = "<group>"; };
+		F51D96C820CDB006001AF442 /* AASeriesElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AASeriesElement.swift; sourceTree = "<group>"; };
+		F51D96CA20CDB006001AF442 /* AAChartView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = AAChartView.html; sourceTree = "<group>"; };
+		F51D96CB20CDB006001AF442 /* AAFunnel.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAFunnel.js; sourceTree = "<group>"; };
+		F51D96CC20CDB006001AF442 /* AAHighchartsLib.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAHighchartsLib.js; sourceTree = "<group>"; };
+		F51D96CD20CDB006001AF442 /* AAHighchartsMore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAHighchartsMore.js; sourceTree = "<group>"; };
+		F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAOptionsConstructor.js; sourceTree = "<group>"; };
 		F541B7C0209C49930053C9DB /* Sports Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sports Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F541B7C3209C49930053C9DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F541B7C5209C49930053C9DB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -135,6 +187,7 @@
 				F517813D20C4377C0059B294 /* ExerciseItem.swift */,
 				F5504FDD20C6E8C9002907DC /* SessionItem.swift */,
 				F565C0AE20C809E000F64B86 /* GoalsItem.swift */,
+				F51D96A520CD7667001AF442 /* Reports.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -146,8 +199,41 @@
 				F5504FDB20C6E612002907DC /* SessionTVCell.swift */,
 				F5504FE320C6F7DA002907DC /* SettingsTVCell.swift */,
 				F565C0AA20C806FF00F64B86 /* GoalsTVCell.swift */,
+				F51D96A120CD754A001AF442 /* ReportsTVCell.swift */,
 			);
 			path = "TableView Cells";
+			sourceTree = "<group>";
+		};
+		F51D96C320CDB006001AF442 /* AAInfographics */ = {
+			isa = PBXGroup;
+			children = (
+				F51D96C420CDB006001AF442 /* AAChartCreator */,
+				F51D96C920CDB006001AF442 /* AAJSFiles */,
+			);
+			path = AAInfographics;
+			sourceTree = SOURCE_ROOT;
+		};
+		F51D96C420CDB006001AF442 /* AAChartCreator */ = {
+			isa = PBXGroup;
+			children = (
+				F51D96C520CDB006001AF442 /* AAChartModel.swift */,
+				F51D96C620CDB006001AF442 /* AAChartView.swift */,
+				F51D96C720CDB006001AF442 /* AASerializable.swift */,
+				F51D96C820CDB006001AF442 /* AASeriesElement.swift */,
+			);
+			path = AAChartCreator;
+			sourceTree = "<group>";
+		};
+		F51D96C920CDB006001AF442 /* AAJSFiles */ = {
+			isa = PBXGroup;
+			children = (
+				F51D96CA20CDB006001AF442 /* AAChartView.html */,
+				F51D96CB20CDB006001AF442 /* AAFunnel.js */,
+				F51D96CC20CDB006001AF442 /* AAHighchartsLib.js */,
+				F51D96CD20CDB006001AF442 /* AAHighchartsMore.js */,
+				F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */,
+			);
+			path = AAJSFiles;
 			sourceTree = "<group>";
 		};
 		F541B7B7209C49930053C9DB = {
@@ -179,6 +265,7 @@
 				F5717A5920B9B85F00623A6E /* Storyboards */,
 				F541B7C3209C49930053C9DB /* AppDelegate.swift */,
 				F541B7CA209C49930053C9DB /* Assets.xcassets */,
+				F51D96C320CDB006001AF442 /* AAInfographics */,
 				F55A28A720B1904A00F0ED98 /* awsconfiguration.json */,
 				F541B7CF209C49930053C9DB /* Info.plist */,
 			);
@@ -210,6 +297,13 @@
 				F5504FDF20C6F08E002907DC /* SessionActivities.storyboard */,
 				F565C0A620C7F4EA00F64B86 /* LogOut.storyboard */,
 				F565C0B020C80CC300F64B86 /* AddGoal.storyboard */,
+				F51D96A720CD7D30001AF442 /* SummaryReport.storyboard */,
+				F51D96AB20CD9670001AF442 /* GoalStatusReport.storyboard */,
+				F51D96AF20CD9D22001AF442 /* YearTotalsReport.storyboard */,
+				F51D96B320CDA34A001AF442 /* DailyActivityReport.storyboard */,
+				F51D96B720CDABD9001AF442 /* Charts.storyboard */,
+				F51D96BB20CDAE38001AF442 /* TotalCaloriesChart.storyboard */,
+				F51D96BD20CDAE50001AF442 /* CumulativeGoalsChart.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -232,6 +326,14 @@
 				F565C0A820C7F53500F64B86 /* LogOutVC.swift */,
 				F565C0AC20C8095100F64B86 /* GoalsVC.swift */,
 				F565C0B220C80DA000F64B86 /* AddGoalVC.swift */,
+				F51D96A320CD75C5001AF442 /* ReportsVC.swift */,
+				F51D96A920CD8590001AF442 /* SummaryReportVC.swift */,
+				F51D96AD20CD968A001AF442 /* GoalStatusReportVC.swift */,
+				F51D96B120CD9D55001AF442 /* YearTotalsReportVC.swift */,
+				F51D96B520CDA399001AF442 /* DailyActivityReportVC.swift */,
+				F51D96B920CDAC09001AF442 /* ChartsVC.swift */,
+				F51D96BF20CDAE63001AF442 /* TotalCaloriesChartVC.swift */,
+				F51D96C120CDAE77001AF442 /* CumulativeGoalsChartVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -306,16 +408,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				F565C0A720C7F4EA00F64B86 /* LogOut.storyboard in Resources */,
+				F51D96B420CDA34A001AF442 /* DailyActivityReport.storyboard in Resources */,
 				F5504FE020C6F08E002907DC /* SessionActivities.storyboard in Resources */,
 				F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */,
+				F51D96D420CDB007001AF442 /* AAFunnel.js in Resources */,
+				F51D96D520CDB007001AF442 /* AAHighchartsLib.js in Resources */,
+				F51D96D720CDB007001AF442 /* AAOptionsConstructor.js in Resources */,
+				F51D96A820CD7D30001AF442 /* SummaryReport.storyboard in Resources */,
 				F541B7CE209C49930053C9DB /* LaunchScreen.storyboard in Resources */,
 				F5DF29B320BB0BEB00E3EFF2 /* SignUp.storyboard in Resources */,
 				F5DF29AF20BAFB1300E3EFF2 /* ForgotPassword.storyboard in Resources */,
+				F51D96BE20CDAE50001AF442 /* CumulativeGoalsChart.storyboard in Resources */,
+				F51D96AC20CD9670001AF442 /* GoalStatusReport.storyboard in Resources */,
 				F541B7CB209C49930053C9DB /* Assets.xcassets in Resources */,
+				F51D96D620CDB007001AF442 /* AAHighchartsMore.js in Resources */,
 				F5DF29BD20BB34E400E3EFF2 /* TabBar.storyboard in Resources */,
 				F517813920C42D9B0059B294 /* AddActivityInSession.storyboard in Resources */,
+				F51D96B820CDABD9001AF442 /* Charts.storyboard in Resources */,
 				F565C0B120C80CC300F64B86 /* AddGoal.storyboard in Resources */,
+				F51D96B020CD9D22001AF442 /* YearTotalsReport.storyboard in Resources */,
 				F541B7C9209C49930053C9DB /* Main.storyboard in Resources */,
+				F51D96BC20CDAE38001AF442 /* TotalCaloriesChart.storyboard in Resources */,
+				F51D96D320CDB007001AF442 /* AAChartView.html in Resources */,
 				F55FD36720C2AFAE003408DF /* AddSession.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +472,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSMobileClient/AWSMobileClient.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSUserPoolsSignIn/AWSUserPoolsSignIn.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDataTables/SwiftDataTables.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -372,6 +487,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSUserPoolsSignIn.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDataTables.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,10 +505,12 @@
 				F517814120C438970059B294 /* ActivityTVCell.swift in Sources */,
 				F55FD36B20C2D865003408DF /* ActivitySessionsVC.swift in Sources */,
 				F5504FE220C6F103002907DC /* SessionActivitiesVC.swift in Sources */,
+				F51D96A420CD75C5001AF442 /* ReportsVC.swift in Sources */,
 				F5504FDE20C6E8C9002907DC /* SessionItem.swift in Sources */,
 				F517813B20C432C50059B294 /* AddActivityInSessionVC.swift in Sources */,
 				F5504FE620C6F863002907DC /* SettingsVC.swift in Sources */,
 				F5DF29B920BB247600E3EFF2 /* SignUp3VC.swift in Sources */,
+				F51D96D020CDB007001AF442 /* AAChartView.swift in Sources */,
 				F5504FE420C6F7DA002907DC /* SettingsTVCell.swift in Sources */,
 				F517813E20C4377C0059B294 /* ExerciseItem.swift in Sources */,
 				F565C0B320C80DA000F64B86 /* AddGoalVC.swift in Sources */,
@@ -400,21 +518,33 @@
 				F5DF29BB20BB248200E3EFF2 /* SignUp4VC.swift in Sources */,
 				F565C0A920C7F53500F64B86 /* LogOutVC.swift in Sources */,
 				F55FD36920C2D7F3003408DF /* AddSessionVC.swift in Sources */,
+				F51D96B620CDA399001AF442 /* DailyActivityReportVC.swift in Sources */,
 				F5504FDC20C6E612002907DC /* SessionTVCell.swift in Sources */,
+				F51D96D120CDB007001AF442 /* AASerializable.swift in Sources */,
+				F51D96D220CDB007001AF442 /* AASeriesElement.swift in Sources */,
 				F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */,
 				F5C29A2F20B04A91006A16EB /* Extensions.swift in Sources */,
+				F51D96A220CD754A001AF442 /* ReportsTVCell.swift in Sources */,
+				F51D96BA20CDAC09001AF442 /* ChartsVC.swift in Sources */,
 				F565C0AB20C806FF00F64B86 /* GoalsTVCell.swift in Sources */,
 				F54AB64920B044C200720B70 /* Favorites.swift in Sources */,
 				F54AB64720B044C200720B70 /* User.swift in Sources */,
 				F5DF29B120BB02E700E3EFF2 /* ForgotPasswordVC.swift in Sources */,
+				F51D96C220CDAE77001AF442 /* CumulativeGoalsChartVC.swift in Sources */,
+				F51D96CF20CDB007001AF442 /* AAChartModel.swift in Sources */,
+				F51D96A620CD7667001AF442 /* Reports.swift in Sources */,
 				F54AB64A20B044C200720B70 /* Exercise.swift in Sources */,
 				F5504FDA20C6D2F2002907DC /* ExerciseDetailsVC.swift in Sources */,
 				F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */,
 				F565C0AF20C809E000F64B86 /* GoalsItem.swift in Sources */,
 				F5DF29B520BB245D00E3EFF2 /* SignUp1VC.swift in Sources */,
+				F51D96AA20CD8590001AF442 /* SummaryReportVC.swift in Sources */,
 				F565C0AD20C8095100F64B86 /* GoalsVC.swift in Sources */,
+				F51D96C020CDAE63001AF442 /* TotalCaloriesChartVC.swift in Sources */,
+				F51D96B220CD9D55001AF442 /* YearTotalsReportVC.swift in Sources */,
 				F54AB64B20B044C200720B70 /* Goal.swift in Sources */,
 				F5DF29B720BB246B00E3EFF2 /* SignUp2VC.swift in Sources */,
+				F51D96AE20CD968A001AF442 /* GoalStatusReportVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

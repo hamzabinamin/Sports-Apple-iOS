@@ -28,6 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             sourceApplication: sourceApplication,
             annotation: annotation)
     }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let navigationController = self.window?.rootViewController as? UINavigationController {
+           if navigationController.visibleViewController is SummaryReportVC ||
+              navigationController.visibleViewController is GoalStatusReportVC || navigationController.visibleViewController is YearTotalsReportVC || navigationController.visibleViewController is DailyActivityReportVC {
+                return UIInterfaceOrientationMask.all
+            } else {
+                return UIInterfaceOrientationMask.portrait
+            }
+        }
+        return UIInterfaceOrientationMask.portrait
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

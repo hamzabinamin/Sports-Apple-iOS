@@ -22,8 +22,8 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         setupTaps()
         rotateArrow()
-        array.append(SessionItem(sessionDate: "30th May, 2018", sessionLocation: "At the Gym", sessionBodyWeight: "64 KG", sessionCalories: "516 Calories", sessionComment: "Great Session!!!"))
-        array.append(SessionItem(sessionDate: "30th May, 2018", sessionLocation: "At Home", sessionBodyWeight: "64 KG", sessionCalories: "499 Calories", sessionComment: "None"))
+        array.append(SessionItem(sessionDate: "30th May, 2018", sessionLocation: "At the Gym", sessionBodyWeight: "64 KG", sessionCalories: "516", sessionComment: "Great Session!!!"))
+        array.append(SessionItem(sessionDate: "30th May, 2018", sessionLocation: "At Home", sessionBodyWeight: "64 KG", sessionCalories: "499", sessionComment: "None"))
         
     }
     

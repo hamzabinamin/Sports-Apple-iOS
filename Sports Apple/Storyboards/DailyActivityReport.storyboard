@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Avenir.ttc">
+            <string>Avenir-Book</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Daily Activity ReportVC-->
+        <scene sceneID="AsJ-eL-xah">
+            <objects>
+                <viewController storyboardIdentifier="DailyActivityReportVC" id="L2Q-z9-48s" customClass="DailyActivityReportVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="78C-Dw-U8R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="vXe-hE-XpM">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="106" id="WuK-Kb-aBO"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D. Activity Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFt-Lo-4Ad">
+                                <rect key="frame" x="120.5" y="40" width="134" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Activity Header" translatesAutoresizingMaskIntoConstraints="NO" id="g6h-4R-Q9m">
+                                <rect key="frame" x="35" y="30" width="56" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="71s-rR-e7i"/>
+                                    <constraint firstAttribute="width" constant="56" id="K0Q-un-osJ"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7di-py-WwO">
+                                <rect key="frame" x="49" y="45" width="25" height="25"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Back" translatesAutoresizingMaskIntoConstraints="NO" id="hvN-cq-LL5">
+                                        <rect key="frame" x="-0.5" y="-0.5" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="DLB-2B-rHB"/>
+                                            <constraint firstAttribute="height" constant="25" id="EcJ-gZ-R9o"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.37664103510000002" green="0.82411009069999996" blue="0.94497829680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="hvN-cq-LL5" firstAttribute="top" secondItem="7di-py-WwO" secondAttribute="top" id="59v-B7-nkM"/>
+                                    <constraint firstAttribute="bottom" secondItem="hvN-cq-LL5" secondAttribute="bottom" id="OZD-el-zWo"/>
+                                    <constraint firstAttribute="trailing" secondItem="hvN-cq-LL5" secondAttribute="trailing" id="PEE-md-LW2"/>
+                                    <constraint firstAttribute="width" constant="25" id="U4v-8X-mvF"/>
+                                    <constraint firstItem="hvN-cq-LL5" firstAttribute="leading" secondItem="7di-py-WwO" secondAttribute="leading" id="mxt-6Q-3Mx"/>
+                                    <constraint firstAttribute="height" constant="25" id="xas-4e-Iy6"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="cfY-fw-ffF">
+                                <rect key="frame" x="15" y="132" width="345" height="26"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="Xgd-1g-fGZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="26" id="TnP-pr-Jd5"/>
+                                            <constraint firstAttribute="height" constant="26" id="ara-X4-z0u"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30th May 2018 - 5th June 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4N-8F-9az">
+                                        <rect key="frame" x="26" y="0.0" width="319" height="26"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iFt-Lo-4Ad" firstAttribute="centerX" secondItem="78C-Dw-U8R" secondAttribute="centerX" id="0MN-We-a8z"/>
+                            <constraint firstItem="g6h-4R-Q9m" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="35" id="IqJ-zd-P6c"/>
+                            <constraint firstItem="7di-py-WwO" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="49" id="NYn-6G-y9y"/>
+                            <constraint firstItem="g6h-4R-Q9m" firstAttribute="top" secondItem="78C-Dw-U8R" secondAttribute="top" constant="30" id="PbY-aU-PnL"/>
+                            <constraint firstItem="cfY-fw-ffF" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="15" id="YLz-G2-l1Z"/>
+                            <constraint firstItem="vXe-hE-XpM" firstAttribute="trailing" secondItem="hfh-m4-Sre" secondAttribute="trailing" id="aWi-eH-wte"/>
+                            <constraint firstItem="cfY-fw-ffF" firstAttribute="top" secondItem="vXe-hE-XpM" secondAttribute="bottom" constant="26" id="bCI-yr-Mim"/>
+                            <constraint firstItem="hfh-m4-Sre" firstAttribute="trailing" secondItem="cfY-fw-ffF" secondAttribute="trailing" constant="15" id="bRe-cy-y2b"/>
+                            <constraint firstItem="7di-py-WwO" firstAttribute="top" secondItem="78C-Dw-U8R" secondAttribute="top" constant="45" id="bvy-kF-qlq"/>
+                            <constraint firstItem="vXe-hE-XpM" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" id="ihS-vU-2IE"/>
+                            <constraint firstItem="iFt-Lo-4Ad" firstAttribute="top" secondItem="hfh-m4-Sre" secondAttribute="top" constant="20" id="ltF-dZ-kmM"/>
+                            <constraint firstItem="vXe-hE-XpM" firstAttribute="top" secondItem="78C-Dw-U8R" secondAttribute="top" id="qS2-IV-irU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hfh-m4-Sre"/>
+                    </view>
+                    <connections>
+                        <outlet property="backImageView" destination="hvN-cq-LL5" id="dNf-Gh-KRm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8uW-eG-mEB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-82.400000000000006" y="58.920539730134934"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Activity Header" width="53" height="62"/>
+        <image name="Back" width="32" height="32"/>
+        <image name="Calendar" width="39" height="39"/>
+        <image name="Header" width="375" height="182"/>
+    </resources>
+</document>
