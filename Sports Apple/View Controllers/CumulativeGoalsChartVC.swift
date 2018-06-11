@@ -22,20 +22,25 @@ class CumulativeGoalsChartVC: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(goBack))
         backImageView.isUserInteractionEnabled = true
         backImageView.addGestureRecognizer(tap)
+        //let chartViewWidth  = self.view.frame.size.width;
+        //let chartViewHeight = self.view.frame.size.height;
         let aaChartView = AAChartView()
+        //aaChartView.frame = CGRect(x:0,y:0,width:chartViewWidth,height:chartViewHeight)
         aaChartView.translatesAutoresizingMaskIntoConstraints = false
         let topConstraint = aaChartView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 121)
         let bottomConstraint = aaChartView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         let leadingConstraint = aaChartView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let trailingConstraint = aaChartView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         // set the content height of aachartView
-        // aaChartView?.contentHeight = self.view.frame.size.height
+        //aaChartView?.contentHeight = self.view.frame.size.height
         self.view.addSubview(aaChartView)
         NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
         
         let aaChartModel = AAChartModel.init()
-            .chartType(AAChartType.Bar)//Can be any of the chart types listed under `AAChartType`.
+            .chartType(AAChartType.Column)//Can be any of the chart types listed under `AAChartType`.
+            .zoomType(AAChartZoomType.XY)
             .animationType(AAChartAnimationType.Bounce)
+            .stacking(AAChartStackingType.False)
             //.title("TITLE")//The chart title
             .dataLabelEnabled(false) //Enable or disable the data labels. Defaults to false
             .tooltipValueSuffix("")//the value suffix of the chart tooltip
