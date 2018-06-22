@@ -154,7 +154,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5d1-rj-Rqg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="omb-EY-ZfB" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NCFirst" automaticallyAdjustsScrollViewInsets="NO" id="omb-EY-ZfB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Gy-Y5-qZW">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

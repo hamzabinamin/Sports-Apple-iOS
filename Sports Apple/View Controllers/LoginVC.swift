@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import AWSUserPoolsSignIn
-import AWSAuthUI
+import AWSCognitoIdentityProvider
 
 class LoginVC: UIViewController {
     
@@ -17,17 +16,19 @@ class LoginVC: UIViewController {
     @IBOutlet weak var signUpLabel: UILabel!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
+    var passwordAuthenticationCompletion: AWSTaskCompletionSource<AWSCognitoIdentityPasswordAuthenticationDetails>?
+    let pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
+    var usernameText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.isTranslucent = true
         
-        loginButton.addTarget(self, action: #selector(goToActivitySessionsVC), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginUser), for: .touchUpInside)
         
         loginButton.layer.cornerRadius = 18
         emailTF.addPadding(.left(35))
@@ -40,6 +41,54 @@ class LoginVC: UIViewController {
         signUpLabel.isUserInteractionEnabled = true
         signUpLabel.addGestureRecognizer(tap2)
         
+        //AWSCognitoUserPoolsSignInProvider.sharedInstance().setInteractiveAuthDelegate(self)
+        //AWSSignInManager.sharedInstance().register(signInProvider: AWSCognitoUserPoolsSignInProvider.sharedInstance())
+        //AWSIdentityManager.defaultIdentityManager().logins().
+        
+        //self.pool = AWSCognitoIdentityUserPool.init(forKey: AWSCognitoUserPoolsSignInProviderKey)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if pool.currentUser()?.getSession() != nil {
+            print(pool.currentUser()?.getSession())
+        }
+        else {
+            print("No Session")
+        }
+        
+        self.passwordTF.text = nil
+        self.emailTF.text = usernameText
+    }
+    
+
+ /*   func didCompleteStepWithError(_ error: Error?) {
+        if error != nil {
+            let alertController = UIAlertController(title: error?.localizedDescription, message: "error", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            print("logged in")
+        }
+    } */
+    
+    @objc func loginUser() {
+        print("Got inside Login func")
+        if (self.emailTF.text != nil && self.passwordTF.text != nil) {
+            print("Calling login method now")
+            let authDetails = AWSCognitoIdentityPasswordAuthenticationDetails(username: self.emailTF.text!, password: self.passwordTF.text! )
+            self.passwordAuthenticationCompletion?.set(result: authDetails)
+            
+        } else {
+            print("Empty fields")
+            let alertController = UIAlertController(title: "Missing information",
+                                                    message: "Please enter a valid user name and password",
+                                                    preferredStyle: .alert)
+            let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
+            alertController.addAction(retryAction)
+        }
     }
     
     @objc func goToActivitySessionsVC() {
@@ -61,7 +110,7 @@ class LoginVC: UIViewController {
         self.navigationController?.pushViewController(destVC, animated: true)
     }
     
-    func checkLoginStatus() {
+ /*   func checkLoginStatus() {
         if !AWSSignInManager.sharedInstance().isLoggedIn {
             showSignIn()
         }
@@ -96,7 +145,40 @@ class LoginVC: UIViewController {
                                         //print("User ID: ", AWSIdentityManager.default().identityId!)
                                     }
             })
-    }
+    } */
 
+}
+
+extension LoginVC: AWSCognitoIdentityPasswordAuthentication {
+    
+    public func getDetails(_ authenticationInput: AWSCognitoIdentityPasswordAuthenticationInput, passwordAuthenticationCompletionSource: AWSTaskCompletionSource<AWSCognitoIdentityPasswordAuthenticationDetails>) {
+        print("Get details called")
+        self.passwordAuthenticationCompletion = passwordAuthenticationCompletionSource
+        DispatchQueue.main.async {
+            if (self.usernameText == nil) {
+                self.usernameText = authenticationInput.lastKnownUsername
+            }
+        }
+    }
+    
+    public func didCompleteStepWithError(_ error: Error?) {
+        print("Did commplete step with error called")
+        DispatchQueue.main.async {
+            if let error = error as NSError? {
+                let alertController = UIAlertController(title: error.userInfo["__type"] as? String,
+                                                        message: error.userInfo["message"] as? String,
+                                                        preferredStyle: .alert)
+                let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
+                alertController.addAction(retryAction)
+                
+                self.present(alertController, animated: true, completion:  nil)
+                 print(error.description)
+            } else {
+                self.emailTF.text = nil
+                self.dismiss(animated: true, completion: nil)
+                print("Got in else")
+            }
+        }
+    }
 }
 

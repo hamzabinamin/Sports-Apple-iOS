@@ -43,6 +43,8 @@
 		F541B7C9209C49930053C9DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7C7209C49930053C9DB /* Main.storyboard */; };
 		F541B7CB209C49930053C9DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F541B7CA209C49930053C9DB /* Assets.xcassets */; };
 		F541B7CE209C49930053C9DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7CC209C49930053C9DB /* LaunchScreen.storyboard */; };
+		F543411820DCEFD60089A09E /* CognitoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543411720DCEFD40089A09E /* CognitoConfig.swift */; };
+		F543411A20DD03720089A09E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543411920DD03710089A09E /* Constants.swift */; };
 		F54AB64720B044C200720B70 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64220B044C100720B70 /* User.swift */; };
 		F54AB64920B044C200720B70 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64420B044C100720B70 /* Favorites.swift */; };
 		F54AB64A20B044C200720B70 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB64520B044C200720B70 /* Exercise.swift */; };
@@ -118,6 +120,8 @@
 		F541B7CA209C49930053C9DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F541B7CD209C49930053C9DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F541B7CF209C49930053C9DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F543411720DCEFD40089A09E /* CognitoConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitoConfig.swift; sourceTree = "<group>"; };
+		F543411920DD03710089A09E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F54AB64220B044C100720B70 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F54AB64420B044C100720B70 /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		F54AB64520B044C200720B70 /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
@@ -313,6 +317,8 @@
 			children = (
 				F541B7C5209C49930053C9DB /* LoginVC.swift */,
 				F5DF29B020BB02E700E3EFF2 /* ForgotPasswordVC.swift */,
+				F543411720DCEFD40089A09E /* CognitoConfig.swift */,
+				F543411920DD03710089A09E /* Constants.swift */,
 				F5DF29B420BB245D00E3EFF2 /* SignUp1VC.swift */,
 				F5DF29B620BB246A00E3EFF2 /* SignUp2VC.swift */,
 				F5DF29B820BB247600E3EFF2 /* SignUp3VC.swift */,
@@ -529,6 +535,7 @@
 				F565C0AB20C806FF00F64B86 /* GoalsTVCell.swift in Sources */,
 				F54AB64920B044C200720B70 /* Favorites.swift in Sources */,
 				F54AB64720B044C200720B70 /* User.swift in Sources */,
+				F543411820DCEFD60089A09E /* CognitoConfig.swift in Sources */,
 				F5DF29B120BB02E700E3EFF2 /* ForgotPasswordVC.swift in Sources */,
 				F51D96C220CDAE77001AF442 /* CumulativeGoalsChartVC.swift in Sources */,
 				F51D96CF20CDB007001AF442 /* AAChartModel.swift in Sources */,
@@ -536,6 +543,7 @@
 				F54AB64A20B044C200720B70 /* Exercise.swift in Sources */,
 				F5504FDA20C6D2F2002907DC /* ExerciseDetailsVC.swift in Sources */,
 				F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */,
+				F543411A20DD03720089A09E /* Constants.swift in Sources */,
 				F565C0AF20C809E000F64B86 /* GoalsItem.swift in Sources */,
 				F5DF29B520BB245D00E3EFF2 /* SignUp1VC.swift in Sources */,
 				F51D96AA20CD8590001AF442 /* SummaryReportVC.swift in Sources */,

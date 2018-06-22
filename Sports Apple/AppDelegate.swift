@@ -8,26 +8,69 @@
 
 import UIKit
 import AWSMobileClient
+import AWSCognitoIdentityProvider
+
+let userPoolID = "us-east-1_TavWWBZtI"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    class func defaultUserPool() -> AWSCognitoIdentityUserPool {
+        return AWSCognitoIdentityUserPool(forKey: userPoolID)
+    }
 
     var window: UIWindow?
-
+    var loginViewController: LoginVC?
+    var navigationController: UINavigationController?
+    var storyboard: UIStoryboard?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Warn user if configuration not updated
+        if (CognitoIdentityUserPoolId == "us-east-1_TavWWBZtI") {
+            let alertController = UIAlertController(title: "Invalid Configuration",
+                                                    message: "Please configure user pool constants in Constants.swift file.",
+                                                    preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            self.window?.rootViewController!.present(alertController, animated: true, completion:  nil)
+            //print("Please configure user pool constants in Constants.swift file.")
+        }
+        
+        // setup logging
+        AWSDDLog.sharedInstance.logLevel = .verbose
+        AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
+        
+        // setup service configuration
+        let serviceConfiguration = AWSServiceConfiguration(region: CognitoIdentityUserPoolRegion, credentialsProvider: nil)
+        
+        // create pool configuration
+        let poolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: CognitoIdentityUserPoolAppClientId,
+                                                                        clientSecret: CognitoIdentityUserPoolAppClientSecret,
+                                                                        poolId: CognitoIdentityUserPoolId)
+        
+        // initialize user pool client
+        AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: poolConfiguration, forKey: AWSCognitoUserPoolsSignInProviderKey)
+        
+        // fetch the user pool client we initialized in above step
+        let pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
+        self.storyboard = UIStoryboard(name: "Main", bundle: nil)
+        pool.delegate = self
+        
+        
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, didFinishLaunchingWithOptions:
             launchOptions)
+        //return true
     }
     
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+  /*  func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, open: url,
             sourceApplication: sourceApplication,
             annotation: annotation)
-    }
+    } */
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if let navigationController = self.window?.rootViewController as? UINavigationController {
@@ -62,7 +105,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+}
+    
+extension AppDelegate: AWSCognitoIdentityInteractiveAuthenticationDelegate {
+   
+    func startPasswordAuthentication() -> AWSCognitoIdentityPasswordAuthentication {
+        print("Calling signin VC from app delegate")
+        if (self.navigationController == nil) {
+            self.navigationController = self.storyboard?.instantiateViewController(withIdentifier: "NCFirst") as? UINavigationController
+        }
+        
+        if (self.loginViewController == nil) {
+            self.loginViewController = self.navigationController?.viewControllers[0] as? LoginVC
+        }
+        
+        DispatchQueue.main.async {
+            self.navigationController!.popToRootViewController(animated: true)
+            if (!self.navigationController!.isViewLoaded
+                || self.navigationController!.view.window == nil) {
+                self.window?.rootViewController?.present(self.navigationController!,
+                                                         animated: true,
+                                                         completion: nil)
+            }
+            
+        }
+        return self.loginViewController!
+    } 
 }
 
