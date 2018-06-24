@@ -71,38 +71,39 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         ]
     }
     
-    func createUser(userId: String) {
+    func createUser(userId: String, firstName: String, lastName: String, trainerEmail: String, biceps: NSNumber, calves: NSNumber, chest: NSNumber, dOB: String, forearms: NSNumber, height: String, hips: NSNumber, location: String, neck: NSNumber, thighs: NSNumber, waist: NSNumber, weight: NSNumber, wrist: NSNumber, completion: @escaping (_ success: String) -> Void) {
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         
         // Create data object using data models you downloaded from Mobile Hub
         let userItem: User = User()
         userItem._userId = userId
-        userItem._firstName = "James"
-        userItem._lastName = "Hetfield"
-        userItem._trainerEmail = "none"
-        userItem._biceps = 31
-        userItem._calves = 32
-        userItem._chest = 33
-        userItem._dOB = "15-03-1976"
-        userItem._forearms = 34
-        userItem._height = "6'0''"
-        userItem._hips = 35
-        userItem._location = "Gym"
-        userItem._neck = 36
-        userItem._thighs = 37
+        userItem._firstName = firstName
+        userItem._lastName = lastName
+        userItem._trainerEmail = trainerEmail
+        userItem._biceps = biceps
+        userItem._calves = calves
+        userItem._chest = chest
+        userItem._dOB = dOB
+        userItem._forearms = forearms
+        userItem._height = height
+        userItem._hips = hips
+        userItem._location = location
+        userItem._neck = neck
+        userItem._thighs = thighs
         userItem._units = "Imperial"
-        userItem._waist = 38
-        userItem._weight = 39
-        userItem._wrist = 40
+        userItem._waist = waist
+        userItem._weight = weight
+        userItem._wrist = wrist
         //Save a new item
         dynamoDbObjectMapper.save(userItem, completionHandler: {
             (error: Error?) -> Void in
             
             if let error = error {
                 print("Amazon DynamoDB Save Error: \(error)")
-                return
+                completion(error.localizedDescription)
             }
             print("An item was saved.")
+            completion("success")
         })
     }
     

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import JGProgressHUD
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
@@ -124,5 +125,38 @@ extension TimeInterval {
 extension Int {
     var msToSeconds: Double {
         return Double(self) / 1000
+    }
+}
+
+extension UIViewController {
+    
+    func createLoadingHUD() -> JGProgressHUD {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Please Wait"
+        return hud
+    }
+    
+    func showSuccessHUD(text: String) {
+        let hud = JGProgressHUD(style: .dark)
+        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.textLabel.text = text
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 1)
+    }
+    
+    func showErrorHUD(text: String) {
+        let hud = JGProgressHUD(style: .dark)
+        hud.indicatorView = JGProgressHUDErrorIndicatorView()
+        hud.textLabel.text = text
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 1)
+    }
+    
+    func showHUD(hud: JGProgressHUD) {
+        hud.show(in: self.view)
+    }
+    
+    func hideHUD(hud: JGProgressHUD) {
+        hud.dismiss(animated: true)
     }
 }

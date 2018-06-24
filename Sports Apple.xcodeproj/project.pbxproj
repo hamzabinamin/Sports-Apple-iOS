@@ -38,6 +38,9 @@
 		F51D96D520CDB007001AF442 /* AAHighchartsLib.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CC20CDB006001AF442 /* AAHighchartsLib.js */; };
 		F51D96D620CDB007001AF442 /* AAHighchartsMore.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CD20CDB006001AF442 /* AAHighchartsMore.js */; };
 		F51D96D720CDB007001AF442 /* AAOptionsConstructor.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */; };
+		F536D2C220DE4E950044B077 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C120DE4E950044B077 /* UtilityFunctions.swift */; };
+		F536D2C420DE553F0044B077 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F536D2C320DE553E0044B077 /* awsconfiguration.json */; };
+		F536D2C620DE57FF0044B077 /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C520DE57FF0044B077 /* UserItem.swift */; };
 		F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C3209C49930053C9DB /* AppDelegate.swift */; };
 		F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C5209C49930053C9DB /* LoginVC.swift */; };
 		F541B7C9209C49930053C9DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7C7209C49930053C9DB /* Main.storyboard */; };
@@ -56,8 +59,9 @@
 		F5504FE220C6F103002907DC /* SessionActivitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5504FE120C6F103002907DC /* SessionActivitiesVC.swift */; };
 		F5504FE420C6F7DA002907DC /* SettingsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5504FE320C6F7DA002907DC /* SettingsTVCell.swift */; };
 		F5504FE620C6F863002907DC /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5504FE520C6F863002907DC /* SettingsVC.swift */; };
+		F556A96720DFB6DC00233CFD /* Verification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F556A96620DFB6DC00233CFD /* Verification.storyboard */; };
+		F556A96920DFB80F00233CFD /* VerificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F556A96820DFB80F00233CFD /* VerificationVC.swift */; };
 		F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55A28A520B18F3E00F0ED98 /* Activity.swift */; };
-		F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F55A28A720B1904A00F0ED98 /* awsconfiguration.json */; };
 		F55FD36720C2AFAE003408DF /* AddSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F55FD36620C2AFAE003408DF /* AddSession.storyboard */; };
 		F55FD36920C2D7F3003408DF /* AddSessionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55FD36820C2D7F3003408DF /* AddSessionVC.swift */; };
 		F55FD36B20C2D865003408DF /* ActivitySessionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55FD36A20C2D865003408DF /* ActivitySessionsVC.swift */; };
@@ -113,6 +117,9 @@
 		F51D96CC20CDB006001AF442 /* AAHighchartsLib.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAHighchartsLib.js; sourceTree = "<group>"; };
 		F51D96CD20CDB006001AF442 /* AAHighchartsMore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAHighchartsMore.js; sourceTree = "<group>"; };
 		F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAOptionsConstructor.js; sourceTree = "<group>"; };
+		F536D2C120DE4E950044B077 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		F536D2C320DE553E0044B077 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		F536D2C520DE57FF0044B077 /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		F541B7C0209C49930053C9DB /* Sports Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sports Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F541B7C3209C49930053C9DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F541B7C5209C49930053C9DB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -133,8 +140,9 @@
 		F5504FE120C6F103002907DC /* SessionActivitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionActivitiesVC.swift; sourceTree = "<group>"; };
 		F5504FE320C6F7DA002907DC /* SettingsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVCell.swift; sourceTree = "<group>"; };
 		F5504FE520C6F863002907DC /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		F556A96620DFB6DC00233CFD /* Verification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Verification.storyboard; sourceTree = "<group>"; };
+		F556A96820DFB80F00233CFD /* VerificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationVC.swift; sourceTree = "<group>"; };
 		F55A28A520B18F3E00F0ED98 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
-		F55A28A720B1904A00F0ED98 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		F55FD36620C2AFAE003408DF /* AddSession.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddSession.storyboard; sourceTree = "<group>"; };
 		F55FD36820C2D7F3003408DF /* AddSessionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSessionVC.swift; sourceTree = "<group>"; };
 		F55FD36A20C2D865003408DF /* ActivitySessionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySessionsVC.swift; sourceTree = "<group>"; };
@@ -192,6 +200,7 @@
 				F5504FDD20C6E8C9002907DC /* SessionItem.swift */,
 				F565C0AE20C809E000F64B86 /* GoalsItem.swift */,
 				F51D96A520CD7667001AF442 /* Reports.swift */,
+				F536D2C520DE57FF0044B077 /* UserItem.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -267,11 +276,10 @@
 				F517813C20C4376B0059B294 /* Data Models */,
 				F54AB64120B044B200720B70 /* Data Models AWS */,
 				F5717A5920B9B85F00623A6E /* Storyboards */,
-				F541B7C3209C49930053C9DB /* AppDelegate.swift */,
 				F541B7CA209C49930053C9DB /* Assets.xcassets */,
 				F51D96C320CDB006001AF442 /* AAInfographics */,
-				F55A28A720B1904A00F0ED98 /* awsconfiguration.json */,
 				F541B7CF209C49930053C9DB /* Info.plist */,
+				F536D2C320DE553E0044B077 /* awsconfiguration.json */,
 			);
 			path = "Sports Apple";
 			sourceTree = "<group>";
@@ -308,6 +316,7 @@
 				F51D96B720CDABD9001AF442 /* Charts.storyboard */,
 				F51D96BB20CDAE38001AF442 /* TotalCaloriesChart.storyboard */,
 				F51D96BD20CDAE50001AF442 /* CumulativeGoalsChart.storyboard */,
+				F556A96620DFB6DC00233CFD /* Verification.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -315,6 +324,7 @@
 		F5717A5A20B9B87400623A6E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F541B7C3209C49930053C9DB /* AppDelegate.swift */,
 				F541B7C5209C49930053C9DB /* LoginVC.swift */,
 				F5DF29B020BB02E700E3EFF2 /* ForgotPasswordVC.swift */,
 				F543411720DCEFD40089A09E /* CognitoConfig.swift */,
@@ -340,6 +350,7 @@
 				F51D96B920CDAC09001AF442 /* ChartsVC.swift */,
 				F51D96BF20CDAE63001AF442 /* TotalCaloriesChartVC.swift */,
 				F51D96C120CDAE77001AF442 /* CumulativeGoalsChartVC.swift */,
+				F556A96820DFB80F00233CFD /* VerificationVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -348,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				F5C29A2E20B04A91006A16EB /* Extensions.swift */,
+				F536D2C120DE4E950044B077 /* UtilityFunctions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -416,12 +428,13 @@
 				F565C0A720C7F4EA00F64B86 /* LogOut.storyboard in Resources */,
 				F51D96B420CDA34A001AF442 /* DailyActivityReport.storyboard in Resources */,
 				F5504FE020C6F08E002907DC /* SessionActivities.storyboard in Resources */,
-				F55A28A820B1904A00F0ED98 /* awsconfiguration.json in Resources */,
 				F51D96D420CDB007001AF442 /* AAFunnel.js in Resources */,
 				F51D96D520CDB007001AF442 /* AAHighchartsLib.js in Resources */,
 				F51D96D720CDB007001AF442 /* AAOptionsConstructor.js in Resources */,
+				F556A96720DFB6DC00233CFD /* Verification.storyboard in Resources */,
 				F51D96A820CD7D30001AF442 /* SummaryReport.storyboard in Resources */,
 				F541B7CE209C49930053C9DB /* LaunchScreen.storyboard in Resources */,
+				F536D2C420DE553F0044B077 /* awsconfiguration.json in Resources */,
 				F5DF29B320BB0BEB00E3EFF2 /* SignUp.storyboard in Resources */,
 				F5DF29AF20BAFB1300E3EFF2 /* ForgotPassword.storyboard in Resources */,
 				F51D96BE20CDAE50001AF442 /* CumulativeGoalsChart.storyboard in Resources */,
@@ -478,6 +491,8 @@
 				"${BUILT_PRODUCTS_DIR}/AWSMobileClient/AWSMobileClient.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSUserPoolsSignIn/AWSUserPoolsSignIn.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDataTables/SwiftDataTables.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -493,6 +508,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSUserPoolsSignIn.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDataTables.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -535,6 +552,7 @@
 				F565C0AB20C806FF00F64B86 /* GoalsTVCell.swift in Sources */,
 				F54AB64920B044C200720B70 /* Favorites.swift in Sources */,
 				F54AB64720B044C200720B70 /* User.swift in Sources */,
+				F556A96920DFB80F00233CFD /* VerificationVC.swift in Sources */,
 				F543411820DCEFD60089A09E /* CognitoConfig.swift in Sources */,
 				F5DF29B120BB02E700E3EFF2 /* ForgotPasswordVC.swift in Sources */,
 				F51D96C220CDAE77001AF442 /* CumulativeGoalsChartVC.swift in Sources */,
@@ -545,9 +563,11 @@
 				F55A28A620B18F3E00F0ED98 /* Activity.swift in Sources */,
 				F543411A20DD03720089A09E /* Constants.swift in Sources */,
 				F565C0AF20C809E000F64B86 /* GoalsItem.swift in Sources */,
+				F536D2C620DE57FF0044B077 /* UserItem.swift in Sources */,
 				F5DF29B520BB245D00E3EFF2 /* SignUp1VC.swift in Sources */,
 				F51D96AA20CD8590001AF442 /* SummaryReportVC.swift in Sources */,
 				F565C0AD20C8095100F64B86 /* GoalsVC.swift in Sources */,
+				F536D2C220DE4E950044B077 /* UtilityFunctions.swift in Sources */,
 				F51D96C020CDAE63001AF442 /* TotalCaloriesChartVC.swift in Sources */,
 				F51D96B220CD9D55001AF442 /* YearTotalsReportVC.swift in Sources */,
 				F54AB64B20B044C200720B70 /* Goal.swift in Sources */,

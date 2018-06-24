@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import AWSUserPoolsSignIn
 
 class SignUp1VC: UIViewController {
 
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
-    var pool: AWSCognitoIdentityUserPool?
+    var user: UserItem = UserItem()
     
     
     override func viewDidLoad() {
@@ -25,64 +24,47 @@ class SignUp1VC: UIViewController {
         emailTF.addPadding(.left(35))
         passwordTF.addPadding(.left(35))
         
-        nextButton.addTarget(self, action: #selector(signUp), for: .touchUpInside)
-        self.pool = AWSCognitoIdentityUserPool.init(forKey: AWSCognitoUserPoolsSignInProviderKey)
-    }
-
-
-    @objc func goToSignUp2VC() {
-        let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
-        let destVC = storyboard.instantiateViewController(withIdentifier: "SignUp2VC")
-        self.navigationController?.pushViewController(destVC, animated: true)
+        nextButton.addTarget(self, action: #selector(goNext), for: .touchUpInside)
     }
     
-    @objc func signUp() {
-        print("Sign up called")
-        let email = emailTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let password = passwordTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let emailAttribute = AWSCognitoIdentityUserAttributeType(name: "email", value: email!)
-        
-        self.pool?.signUp("Jacob", password: password!, userAttributes: [emailAttribute], validationData: nil).continueWith {[weak self] (task) -> Any? in
-            print("Inside method")
-            guard self != nil else {
-                print("Returning Nil")
-                return nil }
-            DispatchQueue.main.async(execute: {
-                if let error = task.error as NSError? {
-                    let alertController = UIAlertController(title: error.userInfo["__type"] as? String,
-                                                            message: error.userInfo["message"] as? String,
-                                                            preferredStyle: .alert)
-                    let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
-                    alertController.addAction(retryAction)
-                    
-                    self?.present(alertController, animated: true, completion:  nil)
-                } else if let result = task.result  {
-                    // handle the case where user has to confirm his identity via email / SMS
-                    if (result.user.confirmedStatus != AWSCognitoIdentityUserStatus.confirmed) {
-                        print(result.user.confirmedStatus)
-                        //strongSelf.sentTo = result.codeDeliveryDetails?.destination
-                        //strongSelf.performSegue(withIdentifier: "confirmSignUpSegue", sender:sender)
-                    } else {
-                        print("Got in else")
-                        //let _ = strongSelf.navigationController?.popToRootViewController(animated: true)
-                    }
-                }
-                
-            })
-            print("Returning nil outside")
-            return nil
+    func validation(email: String, password: String) -> Bool {
+        let emailRegEx = "^(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?(?:(?:(?:[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+(?:\\.[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+)*)|(?:\"(?:(?:(?:(?: )*(?:(?:[!#-Z^-~]|\\[|\\])|(?:\\\\(?:\\t|[ -~]))))+(?: )*)|(?: )+)\"))(?:@)(?:(?:(?:[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)(?:\\.[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)*)|(?:\\[(?:(?:(?:(?:(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))\\.){3}(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))))|(?:(?:(?: )*[!-Z^-~])*(?: )*)|(?:[Vv][0-9A-Fa-f]+\\.[-A-Za-z0-9._~!$&'()*+,;=:]+))\\])))(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?$"
+        let passwordRegEx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
+        if email.count > 0 && password.count > 0 {
+            
+            if !emailTest.evaluate(with: email) {
+                self.showErrorHUD(text: "Please write a valid email")
+                return false
+            }
+            
+            if !passwordTest.evaluate(with: password) {
+                self.showErrorHUD(text: "Password must be atleast 8 characters long, contain atleast one uppercase, lowercase & numeric characters")
+                return false
+            }
+            
+            return true
         }
+        self.showErrorHUD(text: "Please fill all fields")
+        return false
+    }
+
+    @objc func goNext() {
+        let email = emailTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = passwordTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
+        if validation(email: email, password: password) {
+            user.email = email
+            user.password = password
+            goToSignUp2VC()
+        }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @objc func goToSignUp2VC() {
+        let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "SignUp2VC") as! SignUp2VC
+        destVC.user = user
+        self.navigationController?.pushViewController(destVC, animated: true)
     }
-    */
-
 }

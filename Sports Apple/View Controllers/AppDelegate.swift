@@ -9,6 +9,7 @@
 import UIKit
 import AWSMobileClient
 import AWSCognitoIdentityProvider
+import IQKeyboardManagerSwift
 
 let userPoolID = "us-east-1_TavWWBZtI"
 
@@ -23,12 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var loginViewController: LoginVC?
     var navigationController: UINavigationController?
     var storyboard: UIStoryboard?
+    var pool: AWSCognitoIdentityUserPool?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        IQKeyboardManager.shared.enable = true
+        
         // Warn user if configuration not updated
-        if (CognitoIdentityUserPoolId == "us-east-1_TavWWBZtI") {
+        if (CognitoIdentityUserPoolId == "us-east-1_7ZlE87Sy2") {
             let alertController = UIAlertController(title: "Invalid Configuration",
                                                     message: "Please configure user pool constants in Constants.swift file.",
                                                     preferredStyle: .alert)
@@ -54,9 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: poolConfiguration, forKey: AWSCognitoUserPoolsSignInProviderKey)
         
         // fetch the user pool client we initialized in above step
-        let pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
+        pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         self.storyboard = UIStoryboard(name: "Main", bundle: nil)
-        pool.delegate = self
+        pool?.delegate = self
         
         
         return AWSMobileClient.sharedInstance().interceptApplication(
@@ -65,12 +69,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //return true
     }
     
-  /*  func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, open: url,
             sourceApplication: sourceApplication,
             annotation: annotation)
-    } */
+    } 
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if let navigationController = self.window?.rootViewController as? UINavigationController {
