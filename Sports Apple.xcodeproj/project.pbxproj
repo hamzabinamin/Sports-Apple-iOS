@@ -41,6 +41,7 @@
 		F536D2C220DE4E950044B077 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C120DE4E950044B077 /* UtilityFunctions.swift */; };
 		F536D2C420DE553F0044B077 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F536D2C320DE553E0044B077 /* awsconfiguration.json */; };
 		F536D2C620DE57FF0044B077 /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C520DE57FF0044B077 /* UserItem.swift */; };
+		F53C7DA420E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53C7DA320E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift */; };
 		F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C3209C49930053C9DB /* AppDelegate.swift */; };
 		F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C5209C49930053C9DB /* LoginVC.swift */; };
 		F541B7C9209C49930053C9DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7C7209C49930053C9DB /* Main.storyboard */; };
@@ -120,6 +121,7 @@
 		F536D2C120DE4E950044B077 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
 		F536D2C320DE553E0044B077 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		F536D2C520DE57FF0044B077 /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
+		F53C7DA320E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordConfirmVC.swift; sourceTree = "<group>"; };
 		F541B7C0209C49930053C9DB /* Sports Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sports Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F541B7C3209C49930053C9DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F541B7C5209C49930053C9DB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				F51D96BF20CDAE63001AF442 /* TotalCaloriesChartVC.swift */,
 				F51D96C120CDAE77001AF442 /* CumulativeGoalsChartVC.swift */,
 				F556A96820DFB80F00233CFD /* VerificationVC.swift */,
+				F53C7DA320E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				F556A96920DFB80F00233CFD /* VerificationVC.swift in Sources */,
 				F543411820DCEFD60089A09E /* CognitoConfig.swift in Sources */,
 				F5DF29B120BB02E700E3EFF2 /* ForgotPasswordVC.swift in Sources */,
+				F53C7DA420E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift in Sources */,
 				F51D96C220CDAE77001AF442 /* CumulativeGoalsChartVC.swift in Sources */,
 				F51D96CF20CDB007001AF442 /* AAChartModel.swift in Sources */,
 				F51D96A620CD7667001AF442 /* Reports.swift in Sources */,

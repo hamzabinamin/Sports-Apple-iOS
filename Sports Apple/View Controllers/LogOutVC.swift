@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import AWSCognitoIdentityProvider
 
 class LogOutVC: UIViewController {
    
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var bgView: UIView!
+    let pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,13 @@ class LogOutVC: UIViewController {
     
     @objc func logout() {
         
+        if let currentUser = pool.currentUser() {
+            currentUser.signOut()
+            self.dismiss(animated: true, completion: {
+                NotificationCenter.default.post(name: .showLoginVC, object: nil)
+            })
+            
+        }
+        
     }
-
 }

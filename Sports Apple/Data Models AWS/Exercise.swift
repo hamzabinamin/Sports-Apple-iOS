@@ -38,26 +38,42 @@ class Exercise: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         ]
     }
     
+    func getExerciseID() -> NSNumber {
+        return self._exerciseId!
+    }
+    
+    func getExerciseName() -> String {
+        return self._name!
+    }
+    
+    func setExercise(_exerciseId: NSNumber, _name: String) {
+        self._exerciseId = _exerciseId
+        self._name = _name
+    }
+    
     func createExercise() {
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         
         // Create data object using data models you downloaded from Mobile Hub
-        let exerciseItem: Exercise = Exercise()
-        
-        exerciseItem._exerciseId = 123
-        
-        exerciseItem._name = "Bicep Curl"
-        
-        //Save a new item
-        dynamoDbObjectMapper.save(exerciseItem, completionHandler: {
-            (error: Error?) -> Void in
+        let exerciseList = UtilityFunctions.getExerciseList()
+        for(index, element) in exerciseList.enumerated() {
+            let exerciseItem: Exercise = Exercise()
             
-            if let error = error {
-                print("Amazon DynamoDB Save Error: \(error)")
-                return
-            }
-            print("An item was saved.")
-        })
+            exerciseItem._exerciseId = NSNumber(value: Int(index))
+            exerciseItem._name = element
+            
+            //Save a new item
+            dynamoDbObjectMapper.save(exerciseItem, completionHandler: {
+                (error: Error?) -> Void in
+                
+                if let error = error {
+                    print("Amazon DynamoDB Save Error: \(error)")
+                    return
+                }
+                print("An item was saved.")
+            })
+        }
+
     }
     
     func getExercise() {
@@ -84,14 +100,14 @@ class Exercise: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     func queryExercise() {
         // 1) Configure the query
         let queryExpression = AWSDynamoDBQueryExpression()
-        queryExpression.keyConditionExpression = "#exerciseId = :exerciseId"
+     /*   queryExpression.keyConditionExpression = "#exerciseId = :exerciseId"
         
         queryExpression.expressionAttributeNames = [
             "#exerciseId": "exerciseId",
         ]
         queryExpression.expressionAttributeValues = [
             ":exerciseId": 1
-        ]
+        ] */
         
         // 2) Make the query
         
@@ -109,5 +125,4 @@ class Exercise: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             }
         }
     }
-    
 }

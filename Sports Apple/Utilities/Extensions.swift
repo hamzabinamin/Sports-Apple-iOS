@@ -22,6 +22,11 @@ extension UIViewController {
     }
 }
 
+extension Notification.Name {
+    static let showLoginVC = Notification.Name("showLoginVC")
+}
+
+
 extension Date {
     func toString( dateFormat format  : String ) -> String {
         let dateFormatter = DateFormatter()

@@ -169,29 +169,6 @@
             </objects>
             <point key="canvasLocation" x="-1419" y="-78"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="eMY-Lh-whj">
-            <objects>
-                <viewController id="v2U-T7-HGv" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GRK-go-pzn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="DmU-QB-aSs"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hTk-Fi-5Kk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2568" y="368"/>
-        </scene>
-        <!--TabBarVC-->
-        <scene sceneID="VZb-bb-JIm">
-            <objects>
-                <viewControllerPlaceholder storyboardName="TabBar" referencedIdentifier="TabBarVC" id="vc2-Ae-PD9" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1mx-H8-gPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1889" y="484"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Background" width="375" height="812"/>

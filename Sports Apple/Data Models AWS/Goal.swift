@@ -45,4 +45,21 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_exerciseId" : "exerciseId",
         ]
     }
+    
+    func createGoal(goalItem: Goal) {
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        // Create data object using data models you downloaded from Mobile Hub
+        
+            //Save a new item
+            dynamoDbObjectMapper.save(goalItem, completionHandler: {
+                (error: Error?) -> Void in
+                
+                if let error = error {
+                    print("Amazon DynamoDB Save Error: \(error)")
+                    return
+                }
+                print("An item was saved.")
+            })
+    }
 }

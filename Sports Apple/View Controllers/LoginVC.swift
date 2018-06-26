@@ -29,30 +29,38 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         setupViews()
-        
-        //AWSCognitoUserPoolsSignInProvider.sharedInstance().setInteractiveAuthDelegate(self)
-        //AWSSignInManager.sharedInstance().register(signInProvider: AWSCognitoUserPoolsSignInProvider.sharedInstance())
-        //AWSIdentityManager.defaultIdentityManager().logins().
-        
-        //self.pool = AWSCognitoIdentityUserPool.init(forKey: AWSCognitoUserPoolsSignInProviderKey)
-        
-     /*   if (self.user == nil) {
-            self.user = self.pool.currentUser()
-            print("Username:")
-            self.user?.signOut()
-        } */
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if pool.currentUser()?.getSession() != nil {
-            print(pool.currentUser()?.getSession())
+            print("Session there")
+            
+            if (pool.currentUser()?.isSignedIn)! {
+                print("User logged in 1st")
+                print("Username in LoginVC: ", pool.currentUser()?.username)
+                goToActivitySessionsVC()
+            }
+            else {
+                 print("User not logged in 1st")
+            }
         }
         else {
-            //print("No Session")
+            print("No Session")
            // print("Here: ", pool.currentUser()?.getDetails())
             (UIApplication.shared.delegate as! AppDelegate).pool?.getUser().getDetails()
+            
+         /*   if ((UIApplication.shared.delegate as! AppDelegate).pool?.getUser().isSignedIn)! {
+                print("User logged in")
+            }
+            else {
+                (UIApplication.shared.delegate as! AppDelegate).pool?.getUser().getDetails()
+                pool.currentUser()?.getDetails()
+                  print("User not logged in")
+            } */
+            
+            
             //let user = appDelegate.pool!.currentUser()
             //let details = user!.getDetails()
         }
@@ -83,19 +91,8 @@ class LoginVC: UIViewController {
         signUpLabel.addGestureRecognizer(tap2)
     }
     
-
- /*   func didCompleteStepWithError(_ error: Error?) {
-        if error != nil {
-            let alertController = UIAlertController(title: error?.localizedDescription, message: "error", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
-            
-            self.present(alertController, animated: true, completion: nil)
-        } else {
-            print("logged in")
-        }
-    } */
-    
     @objc func loginUser() {
+        self.showHUD(hud: hud!)
         print("Got inside Login func")
         if (self.emailTF.text != nil && self.passwordTF.text != nil) {
             print("Calling login method now")
@@ -103,6 +100,7 @@ class LoginVC: UIViewController {
            self.passwordAuthenticationCompletion?.set(result: authDetails)
             
         } else {
+            self.hideHUD(hud: hud!)
             self.showErrorHUD(text: "Please enter a valid user name and password")
         }
     }
@@ -130,7 +128,7 @@ class LoginVC: UIViewController {
         let storyboard = UIStoryboard(name: "Verification", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "VerificationVC") as! VerificationVC
         destVC.sentTo = sentTo
-        destVC.user = user
+        destVC.user = (UIApplication.shared.delegate as! AppDelegate).pool?.getUser()
         self.navigationController?.pushViewController(destVC, animated: true)
     }
     
@@ -175,8 +173,9 @@ class LoginVC: UIViewController {
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         if (self.user == nil) {
             self.user = self.pool.currentUser()
+    
         }
-        self.user?.getDetails().continueOnSuccessWith { (task) -> AnyObject? in
+       /* self.user?.getDetails().continueOnSuccessWith { (task) -> AnyObject? in
             DispatchQueue.main.async(execute: {
                 let response = task.result
                // print(response.idTok)
@@ -186,7 +185,7 @@ class LoginVC: UIViewController {
                 print("Attribute Value: ", userAttribute?.value!)
             })
             return nil
-        }
+        } */
         
         
         if UtilityFunctions.getUserDefaults() != nil {
@@ -196,7 +195,7 @@ class LoginVC: UIViewController {
                 storedUser.userID = (self.user?.username!)!
                 
                 user?.createUser(userId: storedUser.userID, firstName: storedUser.firstName, lastName: storedUser.lastName, trainerEmail: storedUser.trainerEmail, biceps: storedUser.biceps, calves: storedUser.calves, chest: storedUser.chest, dOB: storedUser.dOB, forearms: storedUser.forearms, height: storedUser.height, hips: storedUser.hips, location: storedUser.location, neck: storedUser.neck, thighs: storedUser.thighs, waist: storedUser.waist, weight: storedUser.weight, wrist: storedUser.wrist, completion: { response in
-                    
+                    self.hideHUD(hud: self.hud!)
                     if response == "success" {
                         print("Got here success")
                         UtilityFunctions.saveUserDefaults(value: UserItem())
@@ -205,9 +204,14 @@ class LoginVC: UIViewController {
                     
                 })
             }
+            else {
+                self.hideHUD(hud: hud!)
+                goToActivitySessionsVC()
+            }
         }
         else {
-            goToActivitySessionsVC()
+             self.hideHUD(hud: hud!)
+           // goToActivitySessionsVC()
         }
     }
     
@@ -220,7 +224,7 @@ extension LoginVC: AWSCognitoIdentityPasswordAuthentication {
         self.passwordAuthenticationCompletion = passwordAuthenticationCompletionSource
         DispatchQueue.main.async {
             if (self.usernameText == nil) {
-                self.usernameText = authenticationInput.lastKnownUsername
+                //self.usernameText = authenticationInput.lastKnownUsername
             }
         }
        // processUser()
@@ -230,6 +234,7 @@ extension LoginVC: AWSCognitoIdentityPasswordAuthentication {
         print("Did commplete step with error called")
         DispatchQueue.main.async {
             if let error = error as NSError? {
+                self.hideHUD(hud: self.hud!)
                 print(error.code)
                 if error.code == 20 {
                     // Incorrect username or password

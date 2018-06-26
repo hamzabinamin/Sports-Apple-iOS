@@ -16,6 +16,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(goToLoginVC), name: .showLoginVC, object: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,8 +50,11 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func goToLogOutVC() {
-        
+    @objc func goToLoginVC() {
+      //  let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      //  let destVC = storyboard.instantiateViewController(withIdentifier: "LoginVC")
+     //   self.navigationController?.pushViewController(destVC, animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 
 }
