@@ -19,11 +19,14 @@ import AWSDynamoDB
 class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     var _userId: String?
+    var _goalId: String?
+    var _calories: NSNumber?
+    var _date: String?
     var _distance: NSNumber?
     var _time: NSNumber?
-    var _totals: NSNumber?
     var _weight: NSNumber?
-    var _exerciseId: NSNumber?
+    var _yearlyGoal: String?
+    var _exerciseId: String?
     
     class func dynamoDBTableName() -> String {
 
@@ -35,31 +38,41 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         return "_userId"
     }
     
+    class func rangeKeyAttribute() -> String {
+
+        return "_goalId"
+    }
+    
     override class func jsonKeyPathsByPropertyKey() -> [AnyHashable: Any] {
         return [
                "_userId" : "userId",
+               "_goalId" : "goalId",
+               "_calories" : "Calories",
+               "_date" : "Date",
                "_distance" : "Distance",
                "_time" : "Time",
-               "_totals" : "Totals",
                "_weight" : "Weight",
+               "_yearlyGoal" : "Yearly Goal",
                "_exerciseId" : "exerciseId",
         ]
     }
     
-    func createGoal(goalItem: Goal) {
+    func createGoal(goalItem: Goal, completion: @escaping (_ success: String) -> Void) {
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         
         // Create data object using data models you downloaded from Mobile Hub
         
-            //Save a new item
-            dynamoDbObjectMapper.save(goalItem, completionHandler: {
-                (error: Error?) -> Void in
-                
-                if let error = error {
-                    print("Amazon DynamoDB Save Error: \(error)")
-                    return
-                }
-                print("An item was saved.")
-            })
+        //Save a new item
+        dynamoDbObjectMapper.save(goalItem, completionHandler: {
+            (error: Error?) -> Void in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                completion(error.localizedDescription)
+                return
+            }
+            print("success")
+            completion("success")
+        })
     }
 }
