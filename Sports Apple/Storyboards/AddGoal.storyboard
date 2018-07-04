@@ -24,6 +24,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHB-au-kUn">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.50366545376712324" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u1D-cA-AsS">
                                 <rect key="frame" x="35" y="90" width="305" height="487"/>
                                 <subviews>
@@ -259,17 +263,21 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="1On-oG-ezS" firstAttribute="trailing" secondItem="EHB-au-kUn" secondAttribute="trailing" id="5ZX-ID-60d"/>
                             <constraint firstItem="u1D-cA-AsS" firstAttribute="centerX" secondItem="nRA-Up-Ex4" secondAttribute="centerX" id="A44-Cs-EEf"/>
                             <constraint firstItem="u1D-cA-AsS" firstAttribute="centerY" secondItem="nRA-Up-Ex4" secondAttribute="centerY" id="DdX-bU-ndY"/>
                             <constraint firstItem="u1D-cA-AsS" firstAttribute="top" secondItem="1On-oG-ezS" secondAttribute="top" constant="70" id="Mki-KL-mYX"/>
+                            <constraint firstItem="1On-oG-ezS" firstAttribute="bottom" secondItem="EHB-au-kUn" secondAttribute="bottom" id="Qgy-NY-vca"/>
                             <constraint firstItem="u1D-cA-AsS" firstAttribute="leading" secondItem="1On-oG-ezS" secondAttribute="leading" constant="35" id="SwB-Cy-cxh"/>
+                            <constraint firstItem="EHB-au-kUn" firstAttribute="top" secondItem="nRA-Up-Ex4" secondAttribute="top" id="aRK-lR-28A"/>
                             <constraint firstItem="1On-oG-ezS" firstAttribute="trailing" secondItem="u1D-cA-AsS" secondAttribute="trailing" constant="35" id="bKl-75-tbu"/>
+                            <constraint firstItem="EHB-au-kUn" firstAttribute="leading" secondItem="1On-oG-ezS" secondAttribute="leading" id="u07-Cl-gL8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1On-oG-ezS"/>
                     </view>
                     <connections>
+                        <outlet property="backView" destination="EHB-au-kUn" id="5SV-kw-aqG"/>
                         <outlet property="completeButton" destination="jSJ-SZ-6XS" id="PV7-nJ-Uum"/>
                         <outlet property="exerciseListTF" destination="47n-kC-odL" id="Hdh-8c-zXX"/>
                         <outlet property="favoritesListTF" destination="cfi-uQ-iET" id="Xdr-zE-c8C"/>

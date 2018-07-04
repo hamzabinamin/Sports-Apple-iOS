@@ -75,4 +75,51 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             completion("success")
         })
     }
+    
+    func queryGoal(userId: String, completion: @escaping (_ success: String, _ goalArray: [Goal]) -> Void) {
+        var goalArray: [Goal] = []
+        let exercise: Exercise = Exercise()
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "#userId = :userId"
+        
+        queryExpression.expressionAttributeNames = [
+            "#userId": "userId",
+        ]
+        queryExpression.expressionAttributeValues = [
+            ":userId": userId
+        ]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        dynamoDbObjectMapper.query(Goal.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+            if error != nil {
+                print("The request failed. Error: \(String(describing: error))")
+                completion((error?.localizedDescription)!, [])
+            }
+            if output != nil {
+                for goal in output!.items {
+                    let goalItem = goal as? Goal
+                    goalArray.append(goalItem!)
+                }
+                
+                for(index, element) in goalArray.enumerated() {
+                    exercise.queryExercise(exerciseId: NSNumber(value: Int(element._exerciseId!)!), completion: { (response, responseExercise) in
+                        
+                        if response == "success" {
+                            goalArray[index]._exerciseId = responseExercise
+                            
+                            if index == goalArray.count - 1 {
+                                print("Sending result now")
+                                completion("success", goalArray)
+                            }
+                        }
+                        else {
+                            completion(response, [])
+                        }
+                    })
+                
+                    
+                }
+            }
+        }
+    }
 }

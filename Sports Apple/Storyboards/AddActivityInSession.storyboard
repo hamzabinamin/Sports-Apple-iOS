@@ -15,6 +15,7 @@
             <string>Avenir-Book</string>
             <string>Avenir-Light</string>
             <string>Avenir-Medium</string>
+            <string>Avenir-MediumOblique</string>
         </array>
     </customFonts>
     <scenes>
@@ -67,9 +68,6 @@
                                             <constraint firstAttribute="width" constant="25" id="vym-GW-GHp"/>
                                         </constraints>
                                         <state key="normal" image="Add"/>
-                                        <connections>
-                                            <segue destination="8ge-TV-Rai" kind="presentation" id="vI6-dX-zHa"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.20824921129999999" green="0.53039246799999995" blue="0.80533033610000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -216,16 +214,24 @@
                                     <outlet property="delegate" destination="iai-qN-QSp" id="8jp-lh-k4i"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add activities to your session" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRZ-7w-dEQ">
+                                <rect key="frame" x="55" y="320.5" width="265.5" height="27.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FVU-6x-aEj" firstAttribute="leading" secondItem="FRD-KB-MRK" secondAttribute="leading" id="0wP-sy-UlY"/>
+                            <constraint firstItem="aRZ-7w-dEQ" firstAttribute="centerY" secondItem="FRD-KB-MRK" secondAttribute="centerY" id="2Np-In-0dG"/>
                             <constraint firstItem="Bj0-WB-L0j" firstAttribute="trailing" secondItem="mpm-X5-BMX" secondAttribute="trailing" id="4Cd-aK-RCF"/>
                             <constraint firstItem="FVU-6x-aEj" firstAttribute="top" secondItem="FRD-KB-MRK" secondAttribute="top" id="GO1-qj-EhD"/>
                             <constraint firstItem="2XY-t0-ssY" firstAttribute="centerX" secondItem="FRD-KB-MRK" secondAttribute="centerX" id="JQi-jc-bXR"/>
                             <constraint firstItem="2XY-t0-ssY" firstAttribute="top" secondItem="Bj0-WB-L0j" secondAttribute="top" constant="20" id="KlT-SD-yQ1"/>
                             <constraint firstItem="Bj0-WB-L0j" firstAttribute="bottom" secondItem="mpm-X5-BMX" secondAttribute="bottom" id="PHv-n6-WhI"/>
                             <constraint firstItem="fUx-Ta-7Ug" firstAttribute="leading" secondItem="Bj0-WB-L0j" secondAttribute="leading" id="TUo-4p-CjR"/>
+                            <constraint firstItem="aRZ-7w-dEQ" firstAttribute="centerX" secondItem="FRD-KB-MRK" secondAttribute="centerX" id="Wf2-sH-gRz"/>
                             <constraint firstItem="FVU-6x-aEj" firstAttribute="trailing" secondItem="Bj0-WB-L0j" secondAttribute="trailing" id="bMT-BO-pcO"/>
                             <constraint firstItem="JgA-5E-dik" firstAttribute="leading" secondItem="Bj0-WB-L0j" secondAttribute="leading" constant="35" id="cbI-8x-mBa"/>
                             <constraint firstItem="JgA-5E-dik" firstAttribute="top" secondItem="FRD-KB-MRK" secondAttribute="top" constant="30" id="coh-FF-xqm"/>
@@ -242,8 +248,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" image="Activity" id="0oT-uU-es1"/>
                     <connections>
+                        <outlet property="activitiesLabel" destination="aRZ-7w-dEQ" id="IuI-jT-fAw"/>
+                        <outlet property="addButton" destination="ZCd-dN-L71" id="Z1p-Lt-2Wb"/>
                         <outlet property="backImageView" destination="k43-O5-QOq" id="Mdn-LD-V4H"/>
                         <outlet property="tableView" destination="mpm-X5-BMX" id="Ehb-es-5F9"/>
+                        <segue destination="8ge-TV-Rai" kind="show" id="ggJ-Ns-0Li"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GJN-aX-aoe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -268,7 +277,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="305" height="487"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwq-eJ-9dO">
-                                        <rect key="frame" x="94" y="35" width="119" height="25"/>
+                                        <rect key="frame" x="93" y="35" width="119" height="25"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <color key="textColor" red="0.1019607843" green="0.30196078430000001" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -612,7 +621,7 @@
                                             <constraint firstAttribute="height" constant="40" id="U2x-hP-WSn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                        <state key="normal" title="Complete">
+                                        <state key="normal" title="Add">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>

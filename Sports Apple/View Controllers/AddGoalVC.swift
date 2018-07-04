@@ -19,17 +19,22 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     @IBOutlet weak var goalTypeTF: UITextField!
     @IBOutlet weak var goalAmountTF: UITextField!
     @IBOutlet weak var yearlyGoalTF: UITextField!
+    @IBOutlet weak var backView: UIView!
     var hud: JGProgressHUD?
     var activeField: UITextField?
     let picker = UIPickerView()
     var pool: AWSCognitoIdentityUserPool?
     var exerciseArray: [Exercise] = []
-    let numberArray = [Int](1...1000)
+    let numberArray = [Int](1...50000)
+    let hourArray = [Int](0...12)
+    let minArray = [Int](0...60)
     let goalTypeArray: [String] = ["Weight Goal", "Distance Goal", "Time Goal", "Calories Goal"]
     let yearlyGoalArray: [String] = ["Yes", "No"]
     let weightUnit = "lbs"
     let distanceUnit = "miles"
     let caloriesUnit = "calories"
+    let hourUnit = "hour"
+    let minUnit = "min"
     var exerciseID = ""
     
     override func viewDidLoad() {
@@ -56,7 +61,10 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         if activeField == goalAmountTF {
             let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            if type == "Distance Goal" {
+            if type == "Time Goal" {
+                return 4
+            }
+            else if type == "Distance Goal" {
                 return 2
             }
             else if type == "Weight Goal" {
@@ -76,7 +84,21 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         if activeField == goalAmountTF {
             let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            if type == "Distance Goal" {
+            if type == "Time Goal" {
+                if component == 0 {
+                    return String(hourArray[row])
+                }
+                else if component == 1 {
+                    return hourUnit
+                }
+                else if component == 2 {
+                    return String(minArray[row])
+                }
+                else if component == 3 {
+                    return minUnit
+                }
+            }
+            else if type == "Distance Goal" {
                 if component == 0 {
                     return String(numberArray[row])
                 }
@@ -121,7 +143,21 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         if activeField == goalAmountTF {
             let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            if type == "Distance Goal" {
+            if type == "Time Goal" {
+                if component == 0 {
+                    return hourArray.count
+                }
+                else if component == 1 {
+                    return 1
+                }
+                else if component == 2 {
+                    return minArray.count
+                }
+                else if component == 3 {
+                    return 1
+                }
+            }
+            else if type == "Distance Goal" {
                 if component == 0 {
                     return numberArray.count
                 }
@@ -164,23 +200,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         }
         return 0
     }
-    
-  /*  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if activeField == exerciseListTF {
-            return exerciseArray[row]._name
-        }
-        else if activeField == favoritesListTF {
-            return exerciseArray[row]._name
-        }
-        else if activeField == goalTypeTF {
-            return goalTypeArray[row]
-        }
-        else if activeField == yearlyGoalTF {
-            return yearlyGoalArray[row]
-        }
-        return ""
-    } */
-    
+
     func setupViews() {
         self.hideKeyboardWhenTappedAround()
         self.hud = self.createLoadingHUD()
@@ -200,6 +220,9 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         goalAmountTF.addPadding(.left(35))
         yearlyGoalTF.addPadding(.left(35))
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissView))
+        backView.isUserInteractionEnabled = true
+        backView.addGestureRecognizer(tap)
         completeButton.addTarget(self, action: #selector(addGoal), for: .touchUpInside)
     }
     
@@ -256,15 +279,35 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             }
             return()
         })
+    }
+    
+    func validation(type: String, amount: String, yearlyGoal: String) -> Bool {
         
+        if exerciseID.count > 0 && type.count > 0 && amount.count > 0 && yearlyGoal.count > 0 {
+            
+            return true
+        }
+        self.showErrorHUD(text: "Please fill the required fields")
+        return false
+    }
+    
+    func clearFields() {
+        self.exerciseListTF.text = ""
+        self.favoritesListTF.text = ""
+        self.goalTypeTF.text = ""
+        self.goalAmountTF.text = ""
+        self.yearlyGoalTF.text = ""
+    }
+    
+    @objc func dismissView() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func donePicker() {
-        
         if activeField == exerciseListTF {
             exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
             exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
-            favoritesListTF.perform(
+            goalTypeTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
                 afterDelay: 0.1
@@ -292,7 +335,10 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         else if activeField == goalAmountTF {
             let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            if type == "Distance Goal" {
+            if type == "Time Goal" {
+                goalAmountTF.text = "\(hourArray[picker.selectedRow(inComponent: 0)])" + ":" + "\(minArray[picker.selectedRow(inComponent: 2)])"
+            }
+            else if type == "Distance Goal" {
             goalAmountTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])" + " " + distanceUnit
             }
             else if type == "Weight Goal" {
@@ -317,32 +363,24 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         self.view.endEditing(true)
     }
     
-    func validation(type: String, amount: String, yearlyGoal: String) -> Bool {
-        
-        if exerciseID.count > 0 && type.count > 0 && amount.count > 0 && yearlyGoal.count > 0 {
-
-            return true
-        }
-        self.showErrorHUD(text: "Please fill all fields")
-        return false
-    }
-    
     @objc func addGoal() {
         let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let amount = goalAmountTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let yearlyGoal = yearlyGoalTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if validation(type: type!, amount: amount!, yearlyGoal: yearlyGoal!) {
-            //self.showHUD(hud: hud!)
+            self.showHUD(hud: hud!)
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yyyy h:mm a"
             let goalItem: Goal = Goal()
             goalItem._exerciseId = exerciseID
             
             if type == "Time Goal" {
-                let timeS = amount?.replacingOccurrences(of: "", with: "")
-                let time = Int(timeS!)
-                goalItem._time = NSNumber(value: time!)
+                let store = amount?.split(separator: ":")
+                let hours = Int(store![0])
+                let minutes = Int(store![1])
+                let seconds = (hours! * 60 * 60) + (minutes! * 60)
+                goalItem._time = NSNumber(value: seconds)
             }
             else if type == "Distance Goal" {
                 let distanceS = amount?.replacingOccurrences(of: " miles", with: "")
@@ -365,15 +403,22 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             goalItem._goalId = NSUUID().uuidString
             goalItem._date = formatter.string(from: Date())
             goalItem.createGoal(goalItem: goalItem, completion: { (response) in
-                //self.hideHUD(hud: self.hud!)
+                
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                }
                 
                 if response == "success" {
-                 //   self.showSuccessHUD(text: response)
+                   DispatchQueue.main.async {
+                        self.clearFields()
+                        self.showSuccessHUD(text: response)
+                    }
                 }
                 else {
-                //    self.showErrorHUD(text: response)
+                    DispatchQueue.main.async {
+                        self.showErrorHUD(text: response)
+                    }
                 }
-                
             })
         }
      }

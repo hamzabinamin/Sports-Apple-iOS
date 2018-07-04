@@ -10,8 +10,12 @@ import UIKit
 
 class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var activitiesLabel: UILabel!
     @IBOutlet weak var backImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    var session: Activity = Activity()
+    var dict: [[String: Any]] = []
     var array: [ExerciseItem] = []
     let e1 = ExerciseItem(exerciseID: "1", exerciseName: "Deadlift", exerciseWeightAmount: 25, exerciseCount: 0, exerciseReps: 12, exerciseSets: 3, exerciseTime: 0, exerciseDistance: 0, exerciseComment: "Great workout")
     let e2 = ExerciseItem(exerciseID: "1", exerciseName: "Running", exerciseWeightAmount: 0, exerciseCount: 0, exerciseReps: 0, exerciseSets: 0, exerciseTime: 0, exerciseDistance: 1200, exerciseComment: "What a run!")
@@ -19,11 +23,9 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
         
-        setupTaps()
-        array.append(e1)
-        array.append(e2)
-        array.append(e3)
+         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView(notification:)), name: .updateActivityTV, object: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -46,7 +48,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             cell.repsLabel.isHidden = false
             cell.distanceTimeLabel.isHidden = true
             
-            cell.weightLabel.text = String(array[indexPath.row].exerciseWeightAmount) + " KG"
+            cell.weightLabel.text = String(array[indexPath.row].exerciseWeightAmount) + " lbs"
             cell.setsLabel.text = String(array[indexPath.row].exerciseSets) + " Sets"
             cell.repsLabel.text = String(array[indexPath.row].exerciseReps) + " Reps"
             
@@ -86,14 +88,39 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
 
-    func setupTaps() {
+    func setupViews() {
+        self.tableView.tableFooterView = UIView()
         let tapBack = UITapGestureRecognizer(target: self, action: #selector(back))
         backImageView.isUserInteractionEnabled = true
         backImageView.addGestureRecognizer(tapBack)
+        addButton.addTarget(self, action: #selector(goToExerciseDetailsVC), for: .touchUpInside)
     }
     
     @objc func back() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func updateTableView(notification: Notification) {
+        //array = dict.map { $0 }.sorted { $0 < $1.key }
+        
+        if let responseDict = notification.userInfo?["dict"] as? [String:Any] {
+            dict.append(responseDict)
+            
+            for (k, v) in dict {
+                let temp = (k, v)
+                tableInfo.append(temp)
+            }
+            
+            tableView.reloadData()
+        }
+    }
+    
+    @objc func goToExerciseDetailsVC() {
+        let storyboard = UIStoryboard(name: "AddActivityInSession", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "ExerciseDetailsVC") as! ExerciseDetailsVC
+        destVC.session = session
+        self.present(destVC, animated: true, completion: .none)
+        
     }
     
     

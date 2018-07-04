@@ -7,21 +7,43 @@
 //
 
 import UIKit
+import JGProgressHUD
+import AWSCognitoIdentityProvider
 
 class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var noGoalsLabel: UILabel!
     @IBOutlet weak var addImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
-    var array: [GoalsItem] = []
+    var hud: JGProgressHUD?
+    var pool: AWSCognitoIdentityUserPool?
+    var array: [Goal] = []
+    let goal: Goal = Goal()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupAddImageView()
+        setupViews()
         
-        array.append(GoalsItem(activity: "Arnold Press", goalType: "Weight Goal", goalAmount: 18))
-        array.append(GoalsItem(activity: "Bench Press", goalType: "Weight Goal", goalAmount: 20))
-        array.append(GoalsItem(activity: "Plank", goalType: "Time Goal", goalAmount: 240000))
-    
+        self.showHUD(hud: hud!)
+        goal.queryGoal(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+            if response == "success" {
+                self.array = responseArray
+                
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    self.noGoalsLabel.isHidden = true
+                    self.tableView.reloadData()
+                }
+                
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.showErrorHUD(text: response)
+                    self.noGoalsLabel.isHidden = false
+                }
+            }
+            
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -34,14 +56,28 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GoalsTVCell
-        cell.activityLabel.text = array[indexPath.row].activity
-        cell.goalTypeLabel.text = array[indexPath.row].goalType
+        let goal = array[indexPath.row]
+        cell.activityLabel.text = goal._exerciseId
         
-        if array[indexPath.row].goalType == "Time Goal" {
-            cell.goalAmountLabel.text = array[indexPath.row].goalAmount.msToSeconds.minuteSecond
+        if goal._time != nil {
+            cell.goalTypeLabel.text = "Time Goal"
+            cell.goalAmountLabel.text = "\((goal._time!.intValue) / 3600)" + ":" + "\((goal._time!.intValue) / 60)"
         }
-        else if array[indexPath.row].goalType == "Weight Goal" {
-            cell.goalAmountLabel.text = String(array[indexPath.row].goalAmount) + " KG"
+        else if goal._weight != nil {
+            cell.goalTypeLabel.text = "Weight Goal"
+            cell.goalAmountLabel.text = "\(goal._weight!)" + " lbs"
+        }
+        else if goal._time != nil {
+            cell.goalTypeLabel.text = "Time Goal"
+            cell.goalAmountLabel.text = Int(goal._time!).msToSeconds.minuteSecond
+        }
+        else if goal._calories != nil {
+            cell.goalTypeLabel.text = "Calories Goal"
+            cell.goalAmountLabel.text = "\(goal._calories!)" + " calories"
+        }
+        else if goal._distance != nil {
+            cell.goalTypeLabel.text = "Distance Goal"
+               cell.goalAmountLabel.text = "\(goal._distance!)" + " miles"
         }
         
         return cell
@@ -51,7 +87,10 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func setupAddImageView() {
+    func setupViews() {
+        self.hud = self.createLoadingHUD()
+        self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
+        self.tableView.tableFooterView = UIView()
         let tap = UITapGestureRecognizer(target: self, action: #selector(goToAddGoalVC))
         addImageView.isUserInteractionEnabled = true
         addImageView.addGestureRecognizer(tap)

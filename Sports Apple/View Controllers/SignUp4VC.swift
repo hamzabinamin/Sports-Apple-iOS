@@ -31,7 +31,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     var sentTo = ""
     let inchesArray = [Int](1...100)
     let inchesDecimalArray = [Int](0...9)
-    let inchesSymbol = ["Inches"]
+    let inchesSymbol = ["inches"]
     var store: AWSCognitoIdentityUser?
 
     override func viewDidLoad() {

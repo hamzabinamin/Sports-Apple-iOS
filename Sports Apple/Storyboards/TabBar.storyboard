@@ -52,7 +52,7 @@
                                     <constraint firstAttribute="width" constant="56" id="Mnp-Iz-JGd"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="171" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VoM-0T-fEM">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="171" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VoM-0T-fEM">
                                 <rect key="frame" x="0.0" y="121" width="375" height="546"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -117,14 +117,22 @@
                                     <outlet property="delegate" destination="lMz-JK-QY2" id="0D7-Qs-vHb"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't added any goals" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0aM-Pf-Xr2">
+                                <rect key="frame" x="58" y="320.5" width="260" height="27.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="w73-53-HOs" firstAttribute="top" secondItem="2yl-Tk-szi" secondAttribute="top" constant="10" id="08B-id-gaQ"/>
                             <constraint firstItem="2yl-Tk-szi" firstAttribute="trailing" secondItem="w73-53-HOs" secondAttribute="trailing" constant="15" id="4Cu-gV-dGK"/>
                             <constraint firstItem="hMF-iD-6Ih" firstAttribute="trailing" secondItem="2yl-Tk-szi" secondAttribute="trailing" id="7Rr-ss-KC6"/>
+                            <constraint firstItem="0aM-Pf-Xr2" firstAttribute="centerY" secondItem="D27-TP-GOB" secondAttribute="centerY" id="8We-2V-s5D"/>
                             <constraint firstItem="IsQ-mC-6iO" firstAttribute="top" secondItem="2yl-Tk-szi" secondAttribute="top" constant="20" id="EnR-g0-0bK"/>
                             <constraint firstItem="VoM-0T-fEM" firstAttribute="top" secondItem="hMF-iD-6Ih" secondAttribute="bottom" constant="15" id="FqE-eW-fWa"/>
+                            <constraint firstItem="0aM-Pf-Xr2" firstAttribute="centerX" secondItem="D27-TP-GOB" secondAttribute="centerX" id="QyO-rn-Ot8"/>
                             <constraint firstItem="hMF-iD-6Ih" firstAttribute="leading" secondItem="2yl-Tk-szi" secondAttribute="leading" id="RlO-Ph-I3p"/>
                             <constraint firstItem="IsQ-mC-6iO" firstAttribute="centerX" secondItem="D27-TP-GOB" secondAttribute="centerX" id="ZUJ-PK-twD"/>
                             <constraint firstItem="Smn-QL-ZlO" firstAttribute="leading" secondItem="2yl-Tk-szi" secondAttribute="leading" constant="35" id="cRa-ee-nA0"/>
@@ -139,6 +147,7 @@
                     <tabBarItem key="tabBarItem" title="Goals" image="Goals" id="GZc-yf-YhZ"/>
                     <connections>
                         <outlet property="addImageView" destination="w73-53-HOs" id="Wh2-rg-CoX"/>
+                        <outlet property="noGoalsLabel" destination="0aM-Pf-Xr2" id="q0v-9B-kXP"/>
                         <outlet property="tableView" destination="VoM-0T-fEM" id="hhd-tP-UAt"/>
                     </connections>
                 </viewController>

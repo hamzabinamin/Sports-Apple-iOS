@@ -97,30 +97,32 @@ class Exercise: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         })
     }
     
-    func queryExercise() {
+    func queryExercise(exerciseId: NSNumber, completion: @escaping(_ success: String, _ exercise: String) -> Void) {
+        print("Getting Exercise")
         // 1) Configure the query
         let queryExpression = AWSDynamoDBQueryExpression()
-     /*   queryExpression.keyConditionExpression = "#exerciseId = :exerciseId"
+        queryExpression.keyConditionExpression = "#exerciseId = :exerciseId"
         
         queryExpression.expressionAttributeNames = [
             "#exerciseId": "exerciseId",
         ]
         queryExpression.expressionAttributeValues = [
-            ":exerciseId": 1
-        ] */
+            ":exerciseId": exerciseId
+        ]
         
         // 2) Make the query
-        
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         
         dynamoDbObjectMapper.query(Exercise.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
             if error != nil {
-                print("The request failed. Error: \(String(describing: error))")
+                print(error!.localizedDescription)
+                completion((error?.localizedDescription)!, "")
             }
             if output != nil {
                 for exercise in output!.items {
                     let exerciseItem = exercise as? Exercise
                     print("\(exerciseItem!._name!)")
+                    completion("success", (exerciseItem?._name)!)
                 }
             }
         }
