@@ -7,23 +7,34 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var activitiesLabel: UILabel!
     @IBOutlet weak var backImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    var hud: JGProgressHUD?
     var session: Activity = Activity()
     var dict: [[String: Any]] = []
     var array: [ExerciseItem] = []
-    let e1 = ExerciseItem(exerciseID: "1", exerciseName: "Deadlift", exerciseWeightAmount: 25, exerciseCount: 0, exerciseReps: 12, exerciseSets: 3, exerciseTime: 0, exerciseDistance: 0, exerciseComment: "Great workout")
+    
+  /*  let e1 = ExerciseItem(exerciseID: "1", exerciseName: "Deadlift", exerciseWeightAmount: 25, exerciseCount: 0, exerciseReps: 12, exerciseSets: 3, exerciseTime: 0, exerciseDistance: 0, exerciseComment: "Great workout")
     let e2 = ExerciseItem(exerciseID: "1", exerciseName: "Running", exerciseWeightAmount: 0, exerciseCount: 0, exerciseReps: 0, exerciseSets: 0, exerciseTime: 0, exerciseDistance: 1200, exerciseComment: "What a run!")
-    let e3 = ExerciseItem(exerciseID: "1", exerciseName: "Cycling", exerciseWeightAmount: 0, exerciseCount: 0, exerciseReps: 0, exerciseSets: 0, exerciseTime: 245400, exerciseDistance: 0, exerciseComment: "Feeling pumped")
+    let e3 = ExerciseItem(exerciseID: "1", exerciseName: "Cycling", exerciseWeightAmount: 0, exerciseCount: 0, exerciseReps: 0, exerciseSets: 0, exerciseTime: 245400, exerciseDistance: 0, exerciseComment: "Feeling pumped") */
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        if array.count == 0 {
+            activitiesLabel.isHidden = false
+        }
+        else {
+            activitiesLabel.isHidden = true
+        }
         
          NotificationCenter.default.addObserver(self, selector: #selector(updateTableView(notification:)), name: .updateActivityTV, object: nil)
     }
@@ -72,7 +83,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             cell.countsLabel.isHidden = true
             cell.distanceTimeLabel.isHidden = false
             
-            cell.distanceTimeLabel.text = String(array[indexPath.row].exerciseDistance) + "\n Miles"
+            cell.distanceTimeLabel.text = String(array[indexPath.row].exerciseDistance) + " miles"
         }
         else if array[indexPath.row].exerciseTime != 0 {
             cell.weightLabel.isHidden = true
@@ -80,20 +91,24 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             cell.repsLabel.isHidden = true
             cell.countsLabel.isHidden = true
             cell.distanceTimeLabel.isHidden = false
-            cell.distanceTimeLabel.text = array[indexPath.row].exerciseTime.msToSeconds.minuteSecond
+            
+            let hours = array[indexPath.row].exerciseTime / 3600
+            let minutes = (array[indexPath.row].exerciseTime / 60) % 60
+            
+            cell.distanceTimeLabel.text = String(format: "%02d:%02d", hours, minutes)
         }
-        
-        
         
         return cell
     }
 
     func setupViews() {
+        self.hud = self.createLoadingHUD()
         self.tableView.tableFooterView = UIView()
         let tapBack = UITapGestureRecognizer(target: self, action: #selector(back))
         backImageView.isUserInteractionEnabled = true
         backImageView.addGestureRecognizer(tapBack)
         addButton.addTarget(self, action: #selector(goToExerciseDetailsVC), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
     }
     
     @objc func back() {
@@ -102,16 +117,58 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
     
     @objc func updateTableView(notification: Notification) {
         //array = dict.map { $0 }.sorted { $0 < $1.key }
-        
-        if let responseDict = notification.userInfo?["dict"] as? [String:Any] {
+        print("Got notification")
+        if let responseDict = notification.object as? [String: Any] {
             dict.append(responseDict)
+            print("Inside If")
+            print(dict.count)
+          /*  for (key,value) in responseDict {
+                
+                print()
+                
+               print("exerciseID: ", "\(value["exerciseID"])")
+                print("exerciseName: ", "\(value["exerciseName"])")
+                print("exerciseWeightAmount: ", Int("\(value["Weight Amount"])"))
+                print("exerciseCount: ", Int("\(value["Count"])"))
+                print("exerciseReps: ", Int("\(value["Reps"])"))
+                print("exerciseSets: ", Int("\(value["Sets"])"))
+                print("exerciseTime: ", Int("\(value["Time"])"))
+                print("exerciseDistance: ", Int("\(value["Distance"])"))
+                print("exerciseComment: ", "\(value["Exercise Comment"])")
+                
+                let exerciseItem = ExerciseItem(exerciseID: "\(key["exerciseID"] ?? 0)", exerciseName: "\(value["exerciseName"] ?? "")", exerciseWeightAmount: Int("\(value["Weight Amount"] ?? 0)")!, exerciseCount: Int("\(value["Count"] ?? 0)")!, exerciseReps: Int("\(value["Reps"] ?? 0)")!, exerciseSets: Int("\(value["Sets"] ?? 0)")!, exerciseTime: Int("\(value["Time"] ?? 0)")!, exerciseDistance: Int("\(value["Distance"] ?? 0)")!, exerciseComment: "\(value["Exercise Comment"] ?? "")")
+                
+               // array.append(exerciseItem)
+            } */
             
-            for (k, v) in dict {
-                let temp = (k, v)
-                tableInfo.append(temp)
+            let exerciseItem = ExerciseItem(exerciseID: "\(responseDict["exerciseID"] ?? 0)", exerciseName: "\(responseDict["exerciseName"] ?? "")", exerciseWeightAmount: Int("\(responseDict["Weight Amount"] ?? 0)")!, exerciseCount: Int("\(responseDict["Count"] ?? 0)")!, exerciseReps: Int("\(responseDict["Reps"] ?? 0)")!, exerciseSets: Int("\(responseDict["Sets"] ?? 0)")!, exerciseTime: Int("\(responseDict["Time"] ?? 0)")!, exerciseDistance: Int("\(responseDict["Distance"] ?? 0)")!, exerciseComment: "\(responseDict["Exercise Comment"] ?? "")")
+            array.append(exerciseItem)
+            activitiesLabel.isHidden = true
+            tableView.reloadData()
+            session._exerciseList = dict
+        }
+        else {
+            print("Not inside If")
+        }
+    }
+    
+    @objc func saveSession() {
+        self.showHUD(hud: hud!)
+        session.createActivity(activityItem: session) { (response) in
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+            }
+            if response == "success" {
+                DispatchQueue.main.async {
+                    self.showSuccessHUD(text: response)
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.showErrorHUD(text: response)
+                }
             }
             
-            tableView.reloadData()
         }
     }
     
@@ -120,7 +177,6 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
         let destVC = storyboard.instantiateViewController(withIdentifier: "ExerciseDetailsVC") as! ExerciseDetailsVC
         destVC.session = session
         self.present(destVC, animated: true, completion: .none)
-        
     }
     
     

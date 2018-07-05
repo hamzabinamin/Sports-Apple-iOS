@@ -46,7 +46,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.init(hex: "#c7c7cd") {
+        if textView.textColor == UIColor.init(hex: "#c7c7cd") && textView.text.count > 0 {
             textView.text = nil
             textView.textColor = UIColor.black
         }
@@ -142,7 +142,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     @objc func donePicker() {
         
         if activeField == caloriesTF {
-            caloriesTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            caloriesTF.text = String((numberArray[picker.selectedRow(inComponent: 0)])) + " calories"
             weightTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -218,13 +218,21 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     
     @objc func goNext() {
         let location = locationTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let comment = commentTV.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        let calories = caloriesTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        var comment = commentTV.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        var calories = caloriesTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let weight = weightTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if validation(calories: calories!, weight: weight!) {
+            calories = calories?.replacingOccurrences(of: " calories", with: "")
+            
+            if comment == "Workout Comment" {
+                comment = "none"
+            }
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy h:mm a"
             session._userId = pool?.currentUser()?.username
             session._activityId = NSUUID().uuidString
+            session._date = formatter.string(from: Date())
             session._location = location
             session._workoutComment = comment
             session._calories = NSNumber(value: Float(calories!)!)

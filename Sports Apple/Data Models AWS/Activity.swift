@@ -56,10 +56,11 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         ]
     }
     
-    func createActivity() {
+    func createActivity(activityItem: Activity, completion: @escaping (_ success: String) -> Void) {
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         // Create data object using data models you downloaded from Mobile Hub
-        let activityItem: Activity = Activity()
+       
+        /*let activityItem: Activity = Activity()
         activityItem._userId = AWSIdentityManager.default().identityId
         activityItem._activityId = UUID().uuidString
         activityItem._bodyWeight = 1123
@@ -93,16 +94,17 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         stringDictionary.append(exerciseDictionary)
         stringDictionary.append(exerciseDictionary2)
 
-        activityItem._exerciseList = stringDictionary
+        activityItem._exerciseList = stringDictionary */
         //Save a new item
         dynamoDbObjectMapper.save(activityItem, completionHandler: {
             (error: Error?) -> Void in
             
             if let error = error {
                 print("Amazon DynamoDB Save Error: \(error)")
-                return
+                completion(error.localizedDescription)
             }
             print("An item was saved.")
+            completion("success")
         })
     }
     

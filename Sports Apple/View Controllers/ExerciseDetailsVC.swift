@@ -22,6 +22,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     @IBOutlet weak var timeTF: UITextField!
     @IBOutlet weak var distanceTF: UITextField!
     @IBOutlet weak var commentTV: UITextView!
+    @IBOutlet weak var backView: UIView!
     var hud: JGProgressHUD?
     var activeField: UITextField?
     let picker = UIPickerView()
@@ -48,6 +49,12 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         self.showHUD(hud: hud!)
         getExercises()
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        activeField = textField
+        picker.reloadAllComponents()
+        return true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -162,6 +169,9 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     func setupViews() {
         self.hideKeyboardWhenTappedAround()
         self.hud = self.createLoadingHUD()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissVC))
+        backView.isUserInteractionEnabled = true
+        backView.addGestureRecognizer(tap)
     }
     
     func setupTextView() {
@@ -172,6 +182,14 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     func setupButtonAndTextFields() {
         completeButton.layer.cornerRadius = 18
+        exerciseListTF.delegate = self
+        favoritesListTF.delegate = self
+        weightAmountTF.delegate = self
+        repsTF.delegate = self
+        setsTF.delegate = self
+        countTF.delegate = self
+        timeTF.delegate = self
+        distanceTF.delegate = self
         exerciseListTF.addPadding(.left(35))
         favoritesListTF.addPadding(.left(35))
         weightAmountTF.addPadding(.left(35))
@@ -320,6 +338,10 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     @objc func cancelPicker(){
         self.view.endEditing(true)
     }
+    
+    @objc func dismissVC() {
+        self.dismiss(animated: true, completion: nil)
+    }
 
     @objc func addActivityInSession() {
         let weightAmount = weightAmountTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -331,14 +353,45 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         let comment = commentTV.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if exerciseID.count > 0 {
+            let index = exerciseArray.index(where: { $0._exerciseId?.stringValue == exerciseID })
+            
+            
             exerciseDictionary["exerciseID"] = exerciseID
-            exerciseDictionary["Weight Amount"] = weightAmount
-            exerciseDictionary["Reps"] = reps
-            exerciseDictionary["Sets"] = sets
-            exerciseDictionary["Count"] = count
-            exerciseDictionary["Time"] = time
-            exerciseDictionary["Distance"] = distance
-            exerciseDictionary["Exercise Comment"] = comment
+            exerciseDictionary["exerciseName"] = exerciseArray[index!]._name
+            
+            if weightAmount!.count > 0 {
+                exerciseDictionary["Weight Amount"] = weightAmount?.replacingOccurrences(of: " lbs", with: "")
+                
+                if reps!.count > 0 {
+                    exerciseDictionary["Reps"] = reps
+                }
+                if sets!.count > 0 {
+                    exerciseDictionary["Sets"] = sets
+                }
+            }
+            else if count!.count > 0 {
+                exerciseDictionary["Count"] = count
+            }
+            else if time!.count > 0 {
+                let store = time?.split(separator: ":")
+                let hours = Int(store![0])
+                let minutes = Int(store![1])
+                let seconds = (hours! * 60 * 60) + (minutes! * 60)
+                exerciseDictionary["Time"] = seconds
+            }
+            else if distance!.count > 0 {
+                exerciseDictionary["Distance"] = distance?.replacingOccurrences(of: " miles", with: "")
+            }
+
+            if comment == "Exercise Comment" {
+                exerciseDictionary["Exercise Comment"] = "none"
+            }
+            else {
+                exerciseDictionary["Exercise Comment"] = comment
+            }
+            
+            NotificationCenter.default.post(name: .updateActivityTV, object: exerciseDictionary)
+            self.dismiss(animated: true, completion: nil)
         }
         else {
             self.showErrorHUD(text: "Please fill the required fields")
