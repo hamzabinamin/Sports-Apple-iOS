@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // setup logging
         AWSDDLog.sharedInstance.logLevel = .verbose
-        AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
+        //AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
         
         // setup service configuration
         let serviceConfiguration = AWSServiceConfiguration(region: CognitoIdentityUserPoolRegion, credentialsProvider: nil)
@@ -110,31 +110,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func goToActivitySessionsVC() {
+        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
+        self.navigationController?.pushViewController(destVC, animated: true)
+        self.navigationController?.isNavigationBarHidden = true
+    }
 }
     
 extension AppDelegate: AWSCognitoIdentityInteractiveAuthenticationDelegate {
    
     func startPasswordAuthentication() -> AWSCognitoIdentityPasswordAuthentication {
         print("Calling signin VC from app delegate")
-        if (self.navigationController == nil) {
-            self.navigationController = self.storyboard?.instantiateViewController(withIdentifier: "NCFirst") as? UINavigationController
+        
+        if (pool?.currentUser()?.isSignedIn)! {
+            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
         }
         
-        if (self.loginViewController == nil) {
-            self.loginViewController = self.navigationController?.viewControllers[0] as? LoginVC
-        }
-        
-        DispatchQueue.main.async {
-            self.navigationController!.popToRootViewController(animated: true)
-            if (!self.navigationController!.isViewLoaded
-                || self.navigationController!.view.window == nil) {
-                self.window?.rootViewController?.present(self.navigationController!,
-                                                         animated: true,
-                                                         completion: nil)
+            if (self.navigationController == nil) {
+                self.navigationController = self.storyboard?.instantiateViewController(withIdentifier: "NCFirst") as? UINavigationController
             }
             
-        }
-        return self.loginViewController!
+            if (self.loginViewController == nil) {
+                self.loginViewController = self.navigationController?.viewControllers[0] as? LoginVC
+            }
+            
+            DispatchQueue.main.async {
+                self.navigationController!.popToRootViewController(animated: true)
+                if (!self.navigationController!.isViewLoaded
+                    || self.navigationController!.view.window == nil) {
+                    self.window?.rootViewController?.present(self.navigationController!,
+                                                             animated: true,
+                                                             completion: nil)
+                }
+                
+            }
+            return self.loginViewController!
+        
     } 
 }
 

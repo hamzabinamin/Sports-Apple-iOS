@@ -176,7 +176,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     func setupTextView() {
         commentTV.delegate = self
-        commentTV.text = "Workout Comment"
+        commentTV.text = "Exercise Comment"
         commentTV.textColor = UIColor.init(hex: "#c7c7cd")
     }
     

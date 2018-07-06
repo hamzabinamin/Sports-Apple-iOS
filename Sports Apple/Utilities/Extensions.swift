@@ -25,6 +25,7 @@ extension UIViewController {
 extension Notification.Name {
     static let showLoginVC = Notification.Name("showLoginVC")
     static let updateActivityTV = Notification.Name("updateActivityTV")
+    static let confirmDate = Notification.Name("confirmDate")
 }
 
 

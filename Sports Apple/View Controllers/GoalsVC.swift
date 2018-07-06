@@ -61,7 +61,9 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if goal._time != nil {
             cell.goalTypeLabel.text = "Time Goal"
-            cell.goalAmountLabel.text = "\((goal._time!.intValue) / 3600)" + ":" + "\((goal._time!.intValue) / 60)"
+            let hours = (goal._time?.intValue)! / 3600
+            let minutes = ((goal._time?.intValue)! / 60) % 60
+            cell.goalAmountLabel.text = String(format: "%02d:%02d", hours, minutes)
         }
         else if goal._weight != nil {
             cell.goalTypeLabel.text = "Weight Goal"
@@ -69,7 +71,9 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         else if goal._time != nil {
             cell.goalTypeLabel.text = "Time Goal"
-            cell.goalAmountLabel.text = Int(goal._time!).msToSeconds.minuteSecond
+            let hours = (goal._time?.intValue)! / 3600
+            let minutes = ((goal._time?.intValue)! / 60) % 60
+            cell.goalAmountLabel.text = String(format: "%02d:%02d", hours, minutes)
         }
         else if goal._calories != nil {
             cell.goalTypeLabel.text = "Calories Goal"

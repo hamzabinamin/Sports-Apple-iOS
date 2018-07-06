@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A3D53582B79DBC49273BC20 /* Pods_Sports_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */; };
+		F5128B1620EFBB0500485F63 /* CalendarCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5128B1520EFBB0500485F63 /* CalendarCVCell.swift */; };
+		F5128B1820EFBBA000485F63 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5128B1720EFBBA000485F63 /* CalendarVC.swift */; };
 		F517813920C42D9B0059B294 /* AddActivityInSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F517813820C42D9B0059B294 /* AddActivityInSession.storyboard */; };
 		F517813B20C432C50059B294 /* AddActivityInSessionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517813A20C432C50059B294 /* AddActivityInSessionVC.swift */; };
 		F517813E20C4377C0059B294 /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517813D20C4377C0059B294 /* ExerciseItem.swift */; };
@@ -88,6 +90,8 @@
 		44AA039F68FC685418D5D904 /* Pods-Sports Apple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple.debug.xcconfig"; sourceTree = "<group>"; };
 		82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sports_Apple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DDD9DF0466111C9E549E78 /* Pods-Sports Apple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple.release.xcconfig"; sourceTree = "<group>"; };
+		F5128B1520EFBB0500485F63 /* CalendarCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCVCell.swift; sourceTree = "<group>"; };
+		F5128B1720EFBBA000485F63 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		F517813820C42D9B0059B294 /* AddActivityInSession.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddActivityInSession.storyboard; sourceTree = "<group>"; };
 		F517813A20C432C50059B294 /* AddActivityInSessionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityInSessionVC.swift; sourceTree = "<group>"; };
 		F517813D20C4377C0059B294 /* ExerciseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
@@ -195,6 +199,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F5128B1420EFBAF100485F63 /* CollectionView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F5128B1520EFBB0500485F63 /* CalendarCVCell.swift */,
+			);
+			path = "CollectionView Cells";
+			sourceTree = "<group>";
+		};
 		F517813C20C4376B0059B294 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +284,7 @@
 		F541B7C2209C49930053C9DB /* Sports Apple */ = {
 			isa = PBXGroup;
 			children = (
+				F5128B1420EFBAF100485F63 /* CollectionView Cells */,
 				F517813F20C438600059B294 /* TableView Cells */,
 				F5717A5A20B9B87400623A6E /* View Controllers */,
 				F5C29A2D20B04A75006A16EB /* Utilities */,
@@ -354,6 +367,7 @@
 				F51D96C120CDAE77001AF442 /* CumulativeGoalsChartVC.swift */,
 				F556A96820DFB80F00233CFD /* VerificationVC.swift */,
 				F53C7DA320E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift */,
+				F5128B1720EFBBA000485F63 /* CalendarVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -496,6 +510,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSUserPoolsSignIn/AWSUserPoolsSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDataTables/SwiftDataTables.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -513,6 +528,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSUserPoolsSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDataTables.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -530,6 +546,7 @@
 			files = (
 				F517814120C438970059B294 /* ActivityTVCell.swift in Sources */,
 				F55FD36B20C2D865003408DF /* ActivitySessionsVC.swift in Sources */,
+				F5128B1820EFBBA000485F63 /* CalendarVC.swift in Sources */,
 				F5504FE220C6F103002907DC /* SessionActivitiesVC.swift in Sources */,
 				F51D96A420CD75C5001AF442 /* ReportsVC.swift in Sources */,
 				F5504FDE20C6E8C9002907DC /* SessionItem.swift in Sources */,
@@ -540,6 +557,7 @@
 				F5504FE420C6F7DA002907DC /* SettingsTVCell.swift in Sources */,
 				F517813E20C4377C0059B294 /* ExerciseItem.swift in Sources */,
 				F565C0B320C80DA000F64B86 /* AddGoalVC.swift in Sources */,
+				F5128B1620EFBB0500485F63 /* CalendarCVCell.swift in Sources */,
 				F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */,
 				F5DF29BB20BB248200E3EFF2 /* SignUp4VC.swift in Sources */,
 				F565C0A920C7F53500F64B86 /* LogOutVC.swift in Sources */,

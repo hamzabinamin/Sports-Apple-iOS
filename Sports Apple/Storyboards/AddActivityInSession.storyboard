@@ -15,7 +15,6 @@
             <string>Avenir-Book</string>
             <string>Avenir-Light</string>
             <string>Avenir-Medium</string>
-            <string>Avenir-MediumOblique</string>
         </array>
     </customFonts>
     <scenes>
@@ -220,7 +219,7 @@
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add activities to your session" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRZ-7w-dEQ">
                                 <rect key="frame" x="55" y="320.5" width="265.5" height="27.5"/>
-                                <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -257,7 +256,7 @@
                         <outlet property="backImageView" destination="k43-O5-QOq" id="Mdn-LD-V4H"/>
                         <outlet property="saveButton" destination="8Qv-qG-WY2" id="beR-gJ-E9f"/>
                         <outlet property="tableView" destination="mpm-X5-BMX" id="Ehb-es-5F9"/>
-                        <segue destination="8ge-TV-Rai" kind="show" id="ggJ-Ns-0Li"/>
+                        <segue destination="8ge-TV-Rai" kind="show" identifier="AddActivityInSessionVC" id="ggJ-Ns-0Li"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GJN-aX-aoe" userLabel="First Responder" sceneMemberID="firstResponder"/>

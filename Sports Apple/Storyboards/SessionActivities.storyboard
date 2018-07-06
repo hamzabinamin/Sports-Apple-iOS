@@ -66,22 +66,24 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b1d-ab-mLe">
                                 <rect key="frame" x="49" y="45" width="25" height="25"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Back" translatesAutoresizingMaskIntoConstraints="NO" id="qdJ-Pe-E5F">
-                                        <rect key="frame" x="-0.5" y="-0.5" width="25" height="25"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9H-Ew-aDH">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="aKp-OB-TTe"/>
-                                            <constraint firstAttribute="height" constant="25" id="cw3-kx-SFT"/>
+                                            <constraint firstAttribute="width" constant="25" id="g2K-z1-b2Z"/>
+                                            <constraint firstAttribute="height" constant="25" id="ypZ-SS-KGs"/>
                                         </constraints>
-                                    </imageView>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="Back"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.37664103510000002" green="0.82411009069999996" blue="0.94497829680000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="V9H-Ew-aDH" firstAttribute="leading" secondItem="b1d-ab-mLe" secondAttribute="leading" id="3bW-xr-Gce"/>
+                                    <constraint firstAttribute="bottom" secondItem="V9H-Ew-aDH" secondAttribute="bottom" id="44Q-sc-Zxd"/>
                                     <constraint firstAttribute="width" constant="25" id="4JD-H7-sW2"/>
-                                    <constraint firstItem="qdJ-Pe-E5F" firstAttribute="leading" secondItem="b1d-ab-mLe" secondAttribute="leading" id="WT8-i0-gZr"/>
-                                    <constraint firstItem="qdJ-Pe-E5F" firstAttribute="top" secondItem="b1d-ab-mLe" secondAttribute="top" id="ci0-31-HnG"/>
-                                    <constraint firstAttribute="trailing" secondItem="qdJ-Pe-E5F" secondAttribute="trailing" id="eWV-3y-Ckc"/>
-                                    <constraint firstAttribute="bottom" secondItem="qdJ-Pe-E5F" secondAttribute="bottom" id="vHE-8T-w4Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="V9H-Ew-aDH" secondAttribute="trailing" id="dWM-9D-JLj"/>
                                     <constraint firstAttribute="height" constant="25" id="xXY-TV-gkI"/>
+                                    <constraint firstItem="V9H-Ew-aDH" firstAttribute="top" secondItem="b1d-ab-mLe" secondAttribute="top" id="zO9-w7-1bR"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="171" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gWM-5i-r0t">
@@ -197,11 +199,18 @@
                                     <outlet property="delegate" destination="fet-Pw-JC9" id="wAW-YS-ddo"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This session has no activities" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mdr-mX-Nux">
+                                <rect key="frame" x="58.5" y="319" width="257" height="27.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gWM-5i-r0t" firstAttribute="leading" secondItem="ngm-gs-YBq" secondAttribute="leading" id="3L1-Gu-a09"/>
                             <constraint firstItem="xZU-v1-SMR" firstAttribute="top" secondItem="uwk-qO-t2Y" secondAttribute="bottom" constant="15" id="7HA-X2-0IQ"/>
+                            <constraint firstItem="Mdr-mX-Nux" firstAttribute="centerY" secondItem="YRj-Uc-IoY" secondAttribute="centerY" id="8f5-Og-51u"/>
                             <constraint firstItem="b1d-ab-mLe" firstAttribute="top" secondItem="YRj-Uc-IoY" secondAttribute="top" constant="45" id="97c-HB-YdD"/>
                             <constraint firstItem="xXd-BR-ynU" firstAttribute="leading" secondItem="ngm-gs-YBq" secondAttribute="leading" constant="35" id="A3w-92-4Xo"/>
                             <constraint firstItem="Tjm-06-UuG" firstAttribute="centerX" secondItem="YRj-Uc-IoY" secondAttribute="centerX" id="Fiy-d1-5UI"/>
@@ -215,13 +224,15 @@
                             <constraint firstItem="b1d-ab-mLe" firstAttribute="leading" secondItem="ngm-gs-YBq" secondAttribute="leading" constant="49" id="g2j-8G-5us"/>
                             <constraint firstItem="uwk-qO-t2Y" firstAttribute="top" secondItem="YRj-Uc-IoY" secondAttribute="top" id="kkE-vQ-EyK"/>
                             <constraint firstItem="ngm-gs-YBq" firstAttribute="trailing" secondItem="gWM-5i-r0t" secondAttribute="trailing" id="smr-se-t1g"/>
+                            <constraint firstItem="Mdr-mX-Nux" firstAttribute="centerX" secondItem="YRj-Uc-IoY" secondAttribute="centerX" id="u6z-Kh-mOD"/>
                             <constraint firstItem="ngm-gs-YBq" firstAttribute="bottom" secondItem="gWM-5i-r0t" secondAttribute="bottom" id="wwo-Tw-X95"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ngm-gs-YBq"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" image="Activity" id="fgE-Rd-WJU"/>
                     <connections>
-                        <outlet property="backImageView" destination="qdJ-Pe-E5F" id="aWG-eM-kq7"/>
+                        <outlet property="backButton" destination="V9H-Ew-aDH" id="EbU-me-SGT"/>
+                        <outlet property="sessionActivitiesLabel" destination="Mdr-mX-Nux" id="GiM-vG-ucR"/>
                         <outlet property="tableView" destination="gWM-5i-r0t" id="8Dg-9i-IU3"/>
                     </connections>
                 </viewController>

@@ -39,7 +39,7 @@ class LoginVC: UIViewController {
             
             if (pool.currentUser()?.isSignedIn)! {
                 print("User logged in 1st")
-                print("Username in LoginVC: ", pool.currentUser()?.username)
+                print("Username in LoginVC: ", pool.currentUser()!.username)
                 goToActivitySessionsVC()
             }
             else {

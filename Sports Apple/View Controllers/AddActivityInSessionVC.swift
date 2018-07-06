@@ -161,6 +161,8 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             if response == "success" {
                 DispatchQueue.main.async {
                     self.showSuccessHUD(text: response)
+                    let destVC = self.navigationController!.viewControllers.filter { $0 is ActivitySessionsVC }.first!
+                    self.navigationController?.popToViewController(destVC, animated: true) 
                 }
             }
             else {

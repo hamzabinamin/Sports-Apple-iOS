@@ -60,41 +60,6 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         // Create data object using data models you downloaded from Mobile Hub
        
-        /*let activityItem: Activity = Activity()
-        activityItem._userId = AWSIdentityManager.default().identityId
-        activityItem._activityId = UUID().uuidString
-        activityItem._bodyWeight = 1123
-        activityItem._calories = 11587
-        activityItem._date = Date().toString(dateFormat: "dd-MM-yyyy")
-        activityItem._location = "Gym123"
-        activityItem._workoutComment = "Hey this is a comment 3"
-        var stringDictionary = [[String: Any]]()
-        
-        var exerciseDictionary: Dictionary = [String: Any]()
-        var exerciseDictionary2: Dictionary = [String: Any]()
-
-        exerciseDictionary["exerciseID"] = 3
-        exerciseDictionary["Weight Amount"] = 55
-        exerciseDictionary["Reps"] = 12
-        exerciseDictionary["Sets"] = 5
-        exerciseDictionary["Count"] = 0
-        exerciseDictionary["Time"] = 0
-        exerciseDictionary["Distance"] = 0
-        exerciseDictionary["Exercise Comment"] = "newest"
-        
-        exerciseDictionary2["exerciseID"] = 4
-        exerciseDictionary2["Weight Amount"] = 155
-        exerciseDictionary2["Reps"] = 112
-        exerciseDictionary2["Sets"] = 15
-        exerciseDictionary2["Count"] = 10
-        exerciseDictionary2["Time"] = 10
-        exerciseDictionary2["Distance"] = 10
-        exerciseDictionary2["Exercise Comment"] = "newest"
-        
-        stringDictionary.append(exerciseDictionary)
-        stringDictionary.append(exerciseDictionary2)
-
-        activityItem._exerciseList = stringDictionary */
         //Save a new item
         dynamoDbObjectMapper.save(activityItem, completionHandler: {
             (error: Error?) -> Void in
@@ -141,7 +106,8 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         })
     }
     
-    func queryActivity(userId: String, date: String) {
+    func queryActivity(userId: String, date: String, completion: @escaping (_ success: String, _ sessionArray: [Activity]) -> Void) {
+        var sessionArray: [Activity] = []
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.indexName = "UserActivityDate"
         queryExpression.keyConditionExpression = "#Date >= :Date AND #userId = :userId"
@@ -159,12 +125,22 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         dynamoDbObjectMapper.query(Activity.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
             if error != nil {
                 print("The request failed. Error: \(String(describing: error))")
+                completion((error?.localizedDescription)!, sessionArray)
             }
             if output != nil {
                 for activity in output!.items {
                     let activityItem = activity as? Activity
-                    print("\(activityItem!._activityId!)")
+                    sessionArray.append(activityItem!)
                 }
+                if sessionArray.count > 0 {
+                    completion("success", sessionArray)
+                }
+                else {
+                    completion("no result", sessionArray)
+                }
+            }
+            else {
+                completion("no result", sessionArray)
             }
         }
     }

@@ -432,40 +432,44 @@
                                     <constraint firstAttribute="trailing" secondItem="Ufs-wP-N7x" secondAttribute="trailing" constant="5" id="ixY-E6-XQV"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="fDa-lK-h1z">
-                                <rect key="frame" x="45.5" y="134" width="24" height="24"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jJa-oJ-4SK">
+                                <rect key="frame" x="45" y="134" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="4Yv-Cs-uCB"/>
-                                    <constraint firstAttribute="width" constant="24" id="8dy-Lr-LKH"/>
+                                    <constraint firstAttribute="width" constant="24" id="6zx-ET-yMC"/>
+                                    <constraint firstAttribute="height" constant="24" id="bG7-tx-r2h"/>
                                 </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="L2h-7z-UTZ">
+                                <state key="normal" image="Arrow"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXJ-Z5-194">
                                 <rect key="frame" x="269.5" y="134" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="mOd-Kt-GtX"/>
-                                    <constraint firstAttribute="width" constant="24" id="maf-R9-BkF"/>
+                                    <constraint firstAttribute="width" constant="24" id="bk0-Ek-4sq"/>
+                                    <constraint firstAttribute="height" constant="24" id="oOe-ez-GhZ"/>
                                 </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="yGA-BI-Tcf">
-                                <rect key="frame" x="84.5" y="132" width="26" height="26"/>
+                                <state key="normal" image="Arrow"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soa-cB-CD0">
+                                <rect key="frame" x="336" y="30" width="24" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="26" id="oBT-2e-4AT"/>
-                                    <constraint firstAttribute="height" constant="26" id="ymR-xO-HdL"/>
+                                    <constraint firstAttribute="width" constant="24" id="IX8-JB-R5T"/>
+                                    <constraint firstAttribute="height" constant="26" id="pmX-VL-gQh"/>
                                 </constraints>
-                            </imageView>
+                                <state key="normal" image="Add"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oi3-ci-SVX">
+                                <rect key="frame" x="84" y="132" width="26" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="Dul-9i-V1I"/>
+                                    <constraint firstAttribute="width" constant="26" id="QQF-wj-aGj"/>
+                                </constraints>
+                                <state key="normal" image="Calendar"/>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30th May 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oV8-Az-Klt">
                                 <rect key="frame" x="120.5" y="132" width="134" height="28"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Add" translatesAutoresizingMaskIntoConstraints="NO" id="54m-RU-Qze">
-                                <rect key="frame" x="336" y="30" width="24" height="26"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="KVy-ld-2EW"/>
-                                    <constraint firstAttribute="width" constant="24" id="ZKk-SI-bhq"/>
-                                </constraints>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="128" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="38G-tH-rTd">
                                 <rect key="frame" x="0.0" y="225" width="375" height="393"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -568,43 +572,54 @@
                                     <outlet property="delegate" destination="2sv-Ay-ZWz" id="Yy5-c4-qfF"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There's no session for this date" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIW-Y9-uwW">
+                                <rect key="frame" x="46.5" y="319" width="282" height="27.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="oV8-Az-Klt" firstAttribute="centerX" secondItem="O6D-V6-EWT" secondAttribute="centerX" id="1Wg-JH-QBj"/>
                             <constraint firstItem="Fes-2g-l7f" firstAttribute="leading" secondItem="O6D-V6-EWT" secondAttribute="leading" id="5G6-RQ-MZz"/>
-                            <constraint firstItem="dh2-kp-Di3" firstAttribute="trailing" secondItem="54m-RU-Qze" secondAttribute="trailing" constant="15" id="7hA-cT-AUi"/>
                             <constraint firstItem="A2P-Kv-6ij" firstAttribute="top" secondItem="oV8-Az-Klt" secondAttribute="bottom" constant="25" id="7tC-BX-8JF"/>
+                            <constraint firstItem="oi3-ci-SVX" firstAttribute="leading" secondItem="jJa-oJ-4SK" secondAttribute="trailing" constant="15" id="BWp-uE-gtU"/>
                             <constraint firstItem="qFl-sU-2hV" firstAttribute="top" secondItem="dh2-kp-Di3" secondAttribute="top" constant="20" id="CJz-pi-Xmt"/>
-                            <constraint firstItem="oV8-Az-Klt" firstAttribute="leading" secondItem="yGA-BI-Tcf" secondAttribute="trailing" constant="10" id="Dkd-g3-sAK"/>
-                            <constraint firstItem="yGA-BI-Tcf" firstAttribute="leading" secondItem="fDa-lK-h1z" secondAttribute="trailing" constant="15" id="Ef5-bj-f4G"/>
                             <constraint firstItem="HWt-se-ycP" firstAttribute="top" secondItem="O6D-V6-EWT" secondAttribute="top" constant="30" id="GWE-AK-mvi"/>
                             <constraint firstItem="qFl-sU-2hV" firstAttribute="centerX" secondItem="O6D-V6-EWT" secondAttribute="centerX" id="JXN-Fd-nfQ"/>
-                            <constraint firstItem="54m-RU-Qze" firstAttribute="top" secondItem="dh2-kp-Di3" secondAttribute="top" constant="10" id="KBJ-Zp-waU"/>
-                            <constraint firstItem="yGA-BI-Tcf" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="26" id="NGa-LQ-cZo"/>
                             <constraint firstItem="Fes-2g-l7f" firstAttribute="trailing" secondItem="dh2-kp-Di3" secondAttribute="trailing" id="Ng3-zv-ThE"/>
                             <constraint firstItem="A2P-Kv-6ij" firstAttribute="leading" secondItem="dh2-kp-Di3" secondAttribute="leading" id="QBQ-dS-26h"/>
-                            <constraint firstItem="fDa-lK-h1z" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="28" id="UCT-qn-fr7"/>
+                            <constraint firstItem="oi3-ci-SVX" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="26" id="R0a-JR-myF"/>
+                            <constraint firstItem="dh2-kp-Di3" firstAttribute="trailing" secondItem="Soa-cB-CD0" secondAttribute="trailing" constant="15" id="RJW-SZ-yW3"/>
+                            <constraint firstItem="zXJ-Z5-194" firstAttribute="leading" secondItem="oV8-Az-Klt" secondAttribute="trailing" constant="15" id="T0p-yQ-JPl"/>
                             <constraint firstItem="dh2-kp-Di3" firstAttribute="bottom" secondItem="38G-tH-rTd" secondAttribute="bottom" id="X8V-AR-LbA"/>
+                            <constraint firstItem="lIW-Y9-uwW" firstAttribute="centerY" secondItem="O6D-V6-EWT" secondAttribute="centerY" id="ZIS-9Z-Dse"/>
+                            <constraint firstItem="lIW-Y9-uwW" firstAttribute="centerX" secondItem="O6D-V6-EWT" secondAttribute="centerX" id="ZIi-Eb-R3S"/>
+                            <constraint firstItem="oV8-Az-Klt" firstAttribute="leading" secondItem="oi3-ci-SVX" secondAttribute="trailing" constant="10" id="dm0-5h-89O"/>
                             <constraint firstItem="HWt-se-ycP" firstAttribute="leading" secondItem="dh2-kp-Di3" secondAttribute="leading" constant="35" id="g8j-WV-U8h"/>
-                            <constraint firstItem="L2h-7z-UTZ" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="28" id="io1-Pn-Yu1"/>
+                            <constraint firstItem="Soa-cB-CD0" firstAttribute="top" secondItem="dh2-kp-Di3" secondAttribute="top" constant="10" id="guI-Sb-yu3"/>
                             <constraint firstItem="oV8-Az-Klt" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="26" id="iqP-hv-Aq9"/>
+                            <constraint firstItem="jJa-oJ-4SK" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="28" id="k4s-Cv-kpX"/>
                             <constraint firstItem="A2P-Kv-6ij" firstAttribute="trailing" secondItem="dh2-kp-Di3" secondAttribute="trailing" id="ka0-Hg-r9E"/>
+                            <constraint firstItem="zXJ-Z5-194" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="28" id="nbd-RF-jVQ"/>
                             <constraint firstItem="38G-tH-rTd" firstAttribute="leading" secondItem="dh2-kp-Di3" secondAttribute="leading" id="oTd-wW-BdP"/>
                             <constraint firstItem="dh2-kp-Di3" firstAttribute="trailing" secondItem="38G-tH-rTd" secondAttribute="trailing" id="qhp-hw-8yC"/>
                             <constraint firstItem="Fes-2g-l7f" firstAttribute="top" secondItem="O6D-V6-EWT" secondAttribute="top" id="rjj-5F-5B0"/>
-                            <constraint firstItem="L2h-7z-UTZ" firstAttribute="leading" secondItem="oV8-Az-Klt" secondAttribute="trailing" constant="15" id="tP8-rY-fEn"/>
                             <constraint firstItem="38G-tH-rTd" firstAttribute="top" secondItem="A2P-Kv-6ij" secondAttribute="bottom" id="upg-Wr-vzp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dh2-kp-Di3"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Session" image="Activity" id="Jtu-JT-lK5"/>
                     <connections>
-                        <outlet property="addImageView" destination="54m-RU-Qze" id="0TR-pI-CKN"/>
-                        <outlet property="backImageView" destination="fDa-lK-h1z" id="YaJ-Hy-4ya"/>
-                        <outlet property="constraintAddImageView" destination="KBJ-Zp-waU" id="j2x-UF-gdi"/>
+                        <outlet property="addButton" destination="Soa-cB-CD0" id="z99-Dr-Uyj"/>
+                        <outlet property="calendarButton" destination="oi3-ci-SVX" id="nVo-ia-TFF"/>
                         <outlet property="constraintHeading" destination="CJz-pi-Xmt" id="RKQ-cY-VYD"/>
-                        <outlet property="forwardImageView" destination="L2h-7z-UTZ" id="x7s-mG-cBZ"/>
+                        <outlet property="dateLabel" destination="oV8-Az-Klt" id="LjY-6G-sGP"/>
+                        <outlet property="forwardButton" destination="zXJ-Z5-194" id="1b7-eL-Q8f"/>
+                        <outlet property="previousButton" destination="jJa-oJ-4SK" id="NQs-Yr-tSv"/>
+                        <outlet property="sessionLabel" destination="lIW-Y9-uwW" id="Dbt-hY-4Hp"/>
+                        <outlet property="tableView" destination="38G-tH-rTd" id="TPx-LP-c8X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rM2-FE-5XZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

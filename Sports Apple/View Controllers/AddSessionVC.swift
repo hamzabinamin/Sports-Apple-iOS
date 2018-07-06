@@ -11,14 +11,16 @@ import AWSCognitoIdentityProvider
 
 class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    @IBOutlet weak var calendarButton: UIButton!
+    @IBOutlet weak var prevButton: UIButton!
+    @IBOutlet weak var forwardButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var locationTF: UITextField!
     @IBOutlet weak var commentTV: UITextView!
     @IBOutlet weak var caloriesTF: UITextField!
     @IBOutlet weak var weightTF: UITextField!
-    @IBOutlet weak var nextLabel: UILabel!
-    @IBOutlet weak var prevImageView: UIImageView!
-    @IBOutlet weak var forwardImageView: UIImageView!
-    @IBOutlet weak var backImageView: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
     var activeField: UITextField?
     let picker = UIPickerView()
     var pool: AWSCognitoIdentityUserPool?
@@ -28,14 +30,18 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     let inchesSymbol = "inches"
     let caloriesSymbol = "calories"
     let session: Activity = Activity()
+    var date = Date()
+    let formatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         rotateArrow()
-        setupTaps()
+        setupViews()
         setupTextFields()
         setupTextView()
         setupPicker()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(confirmDate(notification:)), name: .confirmDate, object: nil)
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -140,7 +146,6 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     @objc func donePicker() {
-        
         if activeField == caloriesTF {
             caloriesTF.text = String((numberArray[picker.selectedRow(inComponent: 0)])) + " calories"
             weightTF.perform(
@@ -161,22 +166,19 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     func rotateArrow() {
-        self.forwardImageView.transform = CGAffineTransform(rotationAngle: .pi);
+        self.forwardButton.transform = CGAffineTransform(rotationAngle: .pi);
     }
     
-    func setupTaps() {
-        let tapPrev = UITapGestureRecognizer(target: self, action: #selector(previousDate))
-        let tapForward = UITapGestureRecognizer(target: self, action: #selector(nextDate))
-        let tapBack = UITapGestureRecognizer(target: self, action: #selector(back))
-        let tapNext = UITapGestureRecognizer(target: self, action: #selector(goNext))
-        prevImageView.isUserInteractionEnabled = true
-        prevImageView.addGestureRecognizer(tapPrev)
-        forwardImageView.isUserInteractionEnabled = true
-        forwardImageView.addGestureRecognizer(tapForward)
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tapBack)
-        nextLabel.isUserInteractionEnabled = true
-        nextLabel.addGestureRecognizer(tapNext)
+    func setupViews() {
+        formatter.dateFormat = "MMM d, yyyy"
+        dateLabel.text = formatter.string(from: date)
+       
+        prevButton.addTarget(self, action: #selector(previousDate), for: .touchUpInside)
+        forwardButton.addTarget(self, action: #selector(nextDate), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(goNext), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        calendarButton.addTarget(self, action: #selector(goToCalendarVC), for: .touchUpInside)
+        
     }
     
     func setupTextFields() {
@@ -208,12 +210,21 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         
     }
     
+    @objc func confirmDate(notification: Notification) {
+        if let date = notification.object as? String {
+            self.date = formatter.date(from: date)!
+            dateLabel.text = date
+        }
+    }
+    
     @objc func previousDate() {
-        
+        date = Calendar.current.date(byAdding: .day, value: -1, to: date)!
+        dateLabel.text = formatter.string(from: date)
     }
     
     @objc func nextDate() {
-        
+        date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        dateLabel.text = formatter.string(from: date)
     }
     
     @objc func goNext() {
@@ -232,7 +243,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             formatter.dateFormat = "MM/dd/yyyy h:mm a"
             session._userId = pool?.currentUser()?.username
             session._activityId = NSUUID().uuidString
-            session._date = formatter.string(from: Date())
+            session._date = formatter.string(from: date)
             session._location = location
             session._workoutComment = comment
             session._calories = NSNumber(value: Float(calories!)!)
@@ -245,6 +256,13 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         let storyboard = UIStoryboard(name: "AddActivityInSession", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "AddActivityInSessionVC") as! AddActivityInSessionVC
         destVC.session = session
+        self.present(destVC, animated: true, completion: .none)
+    }
+    
+    @objc func goToCalendarVC() {
+        let storyboard = UIStoryboard(name: "AddSession", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "CalendarVC") as! CalendarVC
+        destVC.date = date
         self.present(destVC, animated: true, completion: .none)
     }
     
