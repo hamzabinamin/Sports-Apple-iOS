@@ -17,6 +17,7 @@ class SignUp2VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     @IBOutlet weak var heightTF: UITextField!
     @IBOutlet weak var trainerEmailTF: UITextField!
     var user: UserItem = UserItem()
+    var oldPassword = ""
     let picker = UIPickerView()
     let datePicker = UIDatePicker()
     let feetArray = [Int](1...10)
@@ -29,6 +30,14 @@ class SignUp2VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         setupViews()
         setupPicker()
         setupDatePicker()
+        
+        if user.firstName.count > 0 {
+            firstNameTF.text = user.firstName
+            lastNameTF.text = user.lastName
+            dobTF.text = user.dOB
+            heightTF.text = user.height
+            trainerEmailTF.text = user.trainerEmail
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -211,6 +220,9 @@ class SignUp2VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "SignUp3VC") as! SignUp3VC
         destVC.user = user
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
         self.navigationController?.pushViewController(destVC, animated: true)
     }
 }

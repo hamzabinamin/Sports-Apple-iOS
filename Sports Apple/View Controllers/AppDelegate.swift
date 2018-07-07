@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var loginViewController: LoginVC?
+    var tabBarViewController: ActivitySessionsVC?
     var navigationController: UINavigationController?
     var storyboard: UIStoryboard?
     var pool: AWSCognitoIdentityUserPool?
@@ -44,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // setup logging
         AWSDDLog.sharedInstance.logLevel = .verbose
-        //AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
+        AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
         
         // setup service configuration
         let serviceConfiguration = AWSServiceConfiguration(region: CognitoIdentityUserPoolRegion, credentialsProvider: nil)
@@ -59,9 +60,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // fetch the user pool client we initialized in above step
         pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
-        self.storyboard = UIStoryboard(name: "Main", bundle: nil)
-        pool?.delegate = self
         
+        self.storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+       /* if (pool?.currentUser()?.isSignedIn)! {
+            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
+        else { */
+            pool?.delegate = self
+        //}
         
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, didFinishLaunchingWithOptions:
@@ -122,14 +133,6 @@ extension AppDelegate: AWSCognitoIdentityInteractiveAuthenticationDelegate {
    
     func startPasswordAuthentication() -> AWSCognitoIdentityPasswordAuthentication {
         print("Calling signin VC from app delegate")
-        
-        if (pool?.currentUser()?.isSignedIn)! {
-            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-            
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-        }
         
             if (self.navigationController == nil) {
                 self.navigationController = self.storyboard?.instantiateViewController(withIdentifier: "NCFirst") as? UINavigationController

@@ -18,6 +18,11 @@ class SignUp3VC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        if user.location.count > 0 {
+            locationTF.text = user.location
+        }
+        
     }
     
     func setupViews() {
@@ -53,6 +58,9 @@ class SignUp3VC: UIViewController {
         let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "SignUp4VC") as! SignUp4VC
         destVC.user = user
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
         self.navigationController?.pushViewController(destVC, animated: true)
     }
 

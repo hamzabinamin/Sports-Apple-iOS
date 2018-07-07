@@ -26,11 +26,13 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.showHUD(hud: hud!)
         goal.queryGoal(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+            }
             if response == "success" {
                 self.array = responseArray
                 
                 DispatchQueue.main.async {
-                    self.hideHUD(hud: self.hud!)
                     self.noGoalsLabel.isHidden = true
                     self.tableView.reloadData()
                 }

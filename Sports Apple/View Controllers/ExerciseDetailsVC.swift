@@ -15,6 +15,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var exerciseListTF: UITextField!
     @IBOutlet weak var favoritesListTF: UITextField!
+    @IBOutlet weak var exerciseTypeTF: UITextField!
     @IBOutlet weak var weightAmountTF: UITextField!
     @IBOutlet weak var setsTF: UITextField!
     @IBOutlet weak var repsTF: UITextField!
@@ -30,6 +31,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     let numberArray = [Int](1...1000)
     let hourArray = [Int](0...12)
     let minArray = [Int](0...60)
+    let typeArray = ["Weight", "Count", "Time", "Distance"]
     let weightUnit = "lbs"
     let distanceUnit = "miles"
     let hourUnit = "hour"
@@ -69,6 +71,10 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             textView.text = "Exercise Comment"
             textView.textColor = UIColor.init(hex: "#c7c7cd")
         }
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        return true
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -115,6 +121,9 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             else if activeField == favoritesListTF {
                 return exerciseArray.count
             }
+            else if activeField == exerciseTypeTF {
+                return typeArray.count
+            }
             else {
                 return numberArray.count
             }
@@ -159,6 +168,9 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             else if activeField == favoritesListTF {
                 return exerciseArray[row]._name
             }
+            else if activeField == exerciseTypeTF {
+                return typeArray[row]
+            }
             else {
                 return String(numberArray[row])
             }
@@ -184,6 +196,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         completeButton.layer.cornerRadius = 18
         exerciseListTF.delegate = self
         favoritesListTF.delegate = self
+        exerciseTypeTF.delegate = self
         weightAmountTF.delegate = self
         repsTF.delegate = self
         setsTF.delegate = self
@@ -192,6 +205,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         distanceTF.delegate = self
         exerciseListTF.addPadding(.left(35))
         favoritesListTF.addPadding(.left(35))
+        exerciseTypeTF.addPadding(.left(35))
         weightAmountTF.addPadding(.left(35))
         setsTF.addPadding(.left(35))
         repsTF.addPadding(.left(35))
@@ -247,6 +261,8 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         exerciseListTF.inputAccessoryView = toolBar
         favoritesListTF.inputView = picker
         favoritesListTF.inputAccessoryView = toolBar
+        exerciseTypeTF.inputView = picker
+        exerciseTypeTF.inputAccessoryView = toolBar
         weightAmountTF.inputView = picker
         weightAmountTF.inputAccessoryView = toolBar
         repsTF.inputView = picker
@@ -266,7 +282,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         if activeField == exerciseListTF {
             exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
             exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
-            weightAmountTF.perform(
+            exerciseTypeTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
                 afterDelay: 0.1
@@ -277,11 +293,100 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
             exerciseListTF.isEnabled = false
             exerciseListTF.alpha = 0.5
-            weightAmountTF.perform(
+            exerciseTypeTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
                 afterDelay: 0.1
             )
+        }
+        else if activeField == exerciseTypeTF {
+            let type = typeArray[picker.selectedRow(inComponent: 0)]
+            exerciseTypeTF.text = type
+            
+            if type == "Weight" {
+                weightAmountTF.isEnabled = true
+                weightAmountTF.alpha = 1
+                setsTF.isEnabled = true
+                setsTF.alpha = 1
+                repsTF.isEnabled = true
+                repsTF.alpha = 1
+                
+                countTF.isEnabled = false
+                countTF.alpha = 0.5
+                timeTF.isEnabled = false
+                timeTF.alpha = 0.5
+                distanceTF.isEnabled = false
+                distanceTF.alpha = 0.5
+                
+                weightAmountTF.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+            else if type == "Count" {
+                countTF.isEnabled = true
+                countTF.alpha = 1
+                
+                weightAmountTF.isEnabled = false
+                weightAmountTF.alpha = 0.5
+                setsTF.isEnabled = false
+                setsTF.alpha = 0.5
+                repsTF.isEnabled = false
+                repsTF.alpha = 0.5
+                timeTF.isEnabled = false
+                timeTF.alpha = 0.5
+                distanceTF.isEnabled = false
+                distanceTF.alpha = 0.5
+                
+                countTF.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+            else if type == "Time" {
+                timeTF.isEnabled = true
+                timeTF.alpha = 1
+                
+                weightAmountTF.isEnabled = false
+                weightAmountTF.alpha = 0.5
+                setsTF.isEnabled = false
+                setsTF.alpha = 0.5
+                repsTF.isEnabled = false
+                repsTF.alpha = 0.5
+                countTF.isEnabled = false
+                countTF.alpha = 0.5
+                distanceTF.isEnabled = false
+                distanceTF.alpha = 0.5
+                
+                timeTF.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+            else if type == "Distance" {
+                distanceTF.isEnabled = true
+                distanceTF.alpha = 1
+                
+                weightAmountTF.isEnabled = false
+                weightAmountTF.alpha = 0.5
+                setsTF.isEnabled = false
+                setsTF.alpha = 0.5
+                repsTF.isEnabled = false
+                repsTF.alpha = 0.5
+                countTF.isEnabled = false
+                countTF.alpha = 0.5
+                timeTF.isEnabled = false
+                timeTF.alpha = 0.5
+                
+                distanceTF.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
         }
         else if activeField == weightAmountTF {
             weightAmountTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])" + " lbs"
@@ -301,7 +406,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         }
         else if activeField == setsTF {
             setsTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])"
-            countTF.perform(
+            commentTV.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
                 afterDelay: 0.1
@@ -309,7 +414,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         }
         else if activeField == countTF {
             countTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])"
-            timeTF.perform(
+            commentTV.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
                 afterDelay: 0.1
@@ -317,7 +422,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         }
         else if activeField == timeTF {
             timeTF.text = "\(hourArray[picker.selectedRow(inComponent: 0)])" + ":" + "\(minArray[picker.selectedRow(inComponent: 2)])"
-            distanceTF.perform(
+            commentTV.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
                 afterDelay: 0.1

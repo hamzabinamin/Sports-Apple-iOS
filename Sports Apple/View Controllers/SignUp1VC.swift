@@ -8,17 +8,42 @@
 
 import UIKit
 
-class SignUp1VC: UIViewController {
+class SignUp1VC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     var user: UserItem = UserItem()
-    
+    var cameFromSettings = false
+    var passwordChanged = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
+        
+        if user.email.count > 0 {
+            emailTF.isEnabled = false
+            emailTF.alpha = 0.5
+            emailTF.text = user.email
+            passwordTF.text = "Tigerey1"
+        }
+        else {
+            emailTF.isEnabled = true
+            emailTF.alpha = 1
+        }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if textField == passwordTF {
+            passwordChanged = true
+        }
+      return true
+    }
+    
+    func setupViews() {
         hideKeyboardWhenTappedAround()
+        self.passwordTF.delegate = self
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         nextButton.layer.cornerRadius = 18
         emailTF.addPadding(.left(35))
@@ -57,6 +82,8 @@ class SignUp1VC: UIViewController {
         if validation(email: email, password: password) {
             user.email = email
             user.password = password
+            
+           // if cameFromSettings &&
             goToSignUp2VC()
         }
     }
@@ -65,6 +92,9 @@ class SignUp1VC: UIViewController {
         let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "SignUp2VC") as! SignUp2VC
         destVC.user = user
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
         self.navigationController?.pushViewController(destVC, animated: true)
     }
 }

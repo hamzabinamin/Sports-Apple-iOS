@@ -24,10 +24,10 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     var activeField: UITextField?
     let picker = UIPickerView()
     var pool: AWSCognitoIdentityUserPool?
-    let numberArray = [Int](1...1000)
-    let inchesArray = [Int](1...100)
+    let numberArray = [Int](1...1500)
+    let inchesArray = [Int](1...500)
     let inchesDecimalArray = [Int](0...9)
-    let inchesSymbol = "inches"
+    let inchesSymbol = "lbs"
     let caloriesSymbol = "calories"
     let session: Activity = Activity()
     var date = Date()

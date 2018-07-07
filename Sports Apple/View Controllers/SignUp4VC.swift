@@ -38,6 +38,20 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         super.viewDidLoad()
         setupViews()
         setupPicker()
+        
+        if user.weight.stringValue.count > 0 {
+            weightTF.text = user.weight.stringValue
+            chestTF.text = user.chest.stringValue
+            waistTF.text = user.waist.stringValue
+            hipsTF.text = user.hips.stringValue
+            neckTF.text = user.neck.stringValue
+            bicepsTF.text = user.biceps.stringValue
+            forearmsTF.text = user.forearms.stringValue
+            thighsTF.text = user.thighs.stringValue
+            calvesTF.text = user.calves.stringValue
+            wristTF.text = user.wrist.stringValue
+            completeButton.setTitle("Update", for: .normal)
+        }
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -278,13 +292,43 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         user.wrist = NSNumber(value: Float(wrist)!)
         
         if validation(weight: weight, chest: chest, waist: waist, hips: hips, neck: neck, biceps: biceps, forearms: forearms, thighs: thighs, calves: calves, wrist: wrist) {
+            
+            if completeButton.titleLabel?.text == "Update" {
+                self.pool?.currentUser()?.changePassword("", proposedPassword: user.password).continueWith(block: { (result) -> Any? in
+                    
+                    return nil
+                })
+                
+                let storeUser: User = User()
+                self.showHUD(hud: hud!)
+                storeUser.createUser(userId: user.userID, firstName: user.firstName, lastName: user.lastName, trainerEmail: user.trainerEmail, biceps: user.biceps, calves: user.calves, chest: user.chest, dOB: user.dOB, forearms: user.forearms, height: user.height, hips: user.hips, location: user.location, neck: user.neck, thighs: user.thighs, waist: user.waist, weight: user.weight, wrist: user.wrist, completion: { (response) in
+                    
+                    DispatchQueue.main.async {
+                        self.hideHUD(hud: self.hud!)
+                        
+                        if response == "success" {
+                            self.showSuccessHUD(text: "Profile updated successfully")
+                            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+                            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true)
+                        }
+                        else {
+                            self.showErrorHUD(text: response)
+                        }
+                        
+                    }
+                    
+                })
+            }
+            else {
             self.showHUD(hud: hud!)
             self.pool?.signUp(email, password: password, userAttributes: [], validationData: nil).continueWith {[weak self] (task) -> Any? in
                 guard self != nil else { return nil }
                 DispatchQueue.main.async(execute: {
                     if let error = task.error as NSError? {
-                        self?.hideHUD(hud: (self?.hud!)!)
-                        
+                        DispatchQueue.main.async {
+                            self?.hideHUD(hud: (self?.hud!)!)
+                            
+                        }
                         if error.code == 13 {
                             self?.showErrorHUD(text: "Password must be of 8 or more characters")
                         }
@@ -314,6 +358,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                 print("Returning nil outside")
                 return nil
             }
+        }
         }
         
     }

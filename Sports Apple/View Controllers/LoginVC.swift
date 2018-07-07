@@ -9,6 +9,7 @@
 import UIKit
 import AWSCognitoIdentityProvider
 import AWSCognito
+import AWSAuthCore
 import JGProgressHUD
 
 class LoginVC: UIViewController {
@@ -121,6 +122,9 @@ class LoginVC: UIViewController {
     @objc func goToSignUp1VC() {
         let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "SignUp1VC")
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
         self.navigationController?.pushViewController(destVC, animated: true)
     }
     
@@ -173,7 +177,94 @@ class LoginVC: UIViewController {
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         if (self.user == nil) {
             self.user = self.pool.currentUser()
+            print("Logins: ", self.pool.logins())
+            
+        /*    self.pool.currentUser()?.getSession(emailTF.text!, password: passwordTF.text!, validationData: nil).continueWith(block: { (task) -> Any? in
+                
+                if let error = task.error as NSError? {
+                    print(error.localizedDescription)
+                    return nil
+                }
+                
+                let session = task.result! as AWSCognitoIdentityUserSession
+                let token = session.idToken!.tokenString
+                
+                let tokens : [NSString:NSString] = ["cognito-idp.us-east-1.amazonaws.com/\(self.pool.userPoolConfiguration.poolId)" as NSString : token as NSString]
+                let identityProvider = CognitoPoolIdentityProvider(tokens: tokens)
+                
+                
+                
+                let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .usEast1, identityPoolId: self.identityPoolID, identityProviderManager: identityProvider)
+                
+                ///  Set the default service configuration
+                let serviceConfiguration = AWSServiceConfiguration(region: AWSRegionType.usEast1, credentialsProvider: credentialsProvider)
+                AWSServiceManager.default().defaultServiceConfiguration = serviceConfiguration
+                
+                credentialsProvider.getIdentityId().continue({ (task) -> AnyObject? in
+                    completionHandler(task.error as NSError?)
+                    return nil
+                })
+                
+                return nil
+            }) */
+            
+        /*    self.pool.currentUser()?.getSession(emailTF.text!, password: passwordTF.text!, validationData: nil).continue({ (task) -> AnyObject? in
+                
+                if let error = task.error as? NSError {
+                    completionHandler(error)
+                    return nil
+                }
+                
+                let session = task.result! as AWSCognitoIdentityUserSession
+                let token = session.idToken!.tokenString
+                
+                let tokens : [NSString:NSString] = ["cognito-idp.us-east-1.amazonaws.com/\(self.poolID!)" as NSString : token as NSString]
+                let identityProvider = CognitoPoolIdentityProvider(tokens: tokens)
+                
+                let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .usEast1, identityPoolId: self.identityPoolID, identityProviderManager: identityProvider)
+                
+                ///  Set the default service configuration
+                let serviceConfiguration = AWSServiceConfiguration(region: AWSRegionType.usEast1, credentialsProvider: credentialsProvider)
+                AWSServiceManager.default().defaultServiceConfiguration = serviceConfiguration
+                
+                credentialsProvider.getIdentityId().continue({ (task) -> AnyObject? in
+                    completionHandler(task.error as NSError?)
+                    return nil
+                })
+                
+                return nil
+            })
     
+            self.user.getSession("sampleuser", password: "samplepassword", validationData: nil, scopes: nil).continueWithBlock({ task in
+                if (task.error == nil) {
+                    let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
+                                                                            identityPoolId:"(identity id from identity pool)")
+                    
+                    let ret = task.result as! AWSCognitoIdentityUserSession
+                    let logins: NSDictionary = NSDictionary(dictionary: ["cognito-idp.us-east-1.amazonaws.com/(user pool id from user pool)" : ret.idToken!.tokenString])
+                    credentialsProvider.logins = logins as [NSObject : AnyObject]
+                    let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialsProvider)
+                    AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+                    credentialsProvider.clearKeychain()
+                    credentialsProvider.credentials().continueWithBlock {(task: AWSTask!) -> AnyObject! in
+                        let result = task.result as! AWSCredentials
+                        let newcredentialsProvider = AWSStaticCredentialsProvider(accessKey:result.accessKey, secretKey: result.secretKey)
+                        let newdefaultServiceConfiguration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: newcredentialsProvider)
+                        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = newdefaultServiceConfiguration
+                        
+                        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+                        let scanExpression = AWSDynamoDBScanExpression()
+                        
+                        dynamoDBObjectMapper.scan(SampleTable.self, expression: scanExpression).continueWithBlock({ task in
+                            print(task.result)
+                            return nil
+                        })
+                        return nil
+                    }
+                }
+                return nil
+            }) */
+            
         }
        /* self.user?.getDetails().continueOnSuccessWith { (task) -> AnyObject? in
             DispatchQueue.main.async(execute: {
@@ -195,13 +286,16 @@ class LoginVC: UIViewController {
                 storedUser.userID = (self.user?.username!)!
                 
                 user?.createUser(userId: storedUser.userID, firstName: storedUser.firstName, lastName: storedUser.lastName, trainerEmail: storedUser.trainerEmail, biceps: storedUser.biceps, calves: storedUser.calves, chest: storedUser.chest, dOB: storedUser.dOB, forearms: storedUser.forearms, height: storedUser.height, hips: storedUser.hips, location: storedUser.location, neck: storedUser.neck, thighs: storedUser.thighs, waist: storedUser.waist, weight: storedUser.weight, wrist: storedUser.wrist, completion: { response in
-                    self.hideHUD(hud: self.hud!)
+                    DispatchQueue.main.async {
+                        self.hideHUD(hud: self.hud!)
+                    }
                     if response == "success" {
                         print("Got here success")
-                        UtilityFunctions.saveUserDefaults(value: UserItem())
-                        self.goToActivitySessionsVC()
+                        DispatchQueue.main.async {
+                            UtilityFunctions.saveUserDefaults(value: UserItem())
+                            self.goToActivitySessionsVC()
+                        }
                     }
-                    
                 })
             }
             else {

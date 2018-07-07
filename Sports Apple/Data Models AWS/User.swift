@@ -107,7 +107,8 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         })
     }
     
-    func queryUser(userId: String) {
+    func queryUser(userId: String, completion: @escaping (_ success: String, _ responseUser: UserItem) -> Void) {
+        let responseUser: UserItem = UserItem()
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "#userId = :userId"
         
@@ -119,14 +120,38 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         ]
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         
-        dynamoDbObjectMapper.query(Activity.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+        dynamoDbObjectMapper.query(User.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
             if error != nil {
                 print("The request failed. Error: \(String(describing: error))")
+                completion((error?.localizedDescription)!, responseUser)
             }
             if output != nil {
                 for user in output!.items {
                     let userItem = user as? User
-                    print("\(userItem!._firstName!)")
+                    responseUser.firstName = (userItem?._firstName)!
+                    responseUser.lastName = (userItem?._lastName)!
+                    responseUser.trainerEmail = (userItem?._trainerEmail)!
+                    responseUser.biceps = (userItem?._biceps)!
+                    responseUser.calves = (userItem?._calves)!
+                    responseUser.chest = (userItem?._chest)!
+                    responseUser.dOB = (userItem?._dOB)!
+                    responseUser.forearms = (userItem?._forearms)!
+                    responseUser.height = (userItem?._height)!
+                    responseUser.hips = (userItem?._hips)!
+                    responseUser.location = (userItem?._location)!
+                    responseUser.neck = (userItem?._neck)!
+                    responseUser.thighs = (userItem?._thighs)!
+                    responseUser.units = (userItem?._units)!
+                    responseUser.userID = (userItem?._userId)!
+                    responseUser.waist = (userItem?._waist)!
+                    responseUser.weight = (userItem?._weight)!
+                    responseUser.wrist = (userItem?._wrist)!
+                }
+                if output!.items.count > 0 {
+                    completion("success", responseUser)
+                }
+                else {
+                    completion("failure", responseUser)
                 }
             }
         }
