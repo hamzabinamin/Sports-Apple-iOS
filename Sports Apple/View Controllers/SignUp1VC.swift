@@ -11,11 +11,14 @@ import UIKit
 class SignUp1VC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var updatePasswordButton: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var newPasswordTF: UITextField!
+    @IBOutlet weak var newPasswordImageView: UIImageView!
     var user: UserItem = UserItem()
-    var cameFromSettings = false
-    var passwordChanged = false
+    //var cameFromSettings = false
+    //var passwordChanged = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,22 +27,28 @@ class SignUp1VC: UIViewController, UITextFieldDelegate {
         if user.email.count > 0 {
             emailTF.isEnabled = false
             emailTF.alpha = 0.5
+            passwordTF.isEnabled = false
+            passwordTF.alpha = 0.5
             emailTF.text = user.email
             passwordTF.text = "Tigerey1"
+            updatePasswordButton.isHidden = false
         }
         else {
             emailTF.isEnabled = true
             emailTF.alpha = 1
+            passwordTF.isEnabled = true
+            passwordTF.alpha = 1
+            updatePasswordButton.isHidden = true
         }
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+  /*  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         if textField == passwordTF {
             passwordChanged = true
         }
       return true
-    }
+    } */
     
     func setupViews() {
         hideKeyboardWhenTappedAround()
@@ -48,11 +57,13 @@ class SignUp1VC: UIViewController, UITextFieldDelegate {
         nextButton.layer.cornerRadius = 18
         emailTF.addPadding(.left(35))
         passwordTF.addPadding(.left(35))
+        newPasswordTF.addPadding(.left(35))
         
         nextButton.addTarget(self, action: #selector(goNext), for: .touchUpInside)
+        updatePasswordButton.addTarget(self, action: #selector(showViews), for: .touchUpInside)
     }
     
-    func validation(email: String, password: String) -> Bool {
+    func validation(email: String, password: String, newPassword: String) -> Bool {
         let emailRegEx = "^(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?(?:(?:(?:[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+(?:\\.[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+)*)|(?:\"(?:(?:(?:(?: )*(?:(?:[!#-Z^-~]|\\[|\\])|(?:\\\\(?:\\t|[ -~]))))+(?: )*)|(?: )+)\"))(?:@)(?:(?:(?:[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)(?:\\.[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)*)|(?:\\[(?:(?:(?:(?:(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))\\.){3}(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))))|(?:(?:(?: )*[!-Z^-~])*(?: )*)|(?:[Vv][0-9A-Fa-f]+\\.[-A-Za-z0-9._~!$&'()*+,;=:]+))\\])))(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?$"
         let passwordRegEx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
@@ -69,6 +80,13 @@ class SignUp1VC: UIViewController, UITextFieldDelegate {
                 return false
             }
             
+            if !newPasswordTF.isHidden {
+                if !passwordTest.evaluate(with: newPassword) {
+                    self.showErrorHUD(text: "Password must be atleast 8 characters long, contain atleast one uppercase, lowercase & numeric characters")
+                    return false
+                }
+            }
+            
             return true
         }
         self.showErrorHUD(text: "Please fill all fields")
@@ -78,13 +96,38 @@ class SignUp1VC: UIViewController, UITextFieldDelegate {
     @objc func goNext() {
         let email = emailTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let password = passwordTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let newPassword = newPasswordTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        if validation(email: email, password: password) {
+        if validation(email: email, password: password, newPassword: newPassword) {
             user.email = email
             user.password = password
             
+            if !newPasswordTF.isHidden {
+                user.newPassword = newPassword
+            }
+            
            // if cameFromSettings &&
             goToSignUp2VC()
+        }
+    }
+    
+    @objc func showViews() {
+        if newPasswordTF.isHidden && newPasswordImageView.isHidden {
+            passwordTF.isEnabled = true
+            passwordTF.alpha = 1
+            passwordTF.placeholder = "Old Password"
+            passwordTF.text = ""
+            newPasswordTF.isHidden = false
+            newPasswordImageView.isHidden = false
+            updatePasswordButton.setTitle("Cancel", for: .normal)
+        }
+        else {
+            passwordTF.isEnabled = false
+            passwordTF.alpha = 0.5
+            passwordTF.text = "Tigerey1"
+            newPasswordTF.isHidden = true
+            newPasswordImageView.isHidden = true
+            updatePasswordButton.setTitle("Update Password", for: .normal)
         }
     }
     
@@ -94,7 +137,7 @@ class SignUp1VC: UIViewController, UITextFieldDelegate {
         destVC.user = user
         let backItem = UIBarButtonItem()
         backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
+        self.navigationItem.backBarButtonItem = backItem
         self.navigationController?.pushViewController(destVC, animated: true)
     }
 }

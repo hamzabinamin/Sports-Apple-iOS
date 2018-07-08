@@ -13,17 +13,13 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
   
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var activitiesLabel: UILabel!
-    @IBOutlet weak var backImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     var hud: JGProgressHUD?
     var session: Activity = Activity()
     var dict: [[String: Any]] = []
     var array: [ExerciseItem] = []
-    
-  /*  let e1 = ExerciseItem(exerciseID: "1", exerciseName: "Deadlift", exerciseWeightAmount: 25, exerciseCount: 0, exerciseReps: 12, exerciseSets: 3, exerciseTime: 0, exerciseDistance: 0, exerciseComment: "Great workout")
-    let e2 = ExerciseItem(exerciseID: "1", exerciseName: "Running", exerciseWeightAmount: 0, exerciseCount: 0, exerciseReps: 0, exerciseSets: 0, exerciseTime: 0, exerciseDistance: 1200, exerciseComment: "What a run!")
-    let e3 = ExerciseItem(exerciseID: "1", exerciseName: "Cycling", exerciseWeightAmount: 0, exerciseCount: 0, exerciseReps: 0, exerciseSets: 0, exerciseTime: 245400, exerciseDistance: 0, exerciseComment: "Feeling pumped") */
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,23 +53,12 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             cell.weightLabel.isHidden = false
             cell.setsLabel.isHidden = false
             cell.repsLabel.isHidden = false
+            cell.countsLabel.isHidden = true
             cell.distanceTimeLabel.isHidden = true
             
             cell.weightLabel.text = String(array[indexPath.row].exerciseWeightAmount) + " lbs"
             cell.setsLabel.text = String(array[indexPath.row].exerciseSets) + " Sets"
             cell.repsLabel.text = String(array[indexPath.row].exerciseReps) + " Reps"
-            
-            if array[indexPath.row].exerciseCount != 0 {
-                cell.countsLabel.isHidden = false
-                cell.setsLabel.isHidden = true
-                cell.repsLabel.isHidden = true
-                cell.countsLabel.text = String(array[indexPath.row].exerciseCount)
-            }
-            else {
-                 cell.countsLabel.isHidden = true
-                 cell.setsLabel.isHidden = false
-                 cell.repsLabel.isHidden = false
-            }
         }
         else if array[indexPath.row].exerciseDistance != 0 {
             
@@ -97,6 +82,15 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             
             cell.distanceTimeLabel.text = String(format: "%02d:%02d", hours, minutes)
         }
+        else if array[indexPath.row].exerciseCount != 0 {
+            cell.weightLabel.isHidden = true
+            cell.setsLabel.isHidden = true
+            cell.repsLabel.isHidden = true
+            cell.countsLabel.isHidden = true
+            cell.distanceTimeLabel.isHidden = false
+            
+            cell.distanceTimeLabel.text = String(array[indexPath.row].exerciseCount) + " Counts"
+        }
         
         return cell
     }
@@ -104,11 +98,9 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
     func setupViews() {
         self.hud = self.createLoadingHUD()
         self.tableView.tableFooterView = UIView()
-        let tapBack = UITapGestureRecognizer(target: self, action: #selector(back))
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tapBack)
         addButton.addTarget(self, action: #selector(goToExerciseDetailsVC), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
     }
     
     @objc func back() {
@@ -161,8 +153,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             if response == "success" {
                 DispatchQueue.main.async {
                     self.showSuccessHUD(text: response)
-                    let destVC = self.navigationController!.viewControllers.filter { $0 is ActivitySessionsVC }.first!
-                    self.navigationController?.popToViewController(destVC, animated: true) 
+                    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 }
             }
             else {

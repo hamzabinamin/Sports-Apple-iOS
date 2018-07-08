@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // setup logging
         AWSDDLog.sharedInstance.logLevel = .verbose
-        AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
+        //AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
         
         // setup service configuration
         let serviceConfiguration = AWSServiceConfiguration(region: CognitoIdentityUserPoolRegion, credentialsProvider: nil)
@@ -63,16 +63,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-       /* if (pool?.currentUser()?.isSignedIn)! {
+        if (pool?.currentUser()?.isSignedIn)! {
             let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
             
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
-            self.window?.rootViewController = initialViewController
+             self.navigationController = self.storyboard?.instantiateViewController(withIdentifier: "NCFirst") as? UINavigationController
+            self.navigationController?.pushViewController(initialViewController, animated: true)
+            self.navigationController?.isNavigationBarHidden = true
+            self.window?.rootViewController = self.navigationController
             self.window?.makeKeyAndVisible()
-        }
-        else { */
             pool?.delegate = self
-        //}
+        }
+        else {
+            pool?.delegate = self
+        }
         
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, didFinishLaunchingWithOptions:

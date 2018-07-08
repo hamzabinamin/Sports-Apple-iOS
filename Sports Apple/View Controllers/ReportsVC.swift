@@ -24,6 +24,10 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.tableFooterView = UIView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

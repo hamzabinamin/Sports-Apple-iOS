@@ -32,12 +32,14 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         setupViews()
         rotateArrow()
-      /*  array.append(SessionItem(sessionDate: "30th May, 2018", sessionLocation: "At the Gym", sessionBodyWeight: "64 KG", sessionCalories: "516", sessionComment: "Great Session!!!"))
-        array.append(SessionItem(sessionDate: "30th May, 2018", sessionLocation: "At Home", sessionBodyWeight: "64 KG", sessionCalories: "499", sessionComment: "None")) */
-        
+    
         getSessions()
         
          NotificationCenter.default.addObserver(self, selector: #selector(confirmDate(notification:)), name: .confirmDate, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

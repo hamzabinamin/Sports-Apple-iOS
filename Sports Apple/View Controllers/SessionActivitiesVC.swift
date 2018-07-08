@@ -59,26 +59,14 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
             cell.weightLabel.isHidden = false
             cell.setsLabel.isHidden = false
             cell.repsLabel.isHidden = false
+            cell.countsLabel.isHidden = true
             cell.distanceTimeLabel.isHidden = true
             
             cell.weightLabel.text = String(array[indexPath.row].exerciseWeightAmount) + " lbs"
             cell.setsLabel.text = String(array[indexPath.row].exerciseSets) + " Sets"
             cell.repsLabel.text = String(array[indexPath.row].exerciseReps) + " Reps"
-            
-            if array[indexPath.row].exerciseCount != 0 {
-                cell.countsLabel.isHidden = false
-                cell.setsLabel.isHidden = true
-                cell.repsLabel.isHidden = true
-                cell.countsLabel.text = String(array[indexPath.row].exerciseCount)
-            }
-            else {
-                cell.countsLabel.isHidden = true
-                cell.setsLabel.isHidden = false
-                cell.repsLabel.isHidden = false
-            }
         }
         else if array[indexPath.row].exerciseDistance != 0 {
-            
             cell.weightLabel.isHidden = true
             cell.setsLabel.isHidden = true
             cell.repsLabel.isHidden = true
@@ -96,6 +84,15 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
             let hours = array[indexPath.row].exerciseTime / 3600
             let minutes = (array[indexPath.row].exerciseTime / 60) % 60
             cell.distanceTimeLabel.text = String(format: "%02d:%02d", hours, minutes)
+        }
+        else if array[indexPath.row].exerciseCount != 0 {
+            cell.weightLabel.isHidden = true
+            cell.setsLabel.isHidden = true
+            cell.repsLabel.isHidden = true
+            cell.countsLabel.isHidden = true
+            cell.distanceTimeLabel.isHidden = false
+            
+            cell.distanceTimeLabel.text = String(array[indexPath.row].exerciseCount) + " Counts"
         }
         return cell
     }

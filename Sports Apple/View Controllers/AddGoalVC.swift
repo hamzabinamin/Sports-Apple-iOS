@@ -14,6 +14,7 @@ import AWSCognitoIdentityProvider
 class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
   
     @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var addToFavoritesButton: UIButton!
     @IBOutlet weak var exerciseListTF: UITextField!
     @IBOutlet weak var favoritesListTF: UITextField!
     @IBOutlet weak var goalTypeTF: UITextField!
@@ -25,11 +26,14 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     let picker = UIPickerView()
     var pool: AWSCognitoIdentityUserPool?
     var exerciseArray: [Exercise] = []
+    var favoritesArray: [Exercise] = []
+    var exerciseDictionary: [[String: Any]] = []
     let numberArray = [Int](1...50000)
-    let hourArray = [Int](0...12)
+    let hourArray = [Int](0...8760)
     let minArray = [Int](0...60)
     let goalTypeArray: [String] = ["Weight Goal", "Distance Goal", "Time Goal", "Calories Goal"]
     let yearlyGoalArray: [String] = ["Yes", "No"]
+    var favoriteExercise: Exercise = Exercise()
     let weightUnit = "lbs"
     let distanceUnit = "miles"
     let caloriesUnit = "calories"
@@ -127,7 +131,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             return exerciseArray[row]._name
         }
         else if activeField == favoritesListTF {
-            return exerciseArray[row]._name
+            return favoritesArray[row]._name
         }
         else if activeField == goalTypeTF {
             return goalTypeArray[row]
@@ -188,7 +192,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                     return exerciseArray.count
                 }
                 else if activeField == favoritesListTF {
-                    return exerciseArray.count
+                    return favoritesArray.count
                 }
                 else if activeField == goalTypeTF {
                     return goalTypeArray.count
@@ -224,6 +228,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         backView.isUserInteractionEnabled = true
         backView.addGestureRecognizer(tap)
         completeButton.addTarget(self, action: #selector(addGoal), for: .touchUpInside)
+        addToFavoritesButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
     }
     
     func setupPicker() {
@@ -268,6 +273,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                     store?._exerciseId = id
                     store?._name = name
                     self.exerciseArray.append(store!)
+                    self.exerciseArray.sort{ ($0._name! < $1._name!) }
                     print(exercise.value(forKey: "_exerciseId")!)
                     print(exercise.value(forKey: "_name")!)
                     
@@ -276,6 +282,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
                 self.picker.reloadComponent(0)
+                self.getFavorites()
             }
             return()
         })
@@ -299,14 +306,107 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         self.yearlyGoalTF.text = ""
     }
     
+    func createFavorite() {
+        var store: Dictionary = [String: Any]()
+        let favorites = Favorites()
+        store["ID"] = self.favoriteExercise._exerciseId
+        store["Name"] = self.favoriteExercise._name
+        exerciseDictionary.append(store)
+        favorites?._userId = (self.pool?.currentUser()?.username)!
+        favorites?._exerciseList = exerciseDictionary
+        favorites?.createFavorite(favoriteItem: favorites!, completion: { (response) in
+            DispatchQueue.main.async {
+                if response == "success" {
+                    self.showSuccessHUD(text: "Added to Favorites")
+                    self.addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                    let exerciseItem = Exercise()
+                    exerciseItem?._exerciseId = self.favoriteExercise._exerciseId
+                    exerciseItem?._name = self.favoriteExercise._name
+                    self.favoritesArray.append(exerciseItem!)
+                    self.picker.reloadComponent(0)
+                }
+                else {
+                    self.showErrorHUD(text: "Couldn't add to Favorites")
+                }
+            }
+        })
+    }
+    
+    func getFavorites() {
+        self.showHUD(hud: hud!)
+        let favorites = Favorites()
+        favorites?.queryFavorites(userId: (pool?.currentUser()?.username)!, completion: { (response, responseArray) in
+            
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+                
+                if response == "success" {
+                    self.exerciseDictionary = responseArray
+                    
+                    for value in (self.exerciseDictionary) {
+                        print(value["ID"]!)
+                        let exerciseID = value["ID"]
+                        let exerciseName = value["Name"]
+                        let exerciseItem = Exercise()
+                        exerciseItem?._exerciseId = NSNumber(value: Int("\(exerciseID!)")!)
+                        exerciseItem?._name = "\(exerciseName!)"
+                        self.favoritesArray.append(exerciseItem!)
+                    }
+                    self.picker.reloadComponent(0)
+                }
+            }
+        })
+    }
+    
+    @objc func addToFavorites() {
+        let favorites = Favorites()
+        
+        if addToFavoritesButton.currentImage == UIImage(named: "Favorite Gray") {
+            self.showHUD(hud: hud!)
+            favorites?.queryFavorites(userId: (pool?.currentUser()?.username)!, completion: { (response, responseArray) in
+                
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    
+                    if response == "success" {
+                        self.exerciseDictionary = responseArray
+                        self.createFavorite()
+                    }
+                    else {
+                        self.createFavorite()
+                    }
+                }
+            })
+        }
+        else {
+            
+        }
+    }
+    
     @objc func dismissView() {
         self.dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: .refreshGoals, object: nil)
     }
     
     @objc func donePicker() {
         if activeField == exerciseListTF {
+            favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
             exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
             exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+            
+            if exerciseListTF.text!.count > 0 {
+                
+                if favoritesArray.contains(favoriteExercise) {
+                    addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                }
+                else {
+                    addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                }
+            }
+            else {
+                addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+            }
+            
             goalTypeTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -314,8 +414,8 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == favoritesListTF {
-            favoritesListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
-            exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+            favoritesListTF.text = favoritesArray[picker.selectedRow(inComponent: 0)]._name
+            exerciseID = "\(favoritesArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
             exerciseListTF.isEnabled = false
             exerciseListTF.alpha = 0.5
             goalTypeTF.perform(
@@ -336,7 +436,10 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
             if type == "Time Goal" {
-                goalAmountTF.text = "\(hourArray[picker.selectedRow(inComponent: 0)])" + ":" + "\(minArray[picker.selectedRow(inComponent: 2)])"
+                let hours = hourArray[picker.selectedRow(inComponent: 0)]
+                let minutes = minArray[picker.selectedRow(inComponent: 2)]
+                let time = String(format: "%02d:%02d", hours, minutes)
+                goalAmountTF.text = time
             }
             else if type == "Distance Goal" {
             goalAmountTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])" + " " + distanceUnit

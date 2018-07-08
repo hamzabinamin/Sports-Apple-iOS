@@ -14,4 +14,6 @@ class GoalsTVCell: UITableViewCell {
     @IBOutlet weak var activityLabel: UILabel!
     @IBOutlet weak var goalTypeLabel: UILabel!
     @IBOutlet weak var goalAmountLabel: UILabel!
+    @IBOutlet weak var yearlyGoal: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
 }

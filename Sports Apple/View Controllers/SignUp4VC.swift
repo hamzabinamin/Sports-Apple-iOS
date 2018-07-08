@@ -39,7 +39,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         setupViews()
         setupPicker()
         
-        if user.weight.stringValue.count > 0 {
+        if user.weight.stringValue != "-1" {
             weightTF.text = user.weight.stringValue
             chestTF.text = user.chest.stringValue
             waistTF.text = user.waist.stringValue
@@ -131,6 +131,38 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         completeButton.addTarget(self, action: #selector(signUp), for: .touchUpInside)
+    }
+    
+    func updateUser() {
+        let storeUser: User = User()
+        self.showHUD(hud: hud!)
+        storeUser.createUser(userId: user.userID, firstName: user.firstName, lastName: user.lastName, trainerEmail: user.trainerEmail, biceps: user.biceps, calves: user.calves, chest: user.chest, dOB: user.dOB, forearms: user.forearms, height: user.height, hips: user.hips, location: user.location, neck: user.neck, thighs: user.thighs, waist: user.waist, weight: user.weight, wrist: user.wrist, completion: { (response) in
+            
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+                
+                if response == "success" {
+                    let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+                    self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true)
+                    NotificationCenter.default.post(name: .profileUpdated, object: nil)
+                }
+                else {
+                    self.showErrorHUD(text: response)
+                }
+                
+            }
+            
+        })
+    }
+    
+    func validation(weight: String, chest: String, waist: String, hips: String, neck: String, biceps: String, forearms: String, thighs: String, calves: String, wrist: String) -> Bool {
+        
+        if weight.count == 0 && chest.count == 0 && waist.count == 0 && hips.count == 0 && neck.count == 0 && biceps.count == 0 && forearms.count == 0 && thighs.count == 0 && calves.count == 0 && wrist.count == 0 {
+            self.showErrorHUD(text: "Please fill all fields")
+            return false
+        }
+    
+        return true
     }
     
     func setupPicker() {
@@ -255,15 +287,6 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         self.view.endEditing(true)
     }
 
-    func validation(weight: String, chest: String, waist: String, hips: String, neck: String, biceps: String, forearms: String, thighs: String, calves: String, wrist: String) -> Bool {
-        
-        if weight.count == 0 && chest.count == 0 && waist.count == 0 && hips.count == 0 && neck.count == 0 && biceps.count == 0 && forearms.count == 0 && thighs.count == 0 && calves.count == 0 && wrist.count == 0 {
-            return false
-        }
-        
-        return true
-    }
-    
     @objc func signUp() {
         print("Sign up called")
         let weight = weightTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -280,44 +303,54 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         let password = user.password
         //let emailAttribute = AWSCognitoIdentityUserAttributeType(name: "email", value: email!)
         
-        user.weight = NSNumber(value: Float(weight)!)
-        user.chest = NSNumber(value: Float(chest)!)
-        user.waist = NSNumber(value: Float(waist)!)
-        user.hips = NSNumber(value: Float(hips)!)
-        user.neck = NSNumber(value: Float(neck)!)
-        user.biceps = NSNumber(value: Float(biceps)!)
-        user.forearms = NSNumber(value: Float(forearms)!)
-        user.thighs = NSNumber(value: Float(thighs)!)
-        user.calves = NSNumber(value: Float(calves)!)
-        user.wrist = NSNumber(value: Float(wrist)!)
-        
         if validation(weight: weight, chest: chest, waist: waist, hips: hips, neck: neck, biceps: biceps, forearms: forearms, thighs: thighs, calves: calves, wrist: wrist) {
+        
+            user.weight = NSNumber(value: Float(weight)!)
+            user.chest = NSNumber(value: Float(chest)!)
+            user.waist = NSNumber(value: Float(waist)!)
+            user.hips = NSNumber(value: Float(hips)!)
+            user.neck = NSNumber(value: Float(neck)!)
+            user.biceps = NSNumber(value: Float(biceps)!)
+            user.forearms = NSNumber(value: Float(forearms)!)
+            user.thighs = NSNumber(value: Float(thighs)!)
+            user.calves = NSNumber(value: Float(calves)!)
+            user.wrist = NSNumber(value: Float(wrist)!)
             
             if completeButton.titleLabel?.text == "Update" {
-                self.pool?.currentUser()?.changePassword("", proposedPassword: user.password).continueWith(block: { (result) -> Any? in
-                    
-                    return nil
-                })
+                if user.newPassword.count > 0 {
+                    self.showHUD(hud: hud!)
+                    self.pool?.currentUser()?.changePassword(user.password, proposedPassword: user.newPassword).continueWith(block: { (response: AWSTask < AWSCognitoIdentityUserChangePasswordResponse>) -> Any? in
                 
-                let storeUser: User = User()
-                self.showHUD(hud: hud!)
-                storeUser.createUser(userId: user.userID, firstName: user.firstName, lastName: user.lastName, trainerEmail: user.trainerEmail, biceps: user.biceps, calves: user.calves, chest: user.chest, dOB: user.dOB, forearms: user.forearms, height: user.height, hips: user.hips, location: user.location, neck: user.neck, thighs: user.thighs, waist: user.waist, weight: user.weight, wrist: user.wrist, completion: { (response) in
-                    
-                    DispatchQueue.main.async {
-                        self.hideHUD(hud: self.hud!)
+                        DispatchQueue.main.async {
+                            self.hideHUD(hud: self.hud!)
+                        }
                         
-                        if response == "success" {
-                            self.showSuccessHUD(text: "Profile updated successfully")
-                            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-                            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true)
+                        if response.result != nil {
+                            print(response.result!.description)
+                            self.updateUser()
                         }
                         else {
-                            self.showErrorHUD(text: response)
+                            print("Error: ", response.error!.localizedDescription)
+                            
+                            DispatchQueue.main.async {
+                                
+                                if response.error!.localizedDescription.contains("The operation couldn’t be completed. (com.amazonaws.AWSCognitoIdentityProviderErrorDomain error 18.)") {
+                                    
+                                    self.showErrorHUD(text: "Attempt limit exceeded, please try after some time")
+                                }
+                                else {
+                                    self.showErrorHUD(text: "Provided password is incorrect")
+                                }
+                                
+                            }
                         }
                         
-                    }
-                    
-                })
+                        return nil
+                    })
+                }
+                else {
+                    updateUser()
+                }
             }
             else {
             self.showHUD(hud: hud!)

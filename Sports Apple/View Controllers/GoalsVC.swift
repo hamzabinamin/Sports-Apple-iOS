@@ -12,40 +12,25 @@ import AWSCognitoIdentityProvider
 
 class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var noGoalsLabel: UILabel!
-    @IBOutlet weak var addImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     var hud: JGProgressHUD?
     var pool: AWSCognitoIdentityUserPool?
     var array: [Goal] = []
     let goal: Goal = Goal()
+    let formatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
-        self.showHUD(hud: hud!)
-        goal.queryGoal(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
-            DispatchQueue.main.async {
-                self.hideHUD(hud: self.hud!)
-            }
-            if response == "success" {
-                self.array = responseArray
-                
-                DispatchQueue.main.async {
-                    self.noGoalsLabel.isHidden = true
-                    self.tableView.reloadData()
-                }
-                
-            }
-            else {
-                DispatchQueue.main.async {
-                    self.showErrorHUD(text: response)
-                    self.noGoalsLabel.isHidden = false
-                }
-            }
-            
-        }
+        getGoals()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(getGoals), name: .refreshGoals, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -60,6 +45,17 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GoalsTVCell
         let goal = array[indexPath.row]
         cell.activityLabel.text = goal._exerciseId
+        formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        let date = formatter.date(from: goal._date!)
+        formatter.dateFormat = "MM/dd/yyyy"
+        cell.dateLabel.text = formatter.string(for: date)
+        
+        if goal._yearlyGoal == "Yes" {
+            cell.yearlyGoal.isHidden = false
+        }
+        else {
+            cell.yearlyGoal.isHidden = true
+        }
         
         if goal._time != nil {
             cell.goalTypeLabel.text = "Time Goal"
@@ -70,12 +66,7 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         else if goal._weight != nil {
             cell.goalTypeLabel.text = "Weight Goal"
             cell.goalAmountLabel.text = "\(goal._weight!)" + " lbs"
-        }
-        else if goal._time != nil {
-            cell.goalTypeLabel.text = "Time Goal"
-            let hours = (goal._time?.intValue)! / 3600
-            let minutes = ((goal._time?.intValue)! / 60) % 60
-            cell.goalAmountLabel.text = String(format: "%02d:%02d", hours, minutes)
+            
         }
         else if goal._calories != nil {
             cell.goalTypeLabel.text = "Calories Goal"
@@ -97,9 +88,39 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.hud = self.createLoadingHUD()
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         self.tableView.tableFooterView = UIView()
-        let tap = UITapGestureRecognizer(target: self, action: #selector(goToAddGoalVC))
-        addImageView.isUserInteractionEnabled = true
-        addImageView.addGestureRecognizer(tap)
+        self.formatter.dateFormat = "MM/dd/yyyy"
+        
+        addButton.addTarget(self, action: #selector(goToAddGoalVC), for: .touchUpInside)
+    }
+    
+    @objc func getGoals() {
+        self.showHUD(hud: hud!)
+        goal.queryGoal(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+            }
+            if response == "success" {
+                self.array = responseArray
+                
+                DispatchQueue.main.async {
+                    self.noGoalsLabel.isHidden = true
+                    self.tableView.reloadData()
+                }
+                
+            }
+            else {
+                DispatchQueue.main.async {
+                    
+                    if response == "failure" {
+                        self.noGoalsLabel.isHidden = false
+                    }
+                    else {
+                        self.showErrorHUD(text: response)
+                        self.noGoalsLabel.isHidden = false
+                    }
+                }
+            }
+        }
     }
     
     @objc func goToAddGoalVC() {

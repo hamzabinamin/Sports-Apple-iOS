@@ -86,22 +86,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQh-S3-w0l">
                                 <rect key="frame" x="49" y="45" width="25" height="25"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Back" translatesAutoresizingMaskIntoConstraints="NO" id="k43-O5-QOq">
-                                        <rect key="frame" x="-0.5" y="-0.5" width="25" height="25"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVb-tK-YYb">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="2zG-Xw-Ozp"/>
-                                            <constraint firstAttribute="height" constant="25" id="h7B-Ru-PVF"/>
+                                            <constraint firstAttribute="width" constant="25" id="8ur-Go-Zuu"/>
+                                            <constraint firstAttribute="height" constant="25" id="Wgt-oa-eXQ"/>
                                         </constraints>
-                                    </imageView>
+                                        <state key="normal" image="Back"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.37664103507995605" green="0.82411009073257446" blue="0.94497829675674438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="SVb-tK-YYb" secondAttribute="bottom" id="2kc-xE-T26"/>
+                                    <constraint firstItem="SVb-tK-YYb" firstAttribute="top" secondItem="xQh-S3-w0l" secondAttribute="top" id="5SM-l8-YeA"/>
                                     <constraint firstAttribute="height" constant="25" id="D3n-bI-hnJ"/>
-                                    <constraint firstItem="k43-O5-QOq" firstAttribute="top" secondItem="xQh-S3-w0l" secondAttribute="top" id="QYd-Y6-DK0"/>
-                                    <constraint firstItem="k43-O5-QOq" firstAttribute="leading" secondItem="xQh-S3-w0l" secondAttribute="leading" id="VhO-1t-PIh"/>
+                                    <constraint firstItem="SVb-tK-YYb" firstAttribute="leading" secondItem="xQh-S3-w0l" secondAttribute="leading" id="RP4-ss-dsE"/>
                                     <constraint firstAttribute="width" constant="25" id="b4X-36-Fdw"/>
-                                    <constraint firstAttribute="trailing" secondItem="k43-O5-QOq" secondAttribute="trailing" id="dfm-af-Wc8"/>
-                                    <constraint firstAttribute="bottom" secondItem="k43-O5-QOq" secondAttribute="bottom" id="oKX-Qh-xhX"/>
+                                    <constraint firstAttribute="trailing" secondItem="SVb-tK-YYb" secondAttribute="trailing" id="yiM-Ij-wZ0"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="171" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mpm-X5-BMX">
@@ -253,7 +254,7 @@
                     <connections>
                         <outlet property="activitiesLabel" destination="aRZ-7w-dEQ" id="IuI-jT-fAw"/>
                         <outlet property="addButton" destination="ZCd-dN-L71" id="Z1p-Lt-2Wb"/>
-                        <outlet property="backImageView" destination="k43-O5-QOq" id="Mdn-LD-V4H"/>
+                        <outlet property="backButton" destination="SVb-tK-YYb" id="tSO-o4-7Zb"/>
                         <outlet property="saveButton" destination="8Qv-qG-WY2" id="beR-gJ-E9f"/>
                         <outlet property="tableView" destination="mpm-X5-BMX" id="Ehb-es-5F9"/>
                         <segue destination="8ge-TV-Rai" kind="show" identifier="AddActivityInSessionVC" id="ggJ-Ns-0Li"/>
@@ -308,23 +309,24 @@
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="List" translatesAutoresizingMaskIntoConstraints="NO" id="EPE-Kg-Y9B">
-                                                                <rect key="frame" x="15" y="15.5" width="16" height="19"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lT2-kd-kGX">
+                                                                <rect key="frame" x="15" y="16" width="16" height="18"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="19" id="3Ln-RS-Efk"/>
-                                                                    <constraint firstAttribute="width" constant="16" id="9AT-J7-7I1"/>
+                                                                    <constraint firstAttribute="height" constant="18" id="fbI-VL-1fA"/>
+                                                                    <constraint firstAttribute="width" constant="16" id="uFZ-Lm-bcZ"/>
                                                                 </constraints>
-                                                            </imageView>
+                                                                <state key="normal" image="List"/>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstItem="EPE-Kg-Y9B" firstAttribute="leading" secondItem="UPB-1Q-7Dy" secondAttribute="leading" constant="15" id="2aC-6l-f2P"/>
                                                             <constraint firstItem="46e-tB-AyC" firstAttribute="leading" secondItem="UPB-1Q-7Dy" secondAttribute="leading" id="8Qm-G3-7a5"/>
                                                             <constraint firstAttribute="bottom" secondItem="46e-tB-AyC" secondAttribute="bottom" id="CBL-OO-pQd"/>
+                                                            <constraint firstItem="lT2-kd-kGX" firstAttribute="leading" secondItem="UPB-1Q-7Dy" secondAttribute="leading" constant="15" id="FNN-G7-pCY"/>
                                                             <constraint firstAttribute="trailing" secondItem="46e-tB-AyC" secondAttribute="trailing" id="Gmp-9J-0Gm"/>
                                                             <constraint firstAttribute="height" constant="50" id="LkF-1o-y9Y"/>
                                                             <constraint firstItem="46e-tB-AyC" firstAttribute="top" secondItem="UPB-1Q-7Dy" secondAttribute="top" id="fIM-kU-HcU"/>
-                                                            <constraint firstItem="EPE-Kg-Y9B" firstAttribute="centerY" secondItem="UPB-1Q-7Dy" secondAttribute="centerY" id="nyh-jY-7aF"/>
+                                                            <constraint firstItem="lT2-kd-kGX" firstAttribute="centerY" secondItem="UPB-1Q-7Dy" secondAttribute="centerY" id="tK0-ck-sed"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhn-hl-dYk">
@@ -705,6 +707,7 @@
                         <viewLayoutGuide key="safeArea" id="ij8-dm-Vrl"/>
                     </view>
                     <connections>
+                        <outlet property="addToFavoritesButton" destination="lT2-kd-kGX" id="IKg-8Q-E9I"/>
                         <outlet property="backView" destination="LKh-sf-fIW" id="keN-Bg-T5E"/>
                         <outlet property="commentTV" destination="rqK-NN-lPy" id="LqO-CY-fps"/>
                         <outlet property="completeButton" destination="RLO-hN-eFg" id="00p-Ud-t7R"/>

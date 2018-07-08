@@ -26,6 +26,8 @@ extension Notification.Name {
     static let showLoginVC = Notification.Name("showLoginVC")
     static let updateActivityTV = Notification.Name("updateActivityTV")
     static let confirmDate = Notification.Name("confirmDate")
+    static let refreshGoals = Notification.Name("refreshGoals")
+    static let profileUpdated = Notification.Name("profileUpdated")
 }
 
 

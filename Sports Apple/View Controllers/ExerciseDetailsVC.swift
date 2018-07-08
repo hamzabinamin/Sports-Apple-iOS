@@ -9,10 +9,12 @@
 import UIKit
 import JGProgressHUD
 import AWSDynamoDB
+import AWSCognitoIdentityProvider
 
 class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var addToFavoritesButton: UIButton!
     @IBOutlet weak var exerciseListTF: UITextField!
     @IBOutlet weak var favoritesListTF: UITextField!
     @IBOutlet weak var exerciseTypeTF: UITextField!
@@ -27,11 +29,15 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     var hud: JGProgressHUD?
     var activeField: UITextField?
     let picker = UIPickerView()
+    var pool: AWSCognitoIdentityUserPool?
     var exerciseArray: [Exercise] = []
+    var favoritesArray: [Exercise] = []
+    var favoritesDictionary: [[String: Any]] = []
     let numberArray = [Int](1...1000)
     let hourArray = [Int](0...12)
     let minArray = [Int](0...60)
     let typeArray = ["Weight", "Count", "Time", "Distance"]
+    var favoriteExercise: Exercise = Exercise()
     let weightUnit = "lbs"
     let distanceUnit = "miles"
     let hourUnit = "hour"
@@ -57,6 +63,10 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         activeField = textField
         picker.reloadAllComponents()
         return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -119,7 +129,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                 return exerciseArray.count
             }
             else if activeField == favoritesListTF {
-                return exerciseArray.count
+                return favoritesArray.count
             }
             else if activeField == exerciseTypeTF {
                 return typeArray.count
@@ -166,7 +176,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                 return exerciseArray[row]._name
             }
             else if activeField == favoritesListTF {
-                return exerciseArray[row]._name
+                return favoritesArray[row]._name
             }
             else if activeField == exerciseTypeTF {
                 return typeArray[row]
@@ -181,9 +191,12 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     func setupViews() {
         self.hideKeyboardWhenTappedAround()
         self.hud = self.createLoadingHUD()
+        self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissVC))
         backView.isUserInteractionEnabled = true
         backView.addGestureRecognizer(tap)
+        
+        addToFavoritesButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
     }
     
     func setupTextView() {
@@ -229,6 +242,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                     store?._exerciseId = id
                     store?._name = name
                     self.exerciseArray.append(store!)
+                    self.exerciseArray.sort{ ($0._name! < $1._name!) }
                     print(exercise.value(forKey: "_exerciseId")!)
                     print(exercise.value(forKey: "_name")!)
                     
@@ -237,8 +251,61 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
                 self.picker.reloadComponent(0)
+                self.getFavorites()
             }
             return()
+        })
+    }
+    
+    func createFavorite() {
+        var store: Dictionary = [String: Any]()
+        let favorites = Favorites()
+        store["ID"] = self.favoriteExercise._exerciseId
+        store["Name"] = self.favoriteExercise._name
+        favoritesDictionary.append(store)
+        favorites?._userId = (self.pool?.currentUser()?.username)!
+        favorites?._exerciseList = favoritesDictionary
+        favorites?.createFavorite(favoriteItem: favorites!, completion: { (response) in
+            DispatchQueue.main.async {
+                if response == "success" {
+                    self.showSuccessHUD(text: "Added to Favorites")
+                    self.addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                    let exerciseItem = Exercise()
+                    exerciseItem?._exerciseId = self.favoriteExercise._exerciseId
+                    exerciseItem?._name = self.favoriteExercise._name
+                    self.favoritesArray.append(exerciseItem!)
+                    self.picker.reloadComponent(0)
+                }
+                else {
+                    self.showErrorHUD(text: "Couldn't add to Favorites")
+                }
+            }
+        })
+    }
+    
+    func getFavorites() {
+        self.showHUD(hud: hud!)
+        let favorites = Favorites()
+        favorites?.queryFavorites(userId: (pool?.currentUser()?.username)!, completion: { (response, responseArray) in
+            
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+                
+                if response == "success" {
+                    self.favoritesDictionary = responseArray
+                    
+                    for value in (self.favoritesDictionary) {
+                        print(value["ID"]!)
+                        let exerciseID = value["ID"]
+                        let exerciseName = value["Name"]
+                        let exerciseItem = Exercise()
+                        exerciseItem?._exerciseId = NSNumber(value: Int("\(exerciseID!)")!)
+                        exerciseItem?._name = "\(exerciseName!)"
+                        self.favoritesArray.append(exerciseItem!)
+                    }
+                    self.picker.reloadComponent(0)
+                }
+            }
         })
     }
     
@@ -280,8 +347,23 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     @objc func donePicker() {
         
         if activeField == exerciseListTF {
+            favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
             exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
             exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+            
+            if exerciseListTF.text!.count > 0 {
+                
+                if favoritesArray.contains(favoriteExercise) {
+                    addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                }
+                else {
+                    addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                }
+            }
+            else {
+                addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+            }
+            
             exerciseTypeTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -289,8 +371,8 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             )
         }
         else if activeField == favoritesListTF {
-            favoritesListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
-            exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+            favoritesListTF.text = favoritesArray[picker.selectedRow(inComponent: 0)]._name
+            exerciseID = "\(favoritesArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
             exerciseListTF.isEnabled = false
             exerciseListTF.alpha = 0.5
             exerciseTypeTF.perform(
@@ -421,7 +503,10 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             )
         }
         else if activeField == timeTF {
-            timeTF.text = "\(hourArray[picker.selectedRow(inComponent: 0)])" + ":" + "\(minArray[picker.selectedRow(inComponent: 2)])"
+            let hours = hourArray[picker.selectedRow(inComponent: 0)]
+            let minutes = minArray[picker.selectedRow(inComponent: 2)]
+            let time = String(format: "%02d:%02d", hours, minutes)
+            timeTF.text = time
             commentTV.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -442,6 +527,31 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     @objc func cancelPicker(){
         self.view.endEditing(true)
+    }
+    
+    @objc func addToFavorites() {
+        let favorites = Favorites()
+        
+        if addToFavoritesButton.currentImage == UIImage(named: "Favorite Gray") {
+            self.showHUD(hud: hud!)
+            favorites?.queryFavorites(userId: (pool?.currentUser()?.username)!, completion: { (response, responseArray) in
+                
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    
+                    if response == "success" {
+                        self.favoritesDictionary = responseArray
+                        self.createFavorite()
+                    }
+                    else {
+                        self.createFavorite()
+                    }
+                }
+            })
+        }
+        else {
+            
+        }
     }
     
     @objc func dismissVC() {

@@ -58,19 +58,20 @@
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="List" translatesAutoresizingMaskIntoConstraints="NO" id="J6X-Me-Emf">
-                                                                <rect key="frame" x="15" y="15.5" width="16" height="19"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZc-2v-8AI">
+                                                                <rect key="frame" x="15" y="16" width="16" height="18"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="16" id="4WK-RT-3dQ"/>
-                                                                    <constraint firstAttribute="height" constant="19" id="sHr-Yq-SRG"/>
+                                                                    <constraint firstAttribute="height" constant="18" id="6cY-81-Ie6"/>
+                                                                    <constraint firstAttribute="width" constant="16" id="qjY-dh-PgR"/>
                                                                 </constraints>
-                                                            </imageView>
+                                                                <state key="normal" image="List"/>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstItem="J6X-Me-Emf" firstAttribute="centerY" secondItem="OJ9-RL-cDX" secondAttribute="centerY" id="EUV-l2-xqZ"/>
+                                                            <constraint firstItem="PZc-2v-8AI" firstAttribute="leading" secondItem="OJ9-RL-cDX" secondAttribute="leading" constant="15" id="1hf-s8-9ZX"/>
+                                                            <constraint firstItem="PZc-2v-8AI" firstAttribute="centerY" secondItem="OJ9-RL-cDX" secondAttribute="centerY" id="9dz-fb-vOq"/>
                                                             <constraint firstAttribute="trailing" secondItem="47n-kC-odL" secondAttribute="trailing" id="EpV-98-umG"/>
-                                                            <constraint firstItem="J6X-Me-Emf" firstAttribute="leading" secondItem="OJ9-RL-cDX" secondAttribute="leading" constant="15" id="F6g-CU-5fD"/>
                                                             <constraint firstItem="47n-kC-odL" firstAttribute="top" secondItem="OJ9-RL-cDX" secondAttribute="top" id="XHa-RE-zdH"/>
                                                             <constraint firstAttribute="height" constant="50" id="dgw-LU-mcy"/>
                                                             <constraint firstItem="47n-kC-odL" firstAttribute="leading" secondItem="OJ9-RL-cDX" secondAttribute="leading" id="e5a-Bf-o8y"/>
@@ -277,6 +278,7 @@
                         <viewLayoutGuide key="safeArea" id="1On-oG-ezS"/>
                     </view>
                     <connections>
+                        <outlet property="addToFavoritesButton" destination="PZc-2v-8AI" id="Yox-Ju-P7A"/>
                         <outlet property="backView" destination="EHB-au-kUn" id="5SV-kw-aqG"/>
                         <outlet property="completeButton" destination="jSJ-SZ-6XS" id="PV7-nJ-Uum"/>
                         <outlet property="exerciseListTF" destination="47n-kC-odL" id="Hdh-8c-zXX"/>

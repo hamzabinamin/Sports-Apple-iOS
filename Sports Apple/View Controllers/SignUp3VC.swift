@@ -22,7 +22,10 @@ class SignUp3VC: UIViewController {
         if user.location.count > 0 {
             locationTF.text = user.location
         }
-        
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
     }
     
     func setupViews() {

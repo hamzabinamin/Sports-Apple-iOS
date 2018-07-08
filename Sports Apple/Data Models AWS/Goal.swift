@@ -100,24 +100,26 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                     let goalItem = goal as? Goal
                     goalArray.append(goalItem!)
                 }
-                
-                for(index, element) in goalArray.enumerated() {
-                    exercise.queryExercise(exerciseId: NSNumber(value: Int(element._exerciseId!)!), completion: { (response, responseExercise) in
-                        
-                        if response == "success" {
-                            goalArray[index]._exerciseId = responseExercise
+                if goalArray.count > 0 {
+                    for(index, element) in goalArray.enumerated() {
+                        exercise.queryExercise(exerciseId: NSNumber(value: Int(element._exerciseId!)!), completion: { (response, responseExercise) in
                             
-                            if index == goalArray.count - 1 {
-                                print("Sending result now")
-                                completion("success", goalArray)
+                            if response == "success" {
+                                goalArray[index]._exerciseId = responseExercise
+                                
+                                if index == goalArray.count - 1 {
+                                    print("Sending result now")
+                                    completion("success", goalArray)
+                                }
                             }
-                        }
-                        else {
-                            completion(response, [])
-                        }
-                    })
-                
-                    
+                            else {
+                                completion(response, [])
+                            }
+                        })
+                    }
+                }
+                else {
+                   completion("failure", [])
                 }
             }
         }

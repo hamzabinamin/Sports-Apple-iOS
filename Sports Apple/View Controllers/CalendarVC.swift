@@ -134,8 +134,8 @@ extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy"
-        let resultDate = formatter.string(from: Date())
-        let startDate = formatter.date(from: resultDate)
+        //let resultDate = formatter.string(from: Date())
+        //let startDate = formatter.date(from: resultDate)
         let year = Calendar.current.component(.year, from: Date())
          let firstOfCurrentYear = Calendar.current.date(from: DateComponents(year: year, month: 2, day: 1))
         let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))

@@ -26,6 +26,20 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.tableFooterView = UIView()
        
          NotificationCenter.default.addObserver(self, selector: #selector(goToLoginVC), name: .showLoginVC, object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(profileUpdated), name: .profileUpdated, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationItem.title = " "
+        self.navigationController?.isNavigationBarHidden = false
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        self.navigationItem.backBarButtonItem = backItem
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -96,10 +110,11 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    @objc func profileUpdated() {
+         self.showSuccessHUD(text: "Profile updated successfully")
+    }
+    
     @objc func goToLoginVC() {
-      //  let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      //  let destVC = storyboard.instantiateViewController(withIdentifier: "LoginVC")
-     //   self.navigationController?.pushViewController(destVC, animated: true)
         self.navigationController?.popToRootViewController(animated: true)
     }
 
@@ -107,10 +122,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "SignUp1VC") as! SignUp1VC
         destVC.user = userItem
-        destVC.cameFromSettings = true
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
         self.navigationController?.pushViewController(destVC, animated: true)
     }
 }

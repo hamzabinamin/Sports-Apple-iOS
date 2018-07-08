@@ -13,6 +13,7 @@ class UserItem: NSObject, NSCoding {
     var userID: String
     var email: String
     var password: String
+    var newPassword: String
     var biceps: NSNumber
     var calves: NSNumber
     var chest: NSNumber
@@ -35,29 +36,31 @@ class UserItem: NSObject, NSCoding {
         userID = ""
         email = ""
         password = ""
-        biceps = 0
-        calves = 0
-        chest = 0
+        newPassword = ""
+        biceps = -1
+        calves = -1
+        chest = -1
         dOB = ""
         firstName = ""
-        forearms = 0
+        forearms = -1
         height = ""
-        hips = 0
+        hips = -1
         lastName = ""
         location = ""
-        neck = 0
-        thighs = 0
+        neck = -1
+        thighs = -1
         trainerEmail = ""
         units = ""
-        waist = 0
-        weight = 0
-        wrist = 0
+        waist = -1
+        weight = -1
+        wrist = -1
     }
     
-    init(userID: String, email: String, password: String, biceps: NSNumber, calves: NSNumber, chest: NSNumber, dOB: String, firstName: String, forearms: NSNumber, height: String, hips: NSNumber, lastName: String, location: String, neck: NSNumber, thighs: NSNumber, trainerEmail: String, units: String, waist: NSNumber, weight: NSNumber, wrist: NSNumber) {
+    init(userID: String, email: String, password: String, newPassword: String, biceps: NSNumber, calves: NSNumber, chest: NSNumber, dOB: String, firstName: String, forearms: NSNumber, height: String, hips: NSNumber, lastName: String, location: String, neck: NSNumber, thighs: NSNumber, trainerEmail: String, units: String, waist: NSNumber, weight: NSNumber, wrist: NSNumber) {
         self.userID = userID
         self.email = email
         self.password = password
+        self.newPassword = newPassword
         self.biceps = biceps
         self.calves = calves
         self.chest = chest
@@ -81,6 +84,7 @@ class UserItem: NSObject, NSCoding {
         self.userID = decoder.decodeObject(forKey: "userID") as? String ?? ""
         self.email = decoder.decodeObject(forKey: "email") as? String ?? ""
         self.password = decoder.decodeObject(forKey: "password") as? String ?? ""
+        self.newPassword = decoder.decodeObject(forKey: "newPassword") as? String ?? ""
         self.biceps = decoder.decodeObject(forKey: "biceps") as? NSNumber ?? 0
         self.calves = decoder.decodeObject(forKey: "calves") as? NSNumber ?? 0
         self.chest = decoder.decodeObject(forKey: "chest") as? NSNumber ?? 0
@@ -104,6 +108,7 @@ class UserItem: NSObject, NSCoding {
         coder.encode(userID, forKey: "userID")
         coder.encode(email, forKey: "email")
         coder.encode(password, forKey: "password")
+        coder.encode(newPassword, forKey: "newPassword")
         coder.encode(biceps, forKey: "biceps")
         coder.encode(calves, forKey: "calves")
         coder.encode(chest, forKey: "chest")

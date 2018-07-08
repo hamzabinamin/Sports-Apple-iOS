@@ -109,16 +109,17 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     func queryActivity(userId: String, date: String, completion: @escaping (_ success: String, _ sessionArray: [Activity]) -> Void) {
         var sessionArray: [Activity] = []
         let queryExpression = AWSDynamoDBQueryExpression()
-        queryExpression.indexName = "UserActivityDate"
-        queryExpression.keyConditionExpression = "#Date >= :Date AND #userId = :userId"
+       // queryExpression.indexName = "UserActivityDate"
+        queryExpression.keyConditionExpression = "#userId = :userId"
+        queryExpression.filterExpression = "contains(#Date, :Date)"
         
         queryExpression.expressionAttributeNames = [
             "#userId": "userId",
-            "#Date": "Date"
+            "#Date": "Date",
         ]
         queryExpression.expressionAttributeValues = [
             ":Date": date,
-            ":userId": userId
+            ":userId": userId,
         ]
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         

@@ -15,8 +15,8 @@ import JGProgressHUD
 class LoginVC: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var forgotPasswordLabel: UILabel!
-    @IBOutlet weak var signUpLabel: UILabel!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     var hud: JGProgressHUD?
@@ -35,39 +35,16 @@ class LoginVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if pool.currentUser()?.getSession() != nil {
+         if pool.currentUser()?.getSession() != nil {
             print("Session there")
-            
-            if (pool.currentUser()?.isSignedIn)! {
-                print("User logged in 1st")
-                print("Username in LoginVC: ", pool.currentUser()!.username)
-                goToActivitySessionsVC()
-            }
-            else {
-                 print("User not logged in 1st")
-            }
+         
         }
         else {
             print("No Session")
-           // print("Here: ", pool.currentUser()?.getDetails())
             (UIApplication.shared.delegate as! AppDelegate).pool?.getUser().getDetails()
-            
-         /*   if ((UIApplication.shared.delegate as! AppDelegate).pool?.getUser().isSignedIn)! {
-                print("User logged in")
-            }
-            else {
-                (UIApplication.shared.delegate as! AppDelegate).pool?.getUser().getDetails()
-                pool.currentUser()?.getDetails()
-                  print("User not logged in")
-            } */
-            
-            
-            //let user = appDelegate.pool!.currentUser()
-            //let details = user!.getDetails()
         }
         
-        self.passwordTF.text = nil
-        self.emailTF.text = usernameText
+        passwordTF.text = ""
     }
     
     func setupViews() {
@@ -79,17 +56,13 @@ class LoginVC: UIViewController {
         self.navigationController!.navigationBar.isTranslucent = true
         
         loginButton.addTarget(self, action: #selector(loginUser), for: .touchUpInside)
+        forgotPasswordButton.addTarget(self, action: #selector(goToForgotPasswordVC), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(goToSignUp1VC), for: .touchUpInside)
+        
         
         loginButton.layer.cornerRadius = 18
         emailTF.addPadding(.left(35))
         passwordTF.addPadding(.left(35))
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(goToForgotPasswordVC))
-        let tap2 = UITapGestureRecognizer(target: self, action: #selector(goToSignUp1VC))
-        forgotPasswordLabel.isUserInteractionEnabled = true
-        forgotPasswordLabel.addGestureRecognizer(tap)
-        signUpLabel.isUserInteractionEnabled = true
-        signUpLabel.addGestureRecognizer(tap2)
     }
     
     @objc func loginUser() {
@@ -131,8 +104,9 @@ class LoginVC: UIViewController {
     @objc func goToVerificationVC() {
         let storyboard = UIStoryboard(name: "Verification", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "VerificationVC") as! VerificationVC
-        destVC.sentTo = sentTo
-        destVC.user = (UIApplication.shared.delegate as! AppDelegate).pool?.getUser()
+        let email = (emailTF.text?.trimmingCharacters(in: .whitespacesAndNewlines))!
+        destVC.sentTo = email
+        destVC.user = (UIApplication.shared.delegate as! AppDelegate).pool?.getUser(email)
         self.navigationController?.pushViewController(destVC, animated: true)
     }
     
@@ -174,113 +148,12 @@ class LoginVC: UIViewController {
     } */
 
     func processUser() {
-        self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         if (self.user == nil) {
             self.user = self.pool.currentUser()
-            print("Logins: ", self.pool.logins())
-            
-        /*    self.pool.currentUser()?.getSession(emailTF.text!, password: passwordTF.text!, validationData: nil).continueWith(block: { (task) -> Any? in
-                
-                if let error = task.error as NSError? {
-                    print(error.localizedDescription)
-                    return nil
-                }
-                
-                let session = task.result! as AWSCognitoIdentityUserSession
-                let token = session.idToken!.tokenString
-                
-                let tokens : [NSString:NSString] = ["cognito-idp.us-east-1.amazonaws.com/\(self.pool.userPoolConfiguration.poolId)" as NSString : token as NSString]
-                let identityProvider = CognitoPoolIdentityProvider(tokens: tokens)
-                
-                
-                
-                let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .usEast1, identityPoolId: self.identityPoolID, identityProviderManager: identityProvider)
-                
-                ///  Set the default service configuration
-                let serviceConfiguration = AWSServiceConfiguration(region: AWSRegionType.usEast1, credentialsProvider: credentialsProvider)
-                AWSServiceManager.default().defaultServiceConfiguration = serviceConfiguration
-                
-                credentialsProvider.getIdentityId().continue({ (task) -> AnyObject? in
-                    completionHandler(task.error as NSError?)
-                    return nil
-                })
-                
-                return nil
-            }) */
-            
-        /*    self.pool.currentUser()?.getSession(emailTF.text!, password: passwordTF.text!, validationData: nil).continue({ (task) -> AnyObject? in
-                
-                if let error = task.error as? NSError {
-                    completionHandler(error)
-                    return nil
-                }
-                
-                let session = task.result! as AWSCognitoIdentityUserSession
-                let token = session.idToken!.tokenString
-                
-                let tokens : [NSString:NSString] = ["cognito-idp.us-east-1.amazonaws.com/\(self.poolID!)" as NSString : token as NSString]
-                let identityProvider = CognitoPoolIdentityProvider(tokens: tokens)
-                
-                let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .usEast1, identityPoolId: self.identityPoolID, identityProviderManager: identityProvider)
-                
-                ///  Set the default service configuration
-                let serviceConfiguration = AWSServiceConfiguration(region: AWSRegionType.usEast1, credentialsProvider: credentialsProvider)
-                AWSServiceManager.default().defaultServiceConfiguration = serviceConfiguration
-                
-                credentialsProvider.getIdentityId().continue({ (task) -> AnyObject? in
-                    completionHandler(task.error as NSError?)
-                    return nil
-                })
-                
-                return nil
-            })
-    
-            self.user.getSession("sampleuser", password: "samplepassword", validationData: nil, scopes: nil).continueWithBlock({ task in
-                if (task.error == nil) {
-                    let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
-                                                                            identityPoolId:"(identity id from identity pool)")
-                    
-                    let ret = task.result as! AWSCognitoIdentityUserSession
-                    let logins: NSDictionary = NSDictionary(dictionary: ["cognito-idp.us-east-1.amazonaws.com/(user pool id from user pool)" : ret.idToken!.tokenString])
-                    credentialsProvider.logins = logins as [NSObject : AnyObject]
-                    let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialsProvider)
-                    AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
-                    credentialsProvider.clearKeychain()
-                    credentialsProvider.credentials().continueWithBlock {(task: AWSTask!) -> AnyObject! in
-                        let result = task.result as! AWSCredentials
-                        let newcredentialsProvider = AWSStaticCredentialsProvider(accessKey:result.accessKey, secretKey: result.secretKey)
-                        let newdefaultServiceConfiguration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: newcredentialsProvider)
-                        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = newdefaultServiceConfiguration
-                        
-                        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-                        let scanExpression = AWSDynamoDBScanExpression()
-                        
-                        dynamoDBObjectMapper.scan(SampleTable.self, expression: scanExpression).continueWithBlock({ task in
-                            print(task.result)
-                            return nil
-                        })
-                        return nil
-                    }
-                }
-                return nil
-            }) */
-            
         }
-       /* self.user?.getDetails().continueOnSuccessWith { (task) -> AnyObject? in
-            DispatchQueue.main.async(execute: {
-                let response = task.result
-               // print(response.idTok)
-                //print("Username: ", self.user?.username)
-                let userAttribute = response?.userAttributes![2]
-                print("Attribute Name: ", userAttribute?.name!)
-                print("Attribute Value: ", userAttribute?.value!)
-            })
-            return nil
-        } */
-        
-        
         if UtilityFunctions.getUserDefaults() != nil {
             if UtilityFunctions.getUserDefaults()!.email.count > 0 {
+                print("Saving user info in db")
                 let user = User()
                 let storedUser = UtilityFunctions.getUserDefaults()!
                 storedUser.userID = (self.user?.username!)!
@@ -293,19 +166,43 @@ class LoginVC: UIViewController {
                         print("Got here success")
                         DispatchQueue.main.async {
                             UtilityFunctions.saveUserDefaults(value: UserItem())
+                            print()
                             self.goToActivitySessionsVC()
                         }
                     }
                 })
             }
             else {
-                self.hideHUD(hud: hud!)
-                goToActivitySessionsVC()
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    print("Calling ActivitySessionsVC")
+                    self.goToActivitySessionsVC()
+                }
             }
         }
         else {
-             self.hideHUD(hud: hud!)
-           // goToActivitySessionsVC()
+            DispatchQueue.main.async {
+                print("Userdefaults were nil")
+                self.hideHUD(hud: self.hud!)
+                self.goToActivitySessionsVC()
+            }
+        }
+    }
+    
+    func sendVerificationCode() {
+        let email = emailTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let user = (UIApplication.shared.delegate as! AppDelegate).pool?.getUser(email!)
+        user?.resendConfirmationCode().continueWith {[weak self] (task: AWSTask) -> AnyObject? in
+            guard let _ = self else { return nil }
+            DispatchQueue.main.async(execute: {
+                self?.hideHUD(hud: (self?.hud!)!)
+                if let error = task.error as NSError? {
+                    self?.showErrorHUD(text: error.localizedDescription)
+                } else if task.result != nil {
+                    self?.goToVerificationVC()
+                }
+            })
+            return nil
         }
     }
     
@@ -343,8 +240,7 @@ extension LoginVC: AWSCognitoIdentityPasswordAuthentication {
                     let alertController = UIAlertController(title: "User Confirmation", message: "User is not confirmed", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "Verify Now", style: UIAlertActionStyle.default) {
                         UIAlertAction in
-                        //self.sentTo =
-                        self.goToVerificationVC()
+                        self.sendVerificationCode()
                     }
                     let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
                         UIAlertAction in
