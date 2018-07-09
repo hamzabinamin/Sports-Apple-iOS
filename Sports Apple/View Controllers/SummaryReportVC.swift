@@ -11,8 +11,8 @@ import SwiftDataTables
 
 class SummaryReportVC: UIViewController {
     
-    @IBOutlet weak var backImageView: UIImageView!
-    @IBOutlet weak var chartImageView: UIImageView!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var chartButton: UIButton!
     var dataTable: SwiftDataTable! = nil
     var dataSource: DataTableContent = []
     
@@ -25,12 +25,6 @@ class SummaryReportVC: UIViewController {
     }
     
     func setupViews() {
-        let tapBack = UITapGestureRecognizer(target: self, action: #selector(goBack))
-        let tapChart = UITapGestureRecognizer(target: self, action: #selector(goToChartsVC))
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tapBack)
-        chartImageView.isUserInteractionEnabled = true
-        chartImageView.addGestureRecognizer(tapChart)
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
         self.dataTable = SwiftDataTable(dataSource: self)
@@ -42,6 +36,10 @@ class SummaryReportVC: UIViewController {
         let leadingConstraint = self.dataTable.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let trailingConstraint = self.dataTable.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         self.view.addSubview(self.dataTable);
+        
+        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        chartButton.addTarget(self, action: #selector(goToChartsVC), for: .touchUpInside)
+        
         NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
     }
 

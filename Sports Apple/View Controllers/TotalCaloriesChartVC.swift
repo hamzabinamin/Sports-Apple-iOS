@@ -11,7 +11,7 @@ import UIKit
 
 class TotalCaloriesChartVC: UIViewController {
     
-    @IBOutlet weak var backImageView: UIImageView!
+    @IBOutlet weak var backButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +19,6 @@ class TotalCaloriesChartVC: UIViewController {
     }
     
     func setupViews() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(goBack))
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tap)
         let aaChartView = AAChartView()
         aaChartView.translatesAutoresizingMaskIntoConstraints = false
         let topConstraint = aaChartView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 121)
@@ -32,6 +29,8 @@ class TotalCaloriesChartVC: UIViewController {
         // aaChartView?.contentHeight = self.view.frame.size.height
         self.view.addSubview(aaChartView)
         NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        
+        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
         let aaChartModel = AAChartModel.init()
             .chartType(AAChartType.Column)//Can be any of the chart types listed under `AAChartType`.

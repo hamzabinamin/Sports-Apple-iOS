@@ -151,12 +151,16 @@ class LoginVC: UIViewController {
         if (self.user == nil) {
             self.user = self.pool.currentUser()
         }
-        if UtilityFunctions.getUserDefaults() != nil {
+        DispatchQueue.main.async {
+            self.hideHUD(hud: self.hud!)
+            self.goToActivitySessionsVC()
+        }
+       /* if UtilityFunctions.getUserDefaults() != nil {
             if UtilityFunctions.getUserDefaults()!.email.count > 0 {
                 print("Saving user info in db")
                 let user = User()
                 let storedUser = UtilityFunctions.getUserDefaults()!
-                storedUser.userID = (self.user?.username!)!
+                storedUser.userID = (self.pool.currentUser()?.username)!
                 
                 user?.createUser(userId: storedUser.userID, firstName: storedUser.firstName, lastName: storedUser.lastName, trainerEmail: storedUser.trainerEmail, biceps: storedUser.biceps, calves: storedUser.calves, chest: storedUser.chest, dOB: storedUser.dOB, forearms: storedUser.forearms, height: storedUser.height, hips: storedUser.hips, location: storedUser.location, neck: storedUser.neck, thighs: storedUser.thighs, waist: storedUser.waist, weight: storedUser.weight, wrist: storedUser.wrist, completion: { response in
                     DispatchQueue.main.async {
@@ -186,7 +190,7 @@ class LoginVC: UIViewController {
                 self.hideHUD(hud: self.hud!)
                 self.goToActivitySessionsVC()
             }
-        }
+        } */
     }
     
     func sendVerificationCode() {

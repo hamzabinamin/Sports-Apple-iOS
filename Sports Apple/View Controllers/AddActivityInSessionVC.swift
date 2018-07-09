@@ -154,6 +154,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
                 DispatchQueue.main.async {
                     self.showSuccessHUD(text: response)
                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    NotificationCenter.default.post(name: .sessionAdded, object: nil)
                 }
             }
             else {

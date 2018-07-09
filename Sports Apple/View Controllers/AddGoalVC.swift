@@ -53,6 +53,27 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
         picker.reloadAllComponents()
+        if activeField == goalAmountTF {
+            
+            let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if type == "Time Goal" {
+                picker.selectRow(0, inComponent: 0, animated: false)
+                picker.selectRow(0, inComponent: 2, animated: false)
+            }
+            else if type == "Distance Goal" {
+                picker.selectRow(0, inComponent: 0, animated: false)
+            }
+            else if type == "Weight Goal" {
+                picker.selectRow(0, inComponent: 0, animated: false)
+            }
+            else if type == "Calories Goal" {
+                picker.selectRow(0, inComponent: 0, animated: false)
+            }
+        }
+        else {
+            picker.selectRow(0, inComponent: 0, animated: false)
+        }
         return true
     }
     
@@ -474,9 +495,14 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         if validation(type: type!, amount: amount!, yearlyGoal: yearlyGoal!) {
             self.showHUD(hud: hud!)
             let formatter = DateFormatter()
+            formatter.locale = Locale(identifier:"en_US_POSIX")
             formatter.dateFormat = "MM/dd/yyyy h:mm a"
             let goalItem: Goal = Goal()
-            goalItem._exerciseId = exerciseID
+            let index = exerciseArray.index(where: { $0._exerciseId?.stringValue == exerciseID })
+            var exercise: Dictionary = [String: String]()
+            exercise["ID"] = exerciseID
+            exercise["Name"] = exerciseArray[index!]._name
+            goalItem._exercise = exercise
             
             if type == "Time Goal" {
                 let store = amount?.split(separator: ":")

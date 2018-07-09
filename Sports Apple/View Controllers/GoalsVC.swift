@@ -44,7 +44,8 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GoalsTVCell
         let goal = array[indexPath.row]
-        cell.activityLabel.text = goal._exerciseId
+
+        cell.activityLabel.text = goal._exercise?["Name"]
         formatter.dateFormat = "MM/dd/yyyy h:mm a"
         let date = formatter.date(from: goal._date!)
         formatter.dateFormat = "MM/dd/yyyy"
@@ -70,7 +71,7 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         else if goal._calories != nil {
             cell.goalTypeLabel.text = "Calories Goal"
-            cell.goalAmountLabel.text = "\(goal._calories!)" + " calories"
+            cell.goalAmountLabel.text = "\(goal._calories!)" + " cals"
         }
         else if goal._distance != nil {
             cell.goalTypeLabel.text = "Distance Goal"
@@ -86,6 +87,7 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func setupViews() {
         self.hud = self.createLoadingHUD()
+        self.formatter.locale = Locale(identifier:"en_US_POSIX")
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         self.tableView.tableFooterView = UIView()
         self.formatter.dateFormat = "MM/dd/yyyy"
@@ -101,6 +103,8 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             if response == "success" {
                 self.array = responseArray
+                self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedDescending})
                 
                 DispatchQueue.main.async {
                     self.noGoalsLabel.isHidden = true

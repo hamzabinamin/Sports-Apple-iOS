@@ -28,6 +28,7 @@ extension Notification.Name {
     static let confirmDate = Notification.Name("confirmDate")
     static let refreshGoals = Notification.Name("refreshGoals")
     static let profileUpdated = Notification.Name("profileUpdated")
+    static let sessionAdded = Notification.Name("sessionAdded")
 }
 
 

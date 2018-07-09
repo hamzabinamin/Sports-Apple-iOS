@@ -10,7 +10,7 @@ import UIKit
 
 class ChartsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var backImageView: UIImageView!
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var array:[Reports] = []
     
@@ -35,28 +35,30 @@ class ChartsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.descriptionLabel.text = array[indexPath.row].description
         cell.nextImageView.transform = CGAffineTransform(rotationAngle: .pi);
         
-        if indexPath.row == 0 {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(goToTotalCaloriesChartVC))
-            cell.nextImageView.isUserInteractionEnabled = true
-            cell.nextImageView.addGestureRecognizer(tap)
-        }
-        else if indexPath.row == 1 {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(goToCumulativeGoalsChartVC))
-            cell.nextImageView.isUserInteractionEnabled = true
-            cell.nextImageView.addGestureRecognizer(tap)
-        }
-       
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        if indexPath.row == 0 {
+          /*  let tap = UITapGestureRecognizer(target: self, action: #selector(goToTotalCaloriesChartVC))
+            cell.nextImageView.isUserInteractionEnabled = true
+            cell.nextImageView.addGestureRecognizer(tap) */
+            goToTotalCaloriesChartVC()
+        }
+        else if indexPath.row == 1 {
+         /*   let tap = UITapGestureRecognizer(target: self, action: #selector(goToCumulativeGoalsChartVC))
+            cell.nextImageView.isUserInteractionEnabled = true
+            cell.nextImageView.addGestureRecognizer(tap) */
+            goToCumulativeGoalsChartVC()
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+        
     func setupViews() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(goBack))
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tap)
+        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         tableView.tableFooterView = UIView()
     }
     

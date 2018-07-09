@@ -47,6 +47,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
         picker.reloadAllComponents()
+        picker.selectRow(0, inComponent: 0, animated: false)
         return true
     }
 
@@ -63,6 +64,10 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             textView.text = "Session Comment"
             textView.textColor = UIColor.init(hex: "#c7c7cd")
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -171,6 +176,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     
     func setupViews() {
         formatter.dateFormat = "MMM d, yyyy"
+        formatter.locale = Locale(identifier:"en_US_POSIX")
         dateLabel.text = formatter.string(from: date)
        
         prevButton.addTarget(self, action: #selector(previousDate), for: .touchUpInside)
@@ -182,7 +188,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     func setupTextFields() {
-        locationTF.delegate = self
+        //locationTF.delegate = self
         caloriesTF.delegate = self
         weightTF.delegate = self
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
@@ -240,15 +246,21 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
                 comment = "none"
             }
             let formatter = DateFormatter()
-            formatter.dateFormat = "MM/dd/yyyy h:mm a"
+            formatter.locale = Locale(identifier:"en_US_POSIX")
+            formatter.dateFormat = "MM/dd/yyyy"
+            let date = formatter.string(from: self.date)
+            formatter.dateFormat = "h:mm a"
+            let time = formatter.string(from: Date())
             session._userId = pool?.currentUser()?.username
             session._activityId = NSUUID().uuidString
-            session._date = formatter.string(from: date)
+            session._date = date + " " + time
+            
             session._location = location
             session._workoutComment = comment
             session._calories = NSNumber(value: Float(calories!)!)
             session._bodyWeight = NSNumber(value: Float(weight!)!)
             goToAddActivityInSession()
+            print(session._date!)
         }
     }
     

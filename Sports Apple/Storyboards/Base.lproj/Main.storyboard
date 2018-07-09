@@ -135,7 +135,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="NVf-Hi-MBW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5SS-1w-yrK"/>
-                            <constraint firstItem="9uW-je-Bqb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="5gg-X5-g8d"/>
+                            <constraint firstItem="9uW-je-Bqb" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="5gg-X5-g8d"/>
                             <constraint firstItem="LaQ-Eu-OKR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="35" id="5pV-Lp-3Y7"/>
                             <constraint firstItem="LaQ-Eu-OKR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="120" id="8B7-3m-fMf"/>
                             <constraint firstItem="9uW-je-Bqb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="YFN-vK-ILe"/>

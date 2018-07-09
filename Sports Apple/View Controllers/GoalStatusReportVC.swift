@@ -11,7 +11,7 @@ import SwiftDataTables
 
 class GoalStatusReportVC: UIViewController {
     
-    @IBOutlet weak var backImageView: UIImageView!
+    @IBOutlet weak var backButton: UIButton!
     var dataTable: SwiftDataTable! = nil
     var dataSource: DataTableContent = []
     
@@ -26,9 +26,6 @@ class GoalStatusReportVC: UIViewController {
     }
     
     func setupViews() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(goBack))
-        backImageView.isUserInteractionEnabled = true
-        backImageView.addGestureRecognizer(tap)
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
         self.dataTable = SwiftDataTable(dataSource: self)
@@ -41,7 +38,10 @@ class GoalStatusReportVC: UIViewController {
         let bottomConstraint = self.dataTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         let leadingConstraint = self.dataTable.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let trailingConstraint = self.dataTable.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        self.view.addSubview(self.dataTable);
+        self.view.addSubview(self.dataTable)
+        
+        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        
         NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
     }
     

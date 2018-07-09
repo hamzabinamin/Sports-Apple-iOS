@@ -29,7 +29,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     var pool: AWSCognitoIdentityUserPool?
     var user: UserItem = UserItem()
     var sentTo = ""
-    let inchesArray = [Int](1...100)
+    let inchesArray = [Int](1...150)
     let inchesDecimalArray = [Int](0...9)
     let inchesSymbol = ["inches"]
     var store: AWSCognitoIdentityUser?
@@ -57,6 +57,8 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
         picker.reloadAllComponents()
+        picker.selectRow(0, inComponent: 0, animated: false)
+        picker.selectRow(0, inComponent: 1, animated: false)
         return true
     }
     
@@ -163,6 +165,22 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         }
     
         return true
+    }
+    
+    func saveUser(storedUser: UserItem) {
+        let user = User()
+        //self.showHUD(hud: hud!)
+        user?.createUser(userId: storedUser.userID, firstName: storedUser.firstName, lastName: storedUser.lastName, trainerEmail: storedUser.trainerEmail, biceps: storedUser.biceps, calves: storedUser.calves, chest: storedUser.chest, dOB: storedUser.dOB, forearms: storedUser.forearms, height: storedUser.height, hips: storedUser.hips, location: storedUser.location, neck: storedUser.neck, thighs: storedUser.thighs, waist: storedUser.waist, weight: storedUser.weight, wrist: storedUser.wrist, completion: { response in
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+            }
+            if response == "success" {
+                print("Got here success")
+                DispatchQueue.main.async {
+                    self.goToVerificationVC()
+                }
+            }
+        })
     }
     
     func setupPicker() {
@@ -378,10 +396,11 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                         // handle the case where user has to confirm his identity via email / SMS
                         if (result.user.confirmedStatus != AWSCognitoIdentityUserStatus.confirmed) {
                             print("User not confirmed")
-                            UtilityFunctions.saveUserDefaults(value: (self?.user)!)
+                            //UtilityFunctions.saveUserDefaults(value: (self?.user)!)
                             self?.sentTo = (result.codeDeliveryDetails?.destination)!
                             self?.store = result.user
-                            self?.goToVerificationVC()
+                            self?.user.userID = result.userSub!
+                            self?.saveUser(storedUser: (self?.user)!)
                         } else {
                             print("Got in else")
                         }

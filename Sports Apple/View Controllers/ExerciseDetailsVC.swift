@@ -62,6 +62,15 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
         picker.reloadAllComponents()
+        
+        if textField == timeTF {
+            picker.selectRow(0, inComponent: 0, animated: false)
+            picker.selectRow(0, inComponent: 1, animated: false)
+        }
+        else {
+            picker.selectRow(0, inComponent: 0, animated: false)
+        }
+        
         return true
     }
     
@@ -557,8 +566,56 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     @objc func dismissVC() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func validation(type: String, weight: String, reps: String, sets: String, count: String, time: String, distance: String) -> Bool {
+        
+        if exerciseID.count > 0 {
+        
+            if type == "Weight" {
+                
+                if weight.count > 0 && reps.count > 0 && sets.count > 0 {
+                    return true
+                }
+                self.showErrorHUD(text: "Please fill the weight, reps and sets fields")
+                return false
+            }
+            else if type == "Count" {
+                
+                if count.count > 0 {
+                    return true
+                }
+                self.showErrorHUD(text: "Please fill the count field")
+                return false
+            }
+            else if type == "Time" {
+                
+                if time.count > 0 {
+                    return true
+                }
+                self.showErrorHUD(text: "Please fill the time field")
+                return false
+            }
+            else if type == "Distance" {
+                
+                if distance.count > 0 {
+                    return true
+                }
+                self.showErrorHUD(text: "Please fill the distance field")
+                return false
+            }
+            else {
+                self.showErrorHUD(text: "Please choose an activity type")
+                return false
+            }
+        }
+        else {
+            self.showErrorHUD(text: "Please fill the required fields")
+            return false
+        }
+    }
 
     @objc func addActivityInSession() {
+        let type = exerciseTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let weightAmount = weightAmountTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let reps = repsTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let sets = setsTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -567,9 +624,9 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         let distance = distanceTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let comment = commentTV.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        if exerciseID.count > 0 {
+        
+        if validation(type: type!, weight: weightAmount!, reps: reps!, sets: sets!, count: count!, time: time!, distance: distance!) {
             let index = exerciseArray.index(where: { $0._exerciseId?.stringValue == exerciseID })
-            
             
             exerciseDictionary["exerciseID"] = exerciseID
             exerciseDictionary["exerciseName"] = exerciseArray[index!]._name
@@ -609,7 +666,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             self.dismiss(animated: true, completion: nil)
         }
         else {
-            self.showErrorHUD(text: "Please fill the required fields")
+           // self.showErrorHUD(text: "Please fill the required fields")
         }
     }
 

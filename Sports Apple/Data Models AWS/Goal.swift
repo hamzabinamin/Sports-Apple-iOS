@@ -26,7 +26,7 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _time: NSNumber?
     var _weight: NSNumber?
     var _yearlyGoal: String?
-    var _exerciseId: String?
+    var _exercise: [String:String]?
     
     class func dynamoDBTableName() -> String {
 
@@ -53,7 +53,7 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_time" : "Time",
                "_weight" : "Weight",
                "_yearlyGoal" : "Yearly Goal",
-               "_exerciseId" : "exerciseId",
+               "_exercise" : "Exercise",
         ]
     }
     
@@ -78,7 +78,7 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     func queryGoal(userId: String, completion: @escaping (_ success: String, _ goalArray: [Goal]) -> Void) {
         var goalArray: [Goal] = []
-        let exercise: Exercise = Exercise()
+        //let exercise: Exercise = Exercise()
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "#userId = :userId"
         
@@ -101,7 +101,7 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                     goalArray.append(goalItem!)
                 }
                 if goalArray.count > 0 {
-                    for(index, element) in goalArray.enumerated() {
+                   /* for(index, element) in goalArray.enumerated() {
                         exercise.queryExercise(exerciseId: NSNumber(value: Int(element._exerciseId!)!), completion: { (response, responseExercise) in
                             
                             if response == "success" {
@@ -116,7 +116,9 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                                 completion(response, [])
                             }
                         })
-                    }
+                    } */
+                    
+                    completion("success", goalArray)
                 }
                 else {
                    completion("failure", [])

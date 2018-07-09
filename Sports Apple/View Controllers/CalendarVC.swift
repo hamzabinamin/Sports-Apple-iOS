@@ -44,6 +44,7 @@ class CalendarVC: UIViewController {
     func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
         guard let validCell = view as? CalendarCVCell else { return }
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier:"en_US_POSIX")
         formatter.dateFormat = "MM/dd/yyyy"
         
         if cellState.isSelected {
@@ -91,6 +92,7 @@ class CalendarVC: UIViewController {
         handleCellSelected(view: myCustomCell, cellState: cellState)
         let date = calendar.visibleDates().monthDates.first!.date
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier:"en_US_POSIX")
         formatter.dateFormat = "MMMM"
         monthLabel.text = formatter.string(from: date)
         formatter.dateFormat = "yyyy"
@@ -103,6 +105,7 @@ class CalendarVC: UIViewController {
     
     @objc func confirmDate() {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier:"en_US_POSIX")
         formatter.dateFormat = "MMM d, yyyy"
         let selectedDate = formatter.string(from: calendar.selectedDates.first!)
         if selectedDate.count > 0 {
@@ -133,6 +136,7 @@ extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier:"en_US_POSIX")
         formatter.dateFormat = "MM/dd/yyyy"
         //let resultDate = formatter.string(from: Date())
         //let startDate = formatter.date(from: resultDate)
@@ -161,6 +165,7 @@ extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         let date = visibleDates.monthDates.first!.date
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier:"en_US_POSIX")
         formatter.dateFormat = "MMMM"
         monthLabel.text = formatter.string(from: date)
         formatter.dateFormat = "yyyy"

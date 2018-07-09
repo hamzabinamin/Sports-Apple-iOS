@@ -36,6 +36,8 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         getSessions()
         
          NotificationCenter.default.addObserver(self, selector: #selector(confirmDate(notification:)), name: .confirmDate, object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(sessionAdded), name: .sessionAdded, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,6 +81,7 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
     func setupViews() {
         hud = self.createLoadingHUD()
         formatter.dateFormat = "MMM d, yyyy"
+        formatter.locale = Locale(identifier:"en_US_POSIX")
         dateLabel.text = formatter.string(from: date)
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         tableView.tableFooterView = UIView()
@@ -101,6 +104,8 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
             if response == "success" {
                 DispatchQueue.main.async {
                     self.array = responseArray
+                    self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedDescending})
                     self.tableView.reloadData()
                     self.tableView.isHidden = false
                     self.sessionLabel.isHidden = true
@@ -139,6 +144,11 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
         formatter.dateFormat = "MMM d, yyyy"
         dateLabel.text = formatter.string(from: date)
+        getSessions()
+    }
+    
+    @objc func sessionAdded() {
+        self.showSuccessHUD(text: "Session added successfully")
         getSessions()
     }
     

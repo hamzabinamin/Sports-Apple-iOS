@@ -42,33 +42,36 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.descriptionLabel.text = array[indexPath.row].description
         cell.nextImageView.transform = CGAffineTransform(rotationAngle: .pi);
         
-        
-        
-        if indexPath.row == 0 {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(goToSummaryReportVC))
-            cell.nextImageView.isUserInteractionEnabled = true
-            cell.nextImageView.addGestureRecognizer(tap)
-        }
-        else if indexPath.row == 1 {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(goToGoalStatusReportVC))
-            cell.nextImageView.isUserInteractionEnabled = true
-            cell.nextImageView.addGestureRecognizer(tap)
-        }
-        else if indexPath.row == 2 {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(goToYearTotalsReportVC))
-            cell.nextImageView.isUserInteractionEnabled = true
-            cell.nextImageView.addGestureRecognizer(tap)
-        }
-        else if indexPath.row == 3 {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(goToDailyActivityReportVC))
-            cell.nextImageView.isUserInteractionEnabled = true
-            cell.nextImageView.addGestureRecognizer(tap)
-        }
-        
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == 0 {
+          /*  let tap = UITapGestureRecognizer(target: self, action: #selector(goToSummaryReportVC))
+            cell.nextImageView.isUserInteractionEnabled = true
+            cell.nextImageView.addGestureRecognizer(tap) */
+            goToSummaryReportVC()
+        }
+        else if indexPath.row == 1 {
+          /*  let tap = UITapGestureRecognizer(target: self, action: #selector(goToGoalStatusReportVC))
+            cell.nextImageView.isUserInteractionEnabled = true
+            cell.nextImageView.addGestureRecognizer(tap) */
+            goToGoalStatusReportVC()
+        }
+        else if indexPath.row == 2 {
+          /*  let tap = UITapGestureRecognizer(target: self, action: #selector(goToYearTotalsReportVC))
+            cell.nextImageView.isUserInteractionEnabled = true
+            cell.nextImageView.addGestureRecognizer(tap) */
+            goToYearTotalsReportVC()
+        }
+        else if indexPath.row == 3 {
+          /*  let tap = UITapGestureRecognizer(target: self, action: #selector(goToDailyActivityReportVC))
+            cell.nextImageView.isUserInteractionEnabled = true
+            cell.nextImageView.addGestureRecognizer(tap) */
+            goToDailyActivityReportVC()
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
