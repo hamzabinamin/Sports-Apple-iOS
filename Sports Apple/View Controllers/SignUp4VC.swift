@@ -40,29 +40,29 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         setupPicker()
         
         if user.weight.stringValue != "-1" && user.userID.count > 0 {
-            weightTF.text = user.weight.stringValue
-            chestTF.text = user.chest.stringValue
-            waistTF.text = user.waist.stringValue
-            hipsTF.text = user.hips.stringValue
-            neckTF.text = user.neck.stringValue
-            bicepsTF.text = user.biceps.stringValue
-            forearmsTF.text = user.forearms.stringValue
-            thighsTF.text = user.thighs.stringValue
-            calvesTF.text = user.calves.stringValue
-            wristTF.text = user.wrist.stringValue
+            weightTF.text = String(format: "%.1f", user.weight.floatValue)
+            chestTF.text = String(format: "%.1f", user.chest.floatValue)
+            waistTF.text = String(format: "%.1f", user.waist.floatValue)
+            hipsTF.text = String(format: "%.1f", user.hips.floatValue)
+            neckTF.text = String(format: "%.1f", user.neck.floatValue)
+            bicepsTF.text = String(format: "%.1f", user.biceps.floatValue)
+            forearmsTF.text = String(format: "%.1f", user.forearms.floatValue)
+            thighsTF.text = String(format: "%.1f", user.thighs.floatValue)
+            calvesTF.text = String(format: "%.1f", user.calves.floatValue)
+            wristTF.text = String(format: "%.1f", user.wrist.floatValue)
             completeButton.setTitle("Update", for: .normal)
         }
         else if user.weight.stringValue != "-1" {
-            weightTF.text = user.weight.stringValue
-            chestTF.text = user.chest.stringValue
-            waistTF.text = user.waist.stringValue
-            hipsTF.text = user.hips.stringValue
-            neckTF.text = user.neck.stringValue
-            bicepsTF.text = user.biceps.stringValue
-            forearmsTF.text = user.forearms.stringValue
-            thighsTF.text = user.thighs.stringValue
-            calvesTF.text = user.calves.stringValue
-            wristTF.text = user.wrist.stringValue
+            weightTF.text = String(format: "%.1f", user.weight.floatValue)
+            chestTF.text = String(format: "%.1f", user.chest.floatValue)
+            waistTF.text = String(format: "%.1f", user.waist.floatValue)
+            hipsTF.text = String(format: "%.1f", user.hips.floatValue)
+            neckTF.text = String(format: "%.1f", user.neck.floatValue)
+            bicepsTF.text = String(format: "%.1f", user.biceps.floatValue)
+            forearmsTF.text = String(format: "%.1f", user.forearms.floatValue)
+            thighsTF.text = String(format: "%.1f", user.thighs.floatValue)
+            calvesTF.text = String(format: "%.1f", user.calves.floatValue)
+            wristTF.text = String(format: "%.1f", user.wrist.floatValue)
         }
     }
     
