@@ -99,11 +99,13 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             (error: Error?) -> Void in
             
             if let error = error {
-                print("Amazon DynamoDB Save Error: \(error)")
+                print("Amazon DynamoDB Save Error 123: \(error)")
                 completion(error.localizedDescription)
             }
-            print("An item was saved.")
-            completion("success")
+            else {
+                print("An item was saved.")
+                completion("success")
+            }
         })
     }
     

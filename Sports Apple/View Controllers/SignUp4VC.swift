@@ -39,7 +39,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         setupViews()
         setupPicker()
         
-        if user.weight.stringValue != "-1" {
+        if user.weight.stringValue != "-1" && user.userID.count > 0 {
             weightTF.text = user.weight.stringValue
             chestTF.text = user.chest.stringValue
             waistTF.text = user.waist.stringValue
@@ -51,6 +51,18 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             calvesTF.text = user.calves.stringValue
             wristTF.text = user.wrist.stringValue
             completeButton.setTitle("Update", for: .normal)
+        }
+        else if user.weight.stringValue != "-1" {
+            weightTF.text = user.weight.stringValue
+            chestTF.text = user.chest.stringValue
+            waistTF.text = user.waist.stringValue
+            hipsTF.text = user.hips.stringValue
+            neckTF.text = user.neck.stringValue
+            bicepsTF.text = user.biceps.stringValue
+            forearmsTF.text = user.forearms.stringValue
+            thighsTF.text = user.thighs.stringValue
+            calvesTF.text = user.calves.stringValue
+            wristTF.text = user.wrist.stringValue
         }
     }
     

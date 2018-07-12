@@ -155,7 +155,7 @@ class SignUp2VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         
         if firstName.count > 0 && lastName.count > 0 && dob.count > 0 && height.count > 0 {
             
-            if trainerEmail.count > 0 {
+            if trainerEmail.count > 0 && trainerEmail != "none" {
                 if !emailTest.evaluate(with: trainerEmail) {
                     self.showErrorHUD(text: "Please write a valid email")
                     return false
@@ -211,7 +211,13 @@ class SignUp2VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             user.lastName = lastName
             user.dOB = dob
             user.height = height
-            user.trainerEmail = trainerEmail
+            
+            if trainerEmail.count > 0 {
+                user.trainerEmail = trainerEmail
+            }
+            else {
+                user.trainerEmail = "none"
+            }
             goToSignUp3VC()
         }
     }

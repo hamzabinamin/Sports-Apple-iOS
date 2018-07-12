@@ -145,6 +145,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func saveSession() {
+        if session._exerciseList != nil {
         self.showHUD(hud: hud!)
         session.createActivity(activityItem: session) { (response) in
             DispatchQueue.main.async {
@@ -164,7 +165,13 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             }
             
         }
-    }
+     }
+     else {
+            DispatchQueue.main.async {
+                self.showErrorHUD(text: "Please add an acitivty first")
+            }
+        }
+   }
     
     @objc func goToExerciseDetailsVC() {
         let storyboard = UIStoryboard(name: "AddActivityInSession", bundle: nil)
