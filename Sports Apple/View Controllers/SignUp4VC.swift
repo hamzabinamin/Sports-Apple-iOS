@@ -29,9 +29,10 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     var pool: AWSCognitoIdentityUserPool?
     var user: UserItem = UserItem()
     var sentTo = ""
-    let inchesArray = [Int](1...150)
+    let inchesArray = [Int](1...500)
     let inchesDecimalArray = [Int](0...9)
     let inchesSymbol = ["inches"]
+    let weightSymbol = "lbs"
     var store: AWSCognitoIdentityUser?
 
     override func viewDidLoad() {
@@ -111,7 +112,12 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             return String(inchesDecimalArray[row])
         }
         else if component == 2 {
-            return inchesSymbol[row]
+            if activeField == weightTF {
+                return weightSymbol
+            }
+            else {
+                return inchesSymbol[row]
+            }
         }
         return ""
     }

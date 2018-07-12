@@ -143,9 +143,11 @@ class SignUp2VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         
         toolbar.setItems([cancelButton,spaceButton, doneButton], animated: false)
         
+       // datePicker.locale = Locale(identifier:"en_US_POSIX")
         dobTF.inputAccessoryView = toolbar
         dobTF.inputView = datePicker
         datePicker.datePickerMode = .date
+        
         datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
     }
     

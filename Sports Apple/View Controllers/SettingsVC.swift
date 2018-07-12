@@ -96,10 +96,10 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         else if indexPath.row == 1 {
             
             if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string: "http://www.fit1stclub.com/")!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string: "http://www.weeklink.life/")!, options: [:], completionHandler: nil)
             }
             else {
-                UIApplication.shared.openURL(URL(string: "http://www.fit1stclub.com/")!)
+                UIApplication.shared.openURL(URL(string: "http://www.weeklink.life/")!)
             }
         }
         else if indexPath.row == 2 {
