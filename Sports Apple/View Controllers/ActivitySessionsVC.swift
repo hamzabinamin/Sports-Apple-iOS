@@ -32,7 +32,6 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         setupViews()
         rotateArrow()
-    
         getSessions()
         
          NotificationCenter.default.addObserver(self, selector: #selector(confirmDate(notification:)), name: .confirmDate, object: nil)
