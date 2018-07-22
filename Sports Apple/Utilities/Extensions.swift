@@ -29,6 +29,7 @@ extension Notification.Name {
     static let refreshGoals = Notification.Name("refreshGoals")
     static let profileUpdated = Notification.Name("profileUpdated")
     static let sessionAdded = Notification.Name("sessionAdded")
+    static let confirmDateRange = Notification.Name("confirmDateRange")
 }
 
 

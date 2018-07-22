@@ -217,9 +217,9 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     @objc func confirmDate(notification: Notification) {
-        if let date = notification.object as? String {
-            self.date = formatter.date(from: date)!
-            dateLabel.text = date
+        if let date = notification.object as? [Date] {
+            self.date = date.first!
+            dateLabel.text = formatter.string(from: date.first!)
         }
     }
     

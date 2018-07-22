@@ -77,7 +77,7 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30th May 2018 - 5th June 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4N-8F-9az">
                                         <rect key="frame" x="26" y="0.0" width="319" height="26"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -103,6 +103,8 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="dBo-P9-bgx" id="rWF-pV-Kvt"/>
+                        <outlet property="calendarButton" destination="nNY-5I-flQ" id="t1d-Hu-icn"/>
+                        <outlet property="dateLabel" destination="h4N-8F-9az" id="Z8c-IL-GwR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8uW-eG-mEB" userLabel="First Responder" sceneMemberID="firstResponder"/>

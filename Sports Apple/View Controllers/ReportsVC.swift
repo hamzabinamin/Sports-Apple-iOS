@@ -15,7 +15,6 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         array.append(Reports(report: "Summary Report", description: "Year-to-date statistics"))
         array.append(Reports(report: "YTD Goal Status Report", description: "Check where you stand with any goals that you created"))
         array.append(Reports(report: "Year Totals Report", description: "The total amount of weight, time, distance and count of any activity entered into the daily activity log"))

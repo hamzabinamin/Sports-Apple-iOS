@@ -124,10 +124,10 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
     
     
     @objc func confirmDate(notification: Notification) {
-        if let date = notification.object as? String {
+        if let date = notification.object as? [Date] {
             formatter.dateFormat = "MMM d, yyyy"
-            self.date = formatter.date(from: date)!
-            dateLabel.text = date
+            self.date = date.first!
+            dateLabel.text = formatter.string(from: date.first!)
             getSessions()
         }
     }

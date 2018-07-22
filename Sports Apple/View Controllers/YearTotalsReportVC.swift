@@ -8,27 +8,45 @@
 
 import UIKit
 import SwiftDataTables
+import JGProgressHUD
+import AWSCognitoIdentityProvider
 
 class YearTotalsReportVC: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
     var dataTable: SwiftDataTable! = nil
     var dataSource: DataTableContent = []
+    var dataRows: [DataTableRow] = []
+    var hud: JGProgressHUD?
+    var array: [Activity] = []
+    var set: Set<ExerciseItem> = []
+    var pool: AWSCognitoIdentityUserPool?
+    var session: Activity = Activity()
+    let numberFormatter: NumberFormatter = NumberFormatter()
+    var weightTotal: Int = 0
+    var timeTotal: Int = 0
+    var distanceTotal: Int = 0
+    var countTotal: Int = 0
     
     let headerTitles = ["Activity", "Weight", "Time", "Distance", "Count"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        self.addDataSourceAfter()
+        getSessions()
+        //self.addDataSourceAfter()
     }
     
     func setupViews() {
+        hud = self.createLoadingHUD()
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
+        self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         self.dataTable = SwiftDataTable(dataSource: self)
         self.dataTable.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.dataTable.translatesAutoresizingMaskIntoConstraints = false
+        self.numberFormatter.locale = Locale(identifier:"en_US")
+        self.numberFormatter.numberStyle = NumberFormatter.Style.decimal
         
         let topConstraint = self.dataTable.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 121)
         let bottomConstraint = self.dataTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -41,39 +59,100 @@ class YearTotalsReportVC: UIViewController {
         NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
     }
     
+    func getSessions() {
+        self.showHUD(hud: hud!)
+        session.queryActivity(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+            
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+            }
+            print("Response: " + response)
+            if response == "success" {
+                DispatchQueue.main.async {
+                    self.array = responseArray
+                    
+                    for item in self.array {
+                        for activity in item._exerciseList! {
+                            let exerciseItem = ExerciseItem()
+                            exerciseItem.exerciseID = activity["exerciseID"] as! String
+                            exerciseItem.exerciseName = activity["exerciseName"] as! String
+                            
+                            if !self.set.contains(exerciseItem) {
+                                if activity["Weight Amount"] != nil {
+                                    exerciseItem.exerciseWeightAmount = Int(activity["Weight Amount"] as! String)!
+                                    exerciseItem.exerciseSets = Int(activity["Sets"] as! String)!
+                                    exerciseItem.exerciseReps = Int(activity["Reps"] as! String)!
+                                }
+                                else if activity["Time"] != nil {
+                                    exerciseItem.exerciseTime = activity["Time"] as! Int
+                                }
+                                else if activity["Count"] != nil {
+                                    exerciseItem.exerciseCount = Int(activity["Count"] as! String)!
+                                }
+                                else if activity["Distance"] != nil {
+                                    exerciseItem.exerciseDistance = Int(activity["Distance"] as! String)!
+                                }
+                                self.set.insert(exerciseItem)
+                            }
+                            else {
+                                let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID})
+                                self.set.remove(storedExerciseItem!)
+                                if activity["Weight Amount"] != nil {
+                                    storedExerciseItem?.exerciseWeightAmount += Int(activity["Weight Amount"] as! String)!
+                                    storedExerciseItem?.exerciseSets += Int(activity["Sets"] as! String)!
+                                    storedExerciseItem?.exerciseReps += Int(activity["Reps"] as! String)!
+                                }
+                                else if activity["Time"] != nil {
+                                    storedExerciseItem?.exerciseTime += activity["Time"] as! Int
+                                }
+                                else if activity["Count"] != nil {
+                                    storedExerciseItem?.exerciseCount += Int(activity["Count"] as! String)!
+                                }
+                                else if activity["Distance"] != nil {
+                                    storedExerciseItem?.exerciseDistance += Int(activity["Distance"] as! String)!
+                                }
+                                self.set.insert(storedExerciseItem!)
+                            }
+                        }
+                    }
+                    var exerciseItemArray: [ExerciseItem] = Array(self.set)
+                    exerciseItemArray = exerciseItemArray.sorted(by: { $0.exerciseName < $1.exerciseName })
+                    for item in exerciseItemArray {
+                        var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),]
+                        row[0] = DataTableValueType.string(item.exerciseName)
+                        if item.exerciseWeightAmount != 0 {
+                            row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseWeightAmount))!)
+                        }
+                        if item.exerciseTime != 0 {
+                            let hours = (item.exerciseTime) / 3600
+                            let minutes = ((item.exerciseTime) / 60) % 60
+                            row[2] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
+                        }
+                        if item.exerciseDistance != 0 {
+                            row[3] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseDistance))!)
+                        }
+                        if item.exerciseCount != 0 {
+                            row[4] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseCount))!)
+                        }
+                        self.dataRows.append(row)
+                    }
+                    self.addDataSourceAfter()
+                }
+            }
+            else if response == "no result" {
+                DispatchQueue.main.async {
+                    
+                }
+            }
+            else {
+                print("Response: " + response)
+            }
+        }
+    }
+    
     public func addDataSourceAfter(){
         
-        self.dataSource = [
-            [
-                DataTableValueType.string("Bench Press"),
-                DataTableValueType.string("5,200"),
-                DataTableValueType.string(""),
-                DataTableValueType.string(""),
-                DataTableValueType.string(""),
-                ],
-            [
-                DataTableValueType.string("Bike"),
-                DataTableValueType.string(""),
-                DataTableValueType.string(""),
-                DataTableValueType.string("550.0"),
-                DataTableValueType.string(""),
-                ],
-            [
-                DataTableValueType.string("Sit-Ups"),
-                DataTableValueType.string(""),
-                DataTableValueType.string(""),
-                DataTableValueType.string(""),
-                DataTableValueType.string("55,280"),
-                ],
-            [
-                DataTableValueType.string("Treadmill"),
-                DataTableValueType.string(""),
-                DataTableValueType.string("4:22"),
-                DataTableValueType.string("15:50"),
-                DataTableValueType.string(""),
-                ],
-        ]
-        
+        self.dataSource = self.dataRows
         self.dataTable.reload()
     }
     

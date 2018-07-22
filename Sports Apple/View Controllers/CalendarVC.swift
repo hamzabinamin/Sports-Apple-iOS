@@ -19,6 +19,8 @@ class CalendarVC: UIViewController {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var calendar: JTAppleCalendarView!
     var date = Date()
+    var date2 = Date()
+    var dateRange = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +36,27 @@ class CalendarVC: UIViewController {
     }
 
     func setupCalendar() {
+        calendar.allowsMultipleSelection = true
         calendar.minimumLineSpacing = 0
         calendar.minimumInteritemSpacing = 0
         //let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
         calendar.scrollToDate(date, animateScroll: false)
-        calendar.selectDates([date])
+        
+        if dateRange {
+            if date == date2 {
+                print("Both dates are equal")
+                calendar.selectDates([date])
+            }
+            else {
+                print("Both dates are not equal")
+                print(date)
+                print(date2)
+                calendar.selectDates([date, date2])
+            }
+        }
+        else {
+            calendar.selectDates([date])
+        }
     }
     
     func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
@@ -107,16 +125,21 @@ class CalendarVC: UIViewController {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier:"en_US_POSIX")
         formatter.dateFormat = "MMM d, yyyy"
-        let selectedDate = formatter.string(from: calendar.selectedDates.first!)
+        let selectedDate = calendar.selectedDates
+        print(selectedDate)
         if selectedDate.count > 0 {
             dismissVC()
-            NotificationCenter.default.post(name: .confirmDate, object: selectedDate)
+            if dateRange {
+                NotificationCenter.default.post(name: .confirmDateRange, object: selectedDate)
+            }
+            else {
+                NotificationCenter.default.post(name: .confirmDate, object: selectedDate)
+            }
         }
         else {
             self.showErrorHUD(text: "Please select a date first")
         }
     }
-
 }
 
 extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
@@ -170,5 +193,22 @@ extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
         monthLabel.text = formatter.string(from: date)
         formatter.dateFormat = "yyyy"
         yearLabel.text = formatter.string(from: date)
+    }
+    
+    func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
+        
+        if dateRange {
+            print("Date Range: true")
+            if calendar.selectedDates.count < 2 {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        else {
+            self.calendar.allowsMultipleSelection = false
+            return true
+        }
     }
 }

@@ -146,6 +146,47 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         }
     }
     
+    func queryActivityInRange(userId: String, date1: String, date2: String, completion: @escaping (_ success: String, _ sessionArray: [Activity]) -> Void) {
+        var sessionArray: [Activity] = []
+        let queryExpression = AWSDynamoDBQueryExpression()
+        // queryExpression.indexName = "UserActivityDate"
+        queryExpression.keyConditionExpression = "#userId = :userId"
+        queryExpression.filterExpression = "#Date BETWEEN :date1 AND :date2"
+        
+        queryExpression.expressionAttributeNames = [
+            "#userId": "userId",
+            "#Date": "Date",
+        ]
+        queryExpression.expressionAttributeValues = [
+            ":userId": userId,
+            ":date1": date1,
+            ":date2": date2
+        ]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        dynamoDbObjectMapper.query(Activity.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+            if error != nil {
+                print("The request failed. Error: \(String(describing: error))")
+                completion((error?.localizedDescription)!, sessionArray)
+            }
+            if output != nil {
+                for activity in output!.items {
+                    let activityItem = activity as? Activity
+                    sessionArray.append(activityItem!)
+                }
+                if sessionArray.count > 0 {
+                    completion("success", sessionArray)
+                }
+                else {
+                    completion("no result", sessionArray)
+                }
+            }
+            else {
+                completion("no result", sessionArray)
+            }
+        }
+    }
+    
     func queryActivity(userId: String, completion: @escaping (_ success: String, _ sessionArray: [Activity]) -> Void) {
         var sessionArray: [Activity] = []
         let queryExpression = AWSDynamoDBQueryExpression()
