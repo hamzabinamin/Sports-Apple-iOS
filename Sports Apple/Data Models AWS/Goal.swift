@@ -126,4 +126,41 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             }
         }
     }
+    
+    func queryGoal(userId: String, date: String, completion: @escaping (_ success: String, _ goalArray: [Goal]) -> Void) {
+        var goalArray: [Goal] = []
+        //let exercise: Exercise = Exercise()
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "#userId = :userId"
+        queryExpression.filterExpression = "contains(#Date, :Date)"
+        
+        queryExpression.expressionAttributeNames = [
+            "#userId": "userId",
+            "#Date": "Date",
+        ]
+        queryExpression.expressionAttributeValues = [
+            ":userId": userId,
+            ":Date": date,
+        ]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        dynamoDbObjectMapper.query(Goal.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+            if error != nil {
+                print("The request failed. Error: \(String(describing: error))")
+                completion((error?.localizedDescription)!, [])
+            }
+            if output != nil {
+                for goal in output!.items {
+                    let goalItem = goal as? Goal
+                    goalArray.append(goalItem!)
+                }
+                if goalArray.count > 0 {
+                    completion("success", goalArray)
+                }
+                else {
+                    completion("failure", [])
+                }
+            }
+        }
+    }
 }

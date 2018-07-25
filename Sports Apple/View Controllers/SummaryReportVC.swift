@@ -67,6 +67,7 @@ class SummaryReportVC: UIViewController {
         self.dataTable.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.dataTable.translatesAutoresizingMaskIntoConstraints = false
         self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        self.formatter.locale = Locale(identifier:"en_US_POSIX")
         self.numberFormatter.locale = Locale(identifier:"en_US")
         self.numberFormatter.numberStyle = NumberFormatter.Style.decimal
         
