@@ -26,9 +26,6 @@ class TotalCaloriesChartVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         getSessions()
-        let date = formatter.date(from: "01/06/2018 7:57 PM")
-        let week = Calendar.current.component(.weekOfYear, from: date!)
-        print("Week Number: ", week)
     }
     
     func setupViews() {
@@ -78,7 +75,9 @@ class TotalCaloriesChartVC: UIViewController {
     
     func getSessions() {
         self.showHUD(hud: hud!)
-        session.queryActivity(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+        self.formatter.dateFormat = "yyyy"
+        let date = self.formatter.string(from: Date())
+        session.queryActivity(userId: (pool?.currentUser()?.username)!, date: date) { (response, responseArray) in
             
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
@@ -87,11 +86,15 @@ class TotalCaloriesChartVC: UIViewController {
             if response == "success" {
                 DispatchQueue.main.async {
                     self.array = responseArray
-                    
+                    self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                     for item in self.array {
                    
                         let date = self.formatter.date(from: item._date!)
                         let weekNumber = Calendar.current.component(.weekOfYear, from: date!)
+                        print("Total Calories Date: ", date)
+                        print("Total Calories for Session: ", item._calories)
+                        print("Total Calories for Session (Week Number): ", weekNumber)
+                        
                         
                         switch(weekNumber) {
                             case(1):

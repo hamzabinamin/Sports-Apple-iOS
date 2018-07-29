@@ -15,6 +15,7 @@ class GoalStatusReportVC: UIViewController {
     
     @IBOutlet weak var backButton: UIButton!
     var dataTable: SwiftDataTable! = nil
+    var dataTableConfig: DataTableConfiguration?
     var dataSource: DataTableContent = []
     var dataRows: [DataTableRow] = []
     var array: [Activity] = []
@@ -52,6 +53,10 @@ class GoalStatusReportVC: UIViewController {
         self.view.backgroundColor = UIColor.white
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         self.dataTable = SwiftDataTable(dataSource: self)
+        self.dataTableConfig = DataTableConfiguration()
+        self.dataTableConfig?.highlightedAlternatingRowColors = [UIColor.red]
+        
+
         self.dataTable.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         //self.dataTable.frame.origin.x = self.view.frame.origin.x
         //self.dataTable.frame.origin.y = 600
@@ -74,7 +79,9 @@ class GoalStatusReportVC: UIViewController {
     
     func getSessions() {
         self.showHUD(hud: hud!)
-        session.queryActivity(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+        self.formatter.dateFormat = "yyyy"
+        let date = self.formatter.string(from: Date())
+        session.queryActivity(userId: (pool?.currentUser()?.username)!, date: date) { (response, responseArray) in
             
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
@@ -184,6 +191,7 @@ class GoalStatusReportVC: UIViewController {
                             }
                             row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
                             
+                            
                         }
                         if item.goalCount != 0 || item.exerciseCount != 0 {
                             row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalCount))!)
@@ -192,7 +200,10 @@ class GoalStatusReportVC: UIViewController {
                             row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: meetGoal))!)
                             let percentage = ((Float(item.exerciseCount) / Float(item.goalCount)) * 100)
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
-                            row[11] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (Float(meetGoal) / Float(self.daysLeftInYear)).rounded(.toNearestOrAwayFromZero)))!)
+                            //row[11] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (Float(meetGoal) / Float(self.daysLeftInYear)).rounded(.toNearestOrAwayFromZero)))!)
+                            let perDay = (Float(meetGoal) / Float(self.daysLeftInYear))
+                            let perDayString = String(format: "%.01f", perDay)
+                            row[11] = DataTableValueType.string(perDayString)
                             var projected = Float(0)
                             if ((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount) < 0 {
                                 projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) * -1.0
@@ -307,5 +318,10 @@ extension GoalStatusReportVC: SwiftDataTableDataSource {
     
     public func dataTable(_ dataTable: SwiftDataTable, dataForRowAt index: NSInteger) -> [DataTableValueType] {
         return self.dataSource[index]
+    }
+    
+    public func dataTable(_ dataTable: SwiftDataTable, highlightedColorForRowIndex at: Int) -> UIColor {
+        print("Got inside highlight")
+        return UIColor.red
     }
 }
