@@ -177,11 +177,6 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     
     func validation(weight: String, chest: String, waist: String, hips: String, neck: String, biceps: String, forearms: String, thighs: String, calves: String, wrist: String) -> Bool {
         
-        if weight.count == 0 && chest.count == 0 && waist.count == 0 && hips.count == 0 && neck.count == 0 && biceps.count == 0 && forearms.count == 0 && thighs.count == 0 && calves.count == 0 && wrist.count == 0 {
-            self.showErrorHUD(text: "Please fill all fields")
-            return false
-        }
-    
         return true
     }
     
@@ -241,7 +236,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     @objc func donePicker() {
         
         if activeField == weightTF {
-            weightTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            weightTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " lbs"
             chestTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -249,7 +244,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == chestTF {
-            chestTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            chestTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
             waistTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -257,7 +252,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == waistTF {
-            waistTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            waistTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
             hipsTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -265,7 +260,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == hipsTF {
-            hipsTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            hipsTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
             neckTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -273,7 +268,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == neckTF {
-            neckTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            neckTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
             bicepsTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -281,7 +276,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == bicepsTF {
-            bicepsTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            bicepsTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
             forearmsTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -289,7 +284,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == forearmsTF {
-            forearmsTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            forearmsTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
             thighsTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -297,7 +292,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == thighsTF {
-            thighsTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            thighsTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
             calvesTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -305,7 +300,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == calvesTF {
-            calvesTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            calvesTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
             wristTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -313,7 +308,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == wristTF {
-            wristTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            wristTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " inches"
         }
         
         self.view.endEditing(true)
@@ -325,22 +320,64 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
 
     @objc func signUp() {
         print("Sign up called")
-        let weight = weightTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let chest =  chestTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let waist = waistTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let hips = hipsTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let neck = neckTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let biceps = bicepsTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let forearms = forearmsTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let thighs = thighsTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let calves = calvesTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let wrist = wristTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var weight = weightTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var chest =  chestTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var waist = waistTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var hips = hipsTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var neck = neckTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var biceps = bicepsTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var forearms = forearmsTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var thighs = thighsTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var calves = calvesTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var wrist = wristTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let email = user.email
         let password = user.password
         //let emailAttribute = AWSCognitoIdentityUserAttributeType(name: "email", value: email!)
         
         if validation(weight: weight, chest: chest, waist: waist, hips: hips, neck: neck, biceps: biceps, forearms: forearms, thighs: thighs, calves: calves, wrist: wrist) {
+            
+            if weight.count == 0 {
+                weight = "0 lbs"
+            }
+            if chest.count == 0 {
+                chest = "0 inches"
+            }
+            if waist.count == 0 {
+                waist = "0 inches"
+            }
+            if hips.count == 0 {
+                hips = "0 inches"
+            }
+            if neck.count == 0 {
+                neck = "0 inches"
+            }
+            if biceps.count == 0 {
+                biceps = "0 inches"
+            }
+            if forearms.count == 0 {
+                forearms = "0 inches"
+            }
+            if thighs.count == 0 {
+                thighs = "0 inches"
+            }
+            if calves.count == 0 {
+                calves = "0 inches"
+            }
+            if wrist.count == 0 {
+                wrist = "0 inches"
+            }
         
+            weight = weightTF.text!.replacingOccurrences(of: " lbs", with: "")
+            chest =  chestTF.text!.replacingOccurrences(of: " inches", with: "")
+            waist = waistTF.text!.replacingOccurrences(of: " inches", with: "")
+            hips = hipsTF.text!.replacingOccurrences(of: " inches", with: "")
+            neck = neckTF.text!.replacingOccurrences(of: " inches", with: "")
+            biceps = bicepsTF.text!.replacingOccurrences(of: " inches", with: "")
+            forearms = forearmsTF.text!.replacingOccurrences(of: " inches", with: "")
+            thighs = thighsTF.text!.replacingOccurrences(of: " inches", with: "")
+            calves = calvesTF.text!.replacingOccurrences(of: " inches", with: "")
+            wrist = wristTF.text!.replacingOccurrences(of: " inches", with: "")
+            
             user.weight = NSNumber(value: Float(weight)!)
             user.chest = NSNumber(value: Float(chest)!)
             user.waist = NSNumber(value: Float(waist)!)

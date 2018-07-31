@@ -163,4 +163,20 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             }
         }
     }
+    
+    func deleteGoal(goalItem: Goal, completion: @escaping (_ success: String) -> Void) {
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        dynamoDbObjectMapper.remove(goalItem, completionHandler: {
+            (error: Error?) -> Void in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                completion(error.localizedDescription)
+                return
+            }
+            print("success")
+            completion("success")
+        })
+    }
 }

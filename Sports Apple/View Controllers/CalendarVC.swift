@@ -92,6 +92,9 @@ class CalendarVC: UIViewController {
         if cellDate == currentDate {
             validCell.dateLabel.textColor = UIColor.init(hex: "#C52024")
         }
+        if cellState.date > Date() {
+            validCell.dateLabel.textColor = UIColor.lightGray
+        }
     }
     
     func handleCellSelected(view: JTAppleCell?, cellState: CellState) {
@@ -208,6 +211,9 @@ extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
         }
         else {
             self.calendar.allowsMultipleSelection = false
+            if cellState.date > Date() {
+                return false
+            }
             return true
         }
     }

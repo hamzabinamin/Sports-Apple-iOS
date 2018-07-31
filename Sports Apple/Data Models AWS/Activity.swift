@@ -223,4 +223,21 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             }
         }
     }
+    
+    func deleteActivity(activityItem: Activity, completion: @escaping (_ success: String) -> Void) {
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        // Create data object using data models you downloaded from Mobile Hub
+        
+        //Save a new item
+        dynamoDbObjectMapper.remove(activityItem, completionHandler: {
+            (error: Error?) -> Void in
+            
+            if let error = error {
+                print("Amazon DynamoDB Save Error: \(error)")
+                completion(error.localizedDescription)
+            }
+            print("An item was saved.")
+            completion("success")
+        })
+    }
 }

@@ -73,6 +73,40 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         goToSessionActivitiesVC()
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            self.showHUD(hud: self.hud!)
+            self.session.deleteActivity(activityItem: self.array[index.row], completion: { (response) in
+                
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    if response == "success" {
+                        self.showSuccessHUD(text: "Session deleted")
+                    }
+                    else {
+                        self.showErrorHUD(text: response)
+                    }
+                }
+                
+            })
+        }
+        delete.backgroundColor = .red
+        
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+            let storyboard = UIStoryboard(name: "AddSession", bundle: nil)
+            let destVC = storyboard.instantiateViewController(withIdentifier: "AddSessionVC") as! AddSessionVC
+            destVC.oldSession = self.array[index.row]
+            self.present(destVC, animated: true, completion: .none)
+        }
+        edit.backgroundColor = UIColor.init(hex: "#3681CC")
+        
+        return [delete, edit]
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     func rotateArrow() {
         self.forwardButton.transform = CGAffineTransform(rotationAngle: .pi)
     }
@@ -140,14 +174,16 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func nextDate() {
-        date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
-        formatter.dateFormat = "MMM d, yyyy"
-        dateLabel.text = formatter.string(from: date)
-        getSessions()
+        if !(Calendar.current.date(byAdding: .day, value: 1, to: date)! > Date()) {
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+            formatter.dateFormat = "MMM d, yyyy"
+            dateLabel.text = formatter.string(from: date)
+            getSessions()
+        }
     }
     
     @objc func sessionAdded() {
-        self.showSuccessHUD(text: "Session added successfully")
+        self.showSuccessHUD(text: "Session added")
         getSessions()
     }
     

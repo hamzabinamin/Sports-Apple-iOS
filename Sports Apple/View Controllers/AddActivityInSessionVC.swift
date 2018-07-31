@@ -20,6 +20,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
     var session: Activity = Activity()
     var dict: [[String: Any]] = []
     var array: [ExerciseItem] = []
+    var isOldSession = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,10 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
         }
         
          NotificationCenter.default.addObserver(self, selector: #selector(updateTableView(notification:)), name: .updateActivityTV, object: nil)
+        
+        if isOldSession {
+            
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -153,7 +158,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             }
             if response == "success" {
                 DispatchQueue.main.async {
-                    self.showSuccessHUD(text: response)
+                    self.showSuccessHUD(text: "Session added")
                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                     NotificationCenter.default.post(name: .sessionAdded, object: nil)
                 }

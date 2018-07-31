@@ -85,6 +85,40 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            self.showHUD(hud: self.hud!)
+            self.goal.deleteGoal(goalItem: self.array[index.row], completion: { (response) in
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    if response == "success" {
+                        self.array.remove(at: index.row)
+                        self.tableView.reloadRows(at: [editActionsForRowAt], with: UITableViewRowAnimation.fade)
+                        self.showSuccessHUD(text: "Goal deleted")
+                    }
+                    else {
+                        self.showErrorHUD(text: response)
+                    }
+                }
+            })
+        }
+        delete.backgroundColor = .red
+        
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+            let storyboard = UIStoryboard(name: "AddGoal", bundle: nil)
+            let destVC = storyboard.instantiateViewController(withIdentifier: "AddGoalVC") as! AddGoalVC
+            destVC.oldGoal = self.array[index.row]
+            self.present(destVC, animated: true, completion: .none)
+        }
+        edit.backgroundColor = UIColor.init(hex: "#3681CC")
+        
+        return [delete, edit]
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     func setupViews() {
         self.hud = self.createLoadingHUD()
         self.formatter.locale = Locale(identifier:"en_US_POSIX")
@@ -129,7 +163,7 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @objc func goToAddGoalVC() {
         let storyboard = UIStoryboard(name: "AddGoal", bundle: nil)
-        let destVC = storyboard.instantiateViewController(withIdentifier: "AddGoalVC")
+        let destVC = storyboard.instantiateViewController(withIdentifier: "AddGoalVC") as! AddGoalVC
         self.present(destVC, animated: true, completion: .none)
     }
 

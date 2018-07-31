@@ -25,18 +25,19 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     var activeField: UITextField?
     let picker = UIPickerView()
     var pool: AWSCognitoIdentityUserPool?
+    var oldGoal = Goal()
     var exerciseArray: [Exercise] = []
     var favoritesArray: [Exercise] = []
     var exerciseDictionary: [[String: Any]] = []
-    let numberArray = [Int](1...50000)
+    let numberArray = [Int](1...999999)
     let hourArray = [Int](0...8760)
-    let minArray = [Int](0...60)
-    let goalTypeArray: [String] = ["Weight Goal", "Distance Goal", "Time Goal", "Calories Goal"]
+    let minArray = [Int](0...59)
+    let goalTypeArray: [String] = ["Weight Goal", "Distance Goal", "Time Goal", "Count Goal"]
     let yearlyGoalArray: [String] = ["Yes", "No"]
     var favoriteExercise: Exercise = Exercise()
     let weightUnit = "lbs"
     let distanceUnit = "miles"
-    let caloriesUnit = "calories"
+    let caloriesUnit = "counts"
     let hourUnit = "hour"
     let minUnit = "min"
     var exerciseID = ""
@@ -67,7 +68,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             else if type == "Weight Goal" {
                 picker.selectRow(0, inComponent: 0, animated: false)
             }
-            else if type == "Calories Goal" {
+            else if type == "Count Goal" {
                 picker.selectRow(0, inComponent: 0, animated: false)
             }
         }
@@ -95,7 +96,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             else if type == "Weight Goal" {
                 return 2
             }
-            else if type == "Calories Goal" {
+            else if type == "Count Goal" {
               return 2
             }
             
@@ -139,7 +140,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                     return weightUnit
                 }
             }
-            else if type == "Calories Goal" {
+            else if type == "Count Goal" {
                 if component == 0 {
                     return String(numberArray[row])
                 }
@@ -198,7 +199,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                     return 1
                 }
             }
-            else if type == "Calories Goal" {
+            else if type == "Count Goal" {
                 if component == 0 {
                     return numberArray.count
                 }
@@ -320,6 +321,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     func clearFields() {
+        self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
         self.exerciseListTF.text = ""
         self.favoritesListTF.text = ""
         self.goalTypeTF.text = ""
@@ -375,6 +377,44 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                     }
                     self.picker.reloadComponent(0)
                 }
+                
+                if self.oldGoal!._date != nil {
+                    self.exerciseListTF.text = self.oldGoal?._exercise!["Name"]
+                    self.yearlyGoalTF.text = self.oldGoal?._yearlyGoal
+                    
+                    if self.oldGoal?._time != nil {
+                        let time = self.oldGoal!._time!.intValue
+                        let hours = (time) / 3600
+                        let minutes = ((time) / 60) % 60
+                        let storeTime = String(format: "%02d:%02d", hours, minutes)
+                        self.goalAmountTF.text = storeTime
+                        self.goalTypeTF.text = "Time Goal"
+                    }
+                    else if self.oldGoal?._distance != nil {
+                        let distance = self.oldGoal!._distance!.intValue
+                        self.goalAmountTF.text = "\(distance)" + " miles"
+                        self.goalTypeTF.text = "Distance Goal"
+                    }
+                    else if self.oldGoal?._weight != nil {
+                        let weight = self.oldGoal!._weight!.intValue
+                        self.goalAmountTF.text = "\(weight)" + " lbs"
+                        self.goalTypeTF.text = "Weight Goal"
+                    }
+                    else if self.oldGoal?._calories != nil {
+                        let calories = self.oldGoal!._calories!.intValue
+                        self.goalAmountTF.text = "\(calories)" + " counts"
+                        self.goalTypeTF.text = "Count Goal"
+                    }
+                    let exercise = Exercise()
+                    exercise?._exerciseId = NSNumber(value: Int((self.oldGoal?._exercise!["ID"])!)!)
+                    exercise?._name = self.oldGoal?._exercise!["Name"]
+                    if self.favoritesArray.contains(exercise!) {
+                        self.addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                    }
+                    else {
+                        self.addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                    }
+                }
             }
         })
     }
@@ -414,6 +454,9 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
             exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
             exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+            if favoritesListTF.text!.count > 0 {
+                favoritesListTF.text = ""
+            }
             
             if exerciseListTF.text!.count > 0 {
                 
@@ -437,8 +480,9 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         else if activeField == favoritesListTF {
             favoritesListTF.text = favoritesArray[picker.selectedRow(inComponent: 0)]._name
             exerciseID = "\(favoritesArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
-            exerciseListTF.isEnabled = false
-            exerciseListTF.alpha = 0.5
+            if exerciseListTF.text!.count > 0 {
+                exerciseListTF.text = ""
+            }
             goalTypeTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -468,7 +512,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             else if type == "Weight Goal" {
                 goalAmountTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])" + " " + weightUnit
             }
-            else if type == "Calories Goal" {
+            else if type == "Count Goal" {
                 goalAmountTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])" + " " + caloriesUnit
             }
             yearlyGoalTF.perform(
@@ -521,16 +565,24 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                 let weight = Int(weightS!)
                 goalItem._weight = NSNumber(value: weight!)
             }
-            else if type == "Calories Goal" {
-                let caloriesS = amount?.replacingOccurrences(of: " calories", with: "")
+            else if type == "Count Goal" {
+                let caloriesS = amount?.replacingOccurrences(of: " counts", with: "")
                 let calories = Int(caloriesS!)
                 goalItem._calories = NSNumber(value: calories!)
             }
             
             goalItem._yearlyGoal = yearlyGoal
             goalItem._userId = pool?.currentUser()?.username
-            goalItem._goalId = NSUUID().uuidString
-            goalItem._date = formatter.string(from: Date())
+            
+            if oldGoal?._date != nil {
+                goalItem._goalId = oldGoal!._goalId
+                goalItem._date = oldGoal!._date
+            }
+            else {
+                goalItem._goalId = NSUUID().uuidString
+                goalItem._date = formatter.string(from: Date())
+            }
+            
             goalItem.createGoal(goalItem: goalItem, completion: { (response) in
                 
                 DispatchQueue.main.async {
@@ -540,7 +592,13 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                 if response == "success" {
                    DispatchQueue.main.async {
                         self.clearFields()
-                        self.showSuccessHUD(text: response)
+                        if self.oldGoal?._date != nil {
+                            self.showSuccessHUD(text: "Goal updated")
+                        }
+                        else {
+                            self.showSuccessHUD(text: "Goal added")
+                            
+                        }
                     }
                 }
                 else {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 import AWSCognitoIdentityProvider
 
 class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -23,6 +24,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     @IBOutlet weak var dateLabel: UILabel!
     var activeField: UITextField?
     let picker = UIPickerView()
+    var hud: JGProgressHUD?
     var pool: AWSCognitoIdentityUserPool?
     let numberArray = [Int](1...1500)
     let inchesArray = [Int](1...500)
@@ -30,6 +32,8 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     let inchesSymbol = "lbs"
     let caloriesSymbol = "calories"
     let session: Activity = Activity()
+    var oldSession:Activity = Activity()
+    let user: User = User()
     var date = Date()
     let formatter = DateFormatter()
     
@@ -40,6 +44,27 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         setupTextFields()
         setupTextView()
         setupPicker()
+        
+        self.showHUD(hud: hud!)
+        user.queryUser(userId: (pool?.currentUser()?.username)!) { (response, responseUser) in
+            
+            DispatchQueue.main.async {
+                self.hideHUD(hud: self.hud!)
+
+                if response == "success" {
+                    self.locationTF.text = responseUser.location
+                    
+                    if self.oldSession._activityId != nil {
+                        self.caloriesTF.text = "\(self.oldSession._calories!.intValue)" + " calories"
+                        self.weightTF.text = "\(self.oldSession._bodyWeight!.floatValue)" + " lbs"
+                        
+                        if self.oldSession._workoutComment != "none" {
+                            self.commentTV.text = self.oldSession._workoutComment
+                        }
+                    }
+                }
+            }
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(confirmDate(notification:)), name: .confirmDate, object: nil)
     }
@@ -61,7 +86,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Session Comment"
+            textView.text = "Workout Comment"
             textView.textColor = UIColor.init(hex: "#c7c7cd")
         }
     }
@@ -160,7 +185,8 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             )
         }
         else if activeField == weightTF {
-            weightTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)]))
+            weightTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " lbs"
+            
         }
         
         self.view.endEditing(true)
@@ -175,6 +201,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     func setupViews() {
+        self.hud = self.createLoadingHUD()
         formatter.dateFormat = "MMM d, yyyy"
         formatter.locale = Locale(identifier:"en_US_POSIX")
         dateLabel.text = formatter.string(from: date)
@@ -204,16 +231,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     func validation(calories: String, weight: String) -> Bool {
-        
-        if calories.count > 0 && weight.count > 0 {
-            
-            return true
-        }
-        else {
-            self.showErrorHUD(text: "Please fill the required fields")
-            return false
-        }
-        
+        return true
     }
     
     @objc func confirmDate(notification: Notification) {
@@ -229,18 +247,29 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     @objc func nextDate() {
-        date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
-        dateLabel.text = formatter.string(from: date)
+        if !(Calendar.current.date(byAdding: .day, value: 1, to: date)! > Date()) {
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+            dateLabel.text = formatter.string(from: date)
+        }
     }
     
     @objc func goNext() {
         let location = locationTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         var comment = commentTV.text.trimmingCharacters(in: .whitespacesAndNewlines)
         var calories = caloriesTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let weight = weightTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        var weight = weightTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if validation(calories: calories!, weight: weight!) {
+            
+            if calories!.count == 0 {
+                calories = "0 calories"
+            }
+            if weight!.count == 0 {
+                weight = "0 lbs"
+            }
+            
             calories = calories?.replacingOccurrences(of: " calories", with: "")
+            weight = weight?.replacingOccurrences(of: " lbs", with: "")
             
             if comment == "Workout Comment" {
                 comment = "none"
@@ -252,22 +281,36 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             formatter.dateFormat = "h:mm a"
             let time = formatter.string(from: Date())
             session._userId = pool?.currentUser()?.username
-            session._activityId = NSUUID().uuidString
-            session._date = date + " " + time
+            
+            if oldSession._activityId != nil {
+                session._activityId = oldSession._activityId
+                session._date = oldSession._date
+            }
+            else {
+                session._activityId = NSUUID().uuidString
+                session._date = date + " " + time
+            }
             
             session._location = location
             session._workoutComment = comment
             session._calories = NSNumber(value: Float(calories!)!)
             session._bodyWeight = NSNumber(value: Float(weight!)!)
-            goToAddActivityInSession()
+            
+            if oldSession._activityId != nil {
+                goToAddActivityInSession(true)
+            }
+            else {
+                goToAddActivityInSession(false)
+            }
             print(session._date!)
         }
     }
     
-    @objc func goToAddActivityInSession() {
+    @objc func goToAddActivityInSession(isOldSession: bool) {
         let storyboard = UIStoryboard(name: "AddActivityInSession", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "AddActivityInSessionVC") as! AddActivityInSessionVC
         destVC.session = session
+        destVC.isOldSession = isOldSession
         self.present(destVC, animated: true, completion: .none)
     }
     

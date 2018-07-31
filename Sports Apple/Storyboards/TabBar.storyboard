@@ -135,16 +135,16 @@
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't added any goals" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0aM-Pf-Xr2">
-                                <rect key="frame" x="57.666666666666657" y="392.33333333333331" width="260" height="27.333333333333314"/>
+                                <rect key="frame" x="57.666666666666657" y="392.66666666666669" width="260" height="27"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBT-GH-lD8">
-                                <rect key="frame" x="336" y="54" width="24" height="24"/>
+                                <rect key="frame" x="334" y="49" width="26" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="Ojr-Qa-VP7"/>
-                                    <constraint firstAttribute="width" constant="24" id="YBJ-Tc-6k0"/>
+                                    <constraint firstAttribute="height" constant="26" id="Ojr-Qa-VP7"/>
+                                    <constraint firstAttribute="width" constant="26" id="YBJ-Tc-6k0"/>
                                 </constraints>
                                 <state key="normal" image="Add"/>
                             </button>
@@ -153,7 +153,7 @@
                         <constraints>
                             <constraint firstItem="hMF-iD-6Ih" firstAttribute="trailing" secondItem="2yl-Tk-szi" secondAttribute="trailing" id="7Rr-ss-KC6"/>
                             <constraint firstItem="0aM-Pf-Xr2" firstAttribute="centerY" secondItem="D27-TP-GOB" secondAttribute="centerY" id="8We-2V-s5D"/>
-                            <constraint firstItem="bBT-GH-lD8" firstAttribute="top" secondItem="2yl-Tk-szi" secondAttribute="top" constant="10" id="DUm-1x-Ni0"/>
+                            <constraint firstItem="bBT-GH-lD8" firstAttribute="top" secondItem="2yl-Tk-szi" secondAttribute="top" constant="5" id="DUm-1x-Ni0"/>
                             <constraint firstItem="IsQ-mC-6iO" firstAttribute="top" secondItem="2yl-Tk-szi" secondAttribute="top" constant="20" id="EnR-g0-0bK"/>
                             <constraint firstItem="VoM-0T-fEM" firstAttribute="top" secondItem="hMF-iD-6Ih" secondAttribute="bottom" constant="15" id="FqE-eW-fWa"/>
                             <constraint firstItem="0aM-Pf-Xr2" firstAttribute="centerX" secondItem="D27-TP-GOB" secondAttribute="centerX" id="QyO-rn-Ot8"/>
@@ -434,7 +434,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFl-sU-2hV">
-                                <rect key="frame" x="158.66666666666666" y="64" width="57.666666666666657" height="24"/>
+                                <rect key="frame" x="158.66666666666666" y="64" width="58" height="24"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -474,10 +474,10 @@
                                 <state key="normal" image="Arrow"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soa-cB-CD0">
-                                <rect key="frame" x="336" y="54" width="24" height="24"/>
+                                <rect key="frame" x="334" y="49" width="26" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="IX8-JB-R5T"/>
-                                    <constraint firstAttribute="height" constant="24" id="pmX-VL-gQh"/>
+                                    <constraint firstAttribute="width" constant="26" id="IX8-JB-R5T"/>
+                                    <constraint firstAttribute="height" constant="26" id="pmX-VL-gQh"/>
                                 </constraints>
                                 <state key="normal" image="Add"/>
                             </button>
@@ -600,7 +600,7 @@
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There's no session for this date" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIW-Y9-uwW">
-                                <rect key="frame" x="46.666666666666657" y="392.33333333333331" width="282" height="27.333333333333314"/>
+                                <rect key="frame" x="46.666666666666657" y="392.66666666666669" width="282" height="27"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -625,7 +625,7 @@
                             <constraint firstItem="lIW-Y9-uwW" firstAttribute="centerX" secondItem="O6D-V6-EWT" secondAttribute="centerX" id="ZIi-Eb-R3S"/>
                             <constraint firstItem="oV8-Az-Klt" firstAttribute="leading" secondItem="oi3-ci-SVX" secondAttribute="trailing" constant="10" id="dm0-5h-89O"/>
                             <constraint firstItem="HWt-se-ycP" firstAttribute="leading" secondItem="dh2-kp-Di3" secondAttribute="leading" constant="35" id="g8j-WV-U8h"/>
-                            <constraint firstItem="Soa-cB-CD0" firstAttribute="top" secondItem="dh2-kp-Di3" secondAttribute="top" constant="10" id="guI-Sb-yu3"/>
+                            <constraint firstItem="Soa-cB-CD0" firstAttribute="top" secondItem="dh2-kp-Di3" secondAttribute="top" constant="5" id="guI-Sb-yu3"/>
                             <constraint firstItem="oV8-Az-Klt" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="26" id="iqP-hv-Aq9"/>
                             <constraint firstItem="jJa-oJ-4SK" firstAttribute="top" secondItem="Fes-2g-l7f" secondAttribute="bottom" constant="28" id="k4s-Cv-kpX"/>
                             <constraint firstItem="A2P-Kv-6ij" firstAttribute="trailing" secondItem="dh2-kp-Di3" secondAttribute="trailing" id="ka0-Hg-r9E"/>

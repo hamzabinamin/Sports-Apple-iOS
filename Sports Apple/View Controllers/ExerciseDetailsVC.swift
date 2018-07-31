@@ -35,7 +35,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     var favoritesDictionary: [[String: Any]] = []
     let numberArray = [Int](1...1000)
     let hourArray = [Int](0...12)
-    let minArray = [Int](0...60)
+    let minArray = [Int](0...59)
     let typeArray = ["Weight", "Count", "Time", "Distance"]
     var favoriteExercise: Exercise = Exercise()
     let weightUnit = "lbs"
@@ -359,6 +359,9 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
             exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
             exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+            if favoritesListTF.text!.count > 0 {
+                favoritesListTF.text = ""
+            }
             
             if exerciseListTF.text!.count > 0 {
                 
@@ -382,8 +385,9 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         else if activeField == favoritesListTF {
             favoritesListTF.text = favoritesArray[picker.selectedRow(inComponent: 0)]._name
             exerciseID = "\(favoritesArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
-            exerciseListTF.isEnabled = false
-            exerciseListTF.alpha = 0.5
+            if exerciseListTF.text!.count > 0 {
+                exerciseListTF.text = ""
+            }
             exerciseTypeTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -488,7 +492,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             )
         }
         else if activeField == repsTF {
-            repsTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])"
+            repsTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])" + " reps"
             setsTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -496,7 +500,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             )
         }
         else if activeField == setsTF {
-            setsTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])"
+            setsTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])" + " sets"
             commentTV.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -504,7 +508,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             )
         }
         else if activeField == countTF {
-            countTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])"
+            countTF.text = "\(numberArray[picker.selectedRow(inComponent: 0)])" + " counts"
             commentTV.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -635,14 +639,14 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                 exerciseDictionary["Weight Amount"] = weightAmount?.replacingOccurrences(of: " lbs", with: "")
                 
                 if reps!.count > 0 {
-                    exerciseDictionary["Reps"] = reps
+                    exerciseDictionary["Reps"] = reps?.replacingOccurrences(of: " reps", with: "")
                 }
                 if sets!.count > 0 {
-                    exerciseDictionary["Sets"] = sets
+                    exerciseDictionary["Sets"] = sets?.replacingOccurrences(of: " sets", with: "")
                 }
             }
             else if count!.count > 0 {
-                exerciseDictionary["Count"] = count
+                exerciseDictionary["Count"] = count?.replacingOccurrences(of: " counts", with: "")
             }
             else if time!.count > 0 {
                 let store = time?.split(separator: ":")

@@ -46,11 +46,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Qv-qG-WY2">
-                                <rect key="frame" x="330" y="30" width="30" height="22"/>
+                                <rect key="frame" x="326" y="25" width="34" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="LC0-VX-LQP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -242,7 +242,7 @@
                             <constraint firstItem="JgA-5E-dik" firstAttribute="top" secondItem="FRD-KB-MRK" secondAttribute="top" constant="30" id="coh-FF-xqm"/>
                             <constraint firstItem="mpm-X5-BMX" firstAttribute="leading" secondItem="Bj0-WB-L0j" secondAttribute="leading" id="g6b-Vg-SUc"/>
                             <constraint firstItem="fUx-Ta-7Ug" firstAttribute="top" secondItem="FVU-6x-aEj" secondAttribute="bottom" constant="15" id="l3o-eV-xQG"/>
-                            <constraint firstItem="8Qv-qG-WY2" firstAttribute="top" secondItem="Bj0-WB-L0j" secondAttribute="top" constant="10" id="po4-le-YwJ"/>
+                            <constraint firstItem="8Qv-qG-WY2" firstAttribute="top" secondItem="Bj0-WB-L0j" secondAttribute="top" constant="5" id="po4-le-YwJ"/>
                             <constraint firstItem="mpm-X5-BMX" firstAttribute="top" secondItem="fUx-Ta-7Ug" secondAttribute="bottom" id="r1u-dh-sS3"/>
                             <constraint firstItem="xQh-S3-w0l" firstAttribute="top" secondItem="FRD-KB-MRK" secondAttribute="top" constant="45" id="rNS-YP-bSE"/>
                             <constraint firstItem="xQh-S3-w0l" firstAttribute="leading" secondItem="Bj0-WB-L0j" secondAttribute="leading" constant="49" id="wkZ-GP-f9f"/>
