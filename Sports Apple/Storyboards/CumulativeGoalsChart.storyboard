@@ -12,6 +12,7 @@
     <customFonts key="customFonts">
         <array key="Avenir.ttc">
             <string>Avenir-Book</string>
+            <string>Avenir-Medium</string>
         </array>
     </customFonts>
     <scenes>
@@ -64,6 +65,12 @@
                                     <constraint firstAttribute="width" constant="25" id="zDX-6r-1So"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't added any goals" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDg-70-g56">
+                                <rect key="frame" x="57.5" y="320" width="260" height="27.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -71,16 +78,19 @@
                             <constraint firstItem="6sT-yH-Zd5" firstAttribute="top" secondItem="g1g-YV-lVX" secondAttribute="top" id="5D6-WC-0f4"/>
                             <constraint firstItem="Mbp-Hz-8tD" firstAttribute="leading" secondItem="2Ut-y9-dj6" secondAttribute="leading" constant="49" id="8Iy-i3-2vA"/>
                             <constraint firstItem="XkB-71-R1s" firstAttribute="top" secondItem="2Ut-y9-dj6" secondAttribute="top" constant="20" id="8cH-gb-30t"/>
+                            <constraint firstItem="VDg-70-g56" firstAttribute="centerY" secondItem="g1g-YV-lVX" secondAttribute="centerY" id="EEp-pp-1BJ"/>
                             <constraint firstItem="XkB-71-R1s" firstAttribute="centerX" secondItem="g1g-YV-lVX" secondAttribute="centerX" id="MVe-tk-Eka"/>
                             <constraint firstItem="6sT-yH-Zd5" firstAttribute="trailing" secondItem="2Ut-y9-dj6" secondAttribute="trailing" id="VEN-Dt-P7p"/>
                             <constraint firstItem="i5d-WL-Nha" firstAttribute="top" secondItem="g1g-YV-lVX" secondAttribute="top" constant="30" id="Xgz-AX-rfz"/>
                             <constraint firstItem="6sT-yH-Zd5" firstAttribute="leading" secondItem="2Ut-y9-dj6" secondAttribute="leading" id="kst-jB-HfD"/>
+                            <constraint firstItem="VDg-70-g56" firstAttribute="centerX" secondItem="g1g-YV-lVX" secondAttribute="centerX" id="l4f-Xw-xUp"/>
                             <constraint firstItem="i5d-WL-Nha" firstAttribute="leading" secondItem="2Ut-y9-dj6" secondAttribute="leading" constant="35" id="s1U-re-Sqh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2Ut-y9-dj6"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="2Un-fd-pc0" id="0Px-2E-x0Y"/>
+                        <outlet property="emptyGoalsLabel" destination="VDg-70-g56" id="QqL-9n-KWI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hGG-RG-MlG" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -37,6 +37,8 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
          NotificationCenter.default.addObserver(self, selector: #selector(confirmDate(notification:)), name: .confirmDate, object: nil)
         
          NotificationCenter.default.addObserver(self, selector: #selector(sessionAdded), name: .sessionAdded, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getSessions), name: .refreshActivity, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,11 +79,14 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             self.showHUD(hud: self.hud!)
             self.session.deleteActivity(activityItem: self.array[index.row], completion: { (response) in
-                
+                self.showHUD(hud: self.hud!)
                 DispatchQueue.main.async {
                     self.hideHUD(hud: self.hud!)
                     if response == "success" {
+                        self.array.remove(at: index.row)
+                        self.tableView.deleteRows(at: [index], with: UITableViewRowAnimation.fade)
                         self.showSuccessHUD(text: "Session deleted")
+                
                     }
                     else {
                         self.showErrorHUD(text: response)
@@ -89,6 +94,7 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 
             })
+            print("Delete called")
         }
         delete.backgroundColor = .red
         
@@ -105,6 +111,15 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if tableView.isEditing {
+            return .delete
+        }
+        
+        return .none
     }
     
     func rotateArrow() {
@@ -125,7 +140,7 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         calendarButton.addTarget(self, action: #selector(goToCalendarVC), for: .touchUpInside)
     }
     
-    func getSessions() {
+    @objc func getSessions() {
         formatter.dateFormat = "MM/dd/yyyy"
         self.showHUD(hud: hud!)
         session.queryActivity(userId: (pool?.currentUser()?.username)!, date: formatter.string(from: date)) { (response, responseArray) in

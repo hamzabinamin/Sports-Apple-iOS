@@ -118,9 +118,12 @@ class GoalStatusReportVC: UIViewController {
                                 let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID})
                                 self.set.remove(storedExerciseItem!)
                                 if activity["Weight Amount"] != nil {
-                                    storedExerciseItem?.exerciseWeightAmount += Int(activity["Weight Amount"] as! String)!
-                                    storedExerciseItem?.exerciseSets += Int(activity["Sets"] as! String)!
-                                    storedExerciseItem?.exerciseReps += Int(activity["Reps"] as! String)!
+                                    
+                                    if (storedExerciseItem?.exerciseWeightAmount)! < Int(activity["Weight Amount"] as! String)! {
+                                        storedExerciseItem?.exerciseWeightAmount = Int(activity["Weight Amount"] as! String)!
+                                        storedExerciseItem?.exerciseSets = Int(activity["Sets"] as! String)!
+                                        storedExerciseItem?.exerciseReps = Int(activity["Reps"] as! String)!
+                                    }
                                 }
                                 else if activity["Time"] != nil {
                                     storedExerciseItem?.exerciseTime += activity["Time"] as! Int
@@ -175,6 +178,8 @@ class GoalStatusReportVC: UIViewController {
                             row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
                             row[8] = DataTableValueType.string(String(format: "%02d:%02d", hoursTotal, minutesTotal))
                             row[9] = DataTableValueType.string(String(format: "%02d:%02d", hoursDiff, minutesDiff))
+                            let percentage = ((Float(item.exerciseTime) / Float(item.goalTime)) * 100)
+                            row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
                         }
                         if item.goalDistance != 0 || item.exerciseDistance != 0 {
                             row[5] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalDistance))!)

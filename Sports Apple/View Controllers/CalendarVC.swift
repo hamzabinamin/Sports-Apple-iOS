@@ -21,6 +21,7 @@ class CalendarVC: UIViewController {
     var date = Date()
     var date2 = Date()
     var dateRange = false
+    var oneDate = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +46,21 @@ class CalendarVC: UIViewController {
         if dateRange {
             if date == date2 {
                 print("Both dates are equal")
+                print(date)
+                print(date2)
                 calendar.selectDates([date])
             }
             else {
                 print("Both dates are not equal")
                 print(date)
                 print(date2)
-                calendar.selectDates([date, date2])
+                
+                if oneDate {
+                    calendar.selectDates([date])
+                }
+                else {
+                    calendar.selectDates([date, date2])
+                }
             }
         }
         else {

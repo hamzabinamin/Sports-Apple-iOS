@@ -93,7 +93,7 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.hideHUD(hud: self.hud!)
                     if response == "success" {
                         self.array.remove(at: index.row)
-                        self.tableView.reloadRows(at: [editActionsForRowAt], with: UITableViewRowAnimation.fade)
+                        self.tableView.deleteRows(at: [index], with: UITableViewRowAnimation.fade)
                         self.showSuccessHUD(text: "Goal deleted")
                     }
                     else {
@@ -131,7 +131,9 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @objc func getGoals() {
         self.showHUD(hud: hud!)
-        goal.queryGoal(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+        self.formatter.dateFormat = "yyyy"
+        let date = self.formatter.string(from: Date())
+        goal.queryGoal(userId: (pool?.currentUser()?.username)!, date: date) { (response, responseArray) in
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
             }

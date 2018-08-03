@@ -27,6 +27,7 @@ class DailyActivityReportVC: UIViewController {
     let formatter = DateFormatter()
     var session: Activity = Activity()
     let numberFormatter: NumberFormatter = NumberFormatter()
+    var oneDate = false
     
     let headerTitles = ["Date", "Exercise", "Weight", "Reps", "Sets", "Count", "Distance", "Time"]
 
@@ -124,7 +125,11 @@ class DailyActivityReportVC: UIViewController {
             }
             else if response == "no result" {
                 DispatchQueue.main.async {
-                    
+                    self.dataRows.removeAll()
+                    let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
+                                             DataTableValueType.string("")]
+                    self.dataRows.append(row)
+                    self.addDataSourceAfter()
                 }
             }
             else {
@@ -190,7 +195,11 @@ class DailyActivityReportVC: UIViewController {
             }
             else if response == "no result" {
                 DispatchQueue.main.async {
-                   
+                   self.dataRows.removeAll()
+                   let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
+                                             DataTableValueType.string("")]
+                   self.dataRows.append(row)
+                   self.addDataSourceAfter()
                 }
             }
             else {
@@ -218,7 +227,14 @@ class DailyActivityReportVC: UIViewController {
                     storeItem?._date = self.array.first?._date
                     let labelDate = self.formatter.date(from: (storeItem?._date)!)
                     self.formatter.dateFormat = "MMM d, yyyy"
-                    self.dateLabel.text = self.formatter.string(from: labelDate!)
+                    let storeDateString = self.formatter.string(from: labelDate!)
+                    self.dateLabel.text = storeDateString
+                    let storeDateStore = self.formatter.date(from: storeDateString)
+                    let storeFormatter = DateFormatter()
+                    storeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                    let finalStringStore = storeFormatter.string(from: storeDateStore!)
+                    self.date1 = storeFormatter.date(from: finalStringStore)!
+                    self.date2 = storeFormatter.date(from: finalStringStore)!
                     for item in self.array {
                         self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                         let d1 = self.formatter.date(from: (storeItem?._date!)!)
@@ -293,12 +309,14 @@ class DailyActivityReportVC: UIViewController {
             
             if date.count == 1 {
                 self.date1 = date.first!
+                self.oneDate = true
                 dateLabel.text = formatter.string(from: date.first!)
                 getSessions(date1: date1)
             }
             else {
                 self.date1 = date.first!
                 self.date2 = date[1]
+                self.oneDate = false
                 dateLabel.text = formatter.string(from: date.first!) + "-" + formatter.string(from: date[1])
                 getSessions(date1: date1, date2: date2)
             }
@@ -316,6 +334,7 @@ class DailyActivityReportVC: UIViewController {
         destVC.date = date1
         destVC.date2 = date2
         destVC.dateRange = true
+        destVC.oneDate = self.oneDate
         self.present(destVC, animated: true, completion: .none)
     }
 }

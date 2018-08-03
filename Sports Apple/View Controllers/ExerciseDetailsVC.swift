@@ -45,6 +45,8 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     var exerciseID = ""
     var session: Activity = Activity()
     var exerciseDictionary: Dictionary = [String: Any]()
+    var oldActivity: Activity = Activity()
+    var oldExercise: ExerciseItem = ExerciseItem()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -314,6 +316,49 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                     }
                     self.picker.reloadComponent(0)
                 }
+                
+                if self.oldExercise.exerciseID.count > 0 {
+                    self.exerciseListTF.text = self.oldExercise.exerciseName
+                    self.exerciseID = self.oldExercise.exerciseID
+                    
+                    if self.oldExercise.exerciseComment.count > 0 {
+                        if self.oldExercise.exerciseComment != "none" {
+                            self.commentTV.textColor = UIColor.black
+                            self.commentTV.text = self.oldExercise.exerciseComment
+                        }
+                    }
+                    
+                    if self.oldExercise.exerciseWeightAmount != 0 {
+                        self.exerciseTypeTF.text = "Weight"
+                        self.weightAmountTF.text = "\(self.oldExercise.exerciseWeightAmount)" + " lbs"
+                        self.repsTF.text = "\(self.oldExercise.exerciseReps)" + " reps"
+                        self.setsTF.text = "\(self.oldExercise.exerciseSets)" + " sets"
+                    }
+                    else if self.oldExercise.exerciseCount != 0 {
+                        self.exerciseTypeTF.text = "Count"
+                        self.countTF.text = "\(self.oldExercise.exerciseCount)" + " counts"
+                    }
+                    else if self.oldExercise.exerciseTime != 0 {
+                        self.exerciseTypeTF.text = "Time"
+                        let hours = self.oldExercise.exerciseTime / 3600
+                        let minutes = (self.oldExercise.exerciseTime / 60) % 60
+                        self.timeTF.text = String(format: "%02d:%02d", hours, minutes)
+                    }
+                    else if self.oldExercise.exerciseDistance != 0 {
+                        self.exerciseTypeTF.text = "Distance"
+                        self.distanceTF.text = "\(self.oldExercise.exerciseDistance)" + " miles"
+                    }
+                    
+                    let exercise = Exercise()
+                    exercise?._exerciseId = NSNumber(value: Int((self.oldExercise.exerciseID))!)
+                    exercise?._name = self.oldExercise.exerciseName
+                    if self.favoritesArray.contains(exercise!) {
+                        self.addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                    }
+                    else {
+                        self.addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                    }
+                }
             }
         })
     }
@@ -387,6 +432,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             exerciseID = "\(favoritesArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
             if exerciseListTF.text!.count > 0 {
                 exerciseListTF.text = ""
+                self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
             }
             exerciseTypeTF.perform(
                 #selector(becomeFirstResponder),
@@ -406,6 +452,16 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                 repsTF.isEnabled = true
                 repsTF.alpha = 1
                 
+                if countTF.text!.count > 0 {
+                    countTF.text = ""
+                }
+                if timeTF.text!.count > 0 {
+                    timeTF.text = ""
+                }
+                if distanceTF.text!.count > 0 {
+                    distanceTF.text = ""
+                }
+                
                 countTF.isEnabled = false
                 countTF.alpha = 0.5
                 timeTF.isEnabled = false
@@ -422,6 +478,22 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             else if type == "Count" {
                 countTF.isEnabled = true
                 countTF.alpha = 1
+                
+                if weightAmountTF.text!.count > 0 {
+                    weightAmountTF.text = ""
+                }
+                if setsTF.text!.count > 0 {
+                    setsTF.text = ""
+                }
+                if repsTF.text!.count > 0 {
+                    repsTF.text = ""
+                }
+                if timeTF.text!.count > 0 {
+                    timeTF.text = ""
+                }
+                if distanceTF.text!.count > 0 {
+                    distanceTF.text = ""
+                }
                 
                 weightAmountTF.isEnabled = false
                 weightAmountTF.alpha = 0.5
@@ -444,6 +516,22 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                 timeTF.isEnabled = true
                 timeTF.alpha = 1
                 
+                if weightAmountTF.text!.count > 0 {
+                    weightAmountTF.text = ""
+                }
+                if setsTF.text!.count > 0 {
+                    setsTF.text = ""
+                }
+                if repsTF.text!.count > 0 {
+                    repsTF.text = ""
+                }
+                if countTF.text!.count > 0 {
+                    countTF.text = ""
+                }
+                if distanceTF.text!.count > 0 {
+                    distanceTF.text = ""
+                }
+                
                 weightAmountTF.isEnabled = false
                 weightAmountTF.alpha = 0.5
                 setsTF.isEnabled = false
@@ -464,6 +552,22 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             else if type == "Distance" {
                 distanceTF.isEnabled = true
                 distanceTF.alpha = 1
+                
+                if weightAmountTF.text!.count > 0 {
+                    weightAmountTF.text = ""
+                }
+                if setsTF.text!.count > 0 {
+                    setsTF.text = ""
+                }
+                if repsTF.text!.count > 0 {
+                    repsTF.text = ""
+                }
+                if countTF.text!.count > 0 {
+                    countTF.text = ""
+                }
+                if timeTF.text!.count > 0 {
+                    timeTF.text = ""
+                }
                 
                 weightAmountTF.isEnabled = false
                 weightAmountTF.alpha = 0.5
@@ -666,8 +770,73 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                 exerciseDictionary["Exercise Comment"] = comment
             }
             
-            NotificationCenter.default.post(name: .updateActivityTV, object: exerciseDictionary)
-            self.dismiss(animated: true, completion: nil)
+            if oldExercise.exerciseID.count > 0 {
+                var exerciseList = self.oldActivity._exerciseList
+                
+                for (key, value) in (exerciseList?.enumerated())! {
+                    
+                    if value["exerciseID"] as? String == oldExercise.exerciseID && value["exerciseName"] as? String == oldExercise.exerciseName {
+                        print("Before: ", exerciseList![key])
+                        
+                        if oldExercise.exerciseWeightAmount != 0 {
+                            if value["Weight Amount"] != nil {
+                                if Int((value["Weight Amount"] as? String)!) == oldExercise.exerciseWeightAmount {
+                                    exerciseList![key] = exerciseDictionary
+                                }
+                            }
+                        }
+                        else if oldExercise.exerciseCount != 0 {
+                            if value["Count"] != nil {
+                                if Int((value["Count"] as? String)!) == oldExercise.exerciseCount {
+                                    exerciseList![key] = exerciseDictionary
+                                }
+                            }
+                            print("After: ", exerciseList![key])
+                        }
+                        else if oldExercise.exerciseTime != 0 {
+                            if value["Time"] != nil {
+                                if (value["Time"] as? Int)! == oldExercise.exerciseTime {
+                                    exerciseList![key] = exerciseDictionary
+                                }
+                            }
+                            print("After: ", exerciseList![key])
+                        }
+                        else if oldExercise.exerciseDistance != 0 {
+                            if value["Distance"] != nil {
+                                if Int((value["Distance"] as? String)!) == oldExercise.exerciseDistance {
+                                    exerciseList![key] = exerciseDictionary
+                                }
+                            }
+                        }
+                        self.oldActivity._exerciseList = exerciseList
+                        self.showHUD(hud: self.hud!)
+                        self.oldActivity.createActivity(activityItem: self.oldActivity, completion: { (response) in
+                            DispatchQueue.main.async {
+                                self.hideHUD(hud: self.hud!)
+                                if response == "success" {
+                                    self.showSuccessHUD(text: "Activity updated")
+                                    NotificationCenter.default.post(name: .updateExercise, object: nil)
+                                }
+                                else {
+                                    self.showErrorHUD(text: response)
+                                }
+                            }
+                            
+                        })
+                        
+                        return
+                    }
+                    else {
+                        print("This value is not equal: ", value)
+                        //print("ID: ", value["exerciseID"])
+                    }
+                    
+                }
+            }
+            else {
+                NotificationCenter.default.post(name: .updateActivityTV, object: nil)
+                self.dismiss(animated: true, completion: nil)
+            }
         }
         else {
            // self.showErrorHUD(text: "Please fill the required fields")

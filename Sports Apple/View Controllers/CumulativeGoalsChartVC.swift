@@ -13,6 +13,7 @@ import AWSCognitoIdentityProvider
 class CumulativeGoalsChartVC: UIViewController {
     
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var emptyGoalsLabel: UILabel!
     let aaChartView = AAChartView()
     var aaChartModel: AAChartModel?
     var hud: JGProgressHUD?
@@ -382,6 +383,7 @@ class CumulativeGoalsChartVC: UIViewController {
                             self.seriesArray.append(store!)
                         }
                     }
+                    print("Series array count: ", self.seriesArray.count)
                     
                     self.aaChartModel = AAChartModel.init()
                         .chartType(AAChartType.Column)//Can be any of the chart types listed under `AAChartType`.
@@ -401,11 +403,22 @@ class CumulativeGoalsChartVC: UIViewController {
                     
                     self.aaChartView.aa_drawChartWithChartModel(self.aaChartModel!)
                     
+                    if self.seriesArray.count == 0 {
+                        DispatchQueue.main.async {
+                            self.emptyGoalsLabel.isHidden = false
+                            self.aaChartView.isHidden = true
+                        }
+                    }
+                    else {
+                        self.emptyGoalsLabel.isHidden = true
+                        self.aaChartView.isHidden = false
+                    }
                 }
             }
             else if response == "no result" {
                 DispatchQueue.main.async {
-                    
+                     self.emptyGoalsLabel.isHidden = false
+                     self.aaChartView.isHidden = true
                 }
             }
             else {
@@ -425,6 +438,8 @@ class CumulativeGoalsChartVC: UIViewController {
             }
             if response == "success" {
                 DispatchQueue.main.async {
+                    self.emptyGoalsLabel.isHidden = true
+                    self.aaChartView.isHidden = false
                     self.goalArray = responseArray
                     
                     for item in self.goalArray {
@@ -471,8 +486,9 @@ class CumulativeGoalsChartVC: UIViewController {
                 }
             }
             else {
-                DispatchQueue.main.async {
-                    
+                    DispatchQueue.main.async {
+                    self.emptyGoalsLabel.isHidden = false
+                    self.aaChartView.isHidden = true
                 }
             }
         }

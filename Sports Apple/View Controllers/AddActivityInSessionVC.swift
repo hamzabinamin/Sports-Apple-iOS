@@ -20,8 +20,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
     var session: Activity = Activity()
     var dict: [[String: Any]] = []
     var array: [ExerciseItem] = []
-    var isOldSession = false
-
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -35,9 +34,6 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
         
          NotificationCenter.default.addObserver(self, selector: #selector(updateTableView(notification:)), name: .updateActivityTV, object: nil)
         
-        if isOldSession {
-            
-        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
