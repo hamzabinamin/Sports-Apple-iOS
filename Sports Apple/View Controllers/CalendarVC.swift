@@ -212,6 +212,9 @@ extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
         if dateRange {
             print("Date Range: true")
             if calendar.selectedDates.count < 2 {
+                if cellState.date > Date() {
+                    return false
+                }
                 return true
             }
             else {

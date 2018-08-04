@@ -25,6 +25,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     @IBOutlet weak var wristTF: UITextField!
     var activeField: UITextField?
     let picker = UIPickerView()
+    var titleButton: UIBarButtonItem?
     var hud: JGProgressHUD?
     var pool: AWSCognitoIdentityUserPool?
     var user: UserItem = UserItem()
@@ -41,34 +42,66 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         setupPicker()
         
         if user.weight.stringValue != "-1" && user.userID.count > 0 {
-            weightTF.text = String(format: "%.1f", user.weight.floatValue)
-            chestTF.text = String(format: "%.1f", user.chest.floatValue)
-            waistTF.text = String(format: "%.1f", user.waist.floatValue)
-            hipsTF.text = String(format: "%.1f", user.hips.floatValue)
-            neckTF.text = String(format: "%.1f", user.neck.floatValue)
-            bicepsTF.text = String(format: "%.1f", user.biceps.floatValue)
-            forearmsTF.text = String(format: "%.1f", user.forearms.floatValue)
-            thighsTF.text = String(format: "%.1f", user.thighs.floatValue)
-            calvesTF.text = String(format: "%.1f", user.calves.floatValue)
-            wristTF.text = String(format: "%.1f", user.wrist.floatValue)
+            weightTF.text = String(format: "%.1f", user.weight.floatValue) + " lbs"
+            chestTF.text = String(format: "%.1f", user.chest.floatValue) + " inches"
+            waistTF.text = String(format: "%.1f", user.waist.floatValue) + " inches"
+            hipsTF.text = String(format: "%.1f", user.hips.floatValue) + " inches"
+            neckTF.text = String(format: "%.1f", user.neck.floatValue) + " inches"
+            bicepsTF.text = String(format: "%.1f", user.biceps.floatValue) + " inches"
+            forearmsTF.text = String(format: "%.1f", user.forearms.floatValue) + " inches"
+            thighsTF.text = String(format: "%.1f", user.thighs.floatValue) + " inches"
+            calvesTF.text = String(format: "%.1f", user.calves.floatValue) + " inches"
+            wristTF.text = String(format: "%.1f", user.wrist.floatValue) + " inches"
             completeButton.setTitle("Update", for: .normal)
         }
         else if user.weight.stringValue != "-1" {
-            weightTF.text = String(format: "%.1f", user.weight.floatValue)
-            chestTF.text = String(format: "%.1f", user.chest.floatValue)
-            waistTF.text = String(format: "%.1f", user.waist.floatValue)
-            hipsTF.text = String(format: "%.1f", user.hips.floatValue)
-            neckTF.text = String(format: "%.1f", user.neck.floatValue)
-            bicepsTF.text = String(format: "%.1f", user.biceps.floatValue)
-            forearmsTF.text = String(format: "%.1f", user.forearms.floatValue)
-            thighsTF.text = String(format: "%.1f", user.thighs.floatValue)
-            calvesTF.text = String(format: "%.1f", user.calves.floatValue)
-            wristTF.text = String(format: "%.1f", user.wrist.floatValue)
+            weightTF.text = String(format: "%.1f", user.weight.floatValue) + " lbs"
+            chestTF.text = String(format: "%.1f", user.chest.floatValue) + " inches"
+            waistTF.text = String(format: "%.1f", user.waist.floatValue) + " inches"
+            hipsTF.text = String(format: "%.1f", user.hips.floatValue) + " inches"
+            neckTF.text = String(format: "%.1f", user.neck.floatValue) + " inches"
+            bicepsTF.text = String(format: "%.1f", user.biceps.floatValue) + " inches"
+            forearmsTF.text = String(format: "%.1f", user.forearms.floatValue) + " inches"
+            thighsTF.text = String(format: "%.1f", user.thighs.floatValue) + " inches"
+            calvesTF.text = String(format: "%.1f", user.calves.floatValue) + " inches"
+            wristTF.text = String(format: "%.1f", user.wrist.floatValue) + " inches"
         }
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
+        
+        if activeField == weightTF {
+            titleButton?.title = "Weight"
+        }
+        else if activeField == chestTF {
+            titleButton?.title = "Chest"
+        }
+        else if activeField == waistTF {
+            titleButton?.title = "Waist"
+        }
+        else if activeField == hipsTF {
+            titleButton?.title = "Hips"
+        }
+        else if activeField == neckTF {
+            titleButton?.title = "Neck"
+        }
+        else if activeField == bicepsTF {
+            titleButton?.title = "Biceps"
+        }
+        else if activeField == forearmsTF {
+            titleButton?.title = "Forearms"
+        }
+        else if activeField == thighsTF {
+            titleButton?.title = "Thighs"
+        }
+        else if activeField == calvesTF {
+            titleButton?.title = "Calves"
+        }
+        else if activeField == wristTF {
+            titleButton?.title = "Wrist"
+        }
+        
         picker.reloadAllComponents()
         picker.selectRow(0, inComponent: 0, animated: false)
         picker.selectRow(0, inComponent: 1, animated: false)
@@ -206,9 +239,12 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        titleButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action: nil)
+        titleButton?.isEnabled = false
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelPicker))
         
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        
+        toolBar.setItems([cancelButton, spaceButton, titleButton!, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
         weightTF.inputView = picker
@@ -367,16 +403,16 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                 wrist = "0 inches"
             }
         
-            weight = weightTF.text!.replacingOccurrences(of: " lbs", with: "")
-            chest =  chestTF.text!.replacingOccurrences(of: " inches", with: "")
-            waist = waistTF.text!.replacingOccurrences(of: " inches", with: "")
-            hips = hipsTF.text!.replacingOccurrences(of: " inches", with: "")
-            neck = neckTF.text!.replacingOccurrences(of: " inches", with: "")
-            biceps = bicepsTF.text!.replacingOccurrences(of: " inches", with: "")
-            forearms = forearmsTF.text!.replacingOccurrences(of: " inches", with: "")
-            thighs = thighsTF.text!.replacingOccurrences(of: " inches", with: "")
-            calves = calvesTF.text!.replacingOccurrences(of: " inches", with: "")
-            wrist = wristTF.text!.replacingOccurrences(of: " inches", with: "")
+            weight = weight.replacingOccurrences(of: " lbs", with: "")
+            chest = chest.replacingOccurrences(of: " inches", with: "")
+            waist = waist.replacingOccurrences(of: " inches", with: "")
+            hips = hips.replacingOccurrences(of: " inches", with: "")
+            neck = neck.replacingOccurrences(of: " inches", with: "")
+            biceps = biceps.replacingOccurrences(of: " inches", with: "")
+            forearms = forearms.replacingOccurrences(of: " inches", with: "")
+            thighs = thighs.replacingOccurrences(of: " inches", with: "")
+            calves = calves.replacingOccurrences(of: " inches", with: "")
+            wrist = wrist.replacingOccurrences(of: " inches", with: "")
             
             user.weight = NSNumber(value: Float(weight)!)
             user.chest = NSNumber(value: Float(chest)!)

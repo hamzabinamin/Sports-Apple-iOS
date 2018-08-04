@@ -225,7 +225,13 @@ class GoalStatusReportVC: UIViewController {
             }
             else if response == "no result" {
                 DispatchQueue.main.async {
-                    
+                    self.dataRows.removeAll()
+                    let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
+                                             DataTableValueType.string(""), DataTableValueType.string(""),
+                                             DataTableValueType.string(""), DataTableValueType.string(""),
+                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                    self.dataRows.append(row)
+                    self.addDataSourceAfter()
                 }
             }
             else {
@@ -292,7 +298,13 @@ class GoalStatusReportVC: UIViewController {
             }
             else {
                 DispatchQueue.main.async {
-                    
+                    self.dataRows.removeAll()
+                    let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
+                                             DataTableValueType.string(""), DataTableValueType.string(""),
+                                             DataTableValueType.string(""), DataTableValueType.string(""),
+                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                    self.dataRows.append(row)
+                    self.addDataSourceAfter()
                 }
             }
         }

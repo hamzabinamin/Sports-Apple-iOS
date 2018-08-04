@@ -31,7 +31,10 @@ extension Notification.Name {
     static let sessionAdded = Notification.Name("sessionAdded")
     static let confirmDateRange = Notification.Name("confirmDateRange")
     static let updateExercise = Notification.Name("updateExercise")
-     static let refreshActivity = Notification.Name("refreshActivity")
+    static let refreshActivity = Notification.Name("refreshActivity")
+    static let refreshActivity2 = Notification.Name("refreshActivity2")
+    static let updateActivityTV2 = Notification.Name("updateActivityTV2")
+    static let refreshActivity3 = Notification.Name("refreshActivity3")
 }
 
 

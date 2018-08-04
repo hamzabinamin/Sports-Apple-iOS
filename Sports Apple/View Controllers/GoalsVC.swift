@@ -70,8 +70,8 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
         else if goal._calories != nil {
-            cell.goalTypeLabel.text = "Calories Goal"
-            cell.goalAmountLabel.text = "\(goal._calories!)" + " cals"
+            cell.goalTypeLabel.text = "Count Goal"
+            cell.goalAmountLabel.text = "\(goal._calories!)" + " counts"
         }
         else if goal._distance != nil {
             cell.goalTypeLabel.text = "Distance Goal"

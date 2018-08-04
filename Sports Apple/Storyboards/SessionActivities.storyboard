@@ -32,6 +32,16 @@
                                     <constraint firstAttribute="height" constant="106" id="xJO-U7-gSj"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZu-oY-ePP">
+                                <rect key="frame" x="326" y="25" width="34" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="HSl-0X-GHd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Activity Header" translatesAutoresizingMaskIntoConstraints="NO" id="xXd-BR-ynU">
                                 <rect key="frame" x="35" y="30" width="56" height="57"/>
                                 <constraints>
@@ -54,9 +64,19 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBB-Ye-lxc">
+                                        <rect key="frame" x="335" y="7" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="Unb-pX-p2l"/>
+                                            <constraint firstAttribute="height" constant="25" id="sIh-ib-MsR"/>
+                                        </constraints>
+                                        <state key="normal" image="Add"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.20824921129999999" green="0.53039246799999995" blue="0.80533033610000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="WBB-Ye-lxc" firstAttribute="centerY" secondItem="xZU-v1-SMR" secondAttribute="centerY" id="1D8-7R-5Zx"/>
+                                    <constraint firstAttribute="trailing" secondItem="WBB-Ye-lxc" secondAttribute="trailing" constant="15" id="Mb2-9c-UY1"/>
                                     <constraint firstAttribute="trailing" secondItem="o7I-jT-ajI" secondAttribute="trailing" constant="25" id="WiU-8V-0cj"/>
                                     <constraint firstItem="o7I-jT-ajI" firstAttribute="centerY" secondItem="xZU-v1-SMR" secondAttribute="centerY" id="eU7-OB-ggf"/>
                                     <constraint firstItem="o7I-jT-ajI" firstAttribute="leading" secondItem="xZU-v1-SMR" secondAttribute="leading" constant="15" id="gnz-6k-8OQ"/>
@@ -216,7 +236,9 @@
                             <constraint firstItem="Tjm-06-UuG" firstAttribute="centerX" secondItem="YRj-Uc-IoY" secondAttribute="centerX" id="Fiy-d1-5UI"/>
                             <constraint firstItem="uwk-qO-t2Y" firstAttribute="trailing" secondItem="ngm-gs-YBq" secondAttribute="trailing" id="IuE-Zn-Lww"/>
                             <constraint firstItem="Tjm-06-UuG" firstAttribute="top" secondItem="ngm-gs-YBq" secondAttribute="top" constant="20" id="KdY-bW-V3K"/>
+                            <constraint firstItem="ngm-gs-YBq" firstAttribute="trailing" secondItem="cZu-oY-ePP" secondAttribute="trailing" constant="15" id="MtG-CD-Z6B"/>
                             <constraint firstItem="uwk-qO-t2Y" firstAttribute="leading" secondItem="YRj-Uc-IoY" secondAttribute="leading" id="R4E-6Z-qet"/>
+                            <constraint firstItem="cZu-oY-ePP" firstAttribute="top" secondItem="ngm-gs-YBq" secondAttribute="top" constant="5" id="SE8-eH-fL2"/>
                             <constraint firstItem="gWM-5i-r0t" firstAttribute="top" secondItem="xZU-v1-SMR" secondAttribute="bottom" id="X7z-1E-44u"/>
                             <constraint firstItem="xZU-v1-SMR" firstAttribute="leading" secondItem="ngm-gs-YBq" secondAttribute="leading" id="ZjI-2Y-OIT"/>
                             <constraint firstItem="xXd-BR-ynU" firstAttribute="top" secondItem="YRj-Uc-IoY" secondAttribute="top" constant="30" id="a7s-iR-uI0"/>
@@ -231,19 +253,22 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" image="Activity" id="fgE-Rd-WJU"/>
                     <connections>
+                        <outlet property="addButton" destination="WBB-Ye-lxc" id="I4o-gk-od0"/>
                         <outlet property="backButton" destination="V9H-Ew-aDH" id="EbU-me-SGT"/>
+                        <outlet property="saveButton" destination="cZu-oY-ePP" id="Q8t-rr-qwf"/>
                         <outlet property="sessionActivitiesLabel" destination="Mdr-mX-Nux" id="GiM-vG-ucR"/>
                         <outlet property="tableView" destination="gWM-5i-r0t" id="8Dg-9i-IU3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tjw-Mr-ipe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3073" y="451"/>
+            <point key="canvasLocation" x="-3074.4000000000001" y="450.22488755622192"/>
         </scene>
     </scenes>
     <resources>
         <image name="Activity" width="30" height="30"/>
         <image name="Activity Header" width="53" height="62"/>
+        <image name="Add" width="42" height="42"/>
         <image name="Back" width="32" height="32"/>
         <image name="Header" width="375" height="182"/>
     </resources>

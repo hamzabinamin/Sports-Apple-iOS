@@ -12,12 +12,15 @@ import AWSCognitoIdentityProvider
 
 class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var sessionActivitiesLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var hud: JGProgressHUD?
     var pool: AWSCognitoIdentityUserPool?
     var session: Activity = Activity()
+    var dict: [[String: Any]] = []
     var array: [ExerciseItem] = []
     
     override func viewDidLoad() {
@@ -26,6 +29,8 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
         getActivities()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateExercise(notification:)), name: .updateExercise, object: nil)
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView(notification:)), name: .updateActivityTV2, object: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,6 +109,7 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
                         if response == "success" {
                             self.array.remove(at: index.row)
                             self.tableView.deleteRows(at: [index], with: UITableViewRowAnimation.fade)
+                            self.sessionActivitiesLabel.isHidden = true
                             self.showSuccessHUD(text: "Activity deleted")
                         }
                         else {
@@ -120,6 +126,7 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
                         if response == "success" {
                             self.array.remove(at: index.row)
                             self.tableView.deleteRows(at: [index], with: UITableViewRowAnimation.fade)
+                            self.sessionActivitiesLabel.isHidden = false
                             self.showSuccessHUD(text: "Session deleted")
                             NotificationCenter.default.post(name: .refreshActivity, object: nil)
                         }
@@ -154,12 +161,14 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     func setupViews() {
         self.hud = self.createLoadingHUD()
-         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
+        self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
+        addButton.addTarget(self, action: #selector(goToExerciseDetailsVC), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
-        
+        saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
     }
     
     func getActivities() {
+        self.dict = []
         if session._exerciseList!.count > 0 {
             array = Array()
             let dict = session._exerciseList
@@ -169,6 +178,9 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
                 
                 array.append(exerciseItem)
             }
+            self.dict = session._exerciseList!
+            //print("Original Dict: ", dict)
+            //print("Original List: ", session._exerciseList)
             tableView.reloadData()
         }
         else {
@@ -184,7 +196,64 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
     @objc func updateExercise(notification: Notification) {
         getActivities()
     }
+    
+    @objc func updateTableView(notification: Notification) {
+        print("Got notification")
+        if let responseDict = notification.object as? [String: Any] {
+            self.dict.append(responseDict)
+            print("Inside If")
+            print(dict.count)
 
+            let exerciseItem = ExerciseItem(exerciseID: "\(responseDict["exerciseID"] ?? 0)", exerciseName: "\(responseDict["exerciseName"] ?? "")", exerciseWeightAmount: Int("\(responseDict["Weight Amount"] ?? 0)")!, exerciseCount: Int("\(responseDict["Count"] ?? 0)")!, exerciseReps: Int("\(responseDict["Reps"] ?? 0)")!, exerciseSets: Int("\(responseDict["Sets"] ?? 0)")!, exerciseTime: Int("\(responseDict["Time"] ?? 0)")!, exerciseDistance: Int("\(responseDict["Distance"] ?? 0)")!, exerciseComment: "\(responseDict["Exercise Comment"] ?? "")")
+            array.append(exerciseItem)
+            sessionActivitiesLabel.isHidden = true
+            tableView.reloadData()
+            session._exerciseList = self.dict
+            //print("Updated Dict: ", self.dict)
+            //print("Updated List: ", self.session._exerciseList)
+        }
+        else {
+            print("Not inside If")
+        }
+    }
+
+    @objc func saveSession() {
+        if session._exerciseList != nil {
+            self.showHUD(hud: hud!)
+            print(session)
+            session.createActivity(activityItem: session) { (response) in
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                }
+                if response == "success" {
+                    DispatchQueue.main.async {
+                        self.showSuccessHUD(text: "Session updated")
+                        self.dismiss(animated: true, completion: nil)
+                        NotificationCenter.default.post(name: .refreshActivity3, object: nil)
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        self.showErrorHUD(text: response)
+                    }
+                }
+                
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.showErrorHUD(text: "Please add an acitivty first")
+            }
+        }
+    }
+    
+    @objc func goToExerciseDetailsVC() {
+        let storyboard = UIStoryboard(name: "AddActivityInSession", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "ExerciseDetailsVC") as! ExerciseDetailsVC
+        destVC.session = session
+        destVC.cameFromSessionActivities = true
+        self.present(destVC, animated: true, completion: .none)
+    }
     
 
 }

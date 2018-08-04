@@ -16,6 +16,7 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var forwardButton: UIButton!
     @IBOutlet weak var calendarButton: UIButton!
+    @IBOutlet weak var weeklinkButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var sessionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -32,13 +33,17 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         setupViews()
         rotateArrow()
-        getSessions()
+        getSessions(message: "")
         
          NotificationCenter.default.addObserver(self, selector: #selector(confirmDate(notification:)), name: .confirmDate, object: nil)
         
          NotificationCenter.default.addObserver(self, selector: #selector(sessionAdded), name: .sessionAdded, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(getSessions), name: .refreshActivity, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(refreshActivity), name: .refreshActivity, object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(refreshActivity2), name: .refreshActivity2, object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(sessionUpdated), name: .refreshActivity3, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,7 +118,6 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         return true
     }
     
-    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         if tableView.isEditing {
             return .delete
@@ -138,9 +142,10 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         forwardButton.addTarget(self, action: #selector(nextDate), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(goToAddSessionVC), for: .touchUpInside)
         calendarButton.addTarget(self, action: #selector(goToCalendarVC), for: .touchUpInside)
+        weeklinkButton.addTarget(self, action: #selector(openLink), for: .touchUpInside)
     }
     
-    @objc func getSessions() {
+    @objc func getSessions(message: String) {
         formatter.dateFormat = "MM/dd/yyyy"
         self.showHUD(hud: hud!)
         session.queryActivity(userId: (pool?.currentUser()?.username)!, date: formatter.string(from: date)) { (response, responseArray) in
@@ -157,6 +162,11 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
                     self.tableView.reloadData()
                     self.tableView.isHidden = false
                     self.sessionLabel.isHidden = true
+                    
+                    if message.count > 0 {
+                        self.showSuccessHUD(text: message)
+                    }
+                    
                 }
             }
             else if response == "no result" {
@@ -177,7 +187,7 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
             formatter.dateFormat = "MMM d, yyyy"
             self.date = date.first!
             dateLabel.text = formatter.string(from: date.first!)
-            getSessions()
+            getSessions(message: "")
         }
     }
     
@@ -185,7 +195,7 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         date = Calendar.current.date(byAdding: .day, value: -1, to: date)!
         formatter.dateFormat = "MMM d, yyyy"
         dateLabel.text = formatter.string(from: date)
-        getSessions()
+        getSessions(message: "")
     }
     
     @objc func nextDate() {
@@ -193,13 +203,33 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
             date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
             formatter.dateFormat = "MMM d, yyyy"
             dateLabel.text = formatter.string(from: date)
-            getSessions()
+            getSessions(message: "")
         }
     }
     
     @objc func sessionAdded() {
-        self.showSuccessHUD(text: "Session added")
-        getSessions()
+        getSessions(message: "Session added")
+    }
+    
+    @objc func sessionUpdated() {
+        getSessions(message: "Session updated")
+    }
+    
+    @objc func refreshActivity() {
+        getSessions(message: "")
+    }
+    
+    @objc func refreshActivity2() {
+        getSessions(message: "")
+    }
+    
+    @objc func openLink() {
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string: "http://www.weeklink.life/")!, options: [:], completionHandler: nil)
+        }
+        else {
+            UIApplication.shared.openURL(URL(string: "http://www.weeklink.life/")!)
+        }
     }
     
     @objc func goToAddSessionVC() {

@@ -47,6 +47,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     var exerciseDictionary: Dictionary = [String: Any]()
     var oldActivity: Activity = Activity()
     var oldExercise: ExerciseItem = ExerciseItem()
+    var cameFromSessionActivities = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -833,8 +834,13 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                     
                 }
             }
+            else if cameFromSessionActivities {
+                NotificationCenter.default.post(name: .updateActivityTV2, object: exerciseDictionary)
+                cameFromSessionActivities = false
+                self.dismiss(animated: true, completion: nil)
+            }
             else {
-                NotificationCenter.default.post(name: .updateActivityTV, object: nil)
+                NotificationCenter.default.post(name: .updateActivityTV, object: exerciseDictionary)
                 self.dismiss(animated: true, completion: nil)
             }
         }

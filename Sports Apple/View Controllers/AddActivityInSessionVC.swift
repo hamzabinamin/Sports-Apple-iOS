@@ -148,13 +148,14 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
     @objc func saveSession() {
         if session._exerciseList != nil {
         self.showHUD(hud: hud!)
+        print(session)
         session.createActivity(activityItem: session) { (response) in
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
             }
             if response == "success" {
                 DispatchQueue.main.async {
-                    self.showSuccessHUD(text: "Session added")
+                    //self.showSuccessHUD(text: "Session added")
                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                     NotificationCenter.default.post(name: .sessionAdded, object: nil)
                 }

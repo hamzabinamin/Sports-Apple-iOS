@@ -49,6 +49,15 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             self.locationTF.text = self.oldSession._location
             self.caloriesTF.text = "\(self.oldSession._calories!.intValue)" + " calories"
             self.weightTF.text = "\(self.oldSession._bodyWeight!.floatValue)" + " lbs"
+            let storeFormatter = DateFormatter()
+            storeFormatter.dateFormat = "MM/dd/yyyy h:mm a"
+            let storeDate = storeFormatter.date(from: self.oldSession._date!)
+            storeFormatter.dateFormat = "MMM d, yyyy"
+            self.dateLabel.text = storeFormatter.string(from: storeDate!)
+            storeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+            let storeString = storeFormatter.string(from: storeDate!)
+            let storeDate2 = storeFormatter.date(from: storeString)
+            self.date = storeDate2!
             
             if self.oldSession._workoutComment != "none" {
                 self.commentTV.textColor = UIColor.black
@@ -275,7 +284,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             calories = calories?.replacingOccurrences(of: " calories", with: "")
             weight = weight?.replacingOccurrences(of: " lbs", with: "")
             
-            if comment == "Workout Comment" {
+            if comment == "Workout Comment" || comment.count == 0 {
                 comment = "none"
             }
             let formatter = DateFormatter()
@@ -291,12 +300,24 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
                 oldSession._calories = NSNumber(value: Float(calories!)!)
                 oldSession._bodyWeight = NSNumber(value: Float(weight!)!)
                 
+                let storeFormatter = DateFormatter()
+                storeFormatter.dateFormat = "MM/dd/yyyy h:mm a"
+                let oldDateOriginal = storeFormatter.date(from: oldSession._date!)
+                storeFormatter.dateFormat = "MM/dd/yyyy"
+                let oldDateString = storeFormatter.string(from: oldDateOriginal!)
+                let newDateString = storeFormatter.string(from: self.date)
+                
+                if oldDateString != newDateString {
+                    oldSession._date = date + " " + time
+                }
+                
                 self.showHUD(hud: hud!)
                 oldSession.createActivity(activityItem: oldSession, completion: { (response) in
                     DispatchQueue.main.async {
                         self.hideHUD(hud: self.hud!)
                         if response == "success" {
                             self.showSuccessHUD(text: "Session updated")
+                             NotificationCenter.default.post(name: .refreshActivity2, object: nil)
                         }
                         else {
                             self.showErrorHUD(text: response)

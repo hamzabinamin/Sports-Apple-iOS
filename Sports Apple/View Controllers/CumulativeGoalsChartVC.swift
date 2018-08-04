@@ -417,6 +417,7 @@ class CumulativeGoalsChartVC: UIViewController {
             }
             else if response == "no result" {
                 DispatchQueue.main.async {
+                     self.emptyGoalsLabel.text = "No sessions added to calculate values"
                      self.emptyGoalsLabel.isHidden = false
                      self.aaChartView.isHidden = true
                 }
@@ -487,6 +488,7 @@ class CumulativeGoalsChartVC: UIViewController {
             }
             else {
                     DispatchQueue.main.async {
+                    self.emptyGoalsLabel.text = "You haven't added any goals"
                     self.emptyGoalsLabel.isHidden = false
                     self.aaChartView.isHidden = true
                 }

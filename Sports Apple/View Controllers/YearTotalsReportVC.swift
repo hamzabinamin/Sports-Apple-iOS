@@ -61,7 +61,10 @@ class YearTotalsReportVC: UIViewController {
     
     func getSessions() {
         self.showHUD(hud: hud!)
-        session.queryActivity(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        let date = formatter.string(from: Date())
+        session.queryActivity(userId: (pool?.currentUser()?.username)!, date: date) { (response, responseArray) in
             
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
@@ -141,7 +144,10 @@ class YearTotalsReportVC: UIViewController {
             }
             else if response == "no result" {
                 DispatchQueue.main.async {
-                    
+                    self.dataRows = []
+                    let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),]
+                    self.dataRows.append(row)
+                    self.addDataSourceAfter()
                 }
             }
             else {

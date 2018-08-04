@@ -12,6 +12,7 @@
     <customFonts key="customFonts">
         <array key="Avenir.ttc">
             <string>Avenir-Book</string>
+            <string>Avenir-Heavy</string>
         </array>
     </customFonts>
     <scenes>
@@ -83,13 +84,30 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBr-bZ-tTA">
+                                <rect key="frame" x="15" y="178" width="355" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight: 0 lbs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BzG-f2-32h">
+                                <rect key="frame" x="15" y="206.5" width="355" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iFt-Lo-4Ad" firstAttribute="centerX" secondItem="78C-Dw-U8R" secondAttribute="centerX" id="0MN-We-a8z"/>
+                            <constraint firstItem="hfh-m4-Sre" firstAttribute="trailing" secondItem="BzG-f2-32h" secondAttribute="trailing" constant="5" id="3aF-w9-bnI"/>
+                            <constraint firstItem="BzG-f2-32h" firstAttribute="top" secondItem="oBr-bZ-tTA" secondAttribute="bottom" constant="5" id="HTa-2H-ra9"/>
                             <constraint firstItem="g6h-4R-Q9m" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="35" id="IqJ-zd-P6c"/>
+                            <constraint firstItem="BzG-f2-32h" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="15" id="IwH-sm-6j4"/>
                             <constraint firstItem="7di-py-WwO" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="49" id="NYn-6G-y9y"/>
                             <constraint firstItem="g6h-4R-Q9m" firstAttribute="top" secondItem="78C-Dw-U8R" secondAttribute="top" constant="30" id="PbY-aU-PnL"/>
+                            <constraint firstItem="hfh-m4-Sre" firstAttribute="trailing" secondItem="oBr-bZ-tTA" secondAttribute="trailing" constant="5" id="SVm-ix-uqV"/>
+                            <constraint firstItem="oBr-bZ-tTA" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="15" id="VSP-VP-hTE"/>
                             <constraint firstItem="cfY-fw-ffF" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="15" id="YLz-G2-l1Z"/>
                             <constraint firstItem="vXe-hE-XpM" firstAttribute="trailing" secondItem="hfh-m4-Sre" secondAttribute="trailing" id="aWi-eH-wte"/>
                             <constraint firstItem="cfY-fw-ffF" firstAttribute="top" secondItem="vXe-hE-XpM" secondAttribute="bottom" constant="26" id="bCI-yr-Mim"/>
@@ -97,6 +115,7 @@
                             <constraint firstItem="7di-py-WwO" firstAttribute="top" secondItem="78C-Dw-U8R" secondAttribute="top" constant="45" id="bvy-kF-qlq"/>
                             <constraint firstItem="vXe-hE-XpM" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" id="ihS-vU-2IE"/>
                             <constraint firstItem="iFt-Lo-4Ad" firstAttribute="top" secondItem="hfh-m4-Sre" secondAttribute="top" constant="20" id="ltF-dZ-kmM"/>
+                            <constraint firstItem="oBr-bZ-tTA" firstAttribute="top" secondItem="cfY-fw-ffF" secondAttribute="bottom" constant="20" id="nnk-Ws-GET"/>
                             <constraint firstItem="vXe-hE-XpM" firstAttribute="top" secondItem="78C-Dw-U8R" secondAttribute="top" id="qS2-IV-irU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hfh-m4-Sre"/>
@@ -104,7 +123,9 @@
                     <connections>
                         <outlet property="backButton" destination="dBo-P9-bgx" id="rWF-pV-Kvt"/>
                         <outlet property="calendarButton" destination="nNY-5I-flQ" id="t1d-Hu-icn"/>
+                        <outlet property="caloriesLabel" destination="oBr-bZ-tTA" id="hWJ-Gz-ZUV"/>
                         <outlet property="dateLabel" destination="h4N-8F-9az" id="Z8c-IL-GwR"/>
+                        <outlet property="weightLabel" destination="BzG-f2-32h" id="pj2-Nm-Isj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8uW-eG-mEB" userLabel="First Responder" sceneMemberID="firstResponder"/>

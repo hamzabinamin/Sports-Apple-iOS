@@ -79,6 +79,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    
         return false
     }
     
@@ -381,6 +382,8 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                 if self.oldGoal!._date != nil {
                     self.exerciseListTF.text = self.oldGoal?._exercise!["Name"]
                     self.yearlyGoalTF.text = self.oldGoal?._yearlyGoal
+                    self.exerciseID = (self.oldGoal?._exercise!["ID"])!
+                    
                     
                     if self.oldGoal?._time != nil {
                         let time = self.oldGoal!._time!.intValue
@@ -482,6 +485,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             exerciseID = "\(favoritesArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
             if exerciseListTF.text!.count > 0 {
                 exerciseListTF.text = ""
+                self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
             }
             goalTypeTF.perform(
                 #selector(becomeFirstResponder),

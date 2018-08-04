@@ -13,6 +13,7 @@ import AWSCognitoIdentityProvider
 class TotalCaloriesChartVC: UIViewController {
     
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var emptySessionsLabel: UILabel!
     let aaChartView = AAChartView()
     var aaChartModel: AAChartModel?
     var hud: JGProgressHUD?
@@ -85,6 +86,8 @@ class TotalCaloriesChartVC: UIViewController {
             print("Response: " + response)
             if response == "success" {
                 DispatchQueue.main.async {
+                    self.emptySessionsLabel.isHidden = true
+                    self.aaChartView.isHidden = false
                     self.array = responseArray
                     self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                     for item in self.array {
@@ -236,7 +239,8 @@ class TotalCaloriesChartVC: UIViewController {
             }
             else if response == "no result" {
                 DispatchQueue.main.async {
-                    
+                    self.emptySessionsLabel.isHidden = false
+                    self.aaChartView.isHidden = true
                 }
             }
             else {

@@ -12,6 +12,7 @@
     <customFonts key="customFonts">
         <array key="Avenir.ttc">
             <string>Avenir-Book</string>
+            <string>Avenir-Medium</string>
         </array>
     </customFonts>
     <scenes>
@@ -64,10 +65,17 @@
                                     <constraint firstAttribute="height" constant="25" id="nka-t6-OZd"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't added any sessions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw9-TM-nXR">
+                                <rect key="frame" x="5" y="320" width="365" height="27.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="KCJ-do-26X" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" constant="49" id="8cM-YQ-qc4"/>
+                            <constraint firstItem="Zw9-TM-nXR" firstAttribute="centerY" secondItem="OAP-KC-3yu" secondAttribute="centerY" id="DSZ-0A-8Y8"/>
                             <constraint firstItem="3HG-O5-1NB" firstAttribute="centerX" secondItem="OAP-KC-3yu" secondAttribute="centerX" id="IlX-gJ-ska"/>
                             <constraint firstItem="oa6-eH-vsg" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" id="Q9b-XC-ccV"/>
                             <constraint firstItem="PhD-uc-YtB" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" constant="35" id="VJS-Rh-LTx"/>
@@ -75,12 +83,16 @@
                             <constraint firstItem="3HG-O5-1NB" firstAttribute="top" secondItem="REg-cX-o5y" secondAttribute="top" constant="20" id="XBN-Z2-Y7X"/>
                             <constraint firstItem="oa6-eH-vsg" firstAttribute="trailing" secondItem="REg-cX-o5y" secondAttribute="trailing" id="ZwK-8C-FMT"/>
                             <constraint firstItem="oa6-eH-vsg" firstAttribute="top" secondItem="OAP-KC-3yu" secondAttribute="top" id="bhQ-TO-lfD"/>
+                            <constraint firstItem="REg-cX-o5y" firstAttribute="trailing" secondItem="Zw9-TM-nXR" secondAttribute="trailing" constant="5" id="eP5-7i-L5O"/>
                             <constraint firstItem="KCJ-do-26X" firstAttribute="top" secondItem="OAP-KC-3yu" secondAttribute="top" constant="45" id="mjd-my-3fh"/>
+                            <constraint firstItem="Zw9-TM-nXR" firstAttribute="centerX" secondItem="OAP-KC-3yu" secondAttribute="centerX" id="rbt-sQ-z94"/>
+                            <constraint firstItem="Zw9-TM-nXR" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" constant="5" id="wVT-fc-Mit"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="REg-cX-o5y"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="gzW-it-2l1" id="E73-yZ-OHl"/>
+                        <outlet property="emptySessionsLabel" destination="Zw9-TM-nXR" id="m1X-zu-dZb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GTY-NO-rej" userLabel="First Responder" sceneMemberID="firstResponder"/>
