@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.placeholderColor = .black
         
         // Warn user if configuration not updated
         if (CognitoIdentityUserPoolId == "us-east-1_7ZlE87Sy2") {

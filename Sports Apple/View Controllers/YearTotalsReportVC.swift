@@ -159,6 +159,7 @@ class YearTotalsReportVC: UIViewController {
     public func addDataSourceAfter(){
         
         self.dataSource = self.dataRows
+        self.dataTable.delegate = self
         self.dataTable.reload()
     }
     
@@ -182,5 +183,12 @@ extension YearTotalsReportVC: SwiftDataTableDataSource {
     
     public func dataTable(_ dataTable: SwiftDataTable, dataForRowAt index: NSInteger) -> [DataTableValueType] {
         return self.dataSource[index]
+    }
+}
+
+
+extension YearTotalsReportVC: SwiftDataTableDelegate {
+    @objc func dataTable(_ dataTable: SwiftDataTable, widthForColumnAt index: Int) -> CGFloat {
+        return 150.0
     }
 }

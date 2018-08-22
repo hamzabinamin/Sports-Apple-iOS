@@ -78,7 +78,21 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return false
+        if textField != exerciseListTF {
+            return false
+        }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == exerciseListTF {
+            if exerciseListTF.text!.count > 0 {
+                print("Someone wrote an exercise")
+            }
+            else {
+                print("No exercise entered")
+            }
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -185,6 +199,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         }
         else {
             if activeField == exerciseListTF {
+                exerciseListTF.text = exerciseArray[row]._name
                 return exerciseArray[row]._name
             }
             else if activeField == favoritesListTF {
@@ -402,26 +417,72 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     @objc func donePicker() {
         
         if activeField == exerciseListTF {
-            favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
-            exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
-            exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
-            if favoritesListTF.text!.count > 0 {
-                favoritesListTF.text = ""
-            }
             
-            if exerciseListTF.text!.count > 0 {
-                
-                if favoritesArray.contains(favoriteExercise) {
-                    addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+            let store = exerciseListTF.text!
+            
+            if store.count > 0 {
+                if exerciseArray.contains(where: { $0._name == store }) {
+                    favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
+                    exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
+                    exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+                    
+                    if exerciseListTF.text!.count > 0 {
+                        
+                        if favoritesArray.contains(favoriteExercise) {
+                            addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                        }
+                        else {
+                            addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                        }
+                    }
+                    else {
+                        addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                    }
+                    
+                    print("Value was there in TF and got matched in array")
+                    print(exerciseListTF.text!)
+                    print(exerciseID)
                 }
                 else {
+                    exerciseID = String(arc4random_uniform(9999))
+                    let storeFavExercise = Exercise()
+                    storeFavExercise?._exerciseId = Int(exerciseID) as NSNumber?
+                    storeFavExercise?._name = store
+                    favoriteExercise = storeFavExercise!
                     addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                    
+                    print("Value was there in TF but didn't get matched in array")
+                    print(exerciseListTF.text!)
+                    print(exerciseID)
                 }
             }
             else {
-                addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
+                exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
+                exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+                
+                if exerciseListTF.text!.count > 0 {
+                    
+                    if favoritesArray.contains(favoriteExercise) {
+                        addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                    }
+                    else {
+                        addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                    }
+                }
+                else {
+                    addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                }
+                
+                print("No value was there in TF")
+                print(exerciseListTF.text!)
+                print(exerciseID)
             }
-            
+           
+            if favoritesListTF.text!.count > 0 {
+                favoritesListTF.text = ""
+            }
+        
             exerciseTypeTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -724,6 +785,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     }
 
     @objc func addActivityInSession() {
+        let name = exerciseListTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let type = exerciseTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let weightAmount = weightAmountTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let reps = repsTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -735,10 +797,15 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         
         if validation(type: type!, weight: weightAmount!, reps: reps!, sets: sets!, count: count!, time: time!, distance: distance!) {
-            let index = exerciseArray.index(where: { $0._exerciseId?.stringValue == exerciseID })
+            //let index = exerciseArray.index(where: { $0._exerciseId?.stringValue == exerciseID })
             
             exerciseDictionary["exerciseID"] = exerciseID
-            exerciseDictionary["exerciseName"] = exerciseArray[index!]._name
+            if name!.count > 0 {
+                exerciseDictionary["exerciseName"] = name
+            }
+            else if favoritesListTF.text!.count > 0 {
+                exerciseDictionary["exerciseName"] = favoritesListTF.text!
+            }
             
             if weightAmount!.count > 0 {
                 exerciseDictionary["Weight Amount"] = weightAmount?.replacingOccurrences(of: " lbs", with: "")

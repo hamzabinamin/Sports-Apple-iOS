@@ -327,6 +327,7 @@ class DailyActivityReportVC: UIViewController {
     
     public func addDataSourceAfter(){
         self.dataSource = self.dataRows
+        self.dataTable.delegate = self
         self.dataTable.reload()
     }
     
@@ -383,5 +384,11 @@ extension DailyActivityReportVC: SwiftDataTableDataSource {
     
     public func dataTable(_ dataTable: SwiftDataTable, dataForRowAt index: NSInteger) -> [DataTableValueType] {
         return self.dataSource[index]
+    }
+}
+
+extension DailyActivityReportVC: SwiftDataTableDelegate {
+   @objc func dataTable(_ dataTable: SwiftDataTable, widthForColumnAt index: Int) -> CGFloat {
+        return 150.0
     }
 }

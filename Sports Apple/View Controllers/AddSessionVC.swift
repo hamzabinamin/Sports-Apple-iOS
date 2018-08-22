@@ -26,8 +26,8 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     let picker = UIPickerView()
     var hud: JGProgressHUD?
     var pool: AWSCognitoIdentityUserPool?
-    let numberArray = [Int](1...1500)
-    let inchesArray = [Int](1...500)
+    let numberArray = [Int](1...20000)
+    let inchesArray = [Int](0...500)
     let inchesDecimalArray = [Int](0...9)
     let inchesSymbol = "lbs"
     let caloriesSymbol = "calories"

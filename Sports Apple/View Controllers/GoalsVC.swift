@@ -62,7 +62,7 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.goalTypeLabel.text = "Time Goal"
             let hours = (goal._time?.intValue)! / 3600
             let minutes = ((goal._time?.intValue)! / 60) % 60
-            cell.goalAmountLabel.text = String(format: "%02d:%02d", hours, minutes)
+            cell.goalAmountLabel.text = String(format: "%02d:%02d", hours, minutes) + " time"
         }
         else if goal._weight != nil {
             cell.goalTypeLabel.text = "Weight Goal"
@@ -87,20 +87,7 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-            self.showHUD(hud: self.hud!)
-            self.goal.deleteGoal(goalItem: self.array[index.row], completion: { (response) in
-                DispatchQueue.main.async {
-                    self.hideHUD(hud: self.hud!)
-                    if response == "success" {
-                        self.array.remove(at: index.row)
-                        self.tableView.deleteRows(at: [index], with: UITableViewRowAnimation.fade)
-                        self.showSuccessHUD(text: "Goal deleted")
-                    }
-                    else {
-                        self.showErrorHUD(text: response)
-                    }
-                }
-            })
+            self.showDeleteAlert(indexPath: index)
         }
         delete.backgroundColor = .red
         
@@ -127,6 +114,38 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.formatter.dateFormat = "MM/dd/yyyy"
         
         addButton.addTarget(self, action: #selector(goToAddGoalVC), for: .touchUpInside)
+    }
+    
+    func showDeleteAlert(indexPath: IndexPath) {
+        let alertController = UIAlertController(title: "Goal Deletion", message: "Are you sure you want to delete this goal?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.showHUD(hud: self.hud!)
+            self.goal.deleteGoal(goalItem: self.array[indexPath.row], completion: { (response) in
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    if response == "success" {
+                        self.array.remove(at: indexPath.row)
+                        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                        self.showSuccessHUD(text: "Goal deleted")
+                    }
+                    else {
+                        self.showErrorHUD(text: response)
+                    }
+                }
+            })
+
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
+            UIAlertAction in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @objc func getGoals() {

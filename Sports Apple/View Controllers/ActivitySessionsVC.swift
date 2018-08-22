@@ -82,23 +82,7 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-            self.showHUD(hud: self.hud!)
-            self.session.deleteActivity(activityItem: self.array[index.row], completion: { (response) in
-                self.showHUD(hud: self.hud!)
-                DispatchQueue.main.async {
-                    self.hideHUD(hud: self.hud!)
-                    if response == "success" {
-                        self.array.remove(at: index.row)
-                        self.tableView.deleteRows(at: [index], with: UITableViewRowAnimation.fade)
-                        self.showSuccessHUD(text: "Session deleted")
-                
-                    }
-                    else {
-                        self.showErrorHUD(text: response)
-                    }
-                }
-                
-            })
+            self.showDeleteAlert(indexPath: index)
             print("Delete called")
         }
         delete.backgroundColor = .red
@@ -143,6 +127,40 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         addButton.addTarget(self, action: #selector(goToAddSessionVC), for: .touchUpInside)
         calendarButton.addTarget(self, action: #selector(goToCalendarVC), for: .touchUpInside)
         weeklinkButton.addTarget(self, action: #selector(openLink), for: .touchUpInside)
+    }
+    
+    func showDeleteAlert(indexPath: IndexPath) {
+        let alertController = UIAlertController(title: "Session Deletion", message: "Are you sure you want to delete this session?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.showHUD(hud: self.hud!)
+            self.session.deleteActivity(activityItem: self.array[indexPath.row], completion: { (response) in
+                self.showHUD(hud: self.hud!)
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    if response == "success" {
+                        self.array.remove(at: indexPath.row)
+                        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                        self.showSuccessHUD(text: "Session deleted")
+                        
+                    }
+                    else {
+                        self.showErrorHUD(text: response)
+                    }
+                }
+                
+            })
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
+            UIAlertAction in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @objc func getSessions(message: String) {

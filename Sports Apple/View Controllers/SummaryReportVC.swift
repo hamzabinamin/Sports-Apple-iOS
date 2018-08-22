@@ -111,14 +111,14 @@ class SummaryReportVC: UIViewController {
                         }
                     }
                     self.daysWorkedOut = self.set.count
-                    self.avgWeeklyCalories = Float(self.totalCalories/self.weeks)
-                    self.avgWorkoutCalories = Float(self.totalCalories/self.daysWorkedOut)
-                    self.avgWeeklyWorkouts = Float(self.daysWorkedOut/self.weeks)
+                    self.avgWeeklyCalories = Float(Float(self.totalCalories)/Float(self.weeks))
+                    self.avgWorkoutCalories = Float(Float(self.totalCalories)/Float(self.daysWorkedOut))
+                    self.avgWeeklyWorkouts = Float(Float(self.daysWorkedOut)/Float(self.weeks))
                     self.daysPast = self.daysPastInYear
                     self.daysLeft = self.daysLeftInYear
                     self.workoutDays = self.daysWorkedOut
                     
-                    self.percentageOfActivityDays = Float((self.daysWorkedOut/self.daysPast) * 100)
+                    self.percentageOfActivityDays = Float((Float(self.daysWorkedOut)/Float(self.daysPast)) * 100)
                     
                     print("Total Calories: ", String(format: "%.0f", locale: Locale.current, Double(self.totalCalories)))
                     print("Average Weekly Calories: ", self.avgWeeklyCalories)
@@ -128,7 +128,9 @@ class SummaryReportVC: UIViewController {
                     print("Days Past: ", self.daysPast)
                     print("Days Left: ", self.daysLeft)
                     print("Workout Days: ", self.daysWorkedOut)
-                    print("Percent of Activity Days: ", "\(self.percentageOfActivityDays)" + "%")
+                    print("Percent of Activity Days: ", String(format: "%.1f", locale: Locale.current, Double(self.percentageOfActivityDays)) + "%")
+                    
+//                    /"\(self.percentageOfActivityDays)" + "%")
                     
                     self.addDataSourceAfter()
                 }
@@ -182,7 +184,7 @@ class SummaryReportVC: UIViewController {
                             ],
                            [
                             DataTableValueType.string("Percent of Activity Days"),
-                            DataTableValueType.string("\(self.percentageOfActivityDays)" + "%"),
+                            DataTableValueType.string(String(format: "%.01f", Double(self.percentageOfActivityDays)) + "%"),
                             ],
         ]
         

@@ -51,7 +51,7 @@ class VerificationVC: UIViewController {
                     let alertController = UIAlertController(title: error.userInfo["__type"] as? String,
                                                             message: error.userInfo["message"] as? String,
                                                             preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alertController.addAction(okAction)
                     print(error.code)
                     
