@@ -26,10 +26,14 @@ class CumulativeGoalsChartVC: UIViewController {
     var set: Set<ExerciseItem> = []
     let formatter = DateFormatter()
     var seriesArray: [[String: Any]] = []
+    var testArray: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        for i in 1...52 {
+            testArray.append("1,092")
+        }
         getGoals()
     }
     
@@ -378,9 +382,14 @@ class CumulativeGoalsChartVC: UIViewController {
                             let element = AASeriesElement()
                             element.name(item.exerciseName)
                             element.data(item.weeklyCount)
+                            //element.data(self.testArray)
                             //self.seriesArray.append(element)
                             let store = element.toDic()
                             self.seriesArray.append(store!)
+                            
+                            for step in self.testArray {
+                                print("Step:", step)
+                            }
                         }
                     }
                     print("Series array count: ", self.seriesArray.count)
@@ -392,7 +401,7 @@ class CumulativeGoalsChartVC: UIViewController {
                         .stacking(AAChartStackingType.False)
                         //.title("TITLE")//The chart title
                         .dataLabelEnabled(false) //Enable or disable the data labels. Defaults to false
-                        .tooltipValueSuffix("")//the value suffix of the chart tooltip
+                        //.tooltipValueSuffix("")//the value suffix of the chart tooltip
                         .categories(["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10",
                                      "Week 11", "Week 12", "Week 13", "Week 14", "Week 15", "Week 16", "Week 17", "Week 18", "Week 19", "Week 20",
                                      "Week 21", "Week 22", "Week 23", "Week 24", "Week 25", "Week 26", "Week 27", "Week 28", "Week 29", "Week 30",

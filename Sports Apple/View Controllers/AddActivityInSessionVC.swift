@@ -58,8 +58,8 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             cell.distanceTimeLabel.isHidden = true
             
             cell.weightLabel.text = String(array[indexPath.row].exerciseWeightAmount) + " lbs"
-            cell.setsLabel.text = String(array[indexPath.row].exerciseSets) + " Sets"
-            cell.repsLabel.text = String(array[indexPath.row].exerciseReps) + " Reps"
+            cell.setsLabel.text = String(array[indexPath.row].exerciseSets) + " sets"
+            cell.repsLabel.text = String(array[indexPath.row].exerciseReps) + " reps"
         }
         else if array[indexPath.row].exerciseDistance != 0 {
             
@@ -81,7 +81,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             let hours = array[indexPath.row].exerciseTime / 3600
             let minutes = (array[indexPath.row].exerciseTime / 60) % 60
             
-            cell.distanceTimeLabel.text = String(format: "%02d:%02d", hours, minutes)
+            cell.distanceTimeLabel.text = String(format: "%02d:%02d", hours, minutes) + " time"
         }
         else if array[indexPath.row].exerciseCount != 0 {
             cell.weightLabel.isHidden = true
@@ -90,7 +90,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
             cell.countsLabel.isHidden = true
             cell.distanceTimeLabel.isHidden = false
             
-            cell.distanceTimeLabel.text = String(array[indexPath.row].exerciseCount) + " Counts"
+            cell.distanceTimeLabel.text = String(array[indexPath.row].exerciseCount) + " counts"
         }
         
         return cell
@@ -104,8 +104,32 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
     }
     
+    func showConfirmAlert() {
+        let alertController = UIAlertController(title: "Save Session", message: "Would you like to save your session?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.saveSession()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
+            UIAlertAction in
+            alertController.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @objc func back() {
-        self.dismiss(animated: true, completion: nil)
+        if session._exerciseList != nil {
+            showConfirmAlert()
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func updateTableView(notification: Notification) {

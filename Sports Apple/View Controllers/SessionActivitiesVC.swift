@@ -22,6 +22,7 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
     var session: Activity = Activity()
     var dict: [[String: Any]] = []
     var array: [ExerciseItem] = []
+    var originalExerciseList: [[String: Any]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,55 +92,7 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-            
-            var exerciseList = self.session._exerciseList
-            exerciseList?.remove(at: index.row)
-            self.session._exerciseList = exerciseList
-            
-            for (key, value) in (exerciseList?.enumerated())! {
-                print("Key: ", key)
-                print("Value: ", value)
-            }
-            
-            if exerciseList!.count > 0 {
-                self.showHUD(hud: self.hud!)
-                self.session.createActivity(activityItem: self.session, completion: { (response) in
-                    DispatchQueue.main.async {
-                        self.hideHUD(hud: self.hud!)
-                        if response == "success" {
-                            self.array.remove(at: index.row)
-                            self.tableView.deleteRows(at: [index], with: UITableViewRowAnimation.fade)
-                            self.sessionActivitiesLabel.isHidden = true
-                            self.showSuccessHUD(text: "Activity deleted")
-                        }
-                        else {
-                            self.showErrorHUD(text: response)
-                        }
-                    }
-                })
-            }
-            else {
-                self.showHUD(hud: self.hud!)
-                self.session.deleteActivity(activityItem: self.session, completion: { (response) in
-                    DispatchQueue.main.async {
-                        self.hideHUD(hud: self.hud!)
-                        if response == "success" {
-                            self.array.remove(at: index.row)
-                            self.tableView.deleteRows(at: [index], with: UITableViewRowAnimation.fade)
-                            self.sessionActivitiesLabel.isHidden = false
-                            self.showSuccessHUD(text: "Session deleted")
-                            NotificationCenter.default.post(name: .refreshActivity, object: nil)
-                        }
-                        else {
-                            self.showErrorHUD(text: response)
-                        }
-                    }
-                    
-                })
-            }
-            
-
-            
+            self.showDeleteAlert(indexPath: index)
         }
         delete.backgroundColor = .red
         
@@ -162,10 +115,94 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
     func setupViews() {
         self.hud = self.createLoadingHUD()
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
+        self.originalExerciseList = self.session._exerciseList!
         addButton.addTarget(self, action: #selector(goToExerciseDetailsVC), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
     }
+    
+    func showDeleteAlert(indexPath: IndexPath) {
+        let alertController = UIAlertController(title: "Activity Deletion", message: "Are you sure you want to delete this activity?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            var exerciseList = self.session._exerciseList
+            exerciseList?.remove(at: indexPath.row)
+            self.session._exerciseList = exerciseList
+            
+            for (key, value) in (exerciseList?.enumerated())! {
+                print("Key: ", key)
+                print("Value: ", value)
+            }
+            
+            if exerciseList!.count > 0 {
+                self.showHUD(hud: self.hud!)
+                self.session.createActivity(activityItem: self.session, completion: { (response) in
+                    DispatchQueue.main.async {
+                        self.hideHUD(hud: self.hud!)
+                        if response == "success" {
+                            self.originalExerciseList = exerciseList!
+                            self.array.remove(at: indexPath.row)
+                            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                            self.sessionActivitiesLabel.isHidden = true
+                            self.showSuccessHUD(text: "Activity deleted")
+                        }
+                        else {
+                            self.showErrorHUD(text: response)
+                        }
+                    }
+                })
+            }
+            else {
+                self.showHUD(hud: self.hud!)
+                self.session.deleteActivity(activityItem: self.session, completion: { (response) in
+                    DispatchQueue.main.async {
+                        self.hideHUD(hud: self.hud!)
+                        if response == "success" {
+                            self.array.remove(at: indexPath.row)
+                            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                            self.sessionActivitiesLabel.isHidden = false
+                            self.showSuccessHUD(text: "Session deleted")
+                            NotificationCenter.default.post(name: .refreshActivity, object: nil)
+                        }
+                        else {
+                            self.showErrorHUD(text: response)
+                        }
+                    }
+                    
+                })
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
+            UIAlertAction in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func showConfirmAlert() {
+        let alertController = UIAlertController(title: "Update Session", message: "Would you like to update your session?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.saveSession()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
+            UIAlertAction in
+            alertController.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     
     func getActivities() {
         self.dict = []
@@ -190,7 +227,20 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @objc func back() {
-        self.dismiss(animated: true, completion: nil)
+        print("This is the back")
+        if session._exerciseList != nil {
+            print("Count for original list: ", originalExerciseList.count)
+            print("Count for new list: ", session._exerciseList!.count)
+            if session._exerciseList?.count != self.originalExerciseList.count {
+                showConfirmAlert()
+            }
+            else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func updateExercise(notification: Notification) {

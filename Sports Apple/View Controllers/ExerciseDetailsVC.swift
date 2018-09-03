@@ -71,6 +71,10 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             picker.selectRow(0, inComponent: 1, animated: false)
         }
         else {
+            if activeField == exerciseListTF {
+                self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                exerciseListTF.text = ""
+            }
             picker.selectRow(0, inComponent: 0, animated: false)
         }
         
@@ -199,7 +203,6 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         }
         else {
             if activeField == exerciseListTF {
-                exerciseListTF.text = exerciseArray[row]._name
                 return exerciseArray[row]._name
             }
             else if activeField == favoritesListTF {
@@ -269,11 +272,12 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                     store?._exerciseId = id
                     store?._name = name
                     self.exerciseArray.append(store!)
-                    self.exerciseArray.sort{ ($0._name! < $1._name!) }
-                    print(exercise.value(forKey: "_exerciseId")!)
-                    print(exercise.value(forKey: "_name")!)
-                    
                 }
+                self.exerciseArray.sort{ ($0._name! < $1._name!) }
+                let customExercise = Exercise()
+                customExercise?._exerciseId = 000
+                customExercise?._name = "Custom"
+                self.exerciseArray.insert(customExercise!, at: 0)
             }
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
@@ -421,7 +425,70 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             let store = exerciseListTF.text!
             
             if store.count > 0 {
-                if exerciseArray.contains(where: { $0._name == store }) {
+                exerciseListTF.inputView = picker
+                if store == "Custom" {
+                    print("Text is custom")
+                    exerciseListTF.inputView = nil
+                    exerciseListTF.perform(
+                        #selector(becomeFirstResponder),
+                        with: nil,
+                        afterDelay: 0.1
+                    )
+                }
+                else {
+                    if exerciseArray.contains(where: { $0._name == store }) {
+                        favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
+                        exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
+                        exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+                        
+                        if exerciseListTF.text!.count > 0 {
+                            
+                            if favoritesArray.contains(favoriteExercise) {
+                                addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                            }
+                            else {
+                                addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                            }
+                        }
+                        else {
+                            addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                        }
+                        
+                        print("Value was there in TF and got matched in array")
+                        print(exerciseListTF.text!)
+                        print(exerciseID)
+                    }
+                    else {
+                        exerciseID = String(arc4random_uniform(9999))
+                        let storeFavExercise = Exercise()
+                        storeFavExercise?._exerciseId = Int(exerciseID) as NSNumber?
+                        storeFavExercise?._name = store
+                        favoriteExercise = storeFavExercise!
+                        addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                        
+                        print("Value was there in TF but didn't get matched in array")
+                        print(exerciseListTF.text!)
+                        print(exerciseID)
+                    }
+                    exerciseTypeTF.perform(
+                        #selector(becomeFirstResponder),
+                        with: nil,
+                        afterDelay: 0.1
+                    )
+                }
+
+            }
+            else {
+                if exerciseArray[picker.selectedRow(inComponent: 0)]._name == "Custom" {
+                    print("Text is custom")
+                    exerciseListTF.inputView = nil
+                    exerciseListTF.perform(
+                        #selector(becomeFirstResponder),
+                        with: nil,
+                        afterDelay: 0.1
+                    )
+                }
+                else {
                     favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
                     exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
                     exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
@@ -439,40 +506,13 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                         addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
                     }
                     
-                    print("Value was there in TF and got matched in array")
-                    print(exerciseListTF.text!)
-                    print(exerciseID)
+                    exerciseTypeTF.perform(
+                        #selector(becomeFirstResponder),
+                        with: nil,
+                        afterDelay: 0.1
+                    )
                 }
-                else {
-                    exerciseID = String(arc4random_uniform(9999))
-                    let storeFavExercise = Exercise()
-                    storeFavExercise?._exerciseId = Int(exerciseID) as NSNumber?
-                    storeFavExercise?._name = store
-                    favoriteExercise = storeFavExercise!
-                    addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
-                    
-                    print("Value was there in TF but didn't get matched in array")
-                    print(exerciseListTF.text!)
-                    print(exerciseID)
-                }
-            }
-            else {
-                favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
-                exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
-                exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
-                
-                if exerciseListTF.text!.count > 0 {
-                    
-                    if favoritesArray.contains(favoriteExercise) {
-                        addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
-                    }
-                    else {
-                        addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
-                    }
-                }
-                else {
-                    addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
-                }
+
                 
                 print("No value was there in TF")
                 print(exerciseListTF.text!)
@@ -482,12 +522,6 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             if favoritesListTF.text!.count > 0 {
                 favoritesListTF.text = ""
             }
-        
-            exerciseTypeTF.perform(
-                #selector(becomeFirstResponder),
-                with: nil,
-                afterDelay: 0.1
-            )
         }
         else if activeField == favoritesListTF {
             favoritesListTF.text = favoritesArray[picker.selectedRow(inComponent: 0)]._name

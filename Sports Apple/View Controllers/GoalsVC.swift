@@ -185,6 +185,7 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @objc func goToAddGoalVC() {
         let storyboard = UIStoryboard(name: "AddGoal", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "AddGoalVC") as! AddGoalVC
+        destVC.goalArray = array
         self.present(destVC, animated: true, completion: .none)
     }
 

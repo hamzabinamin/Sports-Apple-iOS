@@ -26,6 +26,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     let picker = UIPickerView()
     var pool: AWSCognitoIdentityUserPool?
     var oldGoal = Goal()
+    var goalArray: [Goal] = []
     var exerciseArray: [Exercise] = []
     var favoritesArray: [Exercise] = []
     var exerciseDictionary: [[String: Any]] = []
@@ -52,6 +53,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        print("textFieldShouldBegin")
         activeField = textField
         picker.reloadAllComponents()
         if activeField == goalAmountTF {
@@ -73,14 +75,20 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             }
         }
         else {
+            if activeField == exerciseListTF {
+                self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                exerciseListTF.text = ""
+            }
             picker.selectRow(0, inComponent: 0, animated: false)
         }
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    
-        return false
+        if textField != exerciseListTF {
+            return false
+        }
+        return true
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -151,6 +159,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             }
         }
         if activeField == exerciseListTF {
+            //exerciseListTF.text = exerciseArray[row]._name
             return exerciseArray[row]._name
         }
         else if activeField == favoritesListTF {
@@ -296,11 +305,14 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                     store?._exerciseId = id
                     store?._name = name
                     self.exerciseArray.append(store!)
-                    self.exerciseArray.sort{ ($0._name! < $1._name!) }
-                    print(exercise.value(forKey: "_exerciseId")!)
-                    print(exercise.value(forKey: "_name")!)
-                    
                 }
+                self.exerciseArray.sort{ ($0._name! < $1._name!) }
+                print(self.exerciseArray)
+                let customExercise = Exercise()
+                customExercise?._exerciseId = 000
+                customExercise?._name = "Custom"
+                self.exerciseArray.insert(customExercise!, at: 0)
+                print(self.exerciseArray)
             }
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
@@ -313,7 +325,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     
     func validation(type: String, amount: String, yearlyGoal: String) -> Bool {
         
-        if exerciseID.count > 0 && type.count > 0 && amount.count > 0 && yearlyGoal.count > 0 {
+        if exerciseID.count > 0 && exerciseID != "-1" && type.count > 0 && amount.count > 0 && yearlyGoal.count > 0 {
             
             return true
         }
@@ -454,31 +466,102 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     
     @objc func donePicker() {
         if activeField == exerciseListTF {
-            favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
-            exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
-            exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
-            if favoritesListTF.text!.count > 0 {
-                favoritesListTF.text = ""
-            }
             
-            if exerciseListTF.text!.count > 0 {
-                
-                if favoritesArray.contains(favoriteExercise) {
-                    addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+            let store = exerciseListTF.text!
+            
+            if store.count > 0 {
+                exerciseListTF.inputView = picker
+                if store == "Custom" {
+                    print("Text is custom")
+                    exerciseListTF.inputView = nil
+                    exerciseListTF.perform(
+                        #selector(becomeFirstResponder),
+                        with: nil,
+                        afterDelay: 0.1
+                    )
                 }
                 else {
-                    addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                    if exerciseArray.contains(where: { $0._name == store }) {
+                        favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
+                        exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
+                        exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+                        
+                        if exerciseListTF.text!.count > 0 {
+                            if favoritesArray.contains(favoriteExercise) {
+                                addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                            }
+                            else {
+                                addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                            }
+                        }
+                        else {
+                            addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                        }
+                        print("Value was there in TF and got matched in array")
+                        print(exerciseListTF.text!)
+                        print(exerciseID)
+                    }
+                    else {
+                        exerciseID = String(arc4random_uniform(9999))
+                        let storeFavExercise = Exercise()
+                        storeFavExercise?._exerciseId = Int(exerciseID) as NSNumber?
+                        storeFavExercise?._name = store
+                        favoriteExercise = storeFavExercise!
+                        addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                        
+                        print("Value was there in TF but didn't get matched in array")
+                        print(exerciseListTF.text!)
+                        print(exerciseID)
+                    }
+                    
+                    goalTypeTF.perform(
+                        #selector(becomeFirstResponder),
+                        with: nil,
+                        afterDelay: 0.1
+                    )
                 }
             }
             else {
-                addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                print("No text in textfield, probaby keyboard")
+                if exerciseArray[picker.selectedRow(inComponent: 0)]._name == "Custom" {
+                    print("Text is custom")
+                    exerciseListTF.inputView = nil
+                    exerciseListTF.perform(
+                        #selector(becomeFirstResponder),
+                        with: nil,
+                        afterDelay: 0.1
+                    )
+                }
+                else {
+                    print("Matched with nothing, creating custom exercise")
+                    favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
+                    exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
+                    exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+                    
+                    if exerciseListTF.text!.count > 0 {
+                        
+                        if favoritesArray.contains(favoriteExercise) {
+                            addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                        }
+                        else {
+                            addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                        }
+                    }
+                    else {
+                        addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                    }
+                    
+                    goalTypeTF.perform(
+                        #selector(becomeFirstResponder),
+                        with: nil,
+                        afterDelay: 0.1
+                    )
+                }
             }
             
-            goalTypeTF.perform(
-                #selector(becomeFirstResponder),
-                with: nil,
-                afterDelay: 0.1
-            )
+            if favoritesListTF.text!.count > 0 {
+                favoritesListTF.text = ""
+            }
         }
         else if activeField == favoritesListTF {
             favoritesListTF.text = favoritesArray[picker.selectedRow(inComponent: 0)]._name
@@ -495,6 +578,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         }
         else if activeField == goalTypeTF {
             goalTypeTF.text = goalTypeArray[picker.selectedRow(inComponent: 0)]
+            goalAmountTF.text = ""
             goalAmountTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -536,20 +620,28 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     @objc func addGoal() {
+        let name = exerciseListTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let amount = goalAmountTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let yearlyGoal = yearlyGoalTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        var isSame = false
         
         if validation(type: type!, amount: amount!, yearlyGoal: yearlyGoal!) {
-            self.showHUD(hud: hud!)
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier:"en_US_POSIX")
             formatter.dateFormat = "MM/dd/yyyy h:mm a"
             let goalItem: Goal = Goal()
-            let index = exerciseArray.index(where: { $0._exerciseId?.stringValue == exerciseID })
+            //let index = exerciseArray.index(where: { $0._exerciseId?.stringValue == exerciseID })
             var exercise: Dictionary = [String: String]()
             exercise["ID"] = exerciseID
-            exercise["Name"] = exerciseArray[index!]._name
+            
+            if name!.count > 0 {
+                exercise["Name"] = name
+            }
+            else if favoritesListTF.text!.count > 0 {
+                exercise["Name"] = favoritesListTF.text!
+            }
+            
             goalItem._exercise = exercise
             
             if type == "Time Goal" {
@@ -585,32 +677,61 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             else {
                 goalItem._goalId = NSUUID().uuidString
                 goalItem._date = formatter.string(from: Date())
+                
+                for goal in goalArray {
+                    if goal._exercise!["Name"] == goalItem._exercise!["Name"] {
+                        if goal._time != nil && goalItem._time != nil {
+                            isSame = true
+                            break
+                        }
+                        else if goal._distance != nil && goalItem._distance != nil {
+                            isSame = true
+                            break
+                        }
+                        else if goal._weight != nil && goalItem._weight != nil {
+                            isSame = true
+                            break
+                        }
+                        else if goal._calories != nil && goalItem._calories != nil {
+                            isSame = true
+                            break
+                        }
+                        
+                    }
+                }
             }
             
-            goalItem.createGoal(goalItem: goalItem, completion: { (response) in
-                
-                DispatchQueue.main.async {
-                    self.hideHUD(hud: self.hud!)
-                }
-                
-                if response == "success" {
-                   DispatchQueue.main.async {
-                        self.clearFields()
-                        if self.oldGoal?._date != nil {
-                            self.showSuccessHUD(text: "Goal updated")
-                        }
-                        else {
-                            self.showSuccessHUD(text: "Goal added")
-                            
-                        }
-                    }
-                }
-                else {
+            if(!isSame) {
+                self.showHUD(hud: hud!)
+                isSame = false
+                goalItem.createGoal(goalItem: goalItem, completion: { (response) in
+                    
                     DispatchQueue.main.async {
-                        self.showErrorHUD(text: response)
+                        self.hideHUD(hud: self.hud!)
                     }
-                }
-            })
+                    
+                    if response == "success" {
+                        DispatchQueue.main.async {
+                            self.clearFields()
+                            if self.oldGoal?._date != nil {
+                                self.showSuccessHUD(text: "Goal updated")
+                            }
+                            else {
+                                self.showSuccessHUD(text: "Goal added")
+                                
+                            }
+                        }
+                    }
+                    else {
+                        DispatchQueue.main.async {
+                            self.showErrorHUD(text: response)
+                        }
+                    }
+                })
+            }
+            else {
+                self.showErrorHUD(text: "You have aleady added this activity with this goal type")
+            }
         }
      }
 

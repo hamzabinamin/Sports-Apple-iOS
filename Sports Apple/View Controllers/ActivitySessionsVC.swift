@@ -102,14 +102,6 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
         return true
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if tableView.isEditing {
-            return .delete
-        }
-        
-        return .none
-    }
-    
     func rotateArrow() {
         self.forwardButton.transform = CGAffineTransform(rotationAngle: .pi)
     }

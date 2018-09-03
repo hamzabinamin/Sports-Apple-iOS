@@ -96,8 +96,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let navigationController = self.window?.rootViewController as? UINavigationController {
            if navigationController.visibleViewController is SummaryReportVC ||
               navigationController.visibleViewController is GoalStatusReportVC || navigationController.visibleViewController is YearTotalsReportVC || navigationController.visibleViewController is DailyActivityReportVC {
+                print("This will be set as all orientations")
                 return UIInterfaceOrientationMask.all
             } else {
+            print("This will be sat as portrait")
                 return UIInterfaceOrientationMask.portrait
             }
         }

@@ -70,6 +70,7 @@ class SummaryReportVC: UIViewController {
         self.formatter.locale = Locale(identifier:"en_US_POSIX")
         self.numberFormatter.locale = Locale(identifier:"en_US")
         self.numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        self.numberFormatter.maximumFractionDigits = 1
         
         let topConstraint = self.dataTable.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 121)
         let bottomConstraint = self.dataTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -184,7 +185,8 @@ class SummaryReportVC: UIViewController {
                             ],
                            [
                             DataTableValueType.string("Percent of Activity Days"),
-                            DataTableValueType.string(String(format: "%.01f", Double(self.percentageOfActivityDays)) + "%"),
+                            //DataTableValueType.string(String(format: "%.01f", Double(self.percentageOfActivityDays)) + "%"),
+                            DataTableValueType.string(numberFormatter.string(from: NSNumber(value: self.percentageOfActivityDays))! + "%"),
                             ],
         ]
         
