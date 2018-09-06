@@ -42,6 +42,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     let hourUnit = "hour"
     let minUnit = "min"
     var exerciseID = ""
+    var keyboardActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,8 +77,8 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         }
         else {
             if activeField == exerciseListTF {
-                self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
-                exerciseListTF.text = ""
+                //self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                //exerciseListTF.text = ""
             }
             picker.selectRow(0, inComponent: 0, animated: false)
         }
@@ -466,27 +467,142 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     
     @objc func donePicker() {
         if activeField == exerciseListTF {
-            
             let store = exerciseListTF.text!
             
-            if store.count > 0 {
+            if keyboardActive {
+                keyboardActive = false
                 exerciseListTF.inputView = picker
-                if store == "Custom" {
-                    print("Text is custom")
-                    exerciseListTF.inputView = nil
-                    exerciseListTF.perform(
-                        #selector(becomeFirstResponder),
-                        with: nil,
-                        afterDelay: 0.1
-                    )
+                
+                if store.count > 0 {
+                    exerciseID = String(arc4random_uniform(9999))
+                    let storeFavExercise = Exercise()
+                    storeFavExercise?._exerciseId = Int(exerciseID) as NSNumber?
+                    storeFavExercise?._name = store.trimmingCharacters(in: .whitespacesAndNewlines)
+                    favoriteExercise = storeFavExercise!
+                    addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                }
+                
+                goalTypeTF.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+            else {
+                if store.count > 0 {
+                    if exerciseArray[picker.selectedRow(inComponent: 0)]._name == "Custom" {
+                        keyboardActive = true
+                        exerciseListTF.inputView = nil
+                        self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                        exerciseListTF.text = ""
+                        exerciseListTF.perform(
+                            #selector(becomeFirstResponder),
+                            with: nil,
+                            afterDelay: 0.1
+                        )
+                    }
+                    else {
+                        if exerciseArray.contains(where: { $0._name == store }) {
+                            exerciseListTF.inputView = picker
+                            keyboardActive = false
+                            favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
+                            exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
+                            exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+                            
+                            if exerciseListTF.text!.count > 0 {
+                                if favoritesArray.contains(favoriteExercise) {
+                                    addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                                }
+                                else {
+                                    addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                                }
+                            }
+                            else {
+                                addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                            }
+                            print("Value was there in TF and got matched in array")
+                            print(exerciseListTF.text!)
+                            print(exerciseID)
+                            
+                            goalTypeTF.perform(
+                                #selector(becomeFirstResponder),
+                                with: nil,
+                                afterDelay: 0.1
+                            )
+                        }
+                        else {
+                            if exerciseArray[picker.selectedRow(inComponent: 0)]._name == "Custom" {
+                                keyboardActive = true
+                                exerciseListTF.inputView = nil
+                                self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                                exerciseListTF.text = ""
+                                exerciseListTF.perform(
+                                    #selector(becomeFirstResponder),
+                                    with: nil,
+                                    afterDelay: 0.1
+                                )
+                            }
+                            else {
+                                exerciseListTF.inputView = picker
+                                keyboardActive = false
+                                favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
+                                exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
+                                exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
+                                
+                                if exerciseListTF.text!.count > 0 {
+                                    if favoritesArray.contains(favoriteExercise) {
+                                        addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
+                                    }
+                                    else {
+                                        addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
+                                    }
+                                }
+                                else {
+                                    addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                                }
+                                print("Value was there in TF and got matched in array")
+                                print(exerciseListTF.text!)
+                                print(exerciseID)
+                                
+                                goalTypeTF.perform(
+                                    #selector(becomeFirstResponder),
+                                    with: nil,
+                                    afterDelay: 0.1
+                                )
+                            }
+                            
+                           /* exerciseID = String(arc4random_uniform(9999))
+                            let storeFavExercise = Exercise()
+                            storeFavExercise?._exerciseId = Int(exerciseID) as NSNumber?
+                            storeFavExercise?._name = store
+                            favoriteExercise = storeFavExercise!
+                            addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal) */
+                            
+                        }
+                    }
                 }
                 else {
-                    if exerciseArray.contains(where: { $0._name == store }) {
+                    print("No text in textfield, probaby keyboard")
+                    if exerciseArray[picker.selectedRow(inComponent: 0)]._name == "Custom" {
+                        print("Text is custom")
+                        //self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
+                        //exerciseListTF.text = ""
+                        keyboardActive = true
+                        exerciseListTF.inputView = nil
+                        exerciseListTF.perform(
+                            #selector(becomeFirstResponder),
+                            with: nil,
+                            afterDelay: 0.1
+                        )
+                    }
+                    else {
+                        print("Matched with nothing, creating custom exercise")
                         favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
                         exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
                         exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
                         
                         if exerciseListTF.text!.count > 0 {
+                            
                             if favoritesArray.contains(favoriteExercise) {
                                 addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
                             }
@@ -497,65 +613,13 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                         else {
                             addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
                         }
-                        print("Value was there in TF and got matched in array")
-                        print(exerciseListTF.text!)
-                        print(exerciseID)
-                    }
-                    else {
-                        exerciseID = String(arc4random_uniform(9999))
-                        let storeFavExercise = Exercise()
-                        storeFavExercise?._exerciseId = Int(exerciseID) as NSNumber?
-                        storeFavExercise?._name = store
-                        favoriteExercise = storeFavExercise!
-                        addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
                         
-                        print("Value was there in TF but didn't get matched in array")
-                        print(exerciseListTF.text!)
-                        print(exerciseID)
+                        goalTypeTF.perform(
+                            #selector(becomeFirstResponder),
+                            with: nil,
+                            afterDelay: 0.1
+                        )
                     }
-                    
-                    goalTypeTF.perform(
-                        #selector(becomeFirstResponder),
-                        with: nil,
-                        afterDelay: 0.1
-                    )
-                }
-            }
-            else {
-                print("No text in textfield, probaby keyboard")
-                if exerciseArray[picker.selectedRow(inComponent: 0)]._name == "Custom" {
-                    print("Text is custom")
-                    exerciseListTF.inputView = nil
-                    exerciseListTF.perform(
-                        #selector(becomeFirstResponder),
-                        with: nil,
-                        afterDelay: 0.1
-                    )
-                }
-                else {
-                    print("Matched with nothing, creating custom exercise")
-                    favoriteExercise = exerciseArray[picker.selectedRow(inComponent: 0)]
-                    exerciseListTF.text = exerciseArray[picker.selectedRow(inComponent: 0)]._name
-                    exerciseID = "\(exerciseArray[picker.selectedRow(inComponent: 0)]._exerciseId!)"
-                    
-                    if exerciseListTF.text!.count > 0 {
-                        
-                        if favoritesArray.contains(favoriteExercise) {
-                            addToFavoritesButton.setImage(UIImage(named: "Favorite"), for: .normal)
-                        }
-                        else {
-                            addToFavoritesButton.setImage(UIImage(named: "Favorite Gray"), for: .normal)
-                        }
-                    }
-                    else {
-                        addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
-                    }
-                    
-                    goalTypeTF.perform(
-                        #selector(becomeFirstResponder),
-                        with: nil,
-                        afterDelay: 0.1
-                    )
                 }
             }
             
