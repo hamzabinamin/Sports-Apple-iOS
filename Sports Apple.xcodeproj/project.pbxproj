@@ -40,6 +40,8 @@
 		F51D96D520CDB007001AF442 /* AAHighchartsLib.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CC20CDB006001AF442 /* AAHighchartsLib.js */; };
 		F51D96D620CDB007001AF442 /* AAHighchartsMore.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CD20CDB006001AF442 /* AAHighchartsMore.js */; };
 		F51D96D720CDB007001AF442 /* AAOptionsConstructor.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */; };
+		F521C7C9214A9C9C005E2F2B /* PDFPreviewVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F521C7C8214A9C9C005E2F2B /* PDFPreviewVC.storyboard */; };
+		F521C7CB214A9DF5005E2F2B /* PDFPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */; };
 		F536D2C220DE4E950044B077 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C120DE4E950044B077 /* UtilityFunctions.swift */; };
 		F536D2C420DE553F0044B077 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F536D2C320DE553E0044B077 /* awsconfiguration.json */; };
 		F536D2C620DE57FF0044B077 /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C520DE57FF0044B077 /* UserItem.swift */; };
@@ -122,6 +124,8 @@
 		F51D96CC20CDB006001AF442 /* AAHighchartsLib.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAHighchartsLib.js; sourceTree = "<group>"; };
 		F51D96CD20CDB006001AF442 /* AAHighchartsMore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAHighchartsMore.js; sourceTree = "<group>"; };
 		F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAOptionsConstructor.js; sourceTree = "<group>"; };
+		F521C7C8214A9C9C005E2F2B /* PDFPreviewVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PDFPreviewVC.storyboard; sourceTree = "<group>"; };
+		F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPreviewVC.swift; sourceTree = "<group>"; };
 		F536D2C120DE4E950044B077 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
 		F536D2C320DE553E0044B077 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		F536D2C520DE57FF0044B077 /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
@@ -332,6 +336,7 @@
 				F51D96BB20CDAE38001AF442 /* TotalCaloriesChart.storyboard */,
 				F51D96BD20CDAE50001AF442 /* CumulativeGoalsChart.storyboard */,
 				F556A96620DFB6DC00233CFD /* Verification.storyboard */,
+				F521C7C8214A9C9C005E2F2B /* PDFPreviewVC.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -368,6 +373,7 @@
 				F556A96820DFB80F00233CFD /* VerificationVC.swift */,
 				F53C7DA320E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift */,
 				F5128B1720EFBBA000485F63 /* CalendarVC.swift */,
+				F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -443,6 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F565C0A720C7F4EA00F64B86 /* LogOut.storyboard in Resources */,
+				F521C7C9214A9C9C005E2F2B /* PDFPreviewVC.storyboard in Resources */,
 				F51D96B420CDA34A001AF442 /* DailyActivityReport.storyboard in Resources */,
 				F5504FE020C6F08E002907DC /* SessionActivities.storyboard in Resources */,
 				F51D96D420CDB007001AF442 /* AAFunnel.js in Resources */,
@@ -511,6 +518,7 @@
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/PDFGenerator/PDFGenerator.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDataTables/SwiftDataTables.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -529,6 +537,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDFGenerator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDataTables.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -590,6 +599,7 @@
 				F51D96AA20CD8590001AF442 /* SummaryReportVC.swift in Sources */,
 				F565C0AD20C8095100F64B86 /* GoalsVC.swift in Sources */,
 				F536D2C220DE4E950044B077 /* UtilityFunctions.swift in Sources */,
+				F521C7CB214A9DF5005E2F2B /* PDFPreviewVC.swift in Sources */,
 				F51D96C020CDAE63001AF442 /* TotalCaloriesChartVC.swift in Sources */,
 				F51D96B220CD9D55001AF442 /* YearTotalsReportVC.swift in Sources */,
 				F54AB64B20B044C200720B70 /* Goal.swift in Sources */,
@@ -668,7 +678,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -719,7 +729,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

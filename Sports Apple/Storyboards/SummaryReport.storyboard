@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Abh-CS-wNa">
-    <device id="retina5_9" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,7 +20,7 @@
             <objects>
                 <viewController storyboardIdentifier="SummaryReportVC" id="Abh-CS-wNa" customClass="SummaryReportVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4hQ-Zc-LFm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="wMt-34-9L4">
@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v32-MZ-WMy">
-                                <rect key="frame" x="124" y="64" width="127" height="24"/>
+                                <rect key="frame" x="124" y="40" width="127" height="24"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -65,16 +65,25 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKF-tQ-jBK">
-                                <rect key="frame" x="336" y="49" width="24" height="26"/>
+                                <rect key="frame" x="336" y="25" width="24" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="brn-Fm-JXt"/>
                                     <constraint firstAttribute="height" constant="26" id="scK-Jn-bgi"/>
                                 </constraints>
                                 <state key="normal" image="Reports White"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6C6-VW-kbs">
+                                <rect key="frame" x="301" y="28" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="EhR-0z-sVV"/>
+                                    <constraint firstAttribute="height" constant="20" id="coX-Nt-5O1"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Export"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="6C6-VW-kbs" firstAttribute="top" secondItem="5sE-lj-ElR" secondAttribute="top" constant="8" id="0kT-gz-hs2"/>
                             <constraint firstItem="5sE-lj-ElR" firstAttribute="trailing" secondItem="eKF-tQ-jBK" secondAttribute="trailing" constant="15" id="5wl-Mh-rff"/>
                             <constraint firstItem="wMt-34-9L4" firstAttribute="leading" secondItem="5sE-lj-ElR" secondAttribute="leading" id="6pX-cJ-csJ"/>
                             <constraint firstItem="Fw8-u4-RcE" firstAttribute="top" secondItem="4hQ-Zc-LFm" secondAttribute="top" constant="30" id="7se-kk-8Xt"/>
@@ -84,6 +93,7 @@
                             <constraint firstItem="wMt-34-9L4" firstAttribute="trailing" secondItem="5sE-lj-ElR" secondAttribute="trailing" id="Wf5-d4-Cr4"/>
                             <constraint firstItem="v32-MZ-WMy" firstAttribute="centerX" secondItem="4hQ-Zc-LFm" secondAttribute="centerX" id="aZJ-CV-Zr7"/>
                             <constraint firstItem="v32-MZ-WMy" firstAttribute="top" secondItem="5sE-lj-ElR" secondAttribute="top" constant="20" id="d77-Py-wOv"/>
+                            <constraint firstItem="eKF-tQ-jBK" firstAttribute="leading" secondItem="6C6-VW-kbs" secondAttribute="trailing" constant="15" id="i6Y-VH-3Vp"/>
                             <constraint firstItem="fhJ-fS-uHJ" firstAttribute="leading" secondItem="5sE-lj-ElR" secondAttribute="leading" constant="49" id="n8a-jY-Ack"/>
                             <constraint firstItem="Fw8-u4-RcE" firstAttribute="leading" secondItem="5sE-lj-ElR" secondAttribute="leading" constant="35" id="s5K-XQ-6cC"/>
                         </constraints>
@@ -92,6 +102,7 @@
                     <connections>
                         <outlet property="backButton" destination="0KC-LM-k32" id="gqu-oU-rAj"/>
                         <outlet property="chartButton" destination="eKF-tQ-jBK" id="eeN-sB-hC5"/>
+                        <outlet property="exportButton" destination="6C6-VW-kbs" id="pm0-xc-GOO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXv-QE-ccG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -102,6 +113,7 @@
     <resources>
         <image name="Activity Header" width="53" height="62"/>
         <image name="Back" width="32" height="32"/>
+        <image name="Export" width="32" height="32"/>
         <image name="Header" width="375" height="182"/>
         <image name="Reports White" width="42" height="42"/>
     </resources>

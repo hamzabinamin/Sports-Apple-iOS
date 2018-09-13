@@ -29,6 +29,14 @@
                                     <constraint firstAttribute="height" constant="106" id="iDF-pd-Mu3"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QO9-b9-o6D">
+                                <rect key="frame" x="340" y="28" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="IK9-7Q-Nn2"/>
+                                    <constraint firstAttribute="width" constant="20" id="fhJ-Ba-3ts"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Export"/>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YTD G. S. Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZIJ-5b-fhQ">
                                 <rect key="frame" x="122.5" y="40" width="130" height="24"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
@@ -74,6 +82,8 @@
                             <constraint firstItem="uVI-xF-aAf" firstAttribute="top" secondItem="OZa-Oy-mgq" secondAttribute="top" constant="30" id="OHf-ij-4s1"/>
                             <constraint firstItem="7zk-SZ-me3" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" constant="49" id="Pbf-h2-CaN"/>
                             <constraint firstItem="uVI-xF-aAf" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" constant="35" id="SmY-yQ-5wJ"/>
+                            <constraint firstItem="QO9-b9-o6D" firstAttribute="top" secondItem="caG-4x-dSf" secondAttribute="top" constant="8" id="m8z-xw-faN"/>
+                            <constraint firstItem="caG-4x-dSf" firstAttribute="trailing" secondItem="QO9-b9-o6D" secondAttribute="trailing" constant="15" id="p4S-SX-agg"/>
                             <constraint firstItem="ZIJ-5b-fhQ" firstAttribute="top" secondItem="caG-4x-dSf" secondAttribute="top" constant="20" id="tN3-CO-atK"/>
                             <constraint firstItem="Yej-uV-DVW" firstAttribute="trailing" secondItem="caG-4x-dSf" secondAttribute="trailing" id="wZc-AY-bCc"/>
                         </constraints>
@@ -81,6 +91,7 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="Zfe-0b-ih4" id="kEz-G6-uZ8"/>
+                        <outlet property="exportButton" destination="QO9-b9-o6D" id="kcK-Jz-Dmr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guZ-cC-lfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -91,6 +102,7 @@
     <resources>
         <image name="Activity Header" width="53" height="62"/>
         <image name="Back" width="32" height="32"/>
+        <image name="Export" width="32" height="32"/>
         <image name="Header" width="375" height="182"/>
     </resources>
 </document>

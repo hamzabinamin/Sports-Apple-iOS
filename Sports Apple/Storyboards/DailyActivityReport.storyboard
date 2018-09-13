@@ -30,6 +30,14 @@
                                     <constraint firstAttribute="height" constant="106" id="WuK-Kb-aBO"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHr-GR-SIV">
+                                <rect key="frame" x="340" y="28" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="Cbw-hG-Pgr"/>
+                                    <constraint firstAttribute="height" constant="20" id="yyv-nu-KIP"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Export"/>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D. Activity Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFt-Lo-4Ad">
                                 <rect key="frame" x="120.5" y="40" width="134" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
@@ -101,12 +109,14 @@
                         <constraints>
                             <constraint firstItem="iFt-Lo-4Ad" firstAttribute="centerX" secondItem="78C-Dw-U8R" secondAttribute="centerX" id="0MN-We-a8z"/>
                             <constraint firstItem="hfh-m4-Sre" firstAttribute="trailing" secondItem="BzG-f2-32h" secondAttribute="trailing" constant="5" id="3aF-w9-bnI"/>
+                            <constraint firstItem="aHr-GR-SIV" firstAttribute="top" secondItem="hfh-m4-Sre" secondAttribute="top" constant="8" id="4h3-CM-gRF"/>
                             <constraint firstItem="BzG-f2-32h" firstAttribute="top" secondItem="oBr-bZ-tTA" secondAttribute="bottom" constant="5" id="HTa-2H-ra9"/>
                             <constraint firstItem="g6h-4R-Q9m" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="35" id="IqJ-zd-P6c"/>
                             <constraint firstItem="BzG-f2-32h" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="15" id="IwH-sm-6j4"/>
                             <constraint firstItem="7di-py-WwO" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="49" id="NYn-6G-y9y"/>
                             <constraint firstItem="g6h-4R-Q9m" firstAttribute="top" secondItem="78C-Dw-U8R" secondAttribute="top" constant="30" id="PbY-aU-PnL"/>
                             <constraint firstItem="hfh-m4-Sre" firstAttribute="trailing" secondItem="oBr-bZ-tTA" secondAttribute="trailing" constant="5" id="SVm-ix-uqV"/>
+                            <constraint firstItem="hfh-m4-Sre" firstAttribute="trailing" secondItem="aHr-GR-SIV" secondAttribute="trailing" constant="15" id="Tkt-eL-6QJ"/>
                             <constraint firstItem="oBr-bZ-tTA" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="15" id="VSP-VP-hTE"/>
                             <constraint firstItem="cfY-fw-ffF" firstAttribute="leading" secondItem="hfh-m4-Sre" secondAttribute="leading" constant="15" id="YLz-G2-l1Z"/>
                             <constraint firstItem="vXe-hE-XpM" firstAttribute="trailing" secondItem="hfh-m4-Sre" secondAttribute="trailing" id="aWi-eH-wte"/>
@@ -125,6 +135,7 @@
                         <outlet property="calendarButton" destination="nNY-5I-flQ" id="t1d-Hu-icn"/>
                         <outlet property="caloriesLabel" destination="oBr-bZ-tTA" id="hWJ-Gz-ZUV"/>
                         <outlet property="dateLabel" destination="h4N-8F-9az" id="Z8c-IL-GwR"/>
+                        <outlet property="exportButton" destination="aHr-GR-SIV" id="h5t-cJ-NtT"/>
                         <outlet property="weightLabel" destination="BzG-f2-32h" id="pj2-Nm-Isj"/>
                     </connections>
                 </viewController>
@@ -137,6 +148,7 @@
         <image name="Activity Header" width="53" height="62"/>
         <image name="Back" width="32" height="32"/>
         <image name="Calendar" width="39" height="39"/>
+        <image name="Export" width="32" height="32"/>
         <image name="Header" width="375" height="182"/>
     </resources>
 </document>

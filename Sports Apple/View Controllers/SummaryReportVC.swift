@@ -10,11 +10,14 @@ import UIKit
 import SwiftDataTables
 import JGProgressHUD
 import AWSCognitoIdentityProvider
+import PDFGenerator
+import MessageUI
 
-class SummaryReportVC: UIViewController {
+class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var chartButton: UIButton!
+    @IBOutlet weak var exportButton: UIButton!
     var dataTable: SwiftDataTable! = nil
     var dataSource: DataTableContent = []
     var hud: JGProgressHUD?
@@ -55,7 +58,6 @@ class SummaryReportVC: UIViewController {
         print(daysPastInYear)
         
         getSessions()
-        
     }
     
     func setupViews() {
@@ -80,6 +82,7 @@ class SummaryReportVC: UIViewController {
         
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         chartButton.addTarget(self, action: #selector(goToChartsVC), for: .touchUpInside)
+        exportButton.addTarget(self, action: #selector(createPDF), for: .touchUpInside)
         
         NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
     }
@@ -193,6 +196,65 @@ class SummaryReportVC: UIViewController {
         self.dataTable.reload()
     }
 
+    @objc func createPDF() {
+        let v = dataTable.collectionView
+        let dst = URL(fileURLWithPath: NSTemporaryDirectory().appending("Summary Report.pdf"))
+        //let dst2 = NSHomeDirectory() + "/\("Summary Report").pdf"
+        // outputs as Data
+      /*  do {
+            let data = try PDFGenerator.generated(by: [v])
+            try data.write(to: dst, options: .atomic)
+        } catch (let error) {
+            print(error)
+        } */
+        
+        // writes to Disk directly.
+        do {
+            try PDFGenerator.generate([v], to: dst)
+            openPDFViewer(dst)
+        } catch (let error) {
+            print(error)
+        }
+    }
+    
+    fileprivate func openPDFViewer(_ pdfPath: URL) {
+        //let url = URL(fileURLWithPath: pdfPath)
+        let storyboard = UIStoryboard(name: "PDFPreviewVC", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "PDFPreviewVC") as! PDFPreviewVC
+        destVC.setupWithURL(pdfPath)
+        destVC.messageTitle = "Summary Report"
+        present(destVC, animated: true, completion: nil)
+    }
+    
+    func sendEmail(_ pdfPath: String) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+            mail.setToRecipients(["Enter one or more emails here"])
+            mail.mailComposeDelegate = self  //  Make sure to set this property to self, so that the controller can be dismissed!
+            
+            //Set the subject
+            mail.setSubject("email with document pdf")
+            
+            let url = URL(fileURLWithPath: pdfPath)
+            if let fileData = NSData(contentsOf: url) {
+                print ("File data loaded.")
+                print (fileData)
+                mail.addAttachmentData(fileData as Data, mimeType: "application/pdf", fileName: "GST")
+            }
+            
+            present(mail, animated: true, completion: nil)
+            
+        }
+        else {
+            print ("Error")
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
     @objc func goBack() {
         self.dismiss(animated: true, completion: nil)
     }

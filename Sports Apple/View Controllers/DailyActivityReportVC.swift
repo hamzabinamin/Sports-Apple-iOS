@@ -10,11 +10,13 @@ import UIKit
 import SwiftDataTables
 import JGProgressHUD
 import AWSCognitoIdentityProvider
+import PDFGenerator
 
 class DailyActivityReportVC: UIViewController {
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var calendarButton: UIButton!
+    @IBOutlet weak var exportButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var caloriesLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
@@ -66,6 +68,7 @@ class DailyActivityReportVC: UIViewController {
         
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         calendarButton.addTarget(self, action: #selector(goToCalendarVC), for: .touchUpInside)
+        exportButton.addTarget(self, action: #selector(createPDF), for: .touchUpInside)
         
         NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
     }
@@ -329,6 +332,36 @@ class DailyActivityReportVC: UIViewController {
         self.dataSource = self.dataRows
         self.dataTable.delegate = self
         self.dataTable.reload()
+    }
+    
+    @objc func createPDF() {
+        let v = dataTable.collectionView
+        let dst = URL(fileURLWithPath: NSTemporaryDirectory().appending("Daily Activity Report.pdf"))
+        //let dst2 = NSHomeDirectory() + "/\("Summary Report").pdf"
+        // outputs as Data
+        /*  do {
+         let data = try PDFGenerator.generated(by: [v])
+         try data.write(to: dst, options: .atomic)
+         } catch (let error) {
+         print(error)
+         } */
+        
+        // writes to Disk directly.
+        do {
+            try PDFGenerator.generate([v], to: dst)
+            openPDFViewer(dst)
+        } catch (let error) {
+            print(error)
+        }
+    }
+    
+    fileprivate func openPDFViewer(_ pdfPath: URL) {
+        //let url = URL(fileURLWithPath: pdfPath)
+        let storyboard = UIStoryboard(name: "PDFPreviewVC", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "PDFPreviewVC") as! PDFPreviewVC
+        destVC.setupWithURL(pdfPath)
+        destVC.messageTitle = "Daily Activity Report"
+        present(destVC, animated: true, completion: nil)
     }
     
     @objc func confirmDate(notification: Notification) {
