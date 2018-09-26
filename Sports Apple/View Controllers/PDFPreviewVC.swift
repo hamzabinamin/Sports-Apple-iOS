@@ -169,7 +169,7 @@ class PDFPreviewVC: UIViewController, WKUIDelegate, MFMailComposeViewControllerD
     
     @objc func print() {
         let pInfo: UIPrintInfo = UIPrintInfo.printInfo()
-        pInfo.outputType = UIPrintInfoOutputType.photo
+        pInfo.outputType = UIPrintInfoOutputType.general
         pInfo.jobName = self.url.absoluteString
         pInfo.orientation = UIPrintInfoOrientation.landscape
         

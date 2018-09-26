@@ -23,6 +23,10 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.tableFooterView = UIView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     override var shouldAutorotate: Bool {
         return true
     }
