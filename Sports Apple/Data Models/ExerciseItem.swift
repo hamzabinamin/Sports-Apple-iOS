@@ -12,17 +12,17 @@ class ExerciseItem: Hashable {
 
     var exerciseID: String
     var exerciseName: String
-    var exerciseWeightAmount: Int
-    var exerciseCount: Int
+    var exerciseWeightAmount: Float
+    var exerciseCount: Float
     var exerciseReps: Int
     var exerciseSets: Int
     var exerciseTime: Int
     var exerciseDistance: Int
     var exerciseComment: String
-    var goalWeight: Int
+    var goalWeight: Float
     var goalTime: Int
     var goalDistance: Int
-    var goalCount: Int
+    var goalCount: Float
     var date: String
     var weeklyCount: [Int]
     
@@ -46,7 +46,7 @@ class ExerciseItem: Hashable {
         self.weeklyCount = [Int](repeating: 0, count: 52)
     }
     
-    init(exerciseID: String, exerciseName: String, exerciseWeightAmount: Int, exerciseCount: Int, exerciseReps: Int, exerciseSets: Int, exerciseTime: Int, exerciseDistance: Int, exerciseComment: String) {
+    init(exerciseID: String, exerciseName: String, exerciseWeightAmount: Float, exerciseCount: Float, exerciseReps: Int, exerciseSets: Int, exerciseTime: Int, exerciseDistance: Int, exerciseComment: String) {
         
         self.exerciseID = exerciseID
         self.exerciseName = exerciseName

@@ -71,6 +71,18 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             picker.selectRow(0, inComponent: 0, animated: false)
             picker.selectRow(0, inComponent: 1, animated: false)
         }
+        else if textField == weightAmountTF {
+            weightAmountTF.text = ""
+        }
+        else if textField == repsTF {
+            repsTF.text = ""
+        }
+        else if textField == setsTF {
+            setsTF.text = ""
+        }
+        else if textField == countTF {
+            countTF.text = ""
+        }
         else {
             if activeField == exerciseListTF {
                 //self.addToFavoritesButton.setImage(UIImage(named: "List"), for: .normal)
@@ -83,7 +95,11 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField != exerciseListTF {
+        if textField == favoritesListTF || textField == exerciseTypeTF || textField == timeTF || textField == distanceTF {
+            return false
+        }
+        let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+        if countdots > 0 && string == "." {
             return false
         }
         return true
@@ -228,6 +244,10 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         backView.addGestureRecognizer(tap)
         
         addToFavoritesButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
+        weightAmountTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextFields), titleText: "Weight Amount")
+        repsTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextFields), titleText: "Reps")
+        setsTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextFields), titleText: "Sets")
+        countTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextFields), titleText: "Count")
     }
     
     func setupTextView() {
@@ -335,6 +355,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                         exerciseItem?._name = "\(exerciseName!)"
                         self.favoritesArray.append(exerciseItem!)
                     }
+                    self.favoritesArray.sort{ ($0._name! < $1._name!) }
                     self.picker.reloadComponent(0)
                 }
                 
@@ -405,14 +426,14 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         favoritesListTF.inputAccessoryView = toolBar
         exerciseTypeTF.inputView = picker
         exerciseTypeTF.inputAccessoryView = toolBar
-        weightAmountTF.inputView = picker
+     /*   weightAmountTF.inputView = picker
         weightAmountTF.inputAccessoryView = toolBar
         repsTF.inputView = picker
         repsTF.inputAccessoryView = toolBar
         setsTF.inputView = picker
         setsTF.inputAccessoryView = toolBar
         countTF.inputView = picker
-        countTF.inputAccessoryView = toolBar
+        countTF.inputAccessoryView = toolBar */
         timeTF.inputView = picker
         timeTF.inputAccessoryView = toolBar
         distanceTF.inputView = picker
@@ -801,6 +822,49 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         self.view.endEditing(true)
     }
     
+    @objc func doneTextFields() {
+        if activeField == weightAmountTF {
+            if weightAmountTF.text!.count > 0 {
+                weightAmountTF.text = weightAmountTF.text! + " lbs"
+                repsTF.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+        }
+        else if activeField == repsTF {
+            if repsTF.text!.count > 0 {
+                repsTF.text = repsTF.text! + " reps"
+                setsTF.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+        }
+        else if activeField == setsTF {
+            if setsTF.text!.count > 0 {
+                setsTF.text = setsTF.text! + " sets"
+                commentTV.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+        }
+        else if activeField == countTF {
+            if countTF.text!.count > 0 {
+                countTF.text = countTF.text! + " counts"
+                commentTV.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+        }
+    }
+    
     @objc func cancelPicker(){
         self.view.endEditing(true)
     }
@@ -945,14 +1009,14 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                         
                         if oldExercise.exerciseWeightAmount != 0 {
                             if value["Weight Amount"] != nil {
-                                if Int((value["Weight Amount"] as? String)!) == oldExercise.exerciseWeightAmount {
+                                if Float((value["Weight Amount"] as? String)!) == oldExercise.exerciseWeightAmount {
                                     exerciseList![key] = exerciseDictionary
                                 }
                             }
                         }
                         else if oldExercise.exerciseCount != 0 {
                             if value["Count"] != nil {
-                                if Int((value["Count"] as? String)!) == oldExercise.exerciseCount {
+                                if Float((value["Count"] as? String)!) == oldExercise.exerciseCount {
                                     exerciseList![key] = exerciseDictionary
                                 }
                             }

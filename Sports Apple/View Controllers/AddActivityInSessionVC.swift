@@ -158,7 +158,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
                // array.append(exerciseItem)
             } */
             
-            let exerciseItem = ExerciseItem(exerciseID: "\(responseDict["exerciseID"] ?? 0)", exerciseName: "\(responseDict["exerciseName"] ?? "")", exerciseWeightAmount: Int("\(responseDict["Weight Amount"] ?? 0)")!, exerciseCount: Int("\(responseDict["Count"] ?? 0)")!, exerciseReps: Int("\(responseDict["Reps"] ?? 0)")!, exerciseSets: Int("\(responseDict["Sets"] ?? 0)")!, exerciseTime: Int("\(responseDict["Time"] ?? 0)")!, exerciseDistance: Int("\(responseDict["Distance"] ?? 0)")!, exerciseComment: "\(responseDict["Exercise Comment"] ?? "")")
+            let exerciseItem = ExerciseItem(exerciseID: "\(responseDict["exerciseID"] ?? 0)", exerciseName: "\(responseDict["exerciseName"] ?? "")", exerciseWeightAmount: Float("\(responseDict["Weight Amount"] ?? 0.0)")!, exerciseCount: Float("\(responseDict["Count"] ?? 0.0)")!, exerciseReps: Int("\(responseDict["Reps"] ?? 0)")!, exerciseSets: Int("\(responseDict["Sets"] ?? 0)")!, exerciseTime: Int("\(responseDict["Time"] ?? 0)")!, exerciseDistance: Int("\(responseDict["Distance"] ?? 0)")!, exerciseComment: "\(responseDict["Exercise Comment"] ?? "")")
             array.append(exerciseItem)
             activitiesLabel.isHidden = true
             tableView.reloadData()

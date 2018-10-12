@@ -460,7 +460,7 @@ class CumulativeGoalsChartVC: UIViewController {
                         if !self.set.contains(exerciseItem) {
                             
                             if item._weight?.intValue != nil {
-                                exerciseItem.goalWeight = (item._weight?.intValue)!
+                                exerciseItem.goalWeight = (item._weight?.floatValue)!
                             }
                             else if item._distance?.intValue != nil {
                                 exerciseItem.goalDistance = (item._distance?.intValue)!
@@ -469,7 +469,7 @@ class CumulativeGoalsChartVC: UIViewController {
                                 exerciseItem.goalTime = (item._time?.intValue)!
                             }
                             else if item._calories?.intValue != nil {
-                                exerciseItem.goalCount = (item._calories?.intValue)!
+                                exerciseItem.goalCount = (item._calories?.floatValue)!
                             }
                             self.set.insert(exerciseItem)
                         }
@@ -478,7 +478,7 @@ class CumulativeGoalsChartVC: UIViewController {
                             self.set.remove(storedExerciseItem!)
                             
                             if item._weight?.intValue != nil {
-                                storedExerciseItem?.goalWeight += (item._weight?.intValue)!
+                                storedExerciseItem?.goalWeight += (item._weight?.floatValue)!
                             }
                             else if item._distance?.intValue != nil {
                                 storedExerciseItem?.goalDistance += (item._distance?.intValue)!
@@ -487,7 +487,7 @@ class CumulativeGoalsChartVC: UIViewController {
                                 storedExerciseItem?.goalTime += (item._time?.intValue)!
                             }
                             else if item._calories?.intValue != nil {
-                                storedExerciseItem?.goalCount += (item._calories?.intValue)!
+                                storedExerciseItem?.goalCount += (item._calories?.floatValue)!
                             }
                             self.set.insert(storedExerciseItem!)
                         }

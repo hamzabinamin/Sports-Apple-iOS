@@ -122,8 +122,8 @@ class GoalStatusReportVC: UIViewController {
                                 self.set.remove(storedExerciseItem!)
                                 if activity["Weight Amount"] != nil {
                                     
-                                    if (storedExerciseItem?.exerciseWeightAmount)! < Int(activity["Weight Amount"] as! String)! {
-                                        storedExerciseItem?.exerciseWeightAmount = Int(activity["Weight Amount"] as! String)!
+                                    if (storedExerciseItem?.exerciseWeightAmount)! < Float(activity["Weight Amount"] as! String)! {
+                                        storedExerciseItem?.exerciseWeightAmount = Float(activity["Weight Amount"] as! String)!
                                         storedExerciseItem?.exerciseSets = Int(activity["Sets"] as! String)!
                                         storedExerciseItem?.exerciseReps = Int(activity["Reps"] as! String)!
                                     }
@@ -132,7 +132,7 @@ class GoalStatusReportVC: UIViewController {
                                     storedExerciseItem?.exerciseTime += activity["Time"] as! Int
                                 }
                                 else if activity["Count"] != nil {
-                                    storedExerciseItem?.exerciseCount += Int(activity["Count"] as! String)!
+                                    storedExerciseItem?.exerciseCount += Float(activity["Count"] as! String)!
                                 }
                                 else if activity["Distance"] != nil {
                                     storedExerciseItem?.exerciseDistance += Int(activity["Distance"] as! String)!
@@ -180,7 +180,7 @@ class GoalStatusReportVC: UIViewController {
                             
                             row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
                             row[8] = DataTableValueType.string(String(format: "%02d:%02d", hoursTotal, minutesTotal))
-                            row[9] = DataTableValueType.string(String(format: "%02d:%02d", hoursDiff, minutesDiff))
+                            row[9] = DataTableValueType.string(String(format: "%02d:%02d", hoursDiff, abs(minutesDiff)))
                             let percentage = ((Float(item.exerciseTime) / Float(item.goalTime)) * 100)
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
                         }
@@ -264,7 +264,7 @@ class GoalStatusReportVC: UIViewController {
                         if !self.set.contains(exerciseItem) {
                             
                             if item._weight?.intValue != nil {
-                                exerciseItem.goalWeight = (item._weight?.intValue)!
+                                exerciseItem.goalWeight = (item._weight?.floatValue)!
                             }
                             else if item._distance?.intValue != nil {
                                 exerciseItem.goalDistance = (item._distance?.intValue)!
@@ -273,7 +273,7 @@ class GoalStatusReportVC: UIViewController {
                                 exerciseItem.goalTime = (item._time?.intValue)!
                             }
                             else if item._calories?.intValue != nil {
-                                exerciseItem.goalCount = (item._calories?.intValue)!
+                                exerciseItem.goalCount = (item._calories?.floatValue)!
                             }
                             self.set.insert(exerciseItem)
                         }
@@ -282,7 +282,7 @@ class GoalStatusReportVC: UIViewController {
                             self.set.remove(storedExerciseItem!)
                             
                             if item._weight?.intValue != nil {
-                                storedExerciseItem?.goalWeight += (item._weight?.intValue)!
+                                storedExerciseItem?.goalWeight += (item._weight?.floatValue)!
                             }
                             else if item._distance?.intValue != nil {
                                 storedExerciseItem?.goalDistance += (item._distance?.intValue)!
@@ -291,7 +291,7 @@ class GoalStatusReportVC: UIViewController {
                                 storedExerciseItem?.goalTime += (item._time?.intValue)!
                             }
                             else if item._calories?.intValue != nil {
-                                storedExerciseItem?.goalCount += (item._calories?.intValue)!
+                                storedExerciseItem?.goalCount += (item._calories?.floatValue)!
                             }
                             self.set.insert(storedExerciseItem!)
                         }

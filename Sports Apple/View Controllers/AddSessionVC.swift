@@ -47,7 +47,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         
         if self.oldSession._activityId != nil {
             self.locationTF.text = self.oldSession._location
-            self.caloriesTF.text = "\(self.oldSession._calories!.intValue)" + " calories"
+            self.caloriesTF.text = "\(self.oldSession._calories!.floatValue)" + " calories"
             self.weightTF.text = "\(self.oldSession._bodyWeight!.floatValue)" + " lbs"
             let storeFormatter = DateFormatter()
             storeFormatter.dateFormat = "MM/dd/yyyy h:mm a"
@@ -84,6 +84,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
+        textField.text = ""
         picker.reloadAllComponents()
         picker.selectRow(0, inComponent: 0, animated: false)
         return true
@@ -97,6 +98,14 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         }
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+        if countdots > 0 && string == "." {
+            return false
+        }
+        return true
+    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "Workout Comment"
@@ -104,9 +113,9 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         }
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+   /* func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return false
-    }
+    } */
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
@@ -182,10 +191,10 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
-        caloriesTF.inputView = picker
+     /*   caloriesTF.inputView = picker
         caloriesTF.inputAccessoryView = toolBar
         weightTF.inputView = picker
-        weightTF.inputAccessoryView = toolBar
+        weightTF.inputAccessoryView = toolBar */
     }
     
     @objc func donePicker() {
@@ -199,6 +208,27 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         }
         else if activeField == weightTF {
             weightTF.text = String((inchesArray[picker.selectedRow(inComponent: 0)])) + "." + String((inchesDecimalArray[picker.selectedRow(inComponent: 1)])) + " lbs"
+            
+        }
+        
+        self.view.endEditing(true)
+    }
+    
+    @objc func doneTextFields() {
+        if activeField == caloriesTF {
+            if(caloriesTF.text!.count > 0) {
+                caloriesTF.text = caloriesTF.text! + " calories"
+                weightTF.perform(
+                    #selector(becomeFirstResponder),
+                    with: nil,
+                    afterDelay: 0.1
+                )
+            }
+        }
+        else if activeField == weightTF {
+            if(weightTF.text!.count > 0) {
+                weightTF.text = weightTF.text! + " lbs"
+            }
             
         }
         
@@ -224,7 +254,8 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         nextButton.addTarget(self, action: #selector(goNext), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         calendarButton.addTarget(self, action: #selector(goToCalendarVC), for: .touchUpInside)
-        
+        self.caloriesTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextFields), titleText: "Calories")
+        self.weightTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextFields), titleText: "Body Weight")
     }
     
     func setupTextFields() {

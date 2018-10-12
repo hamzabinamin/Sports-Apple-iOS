@@ -85,7 +85,7 @@ class YearTotalsReportVC: UIViewController {
                             
                             if !self.set.contains(exerciseItem) {
                                 if activity["Weight Amount"] != nil {
-                                    exerciseItem.exerciseWeightAmount = Int(activity["Weight Amount"] as! String)!
+                                    exerciseItem.exerciseWeightAmount = Float(activity["Weight Amount"] as! String)!
                                     exerciseItem.exerciseSets = Int(activity["Sets"] as! String)!
                                     exerciseItem.exerciseReps = Int(activity["Reps"] as! String)!
                                 }
@@ -93,7 +93,7 @@ class YearTotalsReportVC: UIViewController {
                                     exerciseItem.exerciseTime = activity["Time"] as! Int
                                 }
                                 else if activity["Count"] != nil {
-                                    exerciseItem.exerciseCount = Int(activity["Count"] as! String)!
+                                    exerciseItem.exerciseCount = Float(activity["Count"] as! String)!
                                 }
                                 else if activity["Distance"] != nil {
                                     exerciseItem.exerciseDistance = Int(activity["Distance"] as! String)!
@@ -104,7 +104,7 @@ class YearTotalsReportVC: UIViewController {
                                 let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID})
                                 self.set.remove(storedExerciseItem!)
                                 if activity["Weight Amount"] != nil {
-                                    storedExerciseItem?.exerciseWeightAmount += Int(activity["Weight Amount"] as! String)!
+                                    storedExerciseItem?.exerciseWeightAmount += Float(activity["Weight Amount"] as! String)!
                                     storedExerciseItem?.exerciseSets += Int(activity["Sets"] as! String)!
                                     storedExerciseItem?.exerciseReps += Int(activity["Reps"] as! String)!
                                 }
@@ -112,7 +112,7 @@ class YearTotalsReportVC: UIViewController {
                                     storedExerciseItem?.exerciseTime += activity["Time"] as! Int
                                 }
                                 else if activity["Count"] != nil {
-                                    storedExerciseItem?.exerciseCount += Int(activity["Count"] as! String)!
+                                    storedExerciseItem?.exerciseCount += Float(activity["Count"] as! String)!
                                 }
                                 else if activity["Distance"] != nil {
                                     storedExerciseItem?.exerciseDistance += Int(activity["Distance"] as! String)!

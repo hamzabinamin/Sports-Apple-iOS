@@ -24,6 +24,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     var hud: JGProgressHUD?
     var activeField: UITextField?
     let picker = UIPickerView()
+    let toolBar = UIToolbar()
     var pool: AWSCognitoIdentityUserPool?
     var oldGoal = Goal()
     var goalArray: [Goal] = []
@@ -62,17 +63,29 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
             if type == "Time Goal" {
+                goalAmountTF.text = ""
+                goalAmountTF.inputView = picker
+                goalAmountTF.inputAccessoryView = toolBar
                 picker.selectRow(0, inComponent: 0, animated: false)
                 picker.selectRow(0, inComponent: 2, animated: false)
             }
             else if type == "Distance Goal" {
+                goalAmountTF.text = ""
+                goalAmountTF.inputView = picker
+                goalAmountTF.inputAccessoryView = toolBar
                 picker.selectRow(0, inComponent: 0, animated: false)
             }
             else if type == "Weight Goal" {
-                picker.selectRow(0, inComponent: 0, animated: false)
+                goalAmountTF.text = ""
+                goalAmountTF.inputView = nil
+                goalAmountTF.inputAccessoryView = nil
+                goalAmountTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextField), titleText: "Goal Amount")
             }
             else if type == "Count Goal" {
-                picker.selectRow(0, inComponent: 0, animated: false)
+                goalAmountTF.text = ""
+                goalAmountTF.inputView = nil
+                goalAmountTF.inputAccessoryView = nil
+                goalAmountTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextField), titleText: "Goal Amount")
             }
         }
         else {
@@ -86,10 +99,29 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField != exerciseListTF {
-            return false
+        if textField == exerciseListTF {
+            print("shouldChangeCharacters exerciseListTF")
+            return true
         }
-        return true
+        else if textField == goalAmountTF {
+            print("shouldChangeCharacters inside goalTypeTF")
+            let type = goalTypeTF.text
+            
+            if type == "Weight Goal" || type == "Count Goal"  {
+                print("shouldChangeCharacters type is weight or count")
+                let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+                if countdots > 0 && string == "." {
+                    return false
+                }
+                return true
+            }
+            else {
+                print("shouldChangeCharacters type is not weight or count")
+                return false
+            }
+        }
+        print("shouldChangeCharacters none of the above")
+        return false
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -267,7 +299,6 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     func setupPicker() {
         picker.delegate = self
         picker.dataSource = self
-        let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
         toolBar.sizeToFit()
@@ -389,6 +420,7 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                         exerciseItem?._name = "\(exerciseName!)"
                         self.favoritesArray.append(exerciseItem!)
                     }
+                    self.favoritesArray.sort{ ($0._name! < $1._name!) }
                     self.picker.reloadComponent(0)
                 }
                 
@@ -412,12 +444,12 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                         self.goalTypeTF.text = "Distance Goal"
                     }
                     else if self.oldGoal?._weight != nil {
-                        let weight = self.oldGoal!._weight!.intValue
+                        let weight = self.oldGoal!._weight!.floatValue
                         self.goalAmountTF.text = "\(weight)" + " lbs"
                         self.goalTypeTF.text = "Weight Goal"
                     }
                     else if self.oldGoal?._calories != nil {
-                        let calories = self.oldGoal!._calories!.intValue
+                        let calories = self.oldGoal!._calories!.floatValue
                         self.goalAmountTF.text = "\(calories)" + " counts"
                         self.goalTypeTF.text = "Count Goal"
                     }
@@ -641,8 +673,18 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             )
         }
         else if activeField == goalTypeTF {
-            goalTypeTF.text = goalTypeArray[picker.selectedRow(inComponent: 0)]
-            goalAmountTF.text = ""
+            let type = goalTypeArray[picker.selectedRow(inComponent: 0)]
+            goalTypeTF.text = type
+           /* if type == "Weight Goal" || type == "Count Goal"  {
+                goalAmountTF.inputView = nil
+                goalAmountTF.inputAccessoryView = nil
+                goalAmountTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextField), titleText: "Goal Amount")
+            }
+            else {
+                goalAmountTF.inputView = picker
+                goalAmountTF.inputAccessoryView = toolBar
+            }
+            goalAmountTF.text = "" */
             goalAmountTF.perform(
                 #selector(becomeFirstResponder),
                 with: nil,
@@ -679,7 +721,33 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         self.view.endEditing(true)
     }
     
-    @objc func cancelPicker(){
+    @objc func doneTextField() {
+        print("doneTextField got called")
+        let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if type == "Weight Goal" {
+            if goalAmountTF.text!.count > 0 {
+                goalAmountTF.text = goalAmountTF.text! + " " + weightUnit
+            }
+            else {
+              //  goalAmountTF.text = "0" + " " + weightUnit
+            }
+        }
+        else if type == "Count Goal" {
+            if goalAmountTF.text!.count > 0 {
+                goalAmountTF.text = goalAmountTF.text! + " " + caloriesUnit
+            }
+            else {
+              //  goalAmountTF.text = "0" + " " + caloriesUnit
+            }
+        }
+        yearlyGoalTF.perform(
+            #selector(becomeFirstResponder),
+            with: nil,
+            afterDelay: 0.1
+        )
+    }
+    
+    @objc func cancelPicker() {
         self.view.endEditing(true)
     }
     
@@ -722,12 +790,12 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             }
             else if type == "Weight Goal" {
                 let weightS = amount?.replacingOccurrences(of: " lbs", with: "")
-                let weight = Int(weightS!)
+                let weight = Float(weightS!)
                 goalItem._weight = NSNumber(value: weight!)
             }
             else if type == "Count Goal" {
                 let caloriesS = amount?.replacingOccurrences(of: " counts", with: "")
-                let calories = Int(caloriesS!)
+                let calories = Float(caloriesS!)
                 goalItem._calories = NSNumber(value: calories!)
             }
             

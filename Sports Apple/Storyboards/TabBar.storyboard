@@ -57,28 +57,28 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJd-v5-jdx">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="170.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="170.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 KG" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9S-AA-npS">
-                                                            <rect key="frame" x="5" y="70.5" width="140" height="30.5"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="22"/>
+                                                            <rect key="frame" x="5" y="72.5" width="118" height="29"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="21"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadlift" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gf-0H-pg8">
-                                                            <rect key="frame" x="5" y="15" width="140" height="27.5"/>
+                                                            <rect key="frame" x="5" y="15" width="118" height="27.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Yearly Goal)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgu-Ig-Irc">
-                                                            <rect key="frame" x="5" y="48" width="140" height="16.5"/>
+                                                            <rect key="frame" x="5" y="48" width="118" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15/04/2018" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6D-wD-fRQ">
-                                                            <rect key="frame" x="5" y="149" width="140" height="16.5"/>
+                                                            <rect key="frame" x="5" y="149" width="118" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -87,7 +87,7 @@
                                                     <color key="backgroundColor" red="0.20392156862745098" green="0.54509803921568623" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="0gf-0H-pg8" secondAttribute="trailing" constant="5" id="8rB-XH-LjA"/>
-                                                        <constraint firstItem="A9S-AA-npS" firstAttribute="leading" secondItem="eJd-v5-jdx" secondAttribute="leading" constant="5" id="9fa-mm-Xks"/>
+                                                        <constraint firstAttribute="trailing" secondItem="A9S-AA-npS" secondAttribute="trailing" constant="5" id="HAW-4U-qlt"/>
                                                         <constraint firstItem="F6D-wD-fRQ" firstAttribute="leading" secondItem="eJd-v5-jdx" secondAttribute="leading" constant="5" id="Hel-wq-1wo"/>
                                                         <constraint firstItem="0gf-0H-pg8" firstAttribute="leading" secondItem="eJd-v5-jdx" secondAttribute="leading" constant="5" id="OmC-Ug-NqJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="pgu-Ig-Irc" secondAttribute="trailing" constant="5" id="SL6-PV-Fpf"/>
@@ -95,15 +95,14 @@
                                                         <constraint firstAttribute="bottom" secondItem="F6D-wD-fRQ" secondAttribute="bottom" constant="5" id="Tux-Gv-F7n"/>
                                                         <constraint firstItem="pgu-Ig-Irc" firstAttribute="top" secondItem="0gf-0H-pg8" secondAttribute="bottom" constant="5" id="Y96-HR-VMC"/>
                                                         <constraint firstItem="0gf-0H-pg8" firstAttribute="centerX" secondItem="eJd-v5-jdx" secondAttribute="centerX" id="b59-V9-LRv"/>
+                                                        <constraint firstItem="A9S-AA-npS" firstAttribute="leading" secondItem="eJd-v5-jdx" secondAttribute="leading" constant="5" id="bB8-70-mvQ"/>
                                                         <constraint firstItem="0gf-0H-pg8" firstAttribute="top" secondItem="eJd-v5-jdx" secondAttribute="top" constant="15" id="f7E-Uq-ZiL"/>
                                                         <constraint firstItem="pgu-Ig-Irc" firstAttribute="leading" secondItem="eJd-v5-jdx" secondAttribute="leading" constant="5" id="iia-rT-FE0"/>
-                                                        <constraint firstItem="A9S-AA-npS" firstAttribute="centerY" secondItem="eJd-v5-jdx" secondAttribute="centerY" id="jFg-eo-ZTJ"/>
-                                                        <constraint firstItem="A9S-AA-npS" firstAttribute="centerX" secondItem="eJd-v5-jdx" secondAttribute="centerX" id="pCC-yh-KLo"/>
-                                                        <constraint firstAttribute="trailing" secondItem="A9S-AA-npS" secondAttribute="trailing" constant="5" id="qpC-o0-inA"/>
+                                                        <constraint firstItem="A9S-AA-npS" firstAttribute="top" secondItem="pgu-Ig-Irc" secondAttribute="bottom" constant="8" id="n25-eT-Xb1"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight Goal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vv1-ma-QJH">
-                                                    <rect key="frame" x="155" y="15" width="215" height="140.5"/>
+                                                    <rect key="frame" x="133" y="15" width="182" height="140.5"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -211,7 +210,7 @@
                                 <rect key="frame" x="0.0" y="121" width="375" height="497"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="146" id="9vH-sl-ucU" customClass="ReportsTVCell" customModule="Sports_Apple" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="146" id="9vH-sl-ucU" customClass="ReportsTVCell" customModule="Sports_Apple" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="146"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9vH-sl-ucU" id="Tgg-S2-Mbb">
@@ -357,7 +356,7 @@
                                 <rect key="frame" x="0.0" y="121" width="375" height="497"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="GST-La-tXM" customClass="SettingsTVCell" customModule="Sports_Apple" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="GST-La-tXM" customClass="SettingsTVCell" customModule="Sports_Apple" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GST-La-tXM" id="HLJ-zT-0vR">
@@ -499,7 +498,7 @@
                                 <rect key="frame" x="0.0" y="225" width="375" height="393"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="128" id="fC0-H3-DT3" customClass="SessionTVCell" customModule="Sports_Apple" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="128" id="fC0-H3-DT3" customClass="SessionTVCell" customModule="Sports_Apple" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="128"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fC0-H3-DT3" id="QEj-ds-4Ih">

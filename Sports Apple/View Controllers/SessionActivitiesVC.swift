@@ -211,7 +211,7 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
             let dict = session._exerciseList
             
             for value in dict! {
-                let exerciseItem = ExerciseItem(exerciseID: "\(value["exerciseID"] ?? 0)", exerciseName: "\(value["exerciseName"] ?? "")", exerciseWeightAmount: Int("\(value["Weight Amount"] ?? 0)")!, exerciseCount: Int("\(value["Count"] ?? 0)")!, exerciseReps: Int("\(value["Reps"] ?? 0)")!, exerciseSets: Int("\(value["Sets"] ?? 0)")!, exerciseTime: Int("\(value["Time"] ?? 0)")!, exerciseDistance: Int("\(value["Distance"] ?? 0)")!, exerciseComment: "\(value["Exercise Comment"] ?? "")")
+                let exerciseItem = ExerciseItem(exerciseID: "\(value["exerciseID"] ?? 0)", exerciseName: "\(value["exerciseName"] ?? "")", exerciseWeightAmount: Float("\(value["Weight Amount"] ?? 0)")!, exerciseCount: Float("\(value["Count"] ?? 0)")!, exerciseReps: Int("\(value["Reps"] ?? 0)")!, exerciseSets: Int("\(value["Sets"] ?? 0)")!, exerciseTime: Int("\(value["Time"] ?? 0)")!, exerciseDistance: Int("\(value["Distance"] ?? 0)")!, exerciseComment: "\(value["Exercise Comment"] ?? "")")
                 
                 array.append(exerciseItem)
             }
@@ -254,7 +254,7 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
             print("Inside If")
             print(dict.count)
 
-            let exerciseItem = ExerciseItem(exerciseID: "\(responseDict["exerciseID"] ?? 0)", exerciseName: "\(responseDict["exerciseName"] ?? "")", exerciseWeightAmount: Int("\(responseDict["Weight Amount"] ?? 0)")!, exerciseCount: Int("\(responseDict["Count"] ?? 0)")!, exerciseReps: Int("\(responseDict["Reps"] ?? 0)")!, exerciseSets: Int("\(responseDict["Sets"] ?? 0)")!, exerciseTime: Int("\(responseDict["Time"] ?? 0)")!, exerciseDistance: Int("\(responseDict["Distance"] ?? 0)")!, exerciseComment: "\(responseDict["Exercise Comment"] ?? "")")
+            let exerciseItem = ExerciseItem(exerciseID: "\(responseDict["exerciseID"] ?? 0)", exerciseName: "\(responseDict["exerciseName"] ?? "")", exerciseWeightAmount: Float("\(responseDict["Weight Amount"] ?? 0)")!, exerciseCount: Float("\(responseDict["Count"] ?? 0)")!, exerciseReps: Int("\(responseDict["Reps"] ?? 0)")!, exerciseSets: Int("\(responseDict["Sets"] ?? 0)")!, exerciseTime: Int("\(responseDict["Time"] ?? 0)")!, exerciseDistance: Int("\(responseDict["Distance"] ?? 0)")!, exerciseComment: "\(responseDict["Exercise Comment"] ?? "")")
             array.append(exerciseItem)
             sessionActivitiesLabel.isHidden = true
             tableView.reloadData()

@@ -60,8 +60,8 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! SessionTVCell
-        cell.bodyWeightLabel.text = "\(array[indexPath.row]._bodyWeight!.doubleValue)" + " lbs"
-        cell.caloriesLabel.text = "\(array[indexPath.row]._calories!.intValue)" 
+        cell.bodyWeightLabel.text = "\(array[indexPath.row]._bodyWeight!.floatValue)" + " lbs"
+        cell.caloriesLabel.text = "\(array[indexPath.row]._calories!.floatValue)"
         cell.locationLabel.text = "(" + array[indexPath.row]._location! + ")"
         cell.sessionCommentLabel.text = array[indexPath.row]._workoutComment
         cell.nextImageView.transform = CGAffineTransform(rotationAngle: .pi);
