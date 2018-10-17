@@ -32,8 +32,8 @@ class DailyActivityReportVC: UIViewController {
     var session: Activity = Activity()
     let numberFormatter: NumberFormatter = NumberFormatter()
     var oneDate = false
-    var totalCalories: Int = 0
-    var totalWeight: Int = 0
+    var totalCalories: Float = 0
+    var totalWeight: Float = 0
     let headerTitles = ["Date", "Exercise", "Weight", "Reps", "Sets", "Count", "Distance", "Time"]
 
     override func viewDidLoad() {
@@ -92,7 +92,7 @@ class DailyActivityReportVC: UIViewController {
                     self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                     self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedAscending}) 
                     for item in self.array {
-                        self.totalCalories += (item._calories?.intValue)!
+                        self.totalCalories += (item._calories?.floatValue)!
                         for activity in item._exerciseList! {
                             self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
@@ -103,7 +103,7 @@ class DailyActivityReportVC: UIViewController {
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
                             
                             if activity["Weight Amount"] != nil {
-                                let weightStore = Int(activity["Weight Amount"] as! String)!
+                                let weightStore = Float(activity["Weight Amount"] as! String)!
                                 let repsStore = Int(activity["Reps"] as! String)!
                                 let setsStore = Int(activity["Sets"] as! String)!
                                 self.totalWeight += weightStore
@@ -170,7 +170,7 @@ class DailyActivityReportVC: UIViewController {
                     self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                     self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedAscending})
                     for item in self.array {
-                        self.totalCalories += (item._calories?.intValue)!
+                        self.totalCalories += (item._calories?.floatValue)!
                         for activity in item._exerciseList! {
                              self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
@@ -181,7 +181,7 @@ class DailyActivityReportVC: UIViewController {
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
                             
                             if activity["Weight Amount"] != nil {
-                                let weightStore = Int(activity["Weight Amount"] as! String)!
+                                let weightStore = Float(activity["Weight Amount"] as! String)!
                                 let repsStore = Int(activity["Reps"] as! String)!
                                 let setsStore = Int(activity["Sets"] as! String)!
                                 self.totalWeight += weightStore
@@ -266,7 +266,7 @@ class DailyActivityReportVC: UIViewController {
                         let ds2 = self.formatter.string(from: d2!)
                         if self.formatter.date(from: (ds1)) == self.formatter.date(from: ds2) {
                             storeItem = item
-                        self.totalCalories += (item._calories?.intValue)!
+                        self.totalCalories += (item._calories?.floatValue)!
                         for activity in item._exerciseList! {
                             self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
@@ -277,7 +277,7 @@ class DailyActivityReportVC: UIViewController {
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
                             
                             if activity["Weight Amount"] != nil {
-                                let weightStore = Int(activity["Weight Amount"] as! String)!
+                                let weightStore = Float(activity["Weight Amount"] as! String)!
                                 let repsStore = Int(activity["Reps"] as! String)!
                                 let setsStore = Int(activity["Sets"] as! String)!
                                 self.totalWeight += weightStore

@@ -109,9 +109,17 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             
             if type == "Weight Goal" || type == "Count Goal"  {
                 print("shouldChangeCharacters type is weight or count")
-                let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
-                if countdots > 0 && string == "." {
-                    return false
+                if(textField.text!.contains(",")) {
+                    let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
+                    if countdots > 0 && string == "," {
+                        return false
+                    }
+                }
+                else {
+                    let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+                    if countdots > 0 && string == "." {
+                        return false
+                    }
                 }
                 return true
             }
@@ -726,7 +734,10 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         if type == "Weight Goal" {
             if goalAmountTF.text!.count > 0 {
-                goalAmountTF.text = goalAmountTF.text! + " " + weightUnit
+                let number = NumberFormatter().number(from: goalAmountTF.text!)
+                if let number = number {
+                    goalAmountTF.text = "\(Float(number))" + " " + weightUnit
+                }
             }
             else {
               //  goalAmountTF.text = "0" + " " + weightUnit
@@ -734,7 +745,10 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         }
         else if type == "Count Goal" {
             if goalAmountTF.text!.count > 0 {
-                goalAmountTF.text = goalAmountTF.text! + " " + caloriesUnit
+                let number = NumberFormatter().number(from: goalAmountTF.text!)
+                if let number = number {
+                    goalAmountTF.text = "\(Float(number))" + " " + caloriesUnit
+                }
             }
             else {
               //  goalAmountTF.text = "0" + " " + caloriesUnit

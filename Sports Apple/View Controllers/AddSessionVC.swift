@@ -99,9 +99,17 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
-        if countdots > 0 && string == "." {
-            return false
+        if(textField.text!.contains(",")) {
+            let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
+            if countdots > 0 && string == "," {
+                return false
+            }
+        }
+        else {
+            let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+            if countdots > 0 && string == "." {
+                return false
+            }
         }
         return true
     }
@@ -217,7 +225,10 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     @objc func doneTextFields() {
         if activeField == caloriesTF {
             if(caloriesTF.text!.count > 0) {
-                caloriesTF.text = caloriesTF.text! + " calories"
+                let number = NumberFormatter().number(from: caloriesTF.text!)
+                if let number = number {
+                    caloriesTF.text = "\(Float(number))" + " calories"
+                }
                 weightTF.perform(
                     #selector(becomeFirstResponder),
                     with: nil,
@@ -227,9 +238,11 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         }
         else if activeField == weightTF {
             if(weightTF.text!.count > 0) {
-                weightTF.text = weightTF.text! + " lbs"
+                let number = NumberFormatter().number(from: weightTF.text!)
+                if let number = number {
+                    weightTF.text = "\(Float(number))" + " lbs"
+                }
             }
-            
         }
         
         self.view.endEditing(true)

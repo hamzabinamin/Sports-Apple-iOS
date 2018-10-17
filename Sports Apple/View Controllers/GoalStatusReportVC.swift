@@ -34,6 +34,7 @@ class GoalStatusReportVC: UIViewController {
     var daysPastInYear = 0
     var daysLeftInYear = 0
     var weeks = 0
+    var totalCalories: Float = 0
     
     let headerTitles = ["Activity", "Cumulative Goal", "Year-to-Date", "Weight Goal", "Max Weight",
                         "Distance Goal", "Total Distance", "Time Goal", "Max Time", "To Meet Goal",
@@ -95,6 +96,7 @@ class GoalStatusReportVC: UIViewController {
                     self.array = responseArray
                     
                     for item in self.array {
+                            self.totalCalories += item._calories!.floatValue
                         for activity in item._exerciseList! {
                             let exerciseItem = ExerciseItem()
                             exerciseItem.exerciseID = activity["exerciseID"] as! String
@@ -202,24 +204,49 @@ class GoalStatusReportVC: UIViewController {
                             
                         }
                         if item.goalCount != 0 || item.exerciseCount != 0 {
-                            row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalCount))!)
-                            row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseCount))!)
-                            let meetGoal = (item.goalCount - item.exerciseCount)
-                            row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: meetGoal))!)
-                            let percentage = ((Float(item.exerciseCount) / Float(item.goalCount)) * 100)
-                            row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
-                            //row[11] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (Float(meetGoal) / Float(self.daysLeftInYear)).rounded(.toNearestOrAwayFromZero)))!)
-                            let perDay = (Float(meetGoal) / Float(self.daysLeftInYear))
-                            let perDayString = String(format: "%.01f", perDay)
-                            row[11] = DataTableValueType.string(perDayString)
-                            var projected = Float(0)
-                            if ((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount) < 0 {
-                                projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) * -1.0
+                            if item.exerciseName == "Calories" || item.exerciseName == "Calorie" || item.exerciseName == "calories" || item.exerciseName == "calorie" {
+                                
+                                row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalCount))!)
+                                row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: self.totalCalories))!)
+                                let meetGoal = (item.goalCount - item.exerciseCount)
+                                row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: meetGoal))!)
+                                let percentage = ((Float(self.totalCalories) / Float(item.goalCount)) * 100)
+                                row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
+                                //row[11] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (Float(meetGoal) / Float(self.daysLeftInYear)).rounded(.toNearestOrAwayFromZero)))!)
+                                let perDay = (Float(meetGoal) / Float(self.daysLeftInYear))
+                                let perDayString = String(format: "%.01f", perDay)
+                                row[11] = DataTableValueType.string(perDayString)
+                                var projected = Float(0)
+                                if ((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories) < 0 {
+                                    projected = (((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories)) * -1.0
+                                }
+                                else {
+                                    projected = (((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories)) + Float(self.totalCalories)
+                                }
+                                row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
+                                
+                                
                             }
                             else {
-                                projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) + Float(item.exerciseCount)
+                                row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalCount))!)
+                                row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseCount))!)
+                                let meetGoal = (item.goalCount - item.exerciseCount)
+                                row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: meetGoal))!)
+                                let percentage = ((Float(item.exerciseCount) / Float(item.goalCount)) * 100)
+                                row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
+                                //row[11] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (Float(meetGoal) / Float(self.daysLeftInYear)).rounded(.toNearestOrAwayFromZero)))!)
+                                let perDay = (Float(meetGoal) / Float(self.daysLeftInYear))
+                                let perDayString = String(format: "%.01f", perDay)
+                                row[11] = DataTableValueType.string(perDayString)
+                                var projected = Float(0)
+                                if ((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount) < 0 {
+                                    projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) * -1.0
+                                }
+                                else {
+                                    projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) + Float(item.exerciseCount)
+                                }
+                                row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
                             }
-                            row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
                         }
                         self.dataRows.append(row)
                     }

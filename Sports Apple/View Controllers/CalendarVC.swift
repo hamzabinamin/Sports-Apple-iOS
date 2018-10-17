@@ -9,12 +9,12 @@
 import UIKit
 import JTAppleCalendar
 
-class CalendarVC: UIViewController {
+class CalendarVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var monthLabel: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var yearButton: UIButton!
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var calendar: JTAppleCalendarView!
@@ -27,6 +27,24 @@ class CalendarVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupCalendar()
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(updateYear(notification:)), name: .yearSelected, object: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("Prepare for Segue called")
+        if segue.identifier == "showPopUp" {
+            let popOverViewController = segue.destination
+            popOverViewController.popoverPresentationController?.delegate = self
+        }
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        print("Popover dismissed")
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
     func setupViews() {
@@ -126,7 +144,37 @@ class CalendarVC: UIViewController {
         formatter.dateFormat = "MMMM"
         monthLabel.text = formatter.string(from: date)
         formatter.dateFormat = "yyyy"
-        yearLabel.text = formatter.string(from: date)
+        yearButton.setTitle(formatter.string(from: date), for: .normal)
+    }
+    
+    @objc func updateYear(notification: Notification) {
+        if let year = notification.object as? Int {
+            print("Selected Year: ", year)
+            yearButton.setTitle("\(year)", for: .normal)
+            let currentDate = calendar.selectedDates
+            print("Current Date: ", currentDate)
+            if(currentDate.count > 0) {
+            var dateComponents: DateComponents? = Calendar.current.dateComponents([.year, .month, .day], from: currentDate[0])
+                dateComponents?.year = year
+                let store: Date? = Calendar.current.date(from: dateComponents!)
+                print("New Date: ", "\(store)")
+                calendar.scrollToDate(store!) {
+                    //self.calendar.selectDates([date])
+                }
+            }
+            else {
+                var dateComponents: DateComponents? = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+                dateComponents?.year = year
+                let store: Date? = Calendar.current.date(from: dateComponents!)
+                print("New Date: ", "\(store)")
+                calendar.scrollToDate(store!) {
+                    //self.calendar.selectDates([date])
+                }
+            }
+        }
+        else {
+            print("No Year")
+        }
     }
     
     @objc func dismissVC() {
@@ -176,7 +224,7 @@ extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
         //let resultDate = formatter.string(from: Date())
         //let startDate = formatter.date(from: resultDate)
         let year = Calendar.current.component(.year, from: Date())
-         let firstOfCurrentYear = Calendar.current.date(from: DateComponents(year: year, month: 2, day: 1))
+        let firstOfCurrentYear = Calendar.current.date(from: DateComponents(year: year - 1, month: 2, day: 1))
         let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))
         let lastOfYear = Calendar.current.date(byAdding: .day, value: -1, to: firstOfNextYear!)
         let firstOfYear = Calendar.current.date(byAdding: .day, value: -1, to: firstOfCurrentYear!)
@@ -198,13 +246,14 @@ extension CalendarVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        print("You scrolled")
         let date = visibleDates.monthDates.first!.date
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier:"en_US_POSIX")
         formatter.dateFormat = "MMMM"
         monthLabel.text = formatter.string(from: date)
         formatter.dateFormat = "yyyy"
-        yearLabel.text = formatter.string(from: date)
+        yearButton.setTitle(formatter.string(from: date), for: .normal)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {

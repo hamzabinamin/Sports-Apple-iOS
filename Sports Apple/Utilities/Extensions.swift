@@ -35,6 +35,7 @@ extension Notification.Name {
     static let refreshActivity2 = Notification.Name("refreshActivity2")
     static let updateActivityTV2 = Notification.Name("updateActivityTV2")
     static let refreshActivity3 = Notification.Name("refreshActivity3")
+    static let yearSelected = Notification.Name("yearSelected")
 }
 
 

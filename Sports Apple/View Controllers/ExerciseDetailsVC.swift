@@ -98,9 +98,17 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         if textField == favoritesListTF || textField == exerciseTypeTF || textField == timeTF || textField == distanceTF {
             return false
         }
-        let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
-        if countdots > 0 && string == "." {
-            return false
+        if(textField.text!.contains(",")) {
+            let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
+            if countdots > 0 && string == "," {
+                return false
+            }
+        }
+        else {
+            let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+            if countdots > 0 && string == "." {
+                return false
+            }
         }
         return true
     }
@@ -825,7 +833,10 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     @objc func doneTextFields() {
         if activeField == weightAmountTF {
             if weightAmountTF.text!.count > 0 {
-                weightAmountTF.text = weightAmountTF.text! + " lbs"
+                let number = NumberFormatter().number(from: weightAmountTF.text!)
+                if let number = number {
+                    weightAmountTF.text = "\(Float(number))" + " lbs"
+                }
                 repsTF.perform(
                     #selector(becomeFirstResponder),
                     with: nil,
@@ -855,7 +866,10 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         }
         else if activeField == countTF {
             if countTF.text!.count > 0 {
-                countTF.text = countTF.text! + " counts"
+                let number = NumberFormatter().number(from: countTF.text!)
+                if let number = number {
+                    countTF.text = "\(Float(number))" + " counts"
+                }
                 commentTV.perform(
                     #selector(becomeFirstResponder),
                     with: nil,

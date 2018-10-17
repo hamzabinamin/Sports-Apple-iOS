@@ -77,6 +77,7 @@
 		F565C0AF20C809E000F64B86 /* GoalsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565C0AE20C809E000F64B86 /* GoalsItem.swift */; };
 		F565C0B120C80CC300F64B86 /* AddGoal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F565C0B020C80CC300F64B86 /* AddGoal.storyboard */; };
 		F565C0B320C80DA000F64B86 /* AddGoalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565C0B220C80DA000F64B86 /* AddGoalVC.swift */; };
+		F58B3EBE2177906000156BB5 /* YearPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B3EBD2177906000156BB5 /* YearPopUpVC.swift */; };
 		F5C29A2F20B04A91006A16EB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C29A2E20B04A91006A16EB /* Extensions.swift */; };
 		F5DF29AF20BAFB1300E3EFF2 /* ForgotPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DF29AE20BAFB1300E3EFF2 /* ForgotPassword.storyboard */; };
 		F5DF29B120BB02E700E3EFF2 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DF29B020BB02E700E3EFF2 /* ForgotPasswordVC.swift */; };
@@ -163,6 +164,7 @@
 		F565C0AE20C809E000F64B86 /* GoalsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsItem.swift; sourceTree = "<group>"; };
 		F565C0B020C80CC300F64B86 /* AddGoal.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddGoal.storyboard; sourceTree = "<group>"; };
 		F565C0B220C80DA000F64B86 /* AddGoalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalVC.swift; sourceTree = "<group>"; };
+		F58B3EBD2177906000156BB5 /* YearPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPopUpVC.swift; sourceTree = "<group>"; };
 		F5C29A2E20B04A91006A16EB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F5DF29AE20BAFB1300E3EFF2 /* ForgotPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ForgotPassword.storyboard; sourceTree = "<group>"; };
 		F5DF29B020BB02E700E3EFF2 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				F556A96820DFB80F00233CFD /* VerificationVC.swift */,
 				F53C7DA320E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift */,
 				F5128B1720EFBBA000485F63 /* CalendarVC.swift */,
+				F58B3EBD2177906000156BB5 /* YearPopUpVC.swift */,
 				F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */,
 			);
 			path = "View Controllers";
@@ -570,6 +573,7 @@
 				F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */,
 				F5DF29BB20BB248200E3EFF2 /* SignUp4VC.swift in Sources */,
 				F565C0A920C7F53500F64B86 /* LogOutVC.swift in Sources */,
+				F58B3EBE2177906000156BB5 /* YearPopUpVC.swift in Sources */,
 				F55FD36920C2D7F3003408DF /* AddSessionVC.swift in Sources */,
 				F51D96B620CDA399001AF442 /* DailyActivityReportVC.swift in Sources */,
 				F5504FDC20C6E612002907DC /* SessionTVCell.swift in Sources */,
