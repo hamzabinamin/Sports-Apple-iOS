@@ -37,7 +37,7 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
     var avgWeeklyCalories: Float = 0
     var avgWorkoutCalories: Float = 0
     var avgWeeklyWorkouts: Float = 0
-    var totalWeightMoved = 0
+    var totalWeightMoved: Float = 0
     var daysPast = 0
     var daysLeft = 0
     var workoutDays = 0
@@ -110,7 +110,7 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
                         
                         for activity in item._exerciseList! {
                             if activity["Weight Amount"] != nil {
-                                self.totalWeightMoved += Int(activity["Weight Amount"] as! String)!
+                                self.totalWeightMoved += Float(activity["Weight Amount"] as! String)!
                             }
                         }
                     }

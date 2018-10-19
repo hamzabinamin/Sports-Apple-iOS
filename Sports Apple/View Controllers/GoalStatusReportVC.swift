@@ -163,11 +163,11 @@ class GoalStatusReportVC: UIViewController {
                             let percentage = ((Float(item.exerciseWeightAmount) / Float(item.goalWeight)) * 100)
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
                             var projected = Float(0)
-                            if ((Float(item.exerciseWeightAmount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseWeightAmount) < 0 {
+                            if ((Float(item.exerciseWeightAmount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseWeightAmount) < item.goalWeight {
                                 projected = (((Float(item.exerciseWeightAmount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseWeightAmount)) * -1.0
                             }
                             else {
-                                projected = (((Float(item.exerciseWeightAmount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseWeightAmount)) + Float(item.exerciseWeightAmount)
+                                projected = (((Float(item.exerciseWeightAmount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseWeightAmount)) /* + Float(item.exerciseWeightAmount) */
                             }
                             //row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected))!)
                             //row[12]
@@ -193,11 +193,11 @@ class GoalStatusReportVC: UIViewController {
                             let percentage = ((Float(item.exerciseDistance) / Float(item.goalDistance)) * 100)
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
                             var projected = Float(0)
-                            if ((Float(item.exerciseDistance) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseDistance) < 0 {
+                            if ((Float(item.exerciseDistance) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseDistance) < Float(item.goalDistance) {
                                 projected = (((Float(item.exerciseDistance) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseDistance)) * -1.0
                             }
                             else {
-                                projected = (((Float(item.exerciseDistance) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseDistance)) + Float(item.exerciseDistance)
+                                projected = (((Float(item.exerciseDistance) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseDistance)) /* + Float(item.exerciseDistance) */
                             }
                             row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
                             
@@ -208,7 +208,7 @@ class GoalStatusReportVC: UIViewController {
                                 
                                 row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalCount))!)
                                 row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: self.totalCalories))!)
-                                let meetGoal = (item.goalCount - item.exerciseCount)
+                                let meetGoal = (item.goalCount - self.totalCalories)
                                 row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: meetGoal))!)
                                 let percentage = ((Float(self.totalCalories) / Float(item.goalCount)) * 100)
                                 row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
@@ -217,11 +217,22 @@ class GoalStatusReportVC: UIViewController {
                                 let perDayString = String(format: "%.01f", perDay)
                                 row[11] = DataTableValueType.string(perDayString)
                                 var projected = Float(0)
-                                if ((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories) < 0 {
+                                if ((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories) < item.goalCount {
+                                    print("In If of calories projected")
+                                    print("Total Calories: ", (Float(self.totalCalories)))
+                                    print("Days Past: ", Float(self.daysPastInYear))
+                                    print("Days Left: ", Float(self.daysLeftInYear))
+                                    
                                     projected = (((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories)) * -1.0
+                                    print("Projected: ", Float(projected))
                                 }
                                 else {
-                                    projected = (((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories)) + Float(self.totalCalories)
+                                    projected = (((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories)) /*+ Float(self.totalCalories) */
+                                    print("In else of calories projected")
+                                    print("Total Calories: ", (Float(self.totalCalories)))
+                                    print("Days Past: ", Float(self.daysPastInYear))
+                                    print("Days Left: ", Float(self.daysLeftInYear))
+                                    print("Projected: ", Float(projected))
                                 }
                                 row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
                                 
@@ -239,11 +250,11 @@ class GoalStatusReportVC: UIViewController {
                                 let perDayString = String(format: "%.01f", perDay)
                                 row[11] = DataTableValueType.string(perDayString)
                                 var projected = Float(0)
-                                if ((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount) < 0 {
+                                if ((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount) < item.goalCount {
                                     projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) * -1.0
                                 }
                                 else {
-                                    projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) + Float(item.exerciseCount)
+                                    projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) /* + Float(item.exerciseCount) */
                                 }
                                 row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
                             }
