@@ -128,6 +128,281 @@ class CumulativeGoalsChartVC: UIViewController {
                     self.array = responseArray
                     self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                     for item in self.array {
+                        let date = self.formatter.date(from: item._date!)
+                        let weekNumber = Calendar.current.component(.weekOfYear, from: date!)
+                        
+                        if self.set.contains(where: {$0.exerciseName == "Calories"}) || self.set.contains(where: {$0.exerciseName == "Calorie"}) || self.set.contains(where: {$0.exerciseName == "calories"}) || self.set.contains(where: {$0.exerciseName == "calorie"}) {
+                            let storedExerciseItem = self.set.first(where: {$0.exerciseName == "Calories" || $0.exerciseName == "Calorie" || $0.exerciseName == "calories" || $0.exerciseName == "calorie" })
+                            self.set.remove(storedExerciseItem!)
+                            
+                            switch(weekNumber) {
+                            case(1):
+                              if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[1] += (item._calories?.floatValue)!
+                                }
+                            case(2):
+                               if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[2] += (item._calories?.floatValue)!
+                               }
+                            case(3):
+                               if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[3] += (item._calories?.floatValue)!
+                                }
+                            case(4):
+                              if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[4] += (item._calories?.floatValue)!
+                                }
+                            case(5):
+                              if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[5] += (item._calories?.floatValue)!
+                                }
+                            case(6):
+                              if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[6] += (item._calories?.floatValue)!
+                                }
+                            case(7):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[7] += (item._calories?.floatValue)!
+                                }
+                            case(8):
+                               if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[8] += (item._calories?.floatValue)!
+                                }
+                            case(9):
+                               if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[9] += (item._calories?.floatValue)!
+                                }
+                            case(10):
+                               if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[10] += (item._calories?.floatValue)!
+                                }
+                            case(11):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[11] += (item._calories?.floatValue)!
+                                }
+                            case(12):
+                               if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[12] += (item._calories?.floatValue)!
+                                }
+                            case(13):
+                              if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[13] += (item._calories?.floatValue)!
+                                }
+                            case(14):
+                              if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[14] += (item._calories?.floatValue)!
+                                }
+                            case(15):
+                              if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[15] += (item._calories?.floatValue)!
+                                }
+                            case(16):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[16] += (item._calories?.floatValue)!
+                                }
+                            case(17):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[17] += (item._calories?.floatValue)!
+                                }
+                            case(18):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[18] += (item._calories?.floatValue)!
+                                }
+                            case(19):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[19] += (item._calories?.floatValue)!
+                                }
+                            case(20):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[20] += (item._calories?.floatValue)!
+                                }
+                            case(21):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[21] += (item._calories?.floatValue)!
+                                }
+                            case(22):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[22] += (item._calories?.floatValue)!
+                                }
+                            case(23):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[23] += (item._calories?.floatValue)!
+                                }
+                            case(24):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[24] += (item._calories?.floatValue)!
+                                }
+                            case(25):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[25] += (item._calories?.floatValue)!
+                                }
+                            case(26):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[26] += (item._calories?.floatValue)!
+                                }
+                            case(27):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[27] += (item._calories?.floatValue)!
+                                }
+                            case(28):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[28] += (item._calories?.floatValue)!
+                                }
+                            case(29):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[29] += (item._calories?.floatValue)!
+                                }
+                            case(30):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[30] += (item._calories?.floatValue)!
+                                }
+                            case(31):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[31] += (item._calories?.floatValue)!
+                                }
+                            case(32):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[32] += (item._calories?.floatValue)!
+                                }
+                            case(33):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[33] += (item._calories?.floatValue)!
+                                }
+                            case(34):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[34] += (item._calories?.floatValue)!
+                                }
+                            case(35):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[35] += (item._calories?.floatValue)!
+                                }
+                            case(36):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[36] += (item._calories?.floatValue)!
+                                }
+                            case(37):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[37] += (item._calories?.floatValue)!
+                                }
+                            case(38):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[38] += (item._calories?.floatValue)!
+                                }
+                            case(39):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[39] += (item._calories?.floatValue)!
+                                }
+                            case(40):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[40] += (item._calories?.floatValue)!
+                                }
+                            case(41):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[41] += (item._calories?.floatValue)!
+                                }
+                            case(42):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[42] += (item._calories?.floatValue)!
+                                }
+                            case(43):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[43] += (item._calories?.floatValue)!
+                                }
+                            case(44):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[44] += (item._calories?.floatValue)!
+                                }
+                            case(45):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[45] += (item._calories?.floatValue)!
+                                }
+                            case(46):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[46] += (item._calories?.floatValue)!
+                                }
+                            case(47):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[47] += (item._calories?.floatValue)!
+                                }
+                            case(48):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[48] += (item._calories?.floatValue)!
+                                }
+                            case(49):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[49] += (item._calories?.floatValue)!
+                                }
+                            case(50):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[50] += (item._calories?.floatValue)!
+                                }
+                            case(51):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[51] += (item._calories?.floatValue)!
+                                }
+                            case(52):
+                                if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                        print("ExerciseName is calories")
+                                        storedExerciseItem?.weeklyCount[52] += (item._calories?.floatValue)!
+                                }
+                                
+                            default:
+                                break
+                            }
+                            self.set.insert(storedExerciseItem!)
+                        }
+                        
                         for activity in item._exerciseList! {
                             let exerciseItem = ExerciseItem()
                             exerciseItem.exerciseID = activity["exerciseID"] as! String
@@ -141,222 +416,540 @@ class CumulativeGoalsChartVC: UIViewController {
                                 let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID})
                                 self.set.remove(storedExerciseItem!)
                                 
-                                let date = self.formatter.date(from: item._date!)
-                                let weekNumber = Calendar.current.component(.weekOfYear, from: date!)
                                 
                                 switch(weekNumber) {
                                 case(1):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[1] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[1] += (item._calories?.floatValue)!
+                                            
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[1] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(2):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[2] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[2] += (item._calories?.floatValue)!
+                                            
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[2] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(3):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[3] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[3] += (item._calories?.floatValue)!
+                                            
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[3] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(4):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[4] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[4] += (item._calories?.floatValue)!
+                                            
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[4] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(5):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[5] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[5] += (item._calories?.floatValue)!
+                                            
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[5] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(6):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[6] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[6] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[6] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(7):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[7] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[7] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[7] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(8):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[8] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[8] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[8] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(9):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[9] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[9] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[9] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(10):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[10] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[10] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[10] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                     
                                 case(11):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[11] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[11] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[11] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(12):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[12] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[12] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[12] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(13):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[13] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[13] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[13] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(14):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[14] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[14] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[14] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(15):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[15] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[15] += (item._calories?.floatValue)!
+                                            
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[15] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(16):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[16] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[16] += (item._calories?.floatValue)!
+                                            
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[16] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(17):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[17] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[17] += (item._calories?.floatValue)!
+                                            
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[17] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(18):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[18] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[18] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[18] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(19):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[19] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[19] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[19] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(20):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[20] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[20] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[20] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                     
                                 case(21):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[21] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[21] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[21] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(22):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[22] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[22] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[22] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(23):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[23] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[23] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[23] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(24):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[24] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[24] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[24] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(25):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[25] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[25] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[25] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(26):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[26] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[26] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[26] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(27):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[27] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[27] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[27] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(28):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[28] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[28] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[28] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(29):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[29] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[29] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[29] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(30):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[30] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[30] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[30] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                     
                                 case(31):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[31] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[31] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[31] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(32):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[32] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[32] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[32] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(33):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[33] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[33] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[33] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(34):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[34] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[34] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[34] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(35):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[35] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[35] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[35] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(36):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[36] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[36] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[36] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(37):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[37] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[37] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[37] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(38):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[38] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[38] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[38] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(39):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[39] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[39] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[39] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(40):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[40] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[40] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[40] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                     
                                 case(41):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[41] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[41] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[41] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(42):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[42] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[42] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[42] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(43):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[43] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[43] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[43] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(44):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[44] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[44] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[44] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(45):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[45] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[45] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[45] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(46):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[46] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[46] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[46] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(47):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[47] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[47] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[47] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(48):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[48] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[48] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[48] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(49):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[49] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[49] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[49] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(50):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[50] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[50] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[50] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                     
                                 case(51):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[51] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[51] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[51] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                 case(52):
                                     if activity["Count"] != nil {
-                                        storedExerciseItem?.weeklyCount[52] += Int(activity["Count"] as! String)!
+                                        if storedExerciseItem?.exerciseName == "Calories" || storedExerciseItem?.exerciseName == "Calorie" || storedExerciseItem?.exerciseName == "calories" || storedExerciseItem?.exerciseName == "calorie" {
+                                            print("ExerciseName is calories")
+                                            storedExerciseItem?.weeklyCount[52] += (item._calories?.floatValue)!
+                                        }
+                                        else {
+                                            storedExerciseItem?.weeklyCount[52] += Float(activity["Count"] as! String)!
+                                        }
                                     }
                                     
                                 default:

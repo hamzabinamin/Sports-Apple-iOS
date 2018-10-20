@@ -120,7 +120,7 @@ class DailyActivityReportVC: UIViewController {
                                 row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
                             }
                             else if activity["Count"] != nil {
-                                let countStore = Int(activity["Count"] as! String)!
+                                let countStore = Float(activity["Count"] as! String)!
                                  row[5] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: countStore))!)
                             }
                             else if activity["Distance"] != nil {
@@ -198,7 +198,7 @@ class DailyActivityReportVC: UIViewController {
                                 row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
                             }
                             else if activity["Count"] != nil {
-                                let countStore = Int(activity["Count"] as! String)!
+                                let countStore = Float(activity["Count"] as! String)!
                                 row[5] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: countStore))!)
                             }
                             else if activity["Distance"] != nil {
@@ -294,7 +294,7 @@ class DailyActivityReportVC: UIViewController {
                                 row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
                             }
                             else if activity["Count"] != nil {
-                                let countStore = Int(activity["Count"] as! String)!
+                                let countStore = Float(activity["Count"] as! String)!
                                 row[5] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: countStore))!)
                             }
                             else if activity["Distance"] != nil {

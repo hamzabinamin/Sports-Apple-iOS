@@ -19,7 +19,7 @@ class TotalCaloriesChartVC: UIViewController {
     var hud: JGProgressHUD?
     var pool: AWSCognitoIdentityUserPool?
     var array: [Activity] = []
-    var caloriesArray = [Int](repeating: 0, count: 52)
+    var caloriesArray = [Float](repeating: 0, count: 52)
     let formatter = DateFormatter()
     var session: Activity = Activity()
 
@@ -101,119 +101,120 @@ class TotalCaloriesChartVC: UIViewController {
                         
                         switch(weekNumber) {
                             case(1):
-                                self.caloriesArray[0] += (item._calories?.intValue)!
+                                self.caloriesArray[0] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(2):
-                                self.caloriesArray[1] += (item._calories?.intValue)!
+                                self.caloriesArray[1] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(3):
-                                self.caloriesArray[2] += (item._calories?.intValue)!
+                                self.caloriesArray[2] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(4):
-                                self.caloriesArray[3] += (item._calories?.intValue)!
+                                self.caloriesArray[3] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(5):
-                                self.caloriesArray[4] += (item._calories?.intValue)!
+                                self.caloriesArray[4] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(6):
-                                self.caloriesArray[5] += (item._calories?.intValue)!
+                                self.caloriesArray[5] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(7):
-                                self.caloriesArray[6] += (item._calories?.intValue)!
+                                self.caloriesArray[6] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(8):
-                                self.caloriesArray[7] += (item._calories?.intValue)!
+                                self.caloriesArray[7] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(9):
-                                self.caloriesArray[8] += (item._calories?.intValue)!
+                                self.caloriesArray[8] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(10):
-                                self.caloriesArray[9] += (item._calories?.intValue)!
+                                self.caloriesArray[9] += (item._calories?.floatValue.roundToDecimal(1))!
                             
                             case(11):
-                                self.caloriesArray[10] += (item._calories?.intValue)!
+                                self.caloriesArray[10] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(12):
-                                self.caloriesArray[11] += (item._calories?.intValue)!
+                                self.caloriesArray[11] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(13):
-                                self.caloriesArray[12] += (item._calories?.intValue)!
+                                self.caloriesArray[12] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(14):
-                                self.caloriesArray[13] += (item._calories?.intValue)!
+                                self.caloriesArray[13] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(15):
-                                self.caloriesArray[14] += (item._calories?.intValue)!
+                                self.caloriesArray[14] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(16):
-                                self.caloriesArray[15] += (item._calories?.intValue)!
+                                self.caloriesArray[15] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(17):
-                                self.caloriesArray[16] += (item._calories?.intValue)!
+                                self.caloriesArray[16] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(18):
-                                self.caloriesArray[17] += (item._calories?.intValue)!
+                                self.caloriesArray[17] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(19):
-                                self.caloriesArray[18] += (item._calories?.intValue)!
+                                self.caloriesArray[18] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(20):
-                                self.caloriesArray[19] += (item._calories?.intValue)!
+                                self.caloriesArray[19] += (item._calories?.floatValue.roundToDecimal(1))!
                             
                             case(21):
-                                self.caloriesArray[20] += (item._calories?.intValue)!
+                                self.caloriesArray[20] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(22):
-                                self.caloriesArray[21] += (item._calories?.intValue)!
+                                self.caloriesArray[21] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(23):
-                                self.caloriesArray[22] += (item._calories?.intValue)!
+                                self.caloriesArray[22] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(24):
-                                self.caloriesArray[23] += (item._calories?.intValue)!
+                                self.caloriesArray[23] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(25):
-                                self.caloriesArray[24] += (item._calories?.intValue)!
+                                self.caloriesArray[24] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(26):
-                                self.caloriesArray[25] += (item._calories?.intValue)!
+                                self.caloriesArray[25] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(27):
-                                self.caloriesArray[26] += (item._calories?.intValue)!
+                                self.caloriesArray[26] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(28):
-                                self.caloriesArray[27] += (item._calories?.intValue)!
+                                self.caloriesArray[27] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(29):
-                                self.caloriesArray[28] += (item._calories?.intValue)!
+                                self.caloriesArray[28] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(30):
-                                self.caloriesArray[29] += (item._calories?.intValue)!
+                                self.caloriesArray[29] += (item._calories?.floatValue.roundToDecimal(1))!
                             
                             case(31):
-                                self.caloriesArray[30] += (item._calories?.intValue)!
+                                self.caloriesArray[30] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(32):
-                                self.caloriesArray[31] += (item._calories?.intValue)!
+                                self.caloriesArray[31] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(33):
-                                self.caloriesArray[32] += (item._calories?.intValue)!
+                                self.caloriesArray[32] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(34):
-                                self.caloriesArray[33] += (item._calories?.intValue)!
+                                self.caloriesArray[33] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(35):
-                                self.caloriesArray[34] += (item._calories?.intValue)!
+                                self.caloriesArray[34] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(36):
-                                self.caloriesArray[35] += (item._calories?.intValue)!
+                                self.caloriesArray[35] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(37):
-                                self.caloriesArray[36] += (item._calories?.intValue)!
+                                self.caloriesArray[36] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(38):
-                                self.caloriesArray[37] += (item._calories?.intValue)!
+                                self.caloriesArray[37] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(39):
-                                self.caloriesArray[38] += (item._calories?.intValue)!
+                                self.caloriesArray[38] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(40):
-                                self.caloriesArray[39] += (item._calories?.intValue)!
+                                self.caloriesArray[39] += (item._calories?.floatValue.roundToDecimal(1))!
                             
                             case(41):
-                                self.caloriesArray[40] += (item._calories?.intValue)!
+                                self.caloriesArray[40] += ((item._calories?.floatValue)?.roundToDecimal(1))!
                             case(42):
-                                self.caloriesArray[41] += (item._calories?.intValue)!
+                                self.caloriesArray[41] += ((item._calories?.floatValue)?.roundToDecimal(1))!
                             case(43):
-                                self.caloriesArray[42] += (item._calories?.intValue)!
+                                self.caloriesArray[42] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(44):
-                                self.caloriesArray[43] += (item._calories?.intValue)!
+                                self.caloriesArray[43] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(45):
-                                self.caloriesArray[44] += (item._calories?.intValue)!
+                                self.caloriesArray[44] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(46):
-                                self.caloriesArray[45] += (item._calories?.intValue)!
+                                self.caloriesArray[45] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(47):
-                                self.caloriesArray[46] += (item._calories?.intValue)!
+                                self.caloriesArray[46] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(48):
-                                self.caloriesArray[47] += (item._calories?.intValue)!
+                                self.caloriesArray[47] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(49):
-                                self.caloriesArray[48] += (item._calories?.intValue)!
+                                self.caloriesArray[48] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(50):
-                                self.caloriesArray[49] += (item._calories?.intValue)!
+                                self.caloriesArray[49] += (item._calories?.floatValue.roundToDecimal(1))!
                             
                             case(51):
-                                self.caloriesArray[50] += (item._calories?.intValue)!
+                                self.caloriesArray[50] += (item._calories?.floatValue.roundToDecimal(1))!
                             case(52):
-                                self.caloriesArray[51] += (item._calories?.intValue)!
+                                self.caloriesArray[51] += (item._calories?.floatValue.roundToDecimal(1))!
                             
                             default:
                                 break
                         }
                     }
+                    print("Rounded value: ", self.caloriesArray[40])
                     self.aaChartModel = AAChartModel.init()
                         .chartType(AAChartType.Column)//Can be any of the chart types listed under `AAChartType`.
                         .animationType(AAChartAnimationType.Bounce)
