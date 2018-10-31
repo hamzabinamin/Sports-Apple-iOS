@@ -76,13 +76,13 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                 picker.selectRow(0, inComponent: 0, animated: false)
             }
             else if type == "Weight Goal" {
-                goalAmountTF.text = ""
+            //    goalAmountTF.text = ""
                 goalAmountTF.inputView = nil
                 goalAmountTF.inputAccessoryView = nil
                 goalAmountTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextField), titleText: "Goal Amount")
             }
             else if type == "Count Goal" {
-                goalAmountTF.text = ""
+            //    goalAmountTF.text = ""
                 goalAmountTF.inputView = nil
                 goalAmountTF.inputAccessoryView = nil
                 goalAmountTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneTextField), titleText: "Goal Amount")
@@ -99,37 +99,56 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == exerciseListTF {
-            print("shouldChangeCharacters exerciseListTF")
+        let  char = string.cString(using: String.Encoding.utf8)!
+        let isBackSpace = strcmp(char, "\\b")
+        
+        if (isBackSpace == -92) {
+            print("Backspace was pressed")
             return true
         }
-        else if textField == goalAmountTF {
-            print("shouldChangeCharacters inside goalTypeTF")
-            let type = goalTypeTF.text
-            
-            if type == "Weight Goal" || type == "Count Goal"  {
-                print("shouldChangeCharacters type is weight or count")
-                if(textField.text!.contains(",")) {
-                    let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
-                    if countdots > 0 && string == "," {
-                        return false
-                    }
-                }
-                else {
-                    let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
-                    if countdots > 0 && string == "." {
-                        return false
-                    }
-                }
+        else {
+            if textField == exerciseListTF {
+                print("shouldChangeCharacters exerciseListTF")
                 return true
             }
-            else {
-                print("shouldChangeCharacters type is not weight or count")
-                return false
+            else if textField == goalAmountTF {
+                print("shouldChangeCharacters inside goalTypeTF")
+                let type = goalTypeTF.text
+                
+                if type == "Weight Goal" || type == "Count Goal"  {
+                    print("shouldChangeCharacters type is weight or count")
+                    if(string.contains(".") || string.contains(",")) {
+                        if(textField.text!.contains(",") || textField.text!.contains(".")) {
+                            return false
+                        }
+                        return true
+                    }
+                    if(textField.text!.contains("c") || textField.text!.contains("l")) {
+                        return false
+                    }
+                    if(textField.text!.contains(",")) {
+                        let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
+                        if countdots > 0 && string == "," {
+                            return false
+                        }
+                    }
+                    else {
+                        let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+                        if countdots > 0 && string == "." {
+                            return false
+                        }
+                    }
+                    return true
+                }
+                else {
+                    print("shouldChangeCharacters type is not weight or count")
+                    return false
+                }
             }
+            print("shouldChangeCharacters none of the above")
+            return false
         }
-        print("shouldChangeCharacters none of the above")
-        return false
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -733,8 +752,16 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         print("doneTextField got called")
         let type = goalTypeTF.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         if type == "Weight Goal" {
-            if goalAmountTF.text!.count > 0 {
-                let number = NumberFormatter().number(from: goalAmountTF.text!)
+            let goal = goalAmountTF.text!.replacingOccurrences(of: " ", with: "")
+            if goal.count > 0 {
+                let numberFormatter = NumberFormatter()
+                if goal.contains(".") {
+                    numberFormatter.locale = Locale(identifier: "EN")
+                }
+                else {
+                    numberFormatter.locale = Locale(identifier: "fr_GP")
+                }
+                let number = numberFormatter.number(from: goal)
                 if let number = number {
                     goalAmountTF.text = "\(Float(number))" + " " + weightUnit
                 }
@@ -744,8 +771,16 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
             }
         }
         else if type == "Count Goal" {
-            if goalAmountTF.text!.count > 0 {
-                let number = NumberFormatter().number(from: goalAmountTF.text!)
+            let count = goalAmountTF.text!.replacingOccurrences(of: " ", with: "")
+            if count.count > 0 {
+                let numberFormatter = NumberFormatter()
+                if count.contains(".") {
+                    numberFormatter.locale = Locale(identifier: "EN")
+                }
+                else {
+                    numberFormatter.locale = Locale(identifier: "fr_GP")
+                }
+                let number = numberFormatter.number(from: count)
                 if let number = number {
                     goalAmountTF.text = "\(Float(number))" + " " + caloriesUnit
                 }

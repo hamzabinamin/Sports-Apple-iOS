@@ -84,7 +84,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
-        textField.text = ""
+        //textField.text = ""
         picker.reloadAllComponents()
         picker.selectRow(0, inComponent: 0, animated: false)
         return true
@@ -99,19 +99,38 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if(textField.text!.contains(",")) {
-            let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
-            if countdots > 0 && string == "," {
-                return false
-            }
+        let  char = string.cString(using: String.Encoding.utf8)!
+        let isBackSpace = strcmp(char, "\\b")
+        
+        if (isBackSpace == -92) {
+            print("Backspace was pressed")
+            return true
         }
         else {
-            let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
-            if countdots > 0 && string == "." {
+            if(string.contains(".") || string.contains(",")) {
+                if(textField.text!.contains(",") || textField.text!.contains(".")) {
+                    return false
+                }
+                return true
+            }
+            if(textField.text!.contains("c") || textField.text!.contains("l")) {
                 return false
             }
+            if(textField.text!.contains(",")) {
+                let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
+                if countdots > 0 && string == "," {
+                    return false
+                }
+            }
+            else {
+                let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+                if countdots > 0 && string == "." {
+                    return false
+                }
+            }
+            return true
         }
-        return true
+
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -224,10 +243,21 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     
     @objc func doneTextFields() {
         if activeField == caloriesTF {
-            if(caloriesTF.text!.count > 0) {
-                let number = NumberFormatter().number(from: caloriesTF.text!)
+             let calories = caloriesTF.text!.replacingOccurrences(of: " ", with: "")
+            if(calories.count > 0) {
+                let numberFormatter = NumberFormatter()
+                if calories.contains(".") {
+                    numberFormatter.locale = Locale(identifier: "EN")
+                }
+                else {
+                    numberFormatter.locale = Locale(identifier: "fr_GP")
+                }
+                let number = numberFormatter.number(from: calories)
                 if let number = number {
                     caloriesTF.text = "\(Float(number))" + " calories"
+                }
+                else {
+                    print("Didn't accept input: ", number)
                 }
                 weightTF.perform(
                     #selector(becomeFirstResponder),
@@ -237,8 +267,17 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             }
         }
         else if activeField == weightTF {
-            if(weightTF.text!.count > 0) {
-                let number = NumberFormatter().number(from: weightTF.text!)
+            let weight = weightTF.text!.replacingOccurrences(of: " ", with: "")
+            if(weight.count > 0) {
+                let numberFormatter = NumberFormatter()
+                if weight.contains(".") {
+                    numberFormatter.locale = Locale(identifier: "EN")
+                }
+                else {
+                     numberFormatter.locale = Locale(identifier: "fr_GP")
+                }
+               
+                let number = numberFormatter.number(from: weight)
                 if let number = number {
                     weightTF.text = "\(Float(number))" + " lbs"
                 }
@@ -261,6 +300,21 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         formatter.dateFormat = "MMM d, yyyy"
         formatter.locale = Locale(identifier:"en_US_POSIX")
         dateLabel.text = formatter.string(from: date)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneTextFields))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelPicker))
+        
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+       // caloriesTF.inputAccessoryView = toolBar
+       // weightTF.inputAccessoryView = toolBar
        
         prevButton.addTarget(self, action: #selector(previousDate), for: .touchUpInside)
         forwardButton.addTarget(self, action: #selector(nextDate), for: .touchUpInside)

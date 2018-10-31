@@ -72,16 +72,16 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             picker.selectRow(0, inComponent: 1, animated: false)
         }
         else if textField == weightAmountTF {
-            weightAmountTF.text = ""
+         //   weightAmountTF.text = ""
         }
         else if textField == repsTF {
-            repsTF.text = ""
+         //   repsTF.text = ""
         }
         else if textField == setsTF {
-            setsTF.text = ""
+         //   setsTF.text = ""
         }
         else if textField == countTF {
-            countTF.text = ""
+         //   countTF.text = ""
         }
         else {
             if activeField == exerciseListTF {
@@ -98,19 +98,39 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         if textField == favoritesListTF || textField == exerciseTypeTF || textField == timeTF || textField == distanceTF {
             return false
         }
-        if(textField.text!.contains(",")) {
-            let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
-            if countdots > 0 && string == "," {
-                return false
-            }
+        let  char = string.cString(using: String.Encoding.utf8)!
+        let isBackSpace = strcmp(char, "\\b")
+        
+        if (isBackSpace == -92) {
+            print("Backspace was pressed")
+            return true
         }
         else {
-            let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
-            if countdots > 0 && string == "." {
+            if(string.contains(".") || string.contains(",")) {
+                if(textField.text!.contains(",") || textField.text!.contains(".")) {
+                    return false
+                }
+                return true
+            }
+            if(textField.text!.contains("l") || textField.text!.contains("r") || textField.text!.contains("s") || textField.text!.contains("c")) {
                 return false
             }
+            
+            if(textField.text!.contains(",")) {
+                let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
+                if countdots > 0 && string == "," {
+                    return false
+                }
+            }
+            else {
+                let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+                if countdots > 0 && string == "." {
+                    return false
+                }
+            }
+            return true
         }
-        return true
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -832,8 +852,16 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     @objc func doneTextFields() {
         if activeField == weightAmountTF {
-            if weightAmountTF.text!.count > 0 {
-                let number = NumberFormatter().number(from: weightAmountTF.text!)
+            let weight = weightAmountTF.text!.replacingOccurrences(of: " ", with: "")
+            if weight.count > 0 {
+                let numberFormatter = NumberFormatter()
+                if weight.contains(".") {
+                    numberFormatter.locale = Locale(identifier: "EN")
+                }
+                else {
+                    numberFormatter.locale = Locale(identifier: "fr_GP")
+                }
+                let number = numberFormatter.number(from: weight)
                 if let number = number {
                     weightAmountTF.text = "\(Float(number))" + " lbs"
                 }
@@ -845,8 +873,14 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             }
         }
         else if activeField == repsTF {
-            if repsTF.text!.count > 0 {
-                repsTF.text = repsTF.text! + " reps"
+            let reps = repsTF.text!.replacingOccurrences(of: " ", with: "")
+            if reps.count > 0 {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .none
+                let number = numberFormatter.number(from: reps)
+                if let number = number {
+                    repsTF.text = "\(number)" + " reps"
+                }
                 setsTF.perform(
                     #selector(becomeFirstResponder),
                     with: nil,
@@ -855,8 +889,14 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             }
         }
         else if activeField == setsTF {
-            if setsTF.text!.count > 0 {
-                setsTF.text = setsTF.text! + " sets"
+            let sets = setsTF.text!.replacingOccurrences(of: " ", with: "")
+            if sets.count > 0 {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .none
+                let number = numberFormatter.number(from: sets)
+                if let number = number {
+                    setsTF.text = "\(number)" + " sets"
+                }
                 commentTV.perform(
                     #selector(becomeFirstResponder),
                     with: nil,
@@ -865,8 +905,16 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             }
         }
         else if activeField == countTF {
-            if countTF.text!.count > 0 {
-                let number = NumberFormatter().number(from: countTF.text!)
+            let count = countTF.text!.replacingOccurrences(of: " ", with: "")
+            if count.count > 0 {
+                let numberFormatter = NumberFormatter()
+                if count.contains(".") {
+                    numberFormatter.locale = Locale(identifier: "EN")
+                }
+                else {
+                    numberFormatter.locale = Locale(identifier: "fr_GP")
+                }
+                let number = numberFormatter.number(from: count)
                 if let number = number {
                     countTF.text = "\(Float(number))" + " counts"
                 }
