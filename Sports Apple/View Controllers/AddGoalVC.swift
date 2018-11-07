@@ -810,7 +810,10 @@ class AddGoalVC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         if validation(type: type!, amount: amount!, yearlyGoal: yearlyGoal!) {
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier:"en_US_POSIX")
-            formatter.dateFormat = "MM/dd/yyyy h:mm a"
+            
+            //formatter.dateFormat = "MM/dd/yyyy h:mm a"
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            
             let goalItem: Goal = Goal()
             //let index = exerciseArray.index(where: { $0._exerciseId?.stringValue == exerciseID })
             var exercise: Dictionary = [String: String]()

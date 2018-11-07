@@ -31,7 +31,7 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
     var daysInYear = 365
     var daysPastInYear = 0
     var daysLeftInYear = 0
-    var weeks = 0
+    var weeks: Float = 0.0
     
     var totalCalories: Float = 0
     var avgWeeklyCalories: Float = 0
@@ -54,7 +54,7 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
         daysLeftInYear = daysInYear - daysPastInYear
         daysPast = daysPastInYear
         daysLeft = daysLeftInYear
-        weeks = daysPastInYear/7
+        weeks = Float(daysPastInYear)/Float(7)
         print(daysPastInYear)
         
         getSessions()
@@ -68,7 +68,10 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
         self.dataTable = SwiftDataTable(dataSource: self)
         self.dataTable.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.dataTable.translatesAutoresizingMaskIntoConstraints = false
-        self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        
+        //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
         self.formatter.locale = Locale(identifier:"en_US_POSIX")
         self.numberFormatter.locale = Locale(identifier:"en_US")
         self.numberFormatter.numberStyle = NumberFormatter.Style.decimal
@@ -100,9 +103,10 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
                     self.array = responseArray
                   
                     for item in self.array {
-                        self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                        //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                        self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                         let date = self.formatter.date(from: item._date!)
-                        self.formatter.dateFormat = "MM/dd/yyyy"
+                        self.formatter.dateFormat = "yyyy-MM-dd"
                         let dateString = self.formatter.string(from: date!)
                         self.set.insert(dateString)
                         

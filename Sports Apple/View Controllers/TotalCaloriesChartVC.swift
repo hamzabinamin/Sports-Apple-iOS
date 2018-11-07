@@ -31,7 +31,10 @@ class TotalCaloriesChartVC: UIViewController {
     
     func setupViews() {
         hud = self.createLoadingHUD()
-        self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        
+        //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
         self.formatter.locale = Locale(identifier:"en_US_POSIX")
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         aaChartView.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +92,10 @@ class TotalCaloriesChartVC: UIViewController {
                     self.emptySessionsLabel.isHidden = true
                     self.aaChartView.isHidden = false
                     self.array = responseArray
-                    self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    
+                    //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                    
                     for item in self.array {
                    
                         let date = self.formatter.date(from: item._date!)

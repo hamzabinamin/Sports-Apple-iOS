@@ -156,7 +156,9 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func getSessions(message: String) {
-        formatter.dateFormat = "MM/dd/yyyy"
+        //formatter.dateFormat = "MM/dd/yyyy"
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateFormatter2 = ISO8601DateFormatter()
         self.showHUD(hud: hud!)
         session.queryActivity(userId: (pool?.currentUser()?.username)!, date: formatter.string(from: date)) { (response, responseArray) in
             
@@ -164,10 +166,16 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
                 self.hideHUD(hud: self.hud!)
             }
             print("Response: " + response)
+       //     self.session.queryActivityforUpdate(userId: (self.pool?.currentUser()?.username)!)
+            let goal: Goal = Goal()
+            goal.queryGoalForUpdate(userId: (self.pool?.currentUser()?.username)!)
             if response == "success" {
                 DispatchQueue.main.async {
                     self.array = responseArray
-                    self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    
+                    //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                    
                     self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedDescending})
                     self.tableView.reloadData()
                     self.tableView.isHidden = false

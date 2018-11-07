@@ -46,9 +46,15 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let goal = array[indexPath.row]
 
         cell.activityLabel.text = goal._exercise?["Name"]
-        formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        
+        //formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
         let date = formatter.date(from: goal._date!)
-        formatter.dateFormat = "MM/dd/yyyy"
+        
+        //formatter.dateFormat = "MM/dd/yyyy"
+        formatter.dateFormat = "yyyy-MM-dd"
+        
         cell.dateLabel.text = formatter.string(for: date)
         
         if goal._yearlyGoal == "Yes" {
@@ -111,7 +117,9 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.formatter.locale = Locale(identifier:"en_US_POSIX")
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         self.tableView.tableFooterView = UIView()
-        self.formatter.dateFormat = "MM/dd/yyyy"
+        
+        //self.formatter.dateFormat = "MM/dd/yyyy"
+        self.formatter.dateFormat = "yyyy-MM-dd"
         
         addButton.addTarget(self, action: #selector(goToAddGoalVC), for: .touchUpInside)
     }
@@ -158,7 +166,10 @@ class GoalsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             if response == "success" {
                 self.array = responseArray
-                self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                
+                //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                
                 self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedDescending})
                 
                 DispatchQueue.main.async {

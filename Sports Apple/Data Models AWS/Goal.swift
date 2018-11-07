@@ -179,4 +179,47 @@ class Goal: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             completion("success")
         })
     }
+    
+    func queryGoalForUpdate(userId: String) {
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "#userId = :userId"
+        
+        queryExpression.expressionAttributeNames = [
+            "#userId": "userId",
+        ]
+        queryExpression.expressionAttributeValues = [
+            ":userId": userId
+        ]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        dynamoDbObjectMapper.query(Goal.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+            if error != nil {
+                print("The request failed. Error: \(String(describing: error))")
+            }
+            if output != nil {
+                for goal in output!.items {
+                    let goalItem = goal as? Goal
+                    let storedDateString = goalItem?._date
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    if(formatter.date(from: storedDateString!) != nil) {
+                        let storedDate = formatter.date(from: storedDateString!)
+                        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                        goalItem?._date = formatter.string(from: storedDate!)
+                        goalItem?.createGoal(goalItem: goalItem!, completion: { (response) in
+                            if response == "success" {
+                                print("Goal Updated: ", response)
+                            }
+                            else {
+                               print("Goal didn't update: ", response)
+                            }
+                        })
+                    }
+                    print("This goal already has the new date format")
+                }
+            }
+        }
+    }
+    
+    
 }

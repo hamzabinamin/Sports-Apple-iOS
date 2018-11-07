@@ -77,7 +77,10 @@ class DailyActivityReportVC: UIViewController {
         self.totalCalories = 0
         self.totalWeight = 0
         self.dataRows = []
-        formatter.dateFormat = "MM/dd/yyyy"
+        
+        //formatter.dateFormat = "MM/dd/yyyy"
+        formatter.dateFormat = "yyyy-MM-dd"
+        
         let date2New = Calendar.current.date(byAdding: .day, value: 1, to: date2)
         self.showHUD(hud: hud!)
         session.queryActivityInRange(userId: (pool?.currentUser()?.username)!, date1: formatter.string(from: date1), date2: formatter.string(from: date2New!)) { (response, responseArray) in
@@ -89,16 +92,25 @@ class DailyActivityReportVC: UIViewController {
             if response == "success" {
                 DispatchQueue.main.async {
                     self.array = responseArray
-                    self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
-                    self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedAscending}) 
+                    
+                    //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                    
+                    self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedAscending})
                     for item in self.array {
                         self.totalCalories += (item._calories?.floatValue)!
                         for activity in item._exerciseList! {
-                            self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                            
+                            //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                            self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                            
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                 DataTableValueType.string("")]
                             let dateStore = self.formatter.date(from: item._date!)
-                            self.formatter.dateFormat = "MM/dd/yyyy"
+                            
+                            //self.formatter.dateFormat = "MM/dd/yyyy"
+                            self.formatter.dateFormat = "yyyy-MM-dd"
+                            
                             row[0] = DataTableValueType.string(self.formatter.string(from: dateStore!))
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
                             
@@ -156,7 +168,10 @@ class DailyActivityReportVC: UIViewController {
         self.totalCalories = 0
         self.totalWeight = 0
         self.dataRows = []
-        formatter.dateFormat = "MM/dd/yyyy"
+        
+        //formatter.dateFormat = "MM/dd/yyyy"
+        formatter.dateFormat = "yyyy-MM-dd"
+        
         self.showHUD(hud: hud!)
         session.queryActivity(userId: (pool?.currentUser()?.username)!, date: formatter.string(from: date1)) { (response, responseArray) in
             
@@ -167,16 +182,24 @@ class DailyActivityReportVC: UIViewController {
             if response == "success" {
                 DispatchQueue.main.async {
                     self.array = responseArray
-                    self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    
+                    //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                    
                     self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedAscending})
                     for item in self.array {
                         self.totalCalories += (item._calories?.floatValue)!
                         for activity in item._exerciseList! {
-                             self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                            //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                            self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                            
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                                      DataTableValueType.string("")]
                             let dateStore = self.formatter.date(from: item._date!)
-                            self.formatter.dateFormat = "MM/dd/yyyy"
+                            
+                            //self.formatter.dateFormat = "MM/dd/yyyy"
+                            self.formatter.dateFormat = "yyyy-MM-dd"
+                            
                             row[0] = DataTableValueType.string(self.formatter.string(from: dateStore!))
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
                             
@@ -232,7 +255,8 @@ class DailyActivityReportVC: UIViewController {
     
     func getSessions() {
         self.dataRows = []
-        formatter.dateFormat = "MM/dd/yyyy"
+        //formatter.dateFormat = "MM/dd/yyyy"
+        formatter.dateFormat = "yyyy-MM-dd"
         self.showHUD(hud: hud!)
         session.queryActivity(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
             
@@ -243,7 +267,8 @@ class DailyActivityReportVC: UIViewController {
             if response == "success" {
                 DispatchQueue.main.async {
                     self.array = responseArray
-                    self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                     self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedDescending})
                     var storeItem = Activity()
                     storeItem?._date = self.array.first?._date
@@ -258,21 +283,32 @@ class DailyActivityReportVC: UIViewController {
                     self.date1 = storeFormatter.date(from: finalStringStore)!
                     self.date2 = storeFormatter.date(from: finalStringStore)!
                     for item in self.array {
-                        self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                        //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                        
+                        self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                         let d1 = self.formatter.date(from: (storeItem?._date!)!)
                         let d2 = self.formatter.date(from: (item._date!))
-                        self.formatter.dateFormat = "MM/dd/yyyy"
+                        
+                        //self.formatter.dateFormat = "MM/dd/yyyy"
+                        self.formatter.dateFormat = "yyyy-MM-dd"
+                        
                         let ds1 = self.formatter.string(from: d1!)
                         let ds2 = self.formatter.string(from: d2!)
                         if self.formatter.date(from: (ds1)) == self.formatter.date(from: ds2) {
                             storeItem = item
                         self.totalCalories += (item._calories?.floatValue)!
                         for activity in item._exerciseList! {
-                            self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                            
+                            //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                            self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                            
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                                      DataTableValueType.string("")]
                             let dateStore = self.formatter.date(from: item._date!)
-                            self.formatter.dateFormat = "MM/dd/yyyy"
+                            
+                            //self.formatter.dateFormat = "MM/dd/yyyy"
+                            self.formatter.dateFormat = "yyyy-MM-dd"
+                            
                             row[0] = DataTableValueType.string(self.formatter.string(from: dateStore!))
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
                             

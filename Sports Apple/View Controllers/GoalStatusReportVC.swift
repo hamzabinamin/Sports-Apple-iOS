@@ -64,7 +64,10 @@ class GoalStatusReportVC: UIViewController {
         //self.dataTable.frame.origin.x = self.view.frame.origin.x
         //self.dataTable.frame.origin.y = 600
         self.dataTable.translatesAutoresizingMaskIntoConstraints = false
-        self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        
+        //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
         self.formatter.locale = Locale(identifier:"en_US_POSIX")
         self.numberFormatter.locale = Locale(identifier:"en_US")
         self.numberFormatter.numberStyle = NumberFormatter.Style.decimal

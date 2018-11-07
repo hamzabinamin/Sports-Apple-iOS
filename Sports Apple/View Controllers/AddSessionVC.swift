@@ -50,7 +50,10 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             self.caloriesTF.text = "\(self.oldSession._calories!.floatValue)" + " calories"
             self.weightTF.text = "\(self.oldSession._bodyWeight!.floatValue)" + " lbs"
             let storeFormatter = DateFormatter()
-            storeFormatter.dateFormat = "MM/dd/yyyy h:mm a"
+            
+            //storeFormatter.dateFormat = "MM/dd/yyyy h:mm a"
+            storeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            
             let storeDate = storeFormatter.date(from: self.oldSession._date!)
             storeFormatter.dateFormat = "MMM d, yyyy"
             self.dateLabel.text = storeFormatter.string(from: storeDate!)
@@ -387,10 +390,19 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             }
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier:"en_US_POSIX")
-            formatter.dateFormat = "MM/dd/yyyy"
+            //formatter.dateFormat = "MM/dd/yyyy"
+            //formatter.dateFormat = "yyyy-MM-dd'T'HHmmssZ"
+            formatter.dateFormat = "yyyy-MM-dd"
+            
             let date = formatter.string(from: self.date)
-            formatter.dateFormat = "h:mm a"
+            
+            //formatter.dateFormat = "h:mm a"
+            formatter.dateFormat = "'T'HH:mm:ss"
             let time = formatter.string(from: Date())
+            
+            //formatter.dateFormat = "yyyyMMdd'T'HHmmZ"
+            let dateFormatter2 = ISO8601DateFormatter()
+            //let date = dateFormatter2.string(from: self.date)
             
             if oldSession._activityId != nil {
                 oldSession._location = location
@@ -399,14 +411,14 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
                 oldSession._bodyWeight = NSNumber(value: Float(weight!)!)
                 
                 let storeFormatter = DateFormatter()
-                storeFormatter.dateFormat = "MM/dd/yyyy h:mm a"
+                storeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                 let oldDateOriginal = storeFormatter.date(from: oldSession._date!)
-                storeFormatter.dateFormat = "MM/dd/yyyy"
+                storeFormatter.dateFormat = "yyyy-MM-dd"
                 let oldDateString = storeFormatter.string(from: oldDateOriginal!)
                 let newDateString = storeFormatter.string(from: self.date)
                 
                 if oldDateString != newDateString {
-                    oldSession._date = date + " " + time
+                    oldSession._date = date + "" + time
                 }
                 
                 self.showHUD(hud: hud!)
@@ -426,7 +438,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
             else {
                 session._userId = pool?.currentUser()?.username
                 session._activityId = NSUUID().uuidString
-                session._date = date + " " + time
+                session._date = date + "" + time
                 session._location = location
                 session._workoutComment = comment
                 session._calories = NSNumber(value: Float(calories!)!)

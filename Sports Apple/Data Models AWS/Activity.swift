@@ -242,4 +242,56 @@ class Activity: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             completion("success")
         })
     }
+    
+    func queryActivityforUpdate(userId: String) {
+        var sessionArray: [Activity] = []
+        let queryExpression = AWSDynamoDBQueryExpression()
+        // queryExpression.indexName = "UserActivityDate"
+        queryExpression.keyConditionExpression = "#userId = :userId"
+        
+        queryExpression.expressionAttributeNames = [
+            "#userId": "userId",
+        ]
+        queryExpression.expressionAttributeValues = [
+            ":userId": userId,
+        ]
+        let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
+        
+        dynamoDbObjectMapper.query(Activity.self, expression: queryExpression) { (output: AWSDynamoDBPaginatedOutput?, error: Error?) in
+            if error != nil {
+                print("The request failed. Error: \(String(describing: error))")
+            }
+            if output != nil {
+                for activity in output!.items {
+                    let activityItem = activity as? Activity
+                    let storedDateString = activityItem?._date
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "MM/dd/yyyy h:mm a"
+                    if(formatter.date(from: storedDateString!) != nil) {
+                        let storedDate = formatter.date(from: storedDateString!)
+                        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                        activityItem?._date = formatter.string(from: storedDate!)
+                        activityItem?.createActivity(activityItem: (activityItem)!, completion: { (response) in
+                            DispatchQueue.main.async {
+                                if response == "success" {
+                                    print("Session Updated: ", response)
+                                }
+                                else {
+                                    print("Session didn't update: ", response)
+                                }
+                            }
+                        })
+                    }
+                    else {
+                        print("This activity already has the new date format")
+                    }
+                    
+                    
+                }
+            }
+            else {
+                
+            }
+        }
+    }
 }
