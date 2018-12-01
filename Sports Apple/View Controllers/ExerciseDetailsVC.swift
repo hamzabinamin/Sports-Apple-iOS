@@ -106,31 +106,34 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
             return true
         }
         else {
-            if(string.contains(".") || string.contains(",")) {
-                if(textField.text!.contains(",") || textField.text!.contains(".")) {
+            if textField != exerciseListTF {
+                if(string.contains(".") || string.contains(",")) {
+                    if(textField.text!.contains(",") || textField.text!.contains(".")) {
+                        return false
+                    }
+                    return true
+                }
+                
+                if(textField.text!.contains("l") || textField.text!.contains("r") || textField.text!.contains("s") || textField.text!.contains("c")) {
                     return false
+                }
+                
+                if(textField.text!.contains(",")) {
+                    let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
+                    if countdots > 0 && string == "," {
+                        return false
+                    }
+                }
+                else {
+                    let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
+                    if countdots > 0 && string == "." {
+                        return false
+                    }
                 }
                 return true
             }
-            if(textField.text!.contains("l") || textField.text!.contains("r") || textField.text!.contains("s") || textField.text!.contains("c")) {
-                return false
-            }
-            
-            if(textField.text!.contains(",")) {
-                let countdots = (textField.text?.components(separatedBy: ",").count)! - 1
-                if countdots > 0 && string == "," {
-                    return false
-                }
-            }
-            else {
-                let countdots = (textField.text?.components(separatedBy: ".").count)! - 1
-                if countdots > 0 && string == "." {
-                    return false
-                }
-            }
             return true
         }
-        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

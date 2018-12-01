@@ -66,6 +66,7 @@ class YearTotalsReportVC: UIViewController {
         self.showHUD(hud: hud!)
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy"
+        formatter.locale = Locale(identifier:"en_US_POSIX")
         let date = formatter.string(from: Date())
         session.queryActivity(userId: (pool?.currentUser()?.username)!, date: date) { (response, responseArray) in
             
@@ -84,6 +85,9 @@ class YearTotalsReportVC: UIViewController {
                             exerciseItem.exerciseName = activity["exerciseName"] as! String
                             
                             if !self.set.contains(exerciseItem) {
+                                print("Wasn't present")
+                                print(exerciseItem.exerciseID)
+                                print(exerciseItem.exerciseName)
                                 if activity["Weight Amount"] != nil {
                                     exerciseItem.exerciseWeightAmount = Float(activity["Weight Amount"] as! String)!
                                     exerciseItem.exerciseSets = Int(activity["Sets"] as! String)!
@@ -101,6 +105,9 @@ class YearTotalsReportVC: UIViewController {
                                 self.set.insert(exerciseItem)
                             }
                             else {
+                                print("Was present")
+                                print(exerciseItem.exerciseID)
+                                print(exerciseItem.exerciseName)
                                 let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID})
                                 self.set.remove(storedExerciseItem!)
                                 if activity["Weight Amount"] != nil {

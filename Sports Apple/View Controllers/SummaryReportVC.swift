@@ -12,6 +12,7 @@ import JGProgressHUD
 import AWSCognitoIdentityProvider
 import PDFGenerator
 import MessageUI
+import CSV
 
 class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
     
@@ -44,6 +45,7 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
     var percentageOfActivityDays: Float = 0
     
     let headerTitles = ["Terms", "Calculations"]
+    var data: Data?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -198,6 +200,81 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
         ]
         
         self.dataTable.reload()
+    
+        ////
+     /*   let fileManager = FileManager.default
+        if let tDocumentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let filePath =  tDocumentDirectory.appendingPathComponent("\("CSV_FOLDER")")
+            if !fileManager.fileExists(atPath: filePath.path) {
+                do {
+                    try fileManager.createDirectory(atPath: filePath.path, withIntermediateDirectories: true, attributes: nil)
+                    
+                    let stream = OutputStream(toFileAtPath: filePath.path, append: false)!
+                    let csv = try! CSVWriter(stream: stream)
+                    
+                    try! csv.write(row: ["Terms", "Calculations"])
+                    try! csv.write(row: ["Total Calories", numberFormatter.string(from: NSNumber(value: self.totalCalories))!])
+                    try! csv.write(row: ["Avg. Weekly Calories", numberFormatter.string(from: NSNumber(value: self.avgWeeklyCalories))!])
+                    try! csv.write(row: ["Avg. Workout Calories", numberFormatter.string(from: NSNumber(value: self.avgWorkoutCalories))!])
+                    try! csv.write(row: ["Avg. Weekly Workouts", numberFormatter.string(from: NSNumber(value: self.avgWeeklyWorkouts))!])
+                    try! csv.write(row: ["Total Weight Moved", numberFormatter.string(from: NSNumber(value: self.totalWeightMoved))!])
+                    try! csv.write(row: ["Days Passed", numberFormatter.string(from: NSNumber(value: self.daysPast))!])
+                    try! csv.write(row: ["Days Left", numberFormatter.string(from: NSNumber(value: self.daysLeft))!])
+                    try! csv.write(row: ["Workout Days", numberFormatter.string(from: NSNumber(value: self.workoutDays))!])
+                    try! csv.write(row: ["Percent of Activity Days", numberFormatter.string(from: NSNumber(value: self.percentageOfActivityDays))! + "%"])
+                    
+                    csv.stream.close()
+                } catch {
+                    NSLog("Couldn't create document directory")
+                }
+            }
+            NSLog("Document directory is \(filePath)")
+        } */
+        
+        let fileName = "Tasks.csv"
+        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        let stream = OutputStream(toFileAtPath: (path?.path)!, append: false)!
+        let csv = try! CSVWriter(stream: stream)
+        
+        try! csv.write(row: ["Terms", "Calculations"])
+        try! csv.write(row: ["Total Calories", numberFormatter.string(from: NSNumber(value: self.totalCalories))!])
+        try! csv.write(row: ["Avg. Weekly Calories", numberFormatter.string(from: NSNumber(value: self.avgWeeklyCalories))!])
+        try! csv.write(row: ["Avg. Workout Calories", numberFormatter.string(from: NSNumber(value: self.avgWorkoutCalories))!])
+        try! csv.write(row: ["Avg. Weekly Workouts", numberFormatter.string(from: NSNumber(value: self.avgWeeklyWorkouts))!])
+        try! csv.write(row: ["Total Weight Moved", numberFormatter.string(from: NSNumber(value: self.totalWeightMoved))!])
+        try! csv.write(row: ["Days Passed", numberFormatter.string(from: NSNumber(value: self.daysPast))!])
+        try! csv.write(row: ["Days Left", numberFormatter.string(from: NSNumber(value: self.daysLeft))!])
+        try! csv.write(row: ["Workout Days", numberFormatter.string(from: NSNumber(value: self.workoutDays))!])
+        try! csv.write(row: ["Percent of Activity Days", numberFormatter.string(from: NSNumber(value: self.percentageOfActivityDays))! + "%"])
+        
+        csv.stream.close()
+        
+        
+        // Creating a string.
+        let mailString = NSMutableString()
+        mailString.append("Terms, Calculations\n")
+        mailString.append("Total Calories," + numberFormatter.string(from: NSNumber(value: self.totalCalories))! + "\n")
+        mailString.append("Avg. Weekly Calories," + numberFormatter.string(from: NSNumber(value: self.avgWeeklyCalories))! + "\n")
+        mailString.append("Avg. Workout Calories," + numberFormatter.string(from: NSNumber(value: self.avgWorkoutCalories))!)
+        mailString.append("Avg. Weekly Workouts," + numberFormatter.string(from: NSNumber(value: self.avgWeeklyWorkouts))! + "\n")
+        mailString.append("Total Weight Moved," + numberFormatter.string(from: NSNumber(value: self.totalWeightMoved))! + "\n")
+        mailString.append("Days Passed," + numberFormatter.string(from: NSNumber(value: self.daysPast))! + "\n")
+        mailString.append("Days Left," + numberFormatter.string(from: NSNumber(value: self.daysLeft))! + "\n")
+        mailString.append("Workout Days," + numberFormatter.string(from: NSNumber(value: self.workoutDays))! + "\n")
+        mailString.append("Percent of Activity Days," + numberFormatter.string(from: NSNumber(value: self.percentageOfActivityDays))! + "%\n")
+        
+        // Converting it to NSData.
+        data = mailString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)
+        
+        // Unwrapping the optional.
+        if let content = data {
+            print("NSData: \(content)")
+        }
+        else {
+            print("No Data")
+        }
+        
+      
     }
 
     @objc func createPDF() {
@@ -223,14 +300,15 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     fileprivate func openPDFViewer(_ pdfPath: URL) {
         //let url = URL(fileURLWithPath: pdfPath)
-        let storyboard = UIStoryboard(name: "PDFPreviewVC", bundle: nil)
+     /*   let storyboard = UIStoryboard(name: "PDFPreviewVC", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "PDFPreviewVC") as! PDFPreviewVC
         destVC.setupWithURL(pdfPath)
         destVC.messageTitle = "Summary Report"
-        present(destVC, animated: true, completion: nil)
+        present(destVC, animated: true, completion: nil) */
+        sendEmail(string: data!)
     }
     
-    func sendEmail(_ pdfPath: String) {
+    func sendEmail(string: Data) {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
@@ -240,20 +318,38 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
             //Set the subject
             mail.setSubject("email with document pdf")
             
-            let url = URL(fileURLWithPath: pdfPath)
+          /*  let url = URL(fileURLWithPath: pdfPath)
             if let fileData = NSData(contentsOf: url) {
                 print ("File data loaded.")
                 print (fileData)
                 mail.addAttachmentData(fileData as Data, mimeType: "application/pdf", fileName: "GST")
-            }
-            
+            } */
+             mail.addAttachmentData(string, mimeType: "text/csv", fileName: "GST")
             present(mail, animated: true, completion: nil)
             
         }
+        
         else {
             print ("Error")
+        } 
+        let emailViewController = configuredMailComposeViewController(string: data!)
+        if MFMailComposeViewController.canSendMail() {
+            self.present(emailViewController, animated: true, completion: nil)
         }
     }
+    
+    func configuredMailComposeViewController(string: Data) -> MFMailComposeViewController {
+        let emailController = MFMailComposeViewController()
+        emailController.mailComposeDelegate = self
+        emailController.setSubject("CSV File")
+        emailController.setMessageBody("", isHTML: false)
+        
+        // Attaching the .CSV file to the email.
+        emailController.addAttachmentData(string, mimeType: "text/csv", fileName: "Summary Report.csv")
+        
+        return emailController
+    }
+
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)

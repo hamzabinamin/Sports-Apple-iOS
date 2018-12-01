@@ -167,8 +167,8 @@ class ActivitySessionsVC: UIViewController, UITableViewDelegate, UITableViewData
             }
             print("Response: " + response)
        //     self.session.queryActivityforUpdate(userId: (self.pool?.currentUser()?.username)!)
-            let goal: Goal = Goal()
-            goal.queryGoalForUpdate(userId: (self.pool?.currentUser()?.username)!)
+      //      let goal: Goal = Goal()
+     //       goal.queryGoalForUpdate(userId: (self.pool?.currentUser()?.username)!)
             if response == "success" {
                 DispatchQueue.main.async {
                     self.array = responseArray

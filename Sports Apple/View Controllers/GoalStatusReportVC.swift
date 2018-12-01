@@ -85,7 +85,7 @@ class GoalStatusReportVC: UIViewController {
     }
     
     func getSessions() {
-        self.showHUD(hud: hud!)
+        //self.showHUD(hud: hud!)
         self.formatter.dateFormat = "yyyy"
         let date = self.formatter.string(from: Date())
         session.queryActivity(userId: (pool?.currentUser()?.username)!, date: date) { (response, responseArray) in
@@ -291,7 +291,7 @@ class GoalStatusReportVC: UIViewController {
         print("Date: ", date)
         self.goal.queryGoal(userId: (pool?.currentUser()?.username)!, date: date) { (response, responseArray) in
             DispatchQueue.main.async {
-                self.hideHUD(hud: self.hud!)
+               // self.hideHUD(hud: self.hud!)
             }
             if response == "success" {
                 DispatchQueue.main.async {
@@ -342,6 +342,7 @@ class GoalStatusReportVC: UIViewController {
             }
             else {
                 DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
                     self.dataRows.removeAll()
                     let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""),
