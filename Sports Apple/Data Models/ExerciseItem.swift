@@ -65,8 +65,15 @@ class ExerciseItem: Hashable {
         self.weeklyCount = [Float](repeating: 0, count: 52)
     }
     
+   /* override func isEqual(_ object: Any?) -> Bool {
+        guard let exerciseItem = object as? ExerciseItem else { return false }
+        return self.exerciseName == exerciseItem.exerciseName
+    } */
+    
 }
 
+
+
 func ==(lhs: ExerciseItem, rhs: ExerciseItem) -> Bool {
-    return lhs.exerciseID == rhs.exerciseID
+    return  (lhs.exerciseID == rhs.exerciseID) ||  (lhs.exerciseName == rhs.exerciseName)
 }

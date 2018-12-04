@@ -11,6 +11,7 @@ import SwiftDataTables
 import JGProgressHUD
 import AWSCognitoIdentityProvider
 import PDFGenerator
+import CSV
 
 class YearTotalsReportVC: UIViewController {
 
@@ -21,10 +22,12 @@ class YearTotalsReportVC: UIViewController {
     var dataRows: [DataTableRow] = []
     var hud: JGProgressHUD?
     var array: [Activity] = []
+    var stringArray: [[String]] = []
     var set: Set<ExerciseItem> = []
     var pool: AWSCognitoIdentityUserPool?
     var session: Activity = Activity()
     let numberFormatter: NumberFormatter = NumberFormatter()
+    let numFormatter = NumberFormatter()
     var weightTotal: Int = 0
     var timeTotal: Int = 0
     var distanceTotal: Int = 0
@@ -49,6 +52,8 @@ class YearTotalsReportVC: UIViewController {
         self.dataTable.translatesAutoresizingMaskIntoConstraints = false
         self.numberFormatter.locale = Locale(identifier:"en_US")
         self.numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numFormatter.locale = Locale(identifier:"en_US")
+        numFormatter.maximumFractionDigits = 1
         
         let topConstraint = self.dataTable.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 121)
         let bottomConstraint = self.dataTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -84,7 +89,7 @@ class YearTotalsReportVC: UIViewController {
                             exerciseItem.exerciseID = activity["exerciseID"] as! String
                             exerciseItem.exerciseName = activity["exerciseName"] as! String
                             
-                            if !self.set.contains(exerciseItem) {
+                            if !self.set.contains(where: {($0.exerciseID == exerciseItem.exerciseID || $0.exerciseName == exerciseItem.exerciseName)}) {
                                 print("Wasn't present")
                                 print(exerciseItem.exerciseID)
                                 print(exerciseItem.exerciseName)
@@ -108,7 +113,7 @@ class YearTotalsReportVC: UIViewController {
                                 print("Was present")
                                 print(exerciseItem.exerciseID)
                                 print(exerciseItem.exerciseName)
-                                let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID})
+                                let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID || $0.exerciseName == exerciseItem.exerciseName})
                                 self.set.remove(storedExerciseItem!)
                                 if activity["Weight Amount"] != nil {
                                     storedExerciseItem?.exerciseWeightAmount += Float(activity["Weight Amount"] as! String)!
@@ -132,22 +137,31 @@ class YearTotalsReportVC: UIViewController {
                     exerciseItemArray = exerciseItemArray.sorted(by: { $0.exerciseName < $1.exerciseName })
                     for item in exerciseItemArray {
                         var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),]
+                        var stringRow = ["", "", "", "", ""]
+                        
                         row[0] = DataTableValueType.string(item.exerciseName)
+                        stringRow[0] = item.exerciseName
+                        
                         if item.exerciseWeightAmount != 0 {
                             row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseWeightAmount))!)
+                            stringRow[1] = self.numFormatter.string(from: NSNumber(value: item.exerciseWeightAmount))!
                         }
                         if item.exerciseTime != 0 {
                             let hours = (item.exerciseTime) / 3600
                             let minutes = ((item.exerciseTime) / 60) % 60
                             row[2] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
+                            stringRow[2] = String(format: "%02d:%02d", hours, minutes)
                         }
                         if item.exerciseDistance != 0 {
                             row[3] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseDistance))!)
+                            stringRow[3] = self.numFormatter.string(from: NSNumber(value: item.exerciseDistance))!
                         }
                         if item.exerciseCount != 0 {
                             row[4] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseCount))!)
+                            stringRow[4] = self.numFormatter.string(from: NSNumber(value: item.exerciseCount))!
                         }
                         self.dataRows.append(row)
+                        self.stringArray.append(stringRow)
                     }
                     self.addDataSourceAfter()
                 }
@@ -156,7 +170,9 @@ class YearTotalsReportVC: UIViewController {
                 DispatchQueue.main.async {
                     self.dataRows = []
                     let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),]
+                    let stringRow = ["", "", "", "", ""]
                     self.dataRows.append(row)
+                    self.stringArray.append(stringRow)
                     self.addDataSourceAfter()
                 }
             }
@@ -173,24 +189,28 @@ class YearTotalsReportVC: UIViewController {
     }
     
     @objc func createPDF() {
-        let v = dataTable.collectionView
+      /*  let v = dataTable.collectionView
         let dst = URL(fileURLWithPath: NSTemporaryDirectory().appending("Year Total Report.pdf"))
-        //let dst2 = NSHomeDirectory() + "/\("Summary Report").pdf"
-        // outputs as Data
-        /*  do {
-         let data = try PDFGenerator.generated(by: [v])
-         try data.write(to: dst, options: .atomic)
-         } catch (let error) {
-         print(error)
-         } */
-        
-        // writes to Disk directly.
         do {
             try PDFGenerator.generate([v], to: dst)
             openPDFViewer(dst)
         } catch (let error) {
             print(error)
+        } */
+        
+        let fileName = "Year Total Report.csv"
+        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        let stream = OutputStream(toFileAtPath: (path?.path)!, append: false)!
+        let csv = try! CSVWriter(stream: stream)
+        
+        try! csv.write(row: ["Activity", "Weight", "Time", "Distance", "Count"])
+        
+        for row in stringArray {
+            try! csv.write(row: [row[0], row[1], row[2], row[3], row[4]])
         }
+        
+        csv.stream.close()
+        openPDFViewer(path!)
     }
     
     fileprivate func openPDFViewer(_ pdfPath: URL) {

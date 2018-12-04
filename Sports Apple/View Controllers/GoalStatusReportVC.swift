@@ -11,6 +11,7 @@ import SwiftDataTables
 import JGProgressHUD
 import AWSCognitoIdentityProvider
 import PDFGenerator
+import CSV
 
 class GoalStatusReportVC: UIViewController {
     
@@ -22,6 +23,7 @@ class GoalStatusReportVC: UIViewController {
     var dataRows: [DataTableRow] = []
     var array: [Activity] = []
     var goalArray: [Goal] = []
+    var stringArray: [[String]] = []
     var hud: JGProgressHUD?
     var pool: AWSCognitoIdentityUserPool?
     var session: Activity = Activity()
@@ -29,6 +31,7 @@ class GoalStatusReportVC: UIViewController {
     var set: Set<ExerciseItem> = []
     let formatter = DateFormatter()
     let numberFormatter: NumberFormatter = NumberFormatter()
+    let numFormatter = NumberFormatter()
     var daysWorkedOut = 0
     var daysInYear = 365
     var daysPastInYear = 0
@@ -72,6 +75,9 @@ class GoalStatusReportVC: UIViewController {
         self.numberFormatter.locale = Locale(identifier:"en_US")
         self.numberFormatter.numberStyle = NumberFormatter.Style.decimal
         
+        numFormatter.locale = Locale(identifier:"en_US")
+        numFormatter.maximumFractionDigits = 1
+        
         let topConstraint = self.dataTable.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 121)
         let bottomConstraint = self.dataTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         let leadingConstraint = self.dataTable.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
@@ -105,7 +111,7 @@ class GoalStatusReportVC: UIViewController {
                             exerciseItem.exerciseID = activity["exerciseID"] as! String
                             exerciseItem.exerciseName = activity["exerciseName"] as! String
                             
-                            if !self.set.contains(exerciseItem) {
+                            if !self.set.contains(where: {($0.exerciseID == exerciseItem.exerciseID || $0.exerciseName == exerciseItem.exerciseName)}) {
                             /*    if activity["Weight Amount"] != nil {
                                     exerciseItem.exerciseWeightAmount = Int(activity["Weight Amount"] as! String)!
                                     exerciseItem.exerciseSets = Int(activity["Sets"] as! String)!
@@ -123,7 +129,7 @@ class GoalStatusReportVC: UIViewController {
                                 self.set.insert(exerciseItem) */
                             }
                             else {
-                                let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID})
+                                let storedExerciseItem = self.set.first(where: {$0.exerciseID == exerciseItem.exerciseID || $0.exerciseName == exerciseItem.exerciseName})
                                 self.set.remove(storedExerciseItem!)
                                 if activity["Weight Amount"] != nil {
                                     
@@ -157,14 +163,25 @@ class GoalStatusReportVC: UIViewController {
                                                  DataTableValueType.string(""), DataTableValueType.string(""),
                                                  DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
                         
+                        var stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", ""]
+                        
                         row[0] = DataTableValueType.string(item.exerciseName)
+                        stringRow[0] = item.exerciseName
                         
                         if item.goalWeight != 0 || item.exerciseWeightAmount != 0 {
                             row[3] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalWeight))!)
+                            stringRow[3] = self.numFormatter.string(from: NSNumber(value: item.goalWeight))!
+                            
                             row[4] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseWeightAmount))!)
+                            stringRow[4] = self.numFormatter.string(from: NSNumber(value: item.exerciseWeightAmount))!
+                            
                             row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (item.goalWeight - item.exerciseWeightAmount)))!)
+                            stringRow[9] = self.numFormatter.string(from: NSNumber(value: (item.goalWeight - item.exerciseWeightAmount)))!
+                            
                             let percentage = ((Float(item.exerciseWeightAmount) / Float(item.goalWeight)) * 100)
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
+                            stringRow[10] = "\(percentage.rounded(.toNearestOrAwayFromZero))" + "%"
+                            
                             var projected = Float(0)
                             if ((Float(item.exerciseWeightAmount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseWeightAmount) < item.goalWeight {
                                 projected = (((Float(item.exerciseWeightAmount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseWeightAmount)) * -1.0
@@ -184,17 +201,33 @@ class GoalStatusReportVC: UIViewController {
                             let minutesDiff = ((item.goalTime - item.exerciseTime) / 60) % 60
                             
                             row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
+                            stringRow[7] = String(format: "%02d:%02d", hours, minutes)
+                            
+                            
                             row[8] = DataTableValueType.string(String(format: "%02d:%02d", hoursTotal, minutesTotal))
+                            stringRow[8] = String(format: "%02d:%02d", hoursTotal, minutesTotal)
+                            
                             row[9] = DataTableValueType.string(String(format: "%02d:%02d", hoursDiff, abs(minutesDiff)))
+                            stringRow[9] = String(format: "%02d:%02d", hoursDiff, abs(minutesDiff))
+                            
                             let percentage = ((Float(item.exerciseTime) / Float(item.goalTime)) * 100)
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
+                            stringRow[10] = "\(percentage.rounded(.toNearestOrAwayFromZero))" + "%"
                         }
                         if item.goalDistance != 0 || item.exerciseDistance != 0 {
                             row[5] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalDistance))!)
+                            stringRow[5] = self.numFormatter.string(from: NSNumber(value: item.goalDistance))!
+                            
                             row[6] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseDistance))!)
+                            stringRow[6] = self.numFormatter.string(from: NSNumber(value: item.exerciseDistance))!
+                            
                             row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (item.goalDistance - item.exerciseDistance)))!)
+                            stringRow[9] = self.numFormatter.string(from: NSNumber(value: (item.goalDistance - item.exerciseDistance)))!
+                            
                             let percentage = ((Float(item.exerciseDistance) / Float(item.goalDistance)) * 100)
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
+                            stringRow[10] = "\(percentage.rounded(.toNearestOrAwayFromZero))" + "%"
+                            
                             var projected = Float(0)
                             if ((Float(item.exerciseDistance) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseDistance) < Float(item.goalDistance) {
                                 projected = (((Float(item.exerciseDistance) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseDistance)) * -1.0
@@ -203,6 +236,7 @@ class GoalStatusReportVC: UIViewController {
                                 projected = (((Float(item.exerciseDistance) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseDistance)) /* + Float(item.exerciseDistance) */
                             }
                             row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
+                            stringRow[12] = self.numFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!
                             
                             
                         }
@@ -210,15 +244,25 @@ class GoalStatusReportVC: UIViewController {
                             if item.exerciseName == "Calories" || item.exerciseName == "Calorie" || item.exerciseName == "calories" || item.exerciseName == "calorie" {
                                 
                                 row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalCount))!)
+                                stringRow[1] = self.numFormatter.string(from: NSNumber(value: item.goalCount))!
+                                
                                 row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: self.totalCalories))!)
+                                stringRow[2] = self.numFormatter.string(from: NSNumber(value: self.totalCalories))!
+                                
                                 let meetGoal = (item.goalCount - self.totalCalories)
                                 row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: meetGoal))!)
+                                stringRow[9] = self.numFormatter.string(from: NSNumber(value: meetGoal))!
+                                
                                 let percentage = ((Float(self.totalCalories) / Float(item.goalCount)) * 100)
                                 row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
+                                stringRow[10] = "\(percentage.rounded(.toNearestOrAwayFromZero))" + "%"
+                                
                                 //row[11] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (Float(meetGoal) / Float(self.daysLeftInYear)).rounded(.toNearestOrAwayFromZero)))!)
                                 let perDay = (Float(meetGoal) / Float(self.daysLeftInYear))
                                 let perDayString = String(format: "%.01f", perDay)
                                 row[11] = DataTableValueType.string(perDayString)
+                                stringRow[11] = perDayString
+                                
                                 var projected = Float(0)
                                 if ((Float(self.totalCalories) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(self.totalCalories) < item.goalCount {
                                     print("In If of calories projected")
@@ -238,20 +282,28 @@ class GoalStatusReportVC: UIViewController {
                                     print("Projected: ", Float(projected))
                                 }
                                 row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
-                                
-                                
+                                stringRow[12] = self.numFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!
                             }
                             else {
                                 row[1] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.goalCount))!)
+                                stringRow[1] = self.numFormatter.string(from: NSNumber(value: item.goalCount))!
+                                
                                 row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseCount))!)
+                                stringRow[2] = self.numFormatter.string(from: NSNumber(value: item.exerciseCount))!
+                                
                                 let meetGoal = (item.goalCount - item.exerciseCount)
                                 row[9] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: meetGoal))!)
+                                stringRow[9] = self.numFormatter.string(from: NSNumber(value: meetGoal))!
+                                
                                 let percentage = ((Float(item.exerciseCount) / Float(item.goalCount)) * 100)
                                 row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
+                                stringRow[10] = "\(percentage.rounded(.toNearestOrAwayFromZero))" + "%"
+                                
                                 //row[11] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: (Float(meetGoal) / Float(self.daysLeftInYear)).rounded(.toNearestOrAwayFromZero)))!)
                                 let perDay = (Float(meetGoal) / Float(self.daysLeftInYear))
                                 let perDayString = String(format: "%.01f", perDay)
                                 row[11] = DataTableValueType.string(perDayString)
+                                stringRow[11] = perDayString
                                 var projected = Float(0)
                                 if ((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount) < item.goalCount {
                                     projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) * -1.0
@@ -260,9 +312,11 @@ class GoalStatusReportVC: UIViewController {
                                     projected = (((Float(item.exerciseCount) / Float(self.daysPastInYear)) * Float(self.daysLeftInYear)) + Float(item.exerciseCount)) /* + Float(item.exerciseCount) */
                                 }
                                 row[12] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!)
+                                stringRow[12] = self.numFormatter.string(from: NSNumber(value: projected.rounded(.toNearestOrAwayFromZero)))!
                             }
                         }
                         self.dataRows.append(row)
+                        self.stringArray.append(stringRow)
                     }
                     self.addDataSourceAfter()
                 }
@@ -274,7 +328,10 @@ class GoalStatusReportVC: UIViewController {
                                              DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                    let stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", ""]
+                    
                     self.dataRows.append(row)
+                    self.stringArray.append(stringRow)
                     self.addDataSourceAfter()
                 }
             }
@@ -348,7 +405,10 @@ class GoalStatusReportVC: UIViewController {
                                              DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                    let stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", ""]
+                    
                     self.dataRows.append(row)
+                    self.stringArray.append(stringRow)
                     self.addDataSourceAfter()
                 }
             }
@@ -361,24 +421,30 @@ class GoalStatusReportVC: UIViewController {
     }
     
     @objc func createPDF() {
-        let v = dataTable.collectionView
+       /* let v = dataTable.collectionView
         let dst = URL(fileURLWithPath: NSTemporaryDirectory().appending("Goal Status Report.pdf"))
-        //let dst2 = NSHomeDirectory() + "/\("Summary Report").pdf"
-        // outputs as Data
-        /*  do {
-         let data = try PDFGenerator.generated(by: [v])
-         try data.write(to: dst, options: .atomic)
-         } catch (let error) {
-         print(error)
-         } */
-        
-        // writes to Disk directly.
         do {
             try PDFGenerator.generate([v], to: dst)
             openPDFViewer(dst)
         } catch (let error) {
             print(error)
+        } */
+        
+        let fileName = "Goal Status Report.csv"
+        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        let stream = OutputStream(toFileAtPath: (path?.path)!, append: false)!
+        let csv = try! CSVWriter(stream: stream)
+        
+        
+        
+        try! csv.write(row: ["Activity", "Cumulative Goal", "Year-to-Date", "Weight Goal", "Max Weight", "Distance Goal", "Total Distance", "Time Goal", "Max Time", "To Meet Goal", "Pct%", "To Do Per Day", "Projected"])
+        
+        for row in stringArray {
+            try! csv.write(row: [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12]])
         }
+        
+        csv.stream.close()
+        openPDFViewer(path!)
     }
     
     fileprivate func openPDFViewer(_ pdfPath: URL) {

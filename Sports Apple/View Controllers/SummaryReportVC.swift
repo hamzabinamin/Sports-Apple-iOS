@@ -231,37 +231,21 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
             NSLog("Document directory is \(filePath)")
         } */
         
-        let fileName = "Tasks.csv"
-        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-        let stream = OutputStream(toFileAtPath: (path?.path)!, append: false)!
-        let csv = try! CSVWriter(stream: stream)
-        
-        try! csv.write(row: ["Terms", "Calculations"])
-        try! csv.write(row: ["Total Calories", numberFormatter.string(from: NSNumber(value: self.totalCalories))!])
-        try! csv.write(row: ["Avg. Weekly Calories", numberFormatter.string(from: NSNumber(value: self.avgWeeklyCalories))!])
-        try! csv.write(row: ["Avg. Workout Calories", numberFormatter.string(from: NSNumber(value: self.avgWorkoutCalories))!])
-        try! csv.write(row: ["Avg. Weekly Workouts", numberFormatter.string(from: NSNumber(value: self.avgWeeklyWorkouts))!])
-        try! csv.write(row: ["Total Weight Moved", numberFormatter.string(from: NSNumber(value: self.totalWeightMoved))!])
-        try! csv.write(row: ["Days Passed", numberFormatter.string(from: NSNumber(value: self.daysPast))!])
-        try! csv.write(row: ["Days Left", numberFormatter.string(from: NSNumber(value: self.daysLeft))!])
-        try! csv.write(row: ["Workout Days", numberFormatter.string(from: NSNumber(value: self.workoutDays))!])
-        try! csv.write(row: ["Percent of Activity Days", numberFormatter.string(from: NSNumber(value: self.percentageOfActivityDays))! + "%"])
-        
-        csv.stream.close()
+
         
         
         // Creating a string.
         let mailString = NSMutableString()
         mailString.append("Terms, Calculations\n")
-        mailString.append("Total Calories," + numberFormatter.string(from: NSNumber(value: self.totalCalories))! + "\n")
-        mailString.append("Avg. Weekly Calories," + numberFormatter.string(from: NSNumber(value: self.avgWeeklyCalories))! + "\n")
-        mailString.append("Avg. Workout Calories," + numberFormatter.string(from: NSNumber(value: self.avgWorkoutCalories))!)
-        mailString.append("Avg. Weekly Workouts," + numberFormatter.string(from: NSNumber(value: self.avgWeeklyWorkouts))! + "\n")
-        mailString.append("Total Weight Moved," + numberFormatter.string(from: NSNumber(value: self.totalWeightMoved))! + "\n")
-        mailString.append("Days Passed," + numberFormatter.string(from: NSNumber(value: self.daysPast))! + "\n")
-        mailString.append("Days Left," + numberFormatter.string(from: NSNumber(value: self.daysLeft))! + "\n")
-        mailString.append("Workout Days," + numberFormatter.string(from: NSNumber(value: self.workoutDays))! + "\n")
-        mailString.append("Percent of Activity Days," + numberFormatter.string(from: NSNumber(value: self.percentageOfActivityDays))! + "%\n")
+        mailString.append("Total Calories," + String(totalCalories) + "\n")
+        mailString.append("Avg. Weekly Calories," + String(self.avgWeeklyCalories) + "\n")
+        mailString.append("Avg. Workout Calories," + String(self.avgWorkoutCalories) + "\n")
+        mailString.append("Avg. Weekly Workouts," + String(self.avgWeeklyWorkouts) + "\n")
+        mailString.append("Total Weight Moved," + String(self.totalWeightMoved) + "\n")
+        mailString.append("Days Passed," + String(self.daysPast) + "\n")
+        mailString.append("Days Left," + String(self.daysLeft) + "\n")
+        mailString.append("Workout Days," + String(self.workoutDays) + "\n")
+        mailString.append("Percent of Activity Days," + String(self.percentageOfActivityDays) + "%\n")
         
         // Converting it to NSData.
         data = mailString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)
@@ -282,7 +266,8 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
         let dst = URL(fileURLWithPath: NSTemporaryDirectory().appending("Summary Report.pdf"))
         //let dst2 = NSHomeDirectory() + "/\("Summary Report").pdf"
         // outputs as Data
-      /*  do {
+      
+        /*  do {
             let data = try PDFGenerator.generated(by: [v])
             try data.write(to: dst, options: .atomic)
         } catch (let error) {
@@ -290,22 +275,45 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
         } */
         
         // writes to Disk directly.
-        do {
+      /*  do {
             try PDFGenerator.generate([v], to: dst)
             openPDFViewer(dst)
         } catch (let error) {
             print(error)
-        }
+        } */
+        
+        let fileName = "Summary Report.csv"
+        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        let stream = OutputStream(toFileAtPath: (path?.path)!, append: false)!
+        let csv = try! CSVWriter(stream: stream)
+        
+        let numFormatter = NumberFormatter()
+        numFormatter.locale = Locale(identifier:"en_US")
+        numFormatter.maximumFractionDigits = 1
+        
+        try! csv.write(row: ["Terms", "Calculations"])
+        try! csv.write(row: ["Total Calories", numFormatter.string(from: NSNumber(value: self.totalCalories))!])
+        try! csv.write(row: ["Avg. Weekly Calories", numFormatter.string(from: NSNumber(value: self.avgWeeklyCalories))!])
+        try! csv.write(row: ["Avg. Workout Calories", numFormatter.string(from: NSNumber(value: self.avgWorkoutCalories))!])
+        try! csv.write(row: ["Avg. Weekly Workouts", numFormatter.string(from: NSNumber(value: self.avgWeeklyWorkouts))!])
+        try! csv.write(row: ["Total Weight Moved", numFormatter.string(from: NSNumber(value: self.totalWeightMoved))!])
+        try! csv.write(row: ["Days Passed", numFormatter.string(from: NSNumber(value: self.daysPast))!])
+        try! csv.write(row: ["Days Left", numFormatter.string(from: NSNumber(value: self.daysLeft))!])
+        try! csv.write(row: ["Workout Days", numFormatter.string(from: NSNumber(value: self.workoutDays))!])
+        try! csv.write(row: ["Percent of Activity Days", numFormatter.string(from: NSNumber(value: self.percentageOfActivityDays))! + "%"])
+        
+        csv.stream.close()
+        openPDFViewer(path!)
     }
     
     fileprivate func openPDFViewer(_ pdfPath: URL) {
         //let url = URL(fileURLWithPath: pdfPath)
-     /*   let storyboard = UIStoryboard(name: "PDFPreviewVC", bundle: nil)
+        let storyboard = UIStoryboard(name: "PDFPreviewVC", bundle: nil)
         let destVC = storyboard.instantiateViewController(withIdentifier: "PDFPreviewVC") as! PDFPreviewVC
         destVC.setupWithURL(pdfPath)
         destVC.messageTitle = "Summary Report"
-        present(destVC, animated: true, completion: nil) */
-        sendEmail(string: data!)
+        present(destVC, animated: true, completion: nil)
+        //sendEmail(string: data!)
     }
     
     func sendEmail(string: Data) {

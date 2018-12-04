@@ -132,8 +132,8 @@ class PDFPreviewVC: UIViewController, WKUIDelegate, MFMailComposeViewControllerD
                 if let fileData = NSData(contentsOf: self.url) {
                     let formatter = DateFormatter()
                     formatter.dateFormat = "MM/dd/yyyy h:mm a"
-                    let pdfName = self.messageTitle + " " + formatter.string(from: Date()) + ".pdf"
-                    mailComposer.addAttachmentData(fileData as Data, mimeType: "application/pdf", fileName: pdfName)
+                    let pdfName = self.messageTitle + " " + formatter.string(from: Date()) + ".csv"
+                    mailComposer.addAttachmentData(fileData as Data, mimeType: "text/csv", fileName: pdfName)
                 }
                 self.present(mailComposer, animated: true, completion: nil)
                 return
@@ -148,8 +148,8 @@ class PDFPreviewVC: UIViewController, WKUIDelegate, MFMailComposeViewControllerD
                 if let fileData = NSData(contentsOf: self.url) {
                     let formatter = DateFormatter()
                     formatter.dateFormat = "MM/dd/yyyy h:mm a"
-                    let pdfName = self.messageTitle + " " + formatter.string(from: Date()) + ".pdf"
-                    mailComposer.addAttachmentData(fileData as Data, mimeType: "application/pdf", fileName: pdfName)
+                    let pdfName = self.messageTitle + " " + formatter.string(from: Date()) + ".csv"
+                    mailComposer.addAttachmentData(fileData as Data, mimeType: "text/csv", fileName: pdfName)
                 }
                 self.present(mailComposer, animated: true, completion: nil)
                 return

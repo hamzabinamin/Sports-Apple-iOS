@@ -11,6 +11,7 @@ import SwiftDataTables
 import JGProgressHUD
 import AWSCognitoIdentityProvider
 import PDFGenerator
+import CSV
 
 class DailyActivityReportVC: UIViewController {
     
@@ -25,12 +26,14 @@ class DailyActivityReportVC: UIViewController {
     var array: [Activity] = []
     var dataSource: DataTableContent = []
     var dataRows: [DataTableRow] = []
+    var stringArray: [[String]] = []
     var pool: AWSCognitoIdentityUserPool?
     var date1 = Date()
     var date2 = Date()
     let formatter = DateFormatter()
     var session: Activity = Activity()
     let numberFormatter: NumberFormatter = NumberFormatter()
+    let numFormatter: NumberFormatter = NumberFormatter()
     var oneDate = false
     var totalCalories: Float = 0
     var totalWeight: Float = 0
@@ -59,6 +62,8 @@ class DailyActivityReportVC: UIViewController {
         self.dataTable.translatesAutoresizingMaskIntoConstraints = false
         self.numberFormatter.locale = Locale(identifier:"en_US")
         self.numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numFormatter.locale = Locale(identifier:"en_US")
+        numFormatter.maximumFractionDigits = 1
         
         let topConstraint = self.dataTable.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 250)
         let bottomConstraint = self.dataTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -77,6 +82,7 @@ class DailyActivityReportVC: UIViewController {
         self.totalCalories = 0
         self.totalWeight = 0
         self.dataRows = []
+        self.stringArray = []
         
         //formatter.dateFormat = "MM/dd/yyyy"
         formatter.dateFormat = "yyyy-MM-dd"
@@ -106,13 +112,18 @@ class DailyActivityReportVC: UIViewController {
                             
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                 DataTableValueType.string("")]
+                            var stringRow = ["", "", "", "", "", "", "", ""]
+                            
                             let dateStore = self.formatter.date(from: item._date!)
                             
                             //self.formatter.dateFormat = "MM/dd/yyyy"
                             self.formatter.dateFormat = "yyyy-MM-dd"
                             
                             row[0] = DataTableValueType.string(self.formatter.string(from: dateStore!))
+                            stringRow[0] = self.formatter.string(from: dateStore!)
+                            
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
+                            stringRow[1] = activity["exerciseName"] as! String
                             
                             if activity["Weight Amount"] != nil {
                                 let weightStore = Float(activity["Weight Amount"] as! String)!
@@ -121,25 +132,33 @@ class DailyActivityReportVC: UIViewController {
                                 self.totalWeight += weightStore
 
                                 row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: weightStore))!)
-                                row[3] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: repsStore))!)
-                                row[4] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: setsStore))!)
+                                stringRow[2] = self.numFormatter.string(from: NSNumber(value: weightStore))!
                                 
+                                row[3] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: repsStore))!)
+                                stringRow[3] = self.numFormatter.string(from: NSNumber(value: repsStore))!
+                                
+                                row[4] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: setsStore))!)
+                                stringRow[4] = self.numFormatter.string(from: NSNumber(value: setsStore))!
                             }
                             else if activity["Time"] != nil {
                                 let timeStore = activity["Time"] as! Int
                                 let hours = (timeStore) / 3600
                                 let minutes = ((timeStore) / 60) % 60
                                 row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
+                                stringRow[7] = String(format: "%02d:%02d", hours, minutes)
                             }
                             else if activity["Count"] != nil {
                                 let countStore = Float(activity["Count"] as! String)!
                                  row[5] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: countStore))!)
+                                stringRow[5] = self.numFormatter.string(from: NSNumber(value: countStore))!
                             }
                             else if activity["Distance"] != nil {
                                 let distanceStore = Int(activity["Distance"] as! String)!
                                 row[6] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: distanceStore))!)
+                                stringRow[6] = self.numFormatter.string(from: NSNumber(value: distanceStore))!
                             }
                             self.dataRows.append(row)
+                            self.stringArray.append(stringRow)
                         }
                     }
                     self.addDataSourceAfter()
@@ -152,7 +171,10 @@ class DailyActivityReportVC: UIViewController {
                     self.dataRows.removeAll()
                     let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string("")]
+                    let stringRow = ["", "", "", "", "", "", "", ""]
+                    
                     self.dataRows.append(row)
+                    self.stringArray.append(stringRow)
                     self.addDataSourceAfter()
                     self.caloriesLabel.text = "Calories: " + "\(0)"
                     self.weightLabel.text = "Weight: " + "\(0)" + " lbs"
@@ -168,6 +190,7 @@ class DailyActivityReportVC: UIViewController {
         self.totalCalories = 0
         self.totalWeight = 0
         self.dataRows = []
+        self.stringArray = []
         
         //formatter.dateFormat = "MM/dd/yyyy"
         formatter.dateFormat = "yyyy-MM-dd"
@@ -195,13 +218,17 @@ class DailyActivityReportVC: UIViewController {
                             
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                                      DataTableValueType.string("")]
+                            var stringRow = ["", "", "", "", "", "", "", ""]
                             let dateStore = self.formatter.date(from: item._date!)
                             
                             //self.formatter.dateFormat = "MM/dd/yyyy"
                             self.formatter.dateFormat = "yyyy-MM-dd"
                             
                             row[0] = DataTableValueType.string(self.formatter.string(from: dateStore!))
+                            stringRow[0] = self.formatter.string(from: dateStore!)
+                            
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
+                            stringRow[1] = activity["exerciseName"] as! String
                             
                             if activity["Weight Amount"] != nil {
                                 let weightStore = Float(activity["Weight Amount"] as! String)!
@@ -210,25 +237,33 @@ class DailyActivityReportVC: UIViewController {
                                 self.totalWeight += weightStore
                                 
                                 row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: weightStore))!)
-                                row[3] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: repsStore))!)
-                                row[4] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: setsStore))!)
+                                stringRow[2] = self.numFormatter.string(from: NSNumber(value: weightStore))!
                                 
+                                row[3] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: repsStore))!)
+                                stringRow[3] = self.numFormatter.string(from: NSNumber(value: repsStore))!
+                                
+                                row[4] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: setsStore))!)
+                                stringRow[4] = self.numFormatter.string(from: NSNumber(value: setsStore))!
                             }
                             else if activity["Time"] != nil {
                                 let timeStore = activity["Time"] as! Int
                                 let hours = (timeStore) / 3600
                                 let minutes = ((timeStore) / 60) % 60
                                 row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
+                                stringRow[7] = String(format: "%02d:%02d", hours, minutes)
                             }
                             else if activity["Count"] != nil {
                                 let countStore = Float(activity["Count"] as! String)!
                                 row[5] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: countStore))!)
+                                stringRow[5] = self.numFormatter.string(from: NSNumber(value: countStore))!
                             }
                             else if activity["Distance"] != nil {
                                 let distanceStore = Int(activity["Distance"] as! String)!
                                 row[6] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: distanceStore))!)
+                                stringRow[6] = self.numFormatter.string(from: NSNumber(value: distanceStore))!
                             }
                             self.dataRows.append(row)
+                            self.stringArray.append(stringRow)
                         }
                     }
                    self.addDataSourceAfter()
@@ -241,7 +276,9 @@ class DailyActivityReportVC: UIViewController {
                    self.dataRows.removeAll()
                    let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string("")]
+                   let stringRow = ["", "", "", "", "", "", "", ""]
                    self.dataRows.append(row)
+                   self.stringArray.append(stringRow)
                    self.addDataSourceAfter()
                    self.caloriesLabel.text = "Calories: " + "\(0)"
                    self.weightLabel.text = "Weight: " + "\(0)" + " lbs"
@@ -255,6 +292,7 @@ class DailyActivityReportVC: UIViewController {
     
     func getSessions() {
         self.dataRows = []
+        self.stringArray = []
         //formatter.dateFormat = "MM/dd/yyyy"
         formatter.dateFormat = "yyyy-MM-dd"
         self.showHUD(hud: hud!)
@@ -304,13 +342,17 @@ class DailyActivityReportVC: UIViewController {
                             
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                                      DataTableValueType.string("")]
+                            var stringRow = ["", "", "", "", "", "", "", ""]
                             let dateStore = self.formatter.date(from: item._date!)
                             
                             //self.formatter.dateFormat = "MM/dd/yyyy"
                             self.formatter.dateFormat = "yyyy-MM-dd"
                             
                             row[0] = DataTableValueType.string(self.formatter.string(from: dateStore!))
+                            stringRow[0] = self.formatter.string(from: dateStore!)
+                            
                             row[1] = DataTableValueType.string(activity["exerciseName"] as! String)
+                            stringRow[1] = activity["exerciseName"] as! String
                             
                             if activity["Weight Amount"] != nil {
                                 let weightStore = Float(activity["Weight Amount"] as! String)!
@@ -319,8 +361,13 @@ class DailyActivityReportVC: UIViewController {
                                 self.totalWeight += weightStore
                                 
                                 row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: weightStore))!)
+                                stringRow[2] = self.numFormatter.string(from: NSNumber(value: weightStore))!
+                                
                                 row[3] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: repsStore))!)
+                                stringRow[3] = self.numFormatter.string(from: NSNumber(value: repsStore))!
+                                
                                 row[4] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: setsStore))!)
+                                stringRow[4] = self.numFormatter.string(from: NSNumber(value: setsStore))!
                                 
                             }
                             else if activity["Time"] != nil {
@@ -328,16 +375,20 @@ class DailyActivityReportVC: UIViewController {
                                 let hours = (timeStore) / 3600
                                 let minutes = ((timeStore) / 60) % 60
                                 row[7] = DataTableValueType.string(String(format: "%02d:%02d", hours, minutes))
+                                stringRow[7] = String(format: "%02d:%02d", hours, minutes)
                             }
                             else if activity["Count"] != nil {
                                 let countStore = Float(activity["Count"] as! String)!
                                 row[5] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: countStore))!)
+                                stringRow[5] = self.numFormatter.string(from: NSNumber(value: countStore))!
                             }
                             else if activity["Distance"] != nil {
                                 let distanceStore = Int(activity["Distance"] as! String)!
                                 row[6] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: distanceStore))!)
+                                stringRow[6] = self.numFormatter.string(from: NSNumber(value: distanceStore))!
                             }
                             self.dataRows.append(row)
+                            self.stringArray.append(stringRow)
                         }
                     }
                 }
@@ -351,7 +402,9 @@ class DailyActivityReportVC: UIViewController {
                     self.dataRows.removeAll()
                     let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string("")]
+                    let stringRow = ["", "", "", "", "", "", "", ""]
                     self.dataRows.append(row)
+                    self.stringArray.append(stringRow)
                     self.addDataSourceAfter()
                     self.caloriesLabel.text = "Calories: " + "\(0)"
                     self.weightLabel.text = "Weight: " + "\(0)" + " lbs"
@@ -371,24 +424,28 @@ class DailyActivityReportVC: UIViewController {
     }
     
     @objc func createPDF() {
-        let v = dataTable.collectionView
+       /* let v = dataTable.collectionView
         let dst = URL(fileURLWithPath: NSTemporaryDirectory().appending("Daily Activity Report.pdf"))
-        //let dst2 = NSHomeDirectory() + "/\("Summary Report").pdf"
-        // outputs as Data
-        /*  do {
-         let data = try PDFGenerator.generated(by: [v])
-         try data.write(to: dst, options: .atomic)
-         } catch (let error) {
-         print(error)
-         } */
-        
-        // writes to Disk directly.
         do {
             try PDFGenerator.generate([v], to: dst)
             openPDFViewer(dst)
         } catch (let error) {
             print(error)
+        } */
+        
+        let fileName = "Daily Activity Report.csv"
+        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        let stream = OutputStream(toFileAtPath: (path?.path)!, append: false)!
+        let csv = try! CSVWriter(stream: stream)
+        
+        try! csv.write(row: ["Date", "Exercise", "Weight", "Reps", "Sets", "Count", "Distance", "Time"])
+        
+        for row in stringArray {
+            try! csv.write(row: [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]])
         }
+        
+        csv.stream.close()
+        openPDFViewer(path!)
     }
     
     fileprivate func openPDFViewer(_ pdfPath: URL) {
