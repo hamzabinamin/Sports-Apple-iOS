@@ -42,6 +42,7 @@
 		F51D96D720CDB007001AF442 /* AAOptionsConstructor.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */; };
 		F521C7C9214A9C9C005E2F2B /* PDFPreviewVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F521C7C8214A9C9C005E2F2B /* PDFPreviewVC.storyboard */; };
 		F521C7CB214A9DF5005E2F2B /* PDFPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */; };
+		F52BBBF021C42D6F001204CD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F52BBBEF21C42D6F001204CD /* StoreKit.framework */; };
 		F536D2C220DE4E950044B077 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C120DE4E950044B077 /* UtilityFunctions.swift */; };
 		F536D2C420DE553F0044B077 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F536D2C320DE553E0044B077 /* awsconfiguration.json */; };
 		F536D2C620DE57FF0044B077 /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C520DE57FF0044B077 /* UserItem.swift */; };
@@ -127,6 +128,7 @@
 		F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAOptionsConstructor.js; sourceTree = "<group>"; };
 		F521C7C8214A9C9C005E2F2B /* PDFPreviewVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PDFPreviewVC.storyboard; sourceTree = "<group>"; };
 		F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPreviewVC.swift; sourceTree = "<group>"; };
+		F52BBBEF21C42D6F001204CD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F536D2C120DE4E950044B077 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
 		F536D2C320DE553E0044B077 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		F536D2C520DE57FF0044B077 /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3D53582B79DBC49273BC20 /* Pods_Sports_Apple.framework in Frameworks */,
+				F52BBBF021C42D6F001204CD /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +194,7 @@
 		C1BE996EEB0EA1539F1E4C88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F52BBBEF21C42D6F001204CD /* StoreKit.framework */,
 				82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */,
 			);
 			name = Frameworks;
@@ -425,6 +429,11 @@
 					F541B7BF209C49930053C9DB = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -525,6 +534,7 @@
 				"${BUILT_PRODUCTS_DIR}/PDFGenerator/PDFGenerator.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDataTables/SwiftDataTables.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -545,6 +555,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDFGenerator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDataTables.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
