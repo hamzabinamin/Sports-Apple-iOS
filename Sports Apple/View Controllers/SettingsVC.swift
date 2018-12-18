@@ -12,11 +12,11 @@ import JGProgressHUD
 import SwiftyStoreKit
 import StoreKit
 
-var sharedSecret = "0dba9a3d690e474cbfec027e8ae8c646"
+var sharedSecret = "26f4002ad2a1460cbb0a69ed1e7b6c6c"
 
 enum RegisteredPurchase: String {
-    case OneNineNine = "membership"
-    case autoRenewable = "autoRenewable"
+    case OneNineNine = "subscription"
+    case autoRenewable = "subscription123"
 }
 
 class NetworkActivityIndicatorManager: NSObject {
@@ -59,6 +59,19 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
          NotificationCenter.default.addObserver(self, selector: #selector(goToLoginVC), name: .showLoginVC, object: nil)
         
          NotificationCenter.default.addObserver(self, selector: #selector(profileUpdated), name: .profileUpdated, object: nil)
+        
+        SwiftyStoreKit.retrieveProductsInfo(["com.hamzabinamin.SportsApple.subscription"]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = product.localizedPrice!
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+            }
+            else if let invalidProductId = result.invalidProductIDs.first {
+                print("Invalid product identifier: \(invalidProductId)")
+            }
+            else {
+                print("Error: \(result.error)")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,7 +145,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             else {
                 UIApplication.shared.openURL(URL(string: "http://www.weeklink.life/")!)
             } */
-            purchase(purchase: .OneNineNine)
+            //purchase(purchase: .OneNineNine)
+            verifyPurchase(product: .OneNineNine)
         }
         else if indexPath.row == 2 {
             let storyboard = UIStoryboard(name: "LogOut", bundle: nil)
@@ -152,7 +166,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func purchase(purchase: RegisteredPurchase) {
         NetworkActivityIndicatorManager.NetworkOperationStarted()
-        SwiftyStoreKit.purchaseProduct(purchase.rawValue) { (result) in
+        SwiftyStoreKit.purchaseProduct(bundleID + "." + purchase.rawValue) { (result) in
             NetworkActivityIndicatorManager.networkOperationFinished()
             
             if case .success(let product) = result {
@@ -213,7 +227,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let productID = self.bundleID + "." + product.rawValue
                 
                 if product == .OneNineNine {
-                    let purchaseResult = SwiftyStoreKit.verifySubscription(ofType: .autoRenewable, productId: productID, inReceipt: receipt, validUntil: Date())
+                    let purchaseResult = SwiftyStoreKit.verifySubscription(ofType: .autoRenewable, productId: productID, inReceipt: receipt/*, validUntil: Date() */)
                     self.showAlert(alert: self.alertForVerifySubscription(result: purchaseResult))
                 }
                 else {

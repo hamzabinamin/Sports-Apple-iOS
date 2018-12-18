@@ -42,11 +42,11 @@
 		F51D96D720CDB007001AF442 /* AAOptionsConstructor.js in Resources */ = {isa = PBXBuildFile; fileRef = F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */; };
 		F521C7C9214A9C9C005E2F2B /* PDFPreviewVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F521C7C8214A9C9C005E2F2B /* PDFPreviewVC.storyboard */; };
 		F521C7CB214A9DF5005E2F2B /* PDFPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */; };
-		F52BBBF021C42D6F001204CD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F52BBBEF21C42D6F001204CD /* StoreKit.framework */; };
 		F536D2C220DE4E950044B077 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C120DE4E950044B077 /* UtilityFunctions.swift */; };
 		F536D2C420DE553F0044B077 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = F536D2C320DE553E0044B077 /* awsconfiguration.json */; };
 		F536D2C620DE57FF0044B077 /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F536D2C520DE57FF0044B077 /* UserItem.swift */; };
 		F53C7DA420E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53C7DA320E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift */; };
+		F53D0BA421C93C0A00D02FBD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F53D0BA321C93C0A00D02FBD /* StoreKit.framework */; };
 		F541B7C4209C49930053C9DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C3209C49930053C9DB /* AppDelegate.swift */; };
 		F541B7C6209C49930053C9DB /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F541B7C5209C49930053C9DB /* LoginVC.swift */; };
 		F541B7C9209C49930053C9DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F541B7C7209C49930053C9DB /* Main.storyboard */; };
@@ -128,11 +128,11 @@
 		F51D96CE20CDB006001AF442 /* AAOptionsConstructor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAOptionsConstructor.js; sourceTree = "<group>"; };
 		F521C7C8214A9C9C005E2F2B /* PDFPreviewVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PDFPreviewVC.storyboard; sourceTree = "<group>"; };
 		F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPreviewVC.swift; sourceTree = "<group>"; };
-		F52BBBEF21C42D6F001204CD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F536D2C120DE4E950044B077 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
 		F536D2C320DE553E0044B077 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		F536D2C520DE57FF0044B077 /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		F53C7DA320E29D0F00DE6787 /* ForgotPasswordConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordConfirmVC.swift; sourceTree = "<group>"; };
+		F53D0BA321C93C0A00D02FBD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F541B7C0209C49930053C9DB /* Sports Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sports Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F541B7C3209C49930053C9DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F541B7C5209C49930053C9DB /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3D53582B79DBC49273BC20 /* Pods_Sports_Apple.framework in Frameworks */,
-				F52BBBF021C42D6F001204CD /* StoreKit.framework in Frameworks */,
+				F53D0BA421C93C0A00D02FBD /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +194,7 @@
 		C1BE996EEB0EA1539F1E4C88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F52BBBEF21C42D6F001204CD /* StoreKit.framework */,
+				F53D0BA321C93C0A00D02FBD /* StoreKit.framework */,
 				82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */,
 			);
 			name = Frameworks;
@@ -764,7 +764,7 @@
 				INFOPLIST_FILE = "Sports Apple/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hamzabinamin.Sports-Apple";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamzabinamin.SportsApple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -781,7 +781,7 @@
 				INFOPLIST_FILE = "Sports Apple/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hamzabinamin.Sports-Apple";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamzabinamin.SportsApple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

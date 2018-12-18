@@ -10,6 +10,7 @@ import UIKit
 import AWSMobileClient
 import AWSCognitoIdentityProvider
 import IQKeyboardManagerSwift
+import SwiftyStoreKit
 
 let userPoolID = "us-east-1_TavWWBZtI"
 
@@ -77,6 +78,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else {
             pool?.delegate = self
+        }
+        
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                }
+            }
         }
         
         return AWSMobileClient.sharedInstance().interceptApplication(
