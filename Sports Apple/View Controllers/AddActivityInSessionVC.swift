@@ -49,7 +49,7 @@ class AddActivityInSessionVC: UIViewController, UITableViewDelegate, UITableView
         cell.commentLabel.text = array[indexPath.row].exerciseComment
         cell.nameLabel.text = array[indexPath.row].exerciseName
         
-        if array[indexPath.row].exerciseWeightAmount != 0 {
+        if array[indexPath.row].exerciseWeightAmount.description.count > 0 {
             
             cell.weightLabel.isHidden = false
             cell.setsLabel.isHidden = false

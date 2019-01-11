@@ -43,7 +43,7 @@ class ExerciseItem: Hashable {
         self.goalDistance = 0
         self.goalCount = 0
         self.date = ""
-        self.weeklyCount = [Float](repeating: 0, count: 52)
+        self.weeklyCount = [Float](repeating: 0, count: 53)
     }
     
     init(exerciseID: String, exerciseName: String, exerciseWeightAmount: Float, exerciseCount: Float, exerciseReps: Int, exerciseSets: Int, exerciseTime: Int, exerciseDistance: Int, exerciseComment: String) {
@@ -62,7 +62,7 @@ class ExerciseItem: Hashable {
         self.goalDistance = 0
         self.goalCount = 0
         self.date = ""
-        self.weeklyCount = [Float](repeating: 0, count: 52)
+        self.weeklyCount = [Float](repeating: 0, count: 53)
     }
     
    /* override func isEqual(_ object: Any?) -> Bool {

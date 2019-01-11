@@ -46,9 +46,10 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ActivityTVCell
         cell.commentLabel.text = array[indexPath.row].exerciseComment
         cell.nameLabel.text = array[indexPath.row].exerciseName
+        print("Exercise Name is: ", array[indexPath.row].exerciseName)
+        print("Weight is: ", array[indexPath.row].exerciseWeightAmount)
         
-        if array[indexPath.row].exerciseWeightAmount != 0 {
-            
+        if array[indexPath.row].exerciseWeightAmount.description.count > 0 {
             cell.weightLabel.isHidden = false
             cell.setsLabel.isHidden = false
             cell.repsLabel.isHidden = false
@@ -249,16 +250,18 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     @objc func updateTableView(notification: Notification) {
         print("Got notification")
+        print("Here notification")
         if let responseDict = notification.object as? [String: Any] {
             self.dict.append(responseDict)
             print("Inside If")
             print(dict.count)
-
+            print("Dict Weight: ", Float("\(responseDict["Weight Amount"])"))
             let exerciseItem = ExerciseItem(exerciseID: "\(responseDict["exerciseID"] ?? 0)", exerciseName: "\(responseDict["exerciseName"] ?? "")", exerciseWeightAmount: Float("\(responseDict["Weight Amount"] ?? 0)")!, exerciseCount: Float("\(responseDict["Count"] ?? 0)")!, exerciseReps: Int("\(responseDict["Reps"] ?? 0)")!, exerciseSets: Int("\(responseDict["Sets"] ?? 0)")!, exerciseTime: Int("\(responseDict["Time"] ?? 0)")!, exerciseDistance: Int("\(responseDict["Distance"] ?? 0)")!, exerciseComment: "\(responseDict["Exercise Comment"] ?? "")")
             array.append(exerciseItem)
             sessionActivitiesLabel.isHidden = true
             tableView.reloadData()
             session._exerciseList = self.dict
+            print("Exercise Item Weight: ", exerciseItem.exerciseWeightAmount)
             //print("Updated Dict: ", self.dict)
             //print("Updated List: ", self.session._exerciseList)
         }

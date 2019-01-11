@@ -94,7 +94,9 @@ class SummaryReportVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     func getSessions() {
         self.showHUD(hud: hud!)
-        session.queryActivity(userId: (pool?.currentUser()?.username)!) { (response, responseArray) in
+        self.formatter.dateFormat = "yyyy"
+        let date = self.formatter.string(from: Date())
+        session.queryActivity(userId: (pool?.currentUser()?.username)!, date: date) { (response, responseArray) in
             
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)

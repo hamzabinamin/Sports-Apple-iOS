@@ -139,14 +139,14 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         else if indexPath.row == 1 {
             
-          /* if #available(iOS 10.0, *) {
+           if #available(iOS 10.0, *) {
                 UIApplication.shared.open(URL(string: "http://www.weeklink.life/")!, options: [:], completionHandler: nil)
             }
             else {
                 UIApplication.shared.openURL(URL(string: "http://www.weeklink.life/")!)
-            } */
+            }
             //purchase(purchase: .OneNineNine)
-            verifyPurchase(product: .OneNineNine)
+            //verifyPurchase(product: .OneNineNine)
         }
         else if indexPath.row == 2 {
             let storyboard = UIStoryboard(name: "LogOut", bundle: nil)
@@ -299,7 +299,7 @@ extension SettingsVC {
     func alertForPurchaseResult(result : PurchaseResult) -> UIAlertController {
         switch result {
         case .success(let product):
-            print("Purchase Succesful: \(product.productId)")
+            print("Purchase Successful: \(product.productId)")
             
             return alertWithTitle(title: "Thank You", message: "Purchase completed")
         case .error(let error):
