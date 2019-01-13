@@ -60,18 +60,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
          NotificationCenter.default.addObserver(self, selector: #selector(profileUpdated), name: .profileUpdated, object: nil)
         
-        SwiftyStoreKit.retrieveProductsInfo(["com.hamzabinamin.SportsApple.subscription"]) { result in
-            if let product = result.retrievedProducts.first {
-                let priceString = product.localizedPrice!
-                print("Product: \(product.localizedDescription), price: \(priceString)")
-            }
-            else if let invalidProductId = result.invalidProductIDs.first {
-                print("Invalid product identifier: \(invalidProductId)")
-            }
-            else {
-                print("Error: \(result.error)")
-            }
-        }
+        getProductInfo(productID: OneNineNine.rawValue)
+        verifySubscription(productID: OneNineNine.rawValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,7 +128,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
         else if indexPath.row == 1 {
-            
            if #available(iOS 10.0, *) {
                 UIApplication.shared.open(URL(string: "http://www.weeklink.life/")!, options: [:], completionHandler: nil)
             }
@@ -155,6 +144,83 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
     }
+    //"com.hamzabinamin.SportsApple.subscription"
+    func getProductInfo(productID: String) {
+        SwiftyStoreKit.retrieveProductsInfo([bundleID + "." + productID]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = product.localizedPrice!
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+            }
+            else if let invalidProductId = result.invalidProductIDs.first {
+                print("Invalid product identifier: \(invalidProductId)")
+            }
+            else {
+                print("Error: \(String(describing: result.error))")
+            }
+        }
+    }
+   
+    
+    func verifySubscription(productID: String) {
+        let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedSecret)
+        SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
+            switch result {
+            case .success(let receipt):
+                let productId = self.bundleID + "." + productID
+                // Verify the purchase of a Subscription
+                let purchaseResult = SwiftyStoreKit.verifySubscription(
+                    ofType: .autoRenewable, // or .nonRenewing (see below)
+                    productId: productId,
+                    inReceipt: receipt)
+                
+                switch purchaseResult {
+                case .purchased(let expiryDate, let items):
+                    print("\(productId) is valid until \(expiryDate)\n\(items)\n")
+                case .expired(let expiryDate, let items):
+                    print("\(productId) is expired since \(expiryDate)\n\(items)\n")
+                case .notPurchased:
+                    print("The user has never purchased \(productId)")
+                }
+                
+            case .error(let error):
+                print("Receipt verification failed: \(error)")
+            }
+        }
+    }
+    
+    func purchaseSubscription(productID: String) {
+        SwiftyStoreKit.purchaseProduct(productID, atomically: true) { result in
+            
+            if case .success(let purchase) = result {
+                // Deliver content from server, then:
+                if purchase.needsFinishTransaction {
+                    SwiftyStoreKit.finishTransaction(purchase.transaction)
+                }
+                
+                self.verifySubscription(productID: productID)
+                
+            }
+            else if case .error(let error) = result {
+                switch error.code {
+                    case .unknown: print("Unknown error. Please contact support")
+                    case .clientInvalid: print("Not allowed to make the payment")
+                    case .paymentCancelled: break
+                    case .paymentInvalid: print("The purchase identifier was invalid")
+                    case .paymentNotAllowed: print("The device is not allowed to make the payment")
+                    case .storeProductNotAvailable: print("The product is not available in the current storefront")
+                    case .cloudServicePermissionDenied: print("Access to cloud service information is not allowed")
+                    case .cloudServiceNetworkConnectionFailed: print("Could not connect to the network")
+                    case .cloudServiceRevoked: print("User has revoked permission to use this cloud service")
+                    default: print((error as NSError).localizedDescription)
+                }
+            }
+            else {
+                // purchase error
+            }
+        }
+    }
+    
+    // Old Functions
     
     func getInfo(purchase: RegisteredPurchase) {
         NetworkActivityIndicatorManager.NetworkOperationStarted()
