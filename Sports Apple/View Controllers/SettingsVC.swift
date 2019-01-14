@@ -16,7 +16,7 @@ var sharedSecret = "26f4002ad2a1460cbb0a69ed1e7b6c6c"
 
 enum RegisteredPurchase: String {
     case OneNineNine = "subscription"
-    case autoRenewable = "subscription123"
+    case NineteenNineNine = "subscription.yearly"
 }
 
 class NetworkActivityIndicatorManager: NSObject {

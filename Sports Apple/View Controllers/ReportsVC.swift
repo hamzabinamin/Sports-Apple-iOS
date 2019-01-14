@@ -23,8 +23,10 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     var hud: JGProgressHUD?
     var array:[Reports] = []
+    var productIDsArray: [String] = []
     let bundleID = "com.hamzabinamin.SportsApple"
     var OneNineNine = RegisteredPurchase.OneNineNine
+    var NineteenNineNine = RegisteredPurchase.NineteenNineNine
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +35,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         array.append(Reports(report: "YTD Goal Status Report", description: "Check where you stand with any goals that you created"))
         array.append(Reports(report: "Year Totals Report", description: "The total amount of weight, time, distance and count of any activity entered into the daily activity log"))
         array.append(Reports(report: "Daily Activity Report", description: "Your daily activity report with date selection"))
-
+        productIDsArray.append(bundleID + "." + OneNineNine.rawValue)
+        productIDsArray.append(bundleID + "." + NineteenNineNine.rawValue)
         tableView.tableFooterView = UIView()
     }
     
@@ -66,10 +69,10 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.row == 0 {
             self.showHUD(hud: hud!)
-            verifySubscription(productID: OneNineNine.rawValue, completion: { (response, message) in
+            verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2) in
                 DispatchQueue.main.async {
                     self.hideHUD(hud: self.hud!)
-                    if response == "failure" {
+                    if response1 == "failure" && response2 == "failure" {
                         self.alertWithOptions(title: "Subscription Error", message: "You need to subscribe to access this feature")
                     }
                     else {
@@ -108,38 +111,105 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    func verifySubscription(productID: String, completion: @escaping (_ success: String, _ message: String) -> Void) {
+    func verifySubscription(productIDs: [String], completion: @escaping (_ success1: String, _ success2: String, _ message1: String, _ message2: String) -> Void) {
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedSecret)
         SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
             switch result {
             case .success(let receipt):
-                let productId = self.bundleID + "." + productID
-                // Verify the purchase of a Subscription
-                let purchaseResult = SwiftyStoreKit.verifySubscription(
-                    ofType: .autoRenewable, // or .nonRenewing (see below)
-                    productId: productId,
-                    inReceipt: receipt)
+
+                var success1 = ""
+                var success2 = ""
+                var message1 = ""
+                var message2 = ""
                 
-                switch purchaseResult {
-                case .purchased(let expiryDate, let items):
-                    print("\(productId) is valid until \(expiryDate)\n\(items)\n")
-                    completion("success", "Product ID is valid until " + "\(expiryDate)")
-                case .expired(let expiryDate, let items):
-                    print("\(productId) is expired since \(expiryDate)\n\(items)\n")
-                    completion("failure", "Product ID is expired since " + "\(expiryDate)")
-                case .notPurchased:
-                    print("The user has never purchased \(productId)")
-                    completion("failure", "The user has never purchased this Product ID")
+                if productIDs.count > 1 {
+                    let purchaseResultMonthly = SwiftyStoreKit.verifySubscription(
+                        ofType: .autoRenewable, // or .nonRenewing (see below)
+                        productId: productIDs[0],
+                        inReceipt: receipt)
+                   
+                    let purchaseResultYearly = SwiftyStoreKit.verifySubscription(
+                        ofType: .autoRenewable, // or .nonRenewing (see below)
+                        productId: productIDs[1],
+                        inReceipt: receipt)
+             
+                    print("Purchase Result Monthly: ", purchaseResultMonthly)
+                    print("Purchase Result Yearly: ", purchaseResultYearly)
+
+                    switch purchaseResultMonthly {
+                    case .purchased(let expiryDate, let items):
+                        print("\(productIDs[0]) is valid until \(expiryDate)\n\(items)\n")
+                        success1 = "success"
+                        message1 = "Product ID is valid until " + "\(expiryDate)"
+                    //completion("success", "Product ID is valid until " + "\(expiryDate)")
+                    case .expired(let expiryDate, let items):
+                        print("\(productIDs[0]) is expired since \(expiryDate)\n\(items)\n")
+                        success1 = "failure"
+                        message1 = "Product ID is expired since " + "\(expiryDate)"
+                    //completion("failure", "Product ID is expired since " + "\(expiryDate)")
+                    case .notPurchased:
+                        print("The user has never purchased \(productIDs[0])")
+                        success1 = "failure"
+                        message1 = "The user has never purchased \(productIDs[0])"
+                        //completion("failure", "The user has never purchased \(productIDs[0])")
+                    }
+                    
+                    switch purchaseResultYearly {
+                        case .purchased(let expiryDate, let items):
+                            print("\(productIDs[1]) is valid until \(expiryDate)\n\(items)\n")
+                            success2 = "success"
+                            message2 = "\(productIDs[1]) is valid until " + "\(expiryDate)"
+                        //completion("success", "\(productIDs[1]) is valid until " + "\(expiryDate)")
+                        case .expired(let expiryDate, let items):
+                            print("\(productIDs[1]) is expired since \(expiryDate)\n\(items)\n")
+                            success2 = "failure"
+                            message2 = "\(productIDs[1]) is expired since " + "\(expiryDate)"
+                        //completion("failure", "\(productIDs[1]) is expired since " + "\(expiryDate)")
+                        case .notPurchased:
+                            print("The user has never purchased \(productIDs[1])")
+                            success2 = "failure"
+                            message2 = "The user has never purchased \(productIDs[1])"
+                            //completion("failure", "The user has never purchased \(productIDs[1])")
+                    }
                 }
+                else {
+                    let purchaseResultMonthly = SwiftyStoreKit.verifySubscription(
+                        ofType: .autoRenewable, // or .nonRenewing (see below)
+                        productId: productIDs[0],
+                        inReceipt: receipt)
+                    
+                    print("Purchase Result Monthly: ", purchaseResultMonthly)
+                    
+                    switch purchaseResultMonthly {
+                        case .purchased(let expiryDate, let items):
+                            print("\(productIDs[0]) is valid until \(expiryDate)\n\(items)\n")
+                            success1 = "success"
+                            message1 = "Product ID is valid until " + "\(expiryDate)"
+                        //completion("success", "Product ID is valid until " + "\(expiryDate)")
+                        case .expired(let expiryDate, let items):
+                            print("\(productIDs[0]) is expired since \(expiryDate)\n\(items)\n")
+                            success1 = "failure"
+                            message1 = "Product ID is expired since " + "\(expiryDate)"
+                        //completion("failure", "Product ID is expired since " + "\(expiryDate)")
+                        case .notPurchased:
+                            print("The user has never purchased \(productIDs[0])")
+                            success1 = "failure"
+                            message1 = "The user has never purchased \(productIDs[0])"
+                            //completion("failure", "The user has never purchased \(productIDs[0])")
+                    }
+                }
+                
+
+                completion(success1, success2, message1, message2)
                 
             case .error(let error):
                 print("Receipt verification failed: \(error)")
-                completion("failure", "Receipt verification failed: \(error)")
+                completion("failure", "failure", "Receipt verification failed: \(error)", "")
             }
         }
     }
     
-    func purchaseSubscription(productID: String, completion: @escaping (_ success: String, _ message: String) -> Void) {
+    func purchaseSubscription(productID: String, completion: @escaping (_ success1: String, _ success2: String, _ message1: String, _ message2: String) -> Void) {
         SwiftyStoreKit.purchaseProduct(self.bundleID + "." + productID, atomically: true) { result in
             
             if case .success(let purchase) = result {
@@ -148,37 +218,38 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     SwiftyStoreKit.finishTransaction(purchase.transaction)
                 }
                 
-                self.verifySubscription(productID: productID, completion: { (response, message) in
-                    completion(response, message)
+                let storeArray = [self.bundleID + "." + productID]
+                self.verifySubscription(productIDs: storeArray, completion: { (response1, response2, message1, message2) in
+                    completion(response1, response2, message1, message2)
                 })
             }
             else if case .error(let error) = result {
                 switch error.code {
                 case .unknown:
                     print("Unknown error. Please contact support")
-                    completion("failure", "Unknown error. Please contact support")
+                    completion("failure", "failure", "Unknown error. Please contact support", "")
                 case .clientInvalid:
                     print("Not allowed to make the payment")
-                    completion("failure", "Not allowed to make the payment")
+                    completion("failure", "failure", "Not allowed to make the payment", "")
                 case .paymentCancelled: break
                 case .paymentInvalid:
                     print("The purchase identifier was invalid")
-                    completion("failure", "The purchase identifier was invalid")
+                    completion("failure", "failure", "The purchase identifier was invalid", "")
                 case .paymentNotAllowed:
                     print("The device is not allowed to make the payment")
-                    completion("failure", "The device is not allowed to make the payment")
+                    completion("failure", "failure", "The device is not allowed to make the payment", "")
                 case .storeProductNotAvailable:
                     print("The product is not available in the current storefront")
-                    completion("failure", "The product is not available in the current storefront")
+                    completion("failure", "failure", "The product is not available in the current storefront", "")
                 case .cloudServicePermissionDenied:
                     print("Access to cloud service information is not allowed")
-                    completion("failure", "Access to cloud service information is not allowed")
+                    completion("failure", "failure", "Access to cloud service information is not allowed", "")
                 case .cloudServiceNetworkConnectionFailed:
                     print("Could not connect to the network")
-                    completion("failure", "Could not connect to the network")
+                    completion("failure", "failure", "Could not connect to the network", "")
                 case .cloudServiceRevoked:
                     print("User has revoked permission to use this cloud service")
-                    completion("failure", "User has revoked permission to use this cloud service")
+                    completion("failure", "failure", "User has revoked permission to use this cloud service", "")
                 default: print((error as NSError).localizedDescription)
                 }
             }
@@ -198,11 +269,11 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let monthlyAction = UIAlertAction(title: "Monthly ($1.99/month)", style: .default) { (action) in
             self.showHUD(hud: self.hud!)
-            self.purchaseSubscription(productID: self.OneNineNine.rawValue, completion: { (response, message) in
+            self.purchaseSubscription(productID: self.OneNineNine.rawValue, completion: { (response1, response2, message1, message2) in
                 DispatchQueue.main.async {
                     self.hideHUD(hud: self.hud!)
-                    if response == "failure" {
-                        self.alertWithTitle(title: "Purchase Error", message: message)
+                    if response1 == "failure" {
+                        self.alertWithTitle(title: "Purchase Error", message: message1)
                     }
                 }
             })
@@ -210,8 +281,15 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         alert.addAction(monthlyAction)
         
         let yearlyAction = UIAlertAction(title: "Yearly ($19.99/year)", style: .default) { (action) in
-            
-            //Schedule another notification at the preferred time
+            self.showHUD(hud: self.hud!)
+            self.purchaseSubscription(productID: self.NineteenNineNine.rawValue, completion: { (response1, response2, message1, message2) in
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    if response1 == "failure" {
+                        self.alertWithTitle(title: "Purchase Error", message: message1)
+                    }
+                }
+            })
         }
         alert.addAction(yearlyAction)
         
