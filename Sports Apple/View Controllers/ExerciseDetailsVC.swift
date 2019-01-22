@@ -401,7 +401,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                         }
                     }
                     
-                    if self.oldExercise.exerciseWeightAmount.description.count > 0 {
+                    if self.oldExercise.exerciseWeightAmount != 0 {
                         self.exerciseTypeTF.text = "Weight"
                         self.weightAmountTF.text = "\(self.oldExercise.exerciseWeightAmount)" + " lbs"
                         self.repsTF.text = "\(self.oldExercise.exerciseReps)" + " reps"
@@ -1072,7 +1072,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                     if value["exerciseID"] as? String == oldExercise.exerciseID && value["exerciseName"] as? String == oldExercise.exerciseName {
                         print("Before: ", exerciseList![key])
                         
-                        if oldExercise.exerciseWeightAmount.description.count > 0 {
+                        if oldExercise.exerciseWeightAmount != 0 {
                             if value["Weight Amount"] != nil {
                                 if Float((value["Weight Amount"] as? String)!) == oldExercise.exerciseWeightAmount {
                                     exerciseList![key] = exerciseDictionary

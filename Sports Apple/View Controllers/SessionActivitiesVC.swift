@@ -49,7 +49,7 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
         print("Exercise Name is: ", array[indexPath.row].exerciseName)
         print("Weight is: ", array[indexPath.row].exerciseWeightAmount)
         
-        if array[indexPath.row].exerciseWeightAmount.description.count > 0 {
+        if array[indexPath.row].exerciseWeightAmount != 0 {
             cell.weightLabel.isHidden = false
             cell.setsLabel.isHidden = false
             cell.repsLabel.isHidden = false

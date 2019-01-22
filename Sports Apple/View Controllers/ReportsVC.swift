@@ -41,6 +41,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        print("ViewDidAppear got called")
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -66,14 +67,18 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if indexPath.row == 0 {
             self.showHUD(hud: hud!)
             verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2) in
                 DispatchQueue.main.async {
                     self.hideHUD(hud: self.hud!)
                     if response1 == "failure" && response2 == "failure" {
-                        self.alertWithOptions(title: "Subscription Error", message: "You need to subscribe to access this feature")
+                        if message1.contains("Receipt verification failed") {
+                            
+                        }
+                        else {
+                            self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                        }
                     }
                     else {
                         self.goToSummaryReportVC()
@@ -83,15 +88,63 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
         else if indexPath.row == 1 {
-            goToGoalStatusReportVC()
+            self.showHUD(hud: hud!)
+            verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2) in
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    if response1 == "failure" && response2 == "failure" {
+                        if message1.contains("Receipt verification failed") {
+                            
+                        }
+                        else {
+                            self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                        }
+                    }
+                    else {
+                        self.goToGoalStatusReportVC()
+                    }
+                }
+            })
+            
         }
         else if indexPath.row == 2 {
-            goToYearTotalsReportVC()
+            self.showHUD(hud: hud!)
+            verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2) in
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    if response1 == "failure" && response2 == "failure" {
+                        if message1.contains("Receipt verification failed") {
+                            
+                        }
+                        else {
+                            self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                        }
+                    }
+                    else {
+                          self.goToYearTotalsReportVC()
+                    }
+                }
+            })
         }
         else if indexPath.row == 3 {
-            goToDailyActivityReportVC()
+            self.showHUD(hud: hud!)
+            verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2) in
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    if response1 == "failure" && response2 == "failure" {
+                        if message1.contains("Receipt verification failed") {
+                            
+                        }
+                        else {
+                            self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                        }
+                    }
+                    else {
+                        self.goToDailyActivityReportVC()
+                    }
+                }
+            })
         }
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -231,7 +284,9 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 case .clientInvalid:
                     print("Not allowed to make the payment")
                     completion("failure", "failure", "Not allowed to make the payment", "")
-                case .paymentCancelled: break
+                case .paymentCancelled:
+                    print("Payment got cancelled")
+                    completion("failure", "failure", "Payment got cancelled", "")
                 case .paymentInvalid:
                     print("The purchase identifier was invalid")
                     completion("failure", "failure", "The purchase identifier was invalid", "")

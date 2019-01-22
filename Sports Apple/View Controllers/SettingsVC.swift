@@ -60,8 +60,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
          NotificationCenter.default.addObserver(self, selector: #selector(profileUpdated), name: .profileUpdated, object: nil)
         
-        getProductInfo(productID: OneNineNine.rawValue)
-        verifySubscription(productID: OneNineNine.rawValue)
+        //getProductInfo(productID: OneNineNine.rawValue)
+        //verifySubscription(productID: OneNineNine.rawValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {

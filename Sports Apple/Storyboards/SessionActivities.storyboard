@@ -126,8 +126,8 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 KG" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obn-1W-4HF">
-                                                            <rect key="frame" x="41" y="69" width="68" height="33"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 KG" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obn-1W-4HF">
+                                                            <rect key="frame" x="5" y="69" width="140" height="33"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="24"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -161,11 +161,13 @@
                                                         <constraint firstItem="bH6-OT-QeZ" firstAttribute="leading" secondItem="AFp-fA-IUB" secondAttribute="leading" constant="15" id="Mq1-eZ-jtb"/>
                                                         <constraint firstItem="bH6-OT-QeZ" firstAttribute="top" secondItem="cAy-27-ffY" secondAttribute="bottom" constant="5" id="Pec-0W-pAh"/>
                                                         <constraint firstAttribute="trailing" secondItem="h95-D6-Niw" secondAttribute="trailing" constant="15" id="Pvk-J0-RJ6"/>
+                                                        <constraint firstAttribute="trailing" secondItem="obn-1W-4HF" secondAttribute="trailing" constant="5" id="Qet-y0-6FJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="bH6-OT-QeZ" secondAttribute="trailing" constant="5" id="aP3-uc-aeb"/>
                                                         <constraint firstItem="obn-1W-4HF" firstAttribute="centerY" secondItem="AFp-fA-IUB" secondAttribute="centerY" id="lhq-u9-Rru"/>
                                                         <constraint firstAttribute="bottom" secondItem="bH6-OT-QeZ" secondAttribute="bottom" constant="15" id="m6m-iR-AFE"/>
                                                         <constraint firstItem="bH6-OT-QeZ" firstAttribute="top" secondItem="h95-D6-Niw" secondAttribute="bottom" constant="5" id="qwX-rD-eFj"/>
                                                         <constraint firstItem="kXN-Ma-C10" firstAttribute="top" secondItem="AFp-fA-IUB" secondAttribute="top" constant="15" id="www-pK-B3O"/>
+                                                        <constraint firstItem="obn-1W-4HF" firstAttribute="leading" secondItem="AFp-fA-IUB" secondAttribute="leading" constant="5" id="yUV-Pt-7ie"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadlift" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ag-CF-bJZ">
