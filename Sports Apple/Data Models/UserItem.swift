@@ -31,6 +31,7 @@ class UserItem: NSObject, NSCoding {
     var waist: NSNumber
     var weight: NSNumber
     var wrist: NSNumber
+    var subscriptionDetails: [String: String]
     
     override init() {
         userID = ""
@@ -54,9 +55,10 @@ class UserItem: NSObject, NSCoding {
         waist = -1
         weight = -1
         wrist = -1
+        subscriptionDetails = [String: String]()
     }
     
-    init(userID: String, email: String, password: String, newPassword: String, biceps: NSNumber, calves: NSNumber, chest: NSNumber, dOB: String, firstName: String, forearms: NSNumber, height: String, hips: NSNumber, lastName: String, location: String, neck: NSNumber, thighs: NSNumber, trainerEmail: String, units: String, waist: NSNumber, weight: NSNumber, wrist: NSNumber) {
+    init(userID: String, email: String, password: String, newPassword: String, biceps: NSNumber, calves: NSNumber, chest: NSNumber, dOB: String, firstName: String, forearms: NSNumber, height: String, hips: NSNumber, lastName: String, location: String, neck: NSNumber, thighs: NSNumber, trainerEmail: String, units: String, waist: NSNumber, weight: NSNumber, wrist: NSNumber, subscriptionDetails: [String: String]) {
         self.userID = userID
         self.email = email
         self.password = password
@@ -78,6 +80,7 @@ class UserItem: NSObject, NSCoding {
         self.waist = waist
         self.weight = weight
         self.wrist = wrist
+        self.subscriptionDetails = subscriptionDetails
     }
     
     required init(coder decoder: NSCoder) {
@@ -102,6 +105,7 @@ class UserItem: NSObject, NSCoding {
         self.waist = decoder.decodeObject(forKey: "waist") as? NSNumber ?? 0
         self.weight = decoder.decodeObject(forKey: "weight") as? NSNumber ?? 0
         self.wrist = decoder.decodeObject(forKey: "wrist") as? NSNumber ?? 0
+        self.subscriptionDetails = decoder.decodeObject(forKey: "subscriptionDetails") as? [String: String] ?? [String: String]()
     }
     
     func encode(with coder: NSCoder) {
@@ -126,6 +130,7 @@ class UserItem: NSObject, NSCoding {
         coder.encode(waist, forKey: "waist")
         coder.encode(weight, forKey: "weight")
         coder.encode(wrist, forKey: "wrist")
+        coder.encode(subscriptionDetails, forKey: "subscriptionDetails")
     }
     
 }

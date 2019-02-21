@@ -189,7 +189,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     func updateUser() {
         let storeUser: User = User()
         self.showHUD(hud: hud!)
-        storeUser.createUser(userId: user.userID, firstName: user.firstName, lastName: user.lastName, trainerEmail: user.trainerEmail, biceps: user.biceps, calves: user.calves, chest: user.chest, dOB: user.dOB, forearms: user.forearms, height: user.height, hips: user.hips, location: user.location, neck: user.neck, thighs: user.thighs, waist: user.waist, weight: user.weight, wrist: user.wrist, completion: { (response) in
+        storeUser.createUser(userId: user.userID, firstName: user.firstName, lastName: user.lastName, trainerEmail: user.trainerEmail, biceps: user.biceps, calves: user.calves, chest: user.chest, dOB: user.dOB, forearms: user.forearms, height: user.height, hips: user.hips, location: user.location, neck: user.neck, thighs: user.thighs, waist: user.waist, weight: user.weight, wrist: user.wrist, subscriptionDetails: user.subscriptionDetails, completion: { (response) in
             
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
@@ -216,7 +216,13 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     func saveUser(storedUser: UserItem) {
         let user = User()
         //self.showHUD(hud: hud!)
-        user?.createUser(userId: storedUser.userID, firstName: storedUser.firstName, lastName: storedUser.lastName, trainerEmail: storedUser.trainerEmail, biceps: storedUser.biceps, calves: storedUser.calves, chest: storedUser.chest, dOB: storedUser.dOB, forearms: storedUser.forearms, height: storedUser.height, hips: storedUser.hips, location: storedUser.location, neck: storedUser.neck, thighs: storedUser.thighs, waist: storedUser.waist, weight: storedUser.weight, wrist: storedUser.wrist, completion: { response in
+        var subscriptionDetails: Dictionary = [String: String]()
+        subscriptionDetails["Type"] = "none"
+        subscriptionDetails["Expiration Date"] = "none"
+        subscriptionDetails["Subscription Date"] = "none"
+        subscriptionDetails["Original Transaction ID"] = "none"
+        
+        user?.createUser(userId: storedUser.userID, firstName: storedUser.firstName, lastName: storedUser.lastName, trainerEmail: storedUser.trainerEmail, biceps: storedUser.biceps, calves: storedUser.calves, chest: storedUser.chest, dOB: storedUser.dOB, forearms: storedUser.forearms, height: storedUser.height, hips: storedUser.hips, location: storedUser.location, neck: storedUser.neck, thighs: storedUser.thighs, waist: storedUser.waist, weight: storedUser.weight, wrist: storedUser.wrist, subscriptionDetails: subscriptionDetails, completion: { response in
             DispatchQueue.main.async {
                 self.hideHUD(hud: self.hud!)
             }

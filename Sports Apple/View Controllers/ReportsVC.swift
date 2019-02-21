@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyStoreKit
 import JGProgressHUD
+import AWSCognitoIdentityProvider
 
 /* var sharedSecret = "26f4002ad2a1460cbb0a69ed1e7b6c6c"
 
@@ -24,6 +25,9 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var hud: JGProgressHUD?
     var array:[Reports] = []
     var productIDsArray: [String] = []
+    var pool: AWSCognitoIdentityUserPool?
+    let user: User = User()
+    var userItem: UserItem = UserItem()
     let bundleID = "com.hamzabinamin.SportsApple"
     var OneNineNine = RegisteredPurchase.OneNineNine
     var NineteenNineNine = RegisteredPurchase.NineteenNineNine
@@ -31,6 +35,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hud = self.createLoadingHUD()
+        self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         array.append(Reports(report: "Summary Report", description: "Year-to-date statistics"))
         array.append(Reports(report: "YTD Goal Status Report", description: "Check where you stand with any goals that you created"))
         array.append(Reports(report: "Year Totals Report", description: "The total amount of weight, time, distance and count of any activity entered into the daily activity log"))
@@ -38,6 +43,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         productIDsArray.append(bundleID + "." + OneNineNine.rawValue)
         productIDsArray.append(bundleID + "." + NineteenNineNine.rawValue)
         tableView.tableFooterView = UIView()
+        getUser()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +80,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.hideHUD(hud: self.hud!)
                     if response1 == "failure" && response2 == "failure" {
                         if message1.contains("Receipt verification failed") {
-                            
+                            self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
                         }
                         else {
                             self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
@@ -94,7 +100,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.hideHUD(hud: self.hud!)
                     if response1 == "failure" && response2 == "failure" {
                         if message1.contains("Receipt verification failed") {
-                            
+                            self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
                         }
                         else {
                             self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
@@ -114,7 +120,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.hideHUD(hud: self.hud!)
                     if response1 == "failure" && response2 == "failure" {
                         if message1.contains("Receipt verification failed") {
-                            
+                            self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
                         }
                         else {
                             self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
@@ -133,7 +139,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.hideHUD(hud: self.hud!)
                     if response1 == "failure" && response2 == "failure" {
                         if message1.contains("Receipt verification failed") {
-                            
+                            self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
                         }
                         else {
                             self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
@@ -159,6 +165,25 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             else {
                 print("Error: \(String(describing: result.error))")
+            }
+        }
+    }
+    
+    func getUser() {
+        self.showHUD(hud: hud!)
+        user.queryUser(userId: (pool?.currentUser()?.username)!) { (response, responseItem) in
+            
+            if response == "success" {
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                    self.userItem = responseItem
+                    
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.hideHUD(hud: self.hud!)
+                }
             }
         }
     }
@@ -192,11 +217,13 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     switch purchaseResultMonthly {
                     case .purchased(let expiryDate, let items):
                         print("\(productIDs[0]) is valid until \(expiryDate)\n\(items)\n")
+                        print("Original transaction ID id \(items[0].originalTransactionId)\n")
                         success1 = "success"
                         message1 = "Product ID is valid until " + "\(expiryDate)"
                     //completion("success", "Product ID is valid until " + "\(expiryDate)")
                     case .expired(let expiryDate, let items):
                         print("\(productIDs[0]) is expired since \(expiryDate)\n\(items)\n")
+                        print("Original transaction ID id \(items[0].originalTransactionId)\n")
                         success1 = "failure"
                         message1 = "Product ID is expired since " + "\(expiryDate)"
                     //completion("failure", "Product ID is expired since " + "\(expiryDate)")
@@ -206,6 +233,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         message1 = "The user has never purchased \(productIDs[0])"
                         //completion("failure", "The user has never purchased \(productIDs[0])")
                     }
+                    
+                    
                     
                     switch purchaseResultYearly {
                         case .purchased(let expiryDate, let items):
@@ -224,6 +253,11 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             message2 = "The user has never purchased \(productIDs[1])"
                             //completion("failure", "The user has never purchased \(productIDs[1])")
                     }
+                    
+                    
+                    // Getting the original transaction ID
+                    print("Getting transaction ID here")
+                    
                 }
                 else {
                     let purchaseResultMonthly = SwiftyStoreKit.verifySubscription(
@@ -231,13 +265,49 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         productId: productIDs[0],
                         inReceipt: receipt)
                     
-                    print("Purchase Result Monthly: ", purchaseResultMonthly)
+                    print("Purchase Result Monthly/Yearly: ", purchaseResultMonthly)
                     
                     switch purchaseResultMonthly {
                         case .purchased(let expiryDate, let items):
                             print("\(productIDs[0]) is valid until \(expiryDate)\n\(items)\n")
                             success1 = "success"
                             message1 = "Product ID is valid until " + "\(expiryDate)"
+                        
+                            var subscriptionDetails = [String: String]()
+                            
+                            if items[0].productId == "com.hamzabinamin.SportsApple.subscription.yearly" {
+                                subscriptionDetails["Type"] = "Yearly"
+                            }
+                            else {
+                                subscriptionDetails["Type"] = "Monthly"
+                            }
+                            
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                            
+                            subscriptionDetails["Expiration Date"] = formatter.string(for: items[0].subscriptionExpirationDate)
+                            subscriptionDetails["Subscription Date"] = formatter.string(for: items[0].originalPurchaseDate)
+                            subscriptionDetails["Original Transaction ID"] = items[0].originalTransactionId
+                            
+                            self.userItem.subscriptionDetails = subscriptionDetails
+                            self.showHUD(hud: self.hud!)
+                            self.user.createUser(userId: self.userItem.userID, firstName: self.userItem.firstName, lastName: self.userItem.lastName, trainerEmail: self.userItem.trainerEmail, biceps: self.userItem.biceps, calves: self.userItem.calves, chest: self.userItem.chest, dOB: self.userItem.dOB, forearms: self.userItem.forearms, height: self.userItem.height, hips: self.userItem.hips, location: self.userItem.location, neck: self.userItem.neck, thighs: self.userItem.thighs, waist: self.userItem.waist, weight: self.userItem.weight, wrist: self.userItem.wrist, subscriptionDetails: self.userItem.subscriptionDetails, completion: { (response) in
+                                
+                                DispatchQueue.main.async {
+                                    self.hideHUD(hud: self.hud!)
+                                    
+                                    if response == "success" {
+                                
+                                    }
+                                    else {
+                                        self.showErrorHUD(text: response)
+                                    }
+                                    
+                                }
+                                
+                            })
+                        
+                        
                         //completion("success", "Product ID is valid until " + "\(expiryDate)")
                         case .expired(let expiryDate, let items):
                             print("\(productIDs[0]) is expired since \(expiryDate)\n\(items)\n")
@@ -267,8 +337,11 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             if case .success(let purchase) = result {
                 // Deliver content from server, then:
+                print("Purchase is: " + "\(purchase)")
                 if purchase.needsFinishTransaction {
+                    print("Inside needsFinishTransaction")
                     SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    
                 }
                 
                 let storeArray = [self.bundleID + "." + productID]

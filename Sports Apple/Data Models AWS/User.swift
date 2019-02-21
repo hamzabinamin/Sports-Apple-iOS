@@ -37,6 +37,7 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _waist: NSNumber?
     var _weight: NSNumber?
     var _wrist: NSNumber?
+    var _subscriptionDetails: [String:String]?
     
     class func dynamoDBTableName() -> String {
 
@@ -68,10 +69,11 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_waist" : "Waist",
                "_weight" : "Weight",
                "_wrist" : "Wrist",
+               "_subscriptionDetails" : "Subscription Details",
         ]
     }
     
-    func createUser(userId: String, firstName: String, lastName: String, trainerEmail: String, biceps: NSNumber, calves: NSNumber, chest: NSNumber, dOB: String, forearms: NSNumber, height: String, hips: NSNumber, location: String, neck: NSNumber, thighs: NSNumber, waist: NSNumber, weight: NSNumber, wrist: NSNumber, completion: @escaping (_ success: String) -> Void) {
+    func createUser(userId: String, firstName: String, lastName: String, trainerEmail: String, biceps: NSNumber, calves: NSNumber, chest: NSNumber, dOB: String, forearms: NSNumber, height: String, hips: NSNumber, location: String, neck: NSNumber, thighs: NSNumber, waist: NSNumber, weight: NSNumber, wrist: NSNumber, subscriptionDetails: [String: String], completion: @escaping (_ success: String) -> Void) {
         let dynamoDbObjectMapper = AWSDynamoDBObjectMapper.default()
         
         // Create data object using data models you downloaded from Mobile Hub
@@ -94,6 +96,7 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         userItem._waist = waist
         userItem._weight = weight
         userItem._wrist = wrist
+        userItem._subscriptionDetails = subscriptionDetails
         //Save a new item
         dynamoDbObjectMapper.save(userItem, completionHandler: {
             (error: Error?) -> Void in
@@ -148,6 +151,7 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                     responseUser.waist = (userItem?._waist)!
                     responseUser.weight = (userItem?._weight)!
                     responseUser.wrist = (userItem?._wrist)!
+                    responseUser.subscriptionDetails = (userItem?._subscriptionDetails)!
                 }
                 if output!.items.count > 0 {
                     completion("success", responseUser)
