@@ -151,7 +151,19 @@ class User: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                     responseUser.waist = (userItem?._waist)!
                     responseUser.weight = (userItem?._weight)!
                     responseUser.wrist = (userItem?._wrist)!
-                    responseUser.subscriptionDetails = (userItem?._subscriptionDetails)!
+                    
+                    if userItem?._subscriptionDetails != nil {
+                        responseUser.subscriptionDetails = (userItem?._subscriptionDetails)!
+                    }
+                    else {
+                        var subscriptionDetails: Dictionary = [String: String]()
+                        subscriptionDetails["Type"] = "none"
+                        subscriptionDetails["Expiration Date"] = "none"
+                        subscriptionDetails["Original Purchase Date"] = "none"
+                        subscriptionDetails["Purchase Date"] = "none"
+                        subscriptionDetails["Original Transaction ID"] = "none"
+                        responseUser.subscriptionDetails = subscriptionDetails
+                    }
                 }
                 if output!.items.count > 0 {
                     completion("success", responseUser)

@@ -219,7 +219,8 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         var subscriptionDetails: Dictionary = [String: String]()
         subscriptionDetails["Type"] = "none"
         subscriptionDetails["Expiration Date"] = "none"
-        subscriptionDetails["Subscription Date"] = "none"
+        subscriptionDetails["Original Purchase Date"] = "none"
+        subscriptionDetails["Purchase Date"] = "none"
         subscriptionDetails["Original Transaction ID"] = "none"
         
         user?.createUser(userId: storedUser.userID, firstName: storedUser.firstName, lastName: storedUser.lastName, trainerEmail: storedUser.trainerEmail, biceps: storedUser.biceps, calves: storedUser.calves, chest: storedUser.chest, dOB: storedUser.dOB, forearms: storedUser.forearms, height: storedUser.height, hips: storedUser.hips, location: storedUser.location, neck: storedUser.neck, thighs: storedUser.thighs, waist: storedUser.waist, weight: storedUser.weight, wrist: storedUser.wrist, subscriptionDetails: subscriptionDetails, completion: { response in
