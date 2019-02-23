@@ -155,6 +155,9 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 if message1.contains("Receipt verification failed") {
                                     self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
                                 }
+                                else {
+                                    self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                }
                             }
                             else {
                                 if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
@@ -173,20 +176,43 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                     })
                                 }
                                 else {
-                                    self.alertWithTitle(title: "Error", message: "This apple id is already subscribed with another profile")
+                                    self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
                                 }
                             }
                         }
                     })
                 }
-            
             }
             else {
-                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                print("User never subscribed")
+                self.showHUD(hud: hud!)
+                verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
+                    DispatchQueue.main.async {
+                        self.hideHUD(hud: self.hud!)
+                        if response1 == "failure" && response2 == "failure" {
+                            if message1.contains("Receipt verification failed") {
+                                self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                            }
+                            else if message1.contains("expired") || message2.contains("expired") {
+                                 print("Used apple id was previously active with another subscription")
+                                self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
+                            }
+                            else {
+                                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                            }
+                        }
+                        else {
+                            print("Used apple id is active with another subscription")
+                            self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
+                        }
+                    }
+                })
             }
         }
         else if indexPath.row == 1 {
-            self.showHUD(hud: hud!)
+            self.goToGoalStatusReportVC()
+            
+      /*      self.showHUD(hud: hud!)
             verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
                 DispatchQueue.main.async {
                     self.hideHUD(hud: self.hud!)
@@ -202,8 +228,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.goToGoalStatusReportVC()
                     }
                 }
-            })
-            
+            }) */
         }
         else if indexPath.row == 2 {
             self.showHUD(hud: hud!)
@@ -362,7 +387,6 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             message2 = "The user has never purchased \(productIDs[1])"
                             //completion("failure", "The user has never purchased \(productIDs[1])")
                     }
-                    
                     
                     // Getting the original transaction ID
                     print("Getting transaction ID here")
