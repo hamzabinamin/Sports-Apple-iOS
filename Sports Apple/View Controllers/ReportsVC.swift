@@ -74,7 +74,6 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            
             if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
@@ -104,7 +103,6 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 if currentDate! < currentTimeZoneExpirationDate! {
                     print("Subscription Active")
-                    
                     self.showHUD(hud: hud!)
                      verifySubscriptionForProof(productID: productID, completion: { (response1, message1, subscriptionDetails) in
                         DispatchQueue.main.async {
@@ -112,6 +110,17 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             if response1 == "failure" {
                                 if message1.contains("Receipt verification failed") {
                                     self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                                }
+                                else if message1.contains("expired") {
+                                    if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    }
+                                    else {
+                                       self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
                                 }
                              }
                              else {
@@ -138,7 +147,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                     }
                                 }
                                 else {
-                                    self.alertWithTitle(title: "Error", message: "This apple id is already subscribed with another profile")
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
                                 }
                              }
                         }
@@ -155,8 +164,16 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 if message1.contains("Receipt verification failed") {
                                     self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
                                 }
+                                else if message1.contains("expired") {
+                                    if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    }
+                                    else {
+                                        self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                    }
+                                }
                                 else {
-                                    self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
                                 }
                             }
                             else {
@@ -176,7 +193,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                     })
                                 }
                                 else {
-                                    self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
                                 }
                             }
                         }
@@ -210,47 +227,466 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
         else if indexPath.row == 1 {
-            self.goToGoalStatusReportVC()
-            
-      /*      self.showHUD(hud: hud!)
-            verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
-                DispatchQueue.main.async {
-                    self.hideHUD(hud: self.hud!)
-                    if response1 == "failure" && response2 == "failure" {
-                        if message1.contains("Receipt verification failed") {
-                            self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+            if userItem.subscriptionDetails["Type"] != "none" {
+                print("User has subscribed before")
+                let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
+                
+                let formatter = DateFormatter()
+                formatter.timeZone = TimeZone(abbreviation: "UTC")
+                //formatter.locale = Locale(identifier:"en_US_POSIX")
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                let utcExpirationDate = formatter.date(from: expirationDate!)
+                formatter.timeZone = TimeZone.current
+                let currentTimeZoneExpirationDateString = formatter.string(from: utcExpirationDate!)
+                let currentTimeZoneExpirationDate  = formatter.date(from: currentTimeZoneExpirationDateString)
+                let currentDateString = formatter.string(from: Date())
+                let currentDate = formatter.date(from: currentDateString)
+                
+                print("Expiration Date: " + formatter.string(from: currentTimeZoneExpirationDate!))
+                print("Current Date: " + formatter.string(from: currentDate!))
+                
+                var productID = ""
+                
+                if userItem.subscriptionDetails["Type"] == "Yearly" {
+                    productID = "com.hamzabinamin.SportsApple.subscription.yearly"
+                }
+                else {
+                    productID = "com.hamzabinamin.SportsApple.subscription"
+                }
+                
+                if currentDate! < currentTimeZoneExpirationDate! {
+                    print("Subscription Active")
+                    
+                    self.showHUD(hud: hud!)
+                    verifySubscriptionForProof(productID: productID, completion: { (response1, message1, subscriptionDetails) in
+                        DispatchQueue.main.async {
+                            self.hideHUD(hud: self.hud!)
+                            if response1 == "failure" {
+                                if message1.contains("Receipt verification failed") {
+                                    self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                                }
+                                else if message1.contains("expired") {
+                                    if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    }
+                                    else {
+                                        self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                            else {
+                                if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                    
+                                    if self.userItem.subscriptionDetails["Expiration Date"] != subscriptionDetails["Expiration Date"] {
+                                        
+                                        self.userItem.subscriptionDetails = subscriptionDetails
+                                        self.showHUD(hud: self.hud!)
+                                        self.updateUser(completion: { (response) in
+                                            DispatchQueue.main.async {
+                                                self.hideHUD(hud: self.hud!)
+                                                if response == "success" {
+                                                    self.goToGoalStatusReportVC()
+                                                }
+                                                else {
+                                                    self.showErrorHUD(text: response)
+                                                }
+                                            }
+                                        })
+                                    }
+                                    else {
+                                        self.goToGoalStatusReportVC()
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                        }
+                    })
+                }
+                else {
+                    print("Subscription not active")
+                    
+                    self.showHUD(hud: hud!)
+                    verifySubscriptionForProof(productID: productID, completion: { (response1, message1, subscriptionDetails) in
+                        DispatchQueue.main.async {
+                            self.hideHUD(hud: self.hud!)
+                            if response1 == "failure" {
+                                if message1.contains("Receipt verification failed") {
+                                    self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                                }
+                                else if message1.contains("expired") {
+                                    if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    }
+                                    else {
+                                        self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                            else {
+                                if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                    self.userItem.subscriptionDetails = subscriptionDetails
+                                    self.showHUD(hud: self.hud!)
+                                    self.updateUser(completion: { (response) in
+                                        DispatchQueue.main.async {
+                                            self.hideHUD(hud: self.hud!)
+                                            if response == "success" {
+                                                self.goToGoalStatusReportVC()
+                                            }
+                                            else {
+                                                self.showErrorHUD(text: response)
+                                            }
+                                        }
+                                    })
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            else {
+                print("User never subscribed")
+                self.showHUD(hud: hud!)
+                verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
+                    DispatchQueue.main.async {
+                        self.hideHUD(hud: self.hud!)
+                        if response1 == "failure" && response2 == "failure" {
+                            if message1.contains("Receipt verification failed") {
+                                self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                            }
+                            else if message1.contains("expired") || message2.contains("expired") {
+                                print("Used apple id was previously active with another subscription")
+                                self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
+                            }
+                            else {
+                                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                            }
                         }
                         else {
-                            self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                            print("Used apple id is active with another subscription")
+                            self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
                         }
                     }
-                    else {
-                        self.goToGoalStatusReportVC()
-                    }
-                }
-            }) */
+                })
+            }
         }
         else if indexPath.row == 2 {
-            self.showHUD(hud: hud!)
-            verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
-                DispatchQueue.main.async {
-                    self.hideHUD(hud: self.hud!)
-                    if response1 == "failure" && response2 == "failure" {
-                        if message1.contains("Receipt verification failed") {
-                            self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+            if userItem.subscriptionDetails["Type"] != "none" {
+                print("User has subscribed before")
+                let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
+                
+                let formatter = DateFormatter()
+                formatter.timeZone = TimeZone(abbreviation: "UTC")
+                //formatter.locale = Locale(identifier:"en_US_POSIX")
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                let utcExpirationDate = formatter.date(from: expirationDate!)
+                formatter.timeZone = TimeZone.current
+                let currentTimeZoneExpirationDateString = formatter.string(from: utcExpirationDate!)
+                let currentTimeZoneExpirationDate  = formatter.date(from: currentTimeZoneExpirationDateString)
+                let currentDateString = formatter.string(from: Date())
+                let currentDate = formatter.date(from: currentDateString)
+                
+                print("Expiration Date: " + formatter.string(from: currentTimeZoneExpirationDate!))
+                print("Current Date: " + formatter.string(from: currentDate!))
+                
+                var productID = ""
+                
+                if userItem.subscriptionDetails["Type"] == "Yearly" {
+                    productID = "com.hamzabinamin.SportsApple.subscription.yearly"
+                }
+                else {
+                    productID = "com.hamzabinamin.SportsApple.subscription"
+                }
+                
+                if currentDate! < currentTimeZoneExpirationDate! {
+                    print("Subscription Active")
+                    
+                    self.showHUD(hud: hud!)
+                    verifySubscriptionForProof(productID: productID, completion: { (response1, message1, subscriptionDetails) in
+                        DispatchQueue.main.async {
+                            self.hideHUD(hud: self.hud!)
+                            if response1 == "failure" {
+                                if message1.contains("Receipt verification failed") {
+                                    self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                                }
+                                else if message1.contains("expired") {
+                                    if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    }
+                                    else {
+                                        self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                            else {
+                                if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                    
+                                    if self.userItem.subscriptionDetails["Expiration Date"] != subscriptionDetails["Expiration Date"] {
+                                        
+                                        self.userItem.subscriptionDetails = subscriptionDetails
+                                        self.showHUD(hud: self.hud!)
+                                        self.updateUser(completion: { (response) in
+                                            DispatchQueue.main.async {
+                                                self.hideHUD(hud: self.hud!)
+                                                if response == "success" {
+                                                    self.goToYearTotalsReportVC()
+                                                }
+                                                else {
+                                                    self.showErrorHUD(text: response)
+                                                }
+                                            }
+                                        })
+                                    }
+                                    else {
+                                        self.goToYearTotalsReportVC()
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                        }
+                    })
+                }
+                else {
+                    print("Subscription not active")
+                    
+                    self.showHUD(hud: hud!)
+                    verifySubscriptionForProof(productID: productID, completion: { (response1, message1, subscriptionDetails) in
+                        DispatchQueue.main.async {
+                            self.hideHUD(hud: self.hud!)
+                            if response1 == "failure" {
+                                if message1.contains("Receipt verification failed") {
+                                    self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                                }
+                                else if message1.contains("expired") {
+                                    if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    }
+                                    else {
+                                        self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                            else {
+                                if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                    self.userItem.subscriptionDetails = subscriptionDetails
+                                    self.showHUD(hud: self.hud!)
+                                    self.updateUser(completion: { (response) in
+                                        DispatchQueue.main.async {
+                                            self.hideHUD(hud: self.hud!)
+                                            if response == "success" {
+                                                self.goToYearTotalsReportVC()
+                                            }
+                                            else {
+                                                self.showErrorHUD(text: response)
+                                            }
+                                        }
+                                    })
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            else {
+                print("User never subscribed")
+                self.showHUD(hud: hud!)
+                verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
+                    DispatchQueue.main.async {
+                        self.hideHUD(hud: self.hud!)
+                        if response1 == "failure" && response2 == "failure" {
+                            if message1.contains("Receipt verification failed") {
+                                self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                            }
+                            else if message1.contains("expired") || message2.contains("expired") {
+                                print("Used apple id was previously active with another subscription")
+                                self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
+                            }
+                            else {
+                                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                            }
                         }
                         else {
-                            self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                            print("Used apple id is active with another subscription")
+                            self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
                         }
                     }
-                    else {
-                          self.goToYearTotalsReportVC()
-                    }
-                }
-            })
+                })
+            }
         }
         else if indexPath.row == 3 {
-            self.showHUD(hud: hud!)
+            if userItem.subscriptionDetails["Type"] != "none" {
+                print("User has subscribed before")
+                let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
+                
+                let formatter = DateFormatter()
+                formatter.timeZone = TimeZone(abbreviation: "UTC")
+                //formatter.locale = Locale(identifier:"en_US_POSIX")
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                let utcExpirationDate = formatter.date(from: expirationDate!)
+                formatter.timeZone = TimeZone.current
+                let currentTimeZoneExpirationDateString = formatter.string(from: utcExpirationDate!)
+                let currentTimeZoneExpirationDate  = formatter.date(from: currentTimeZoneExpirationDateString)
+                let currentDateString = formatter.string(from: Date())
+                let currentDate = formatter.date(from: currentDateString)
+                
+                print("Expiration Date: " + formatter.string(from: currentTimeZoneExpirationDate!))
+                print("Current Date: " + formatter.string(from: currentDate!))
+                
+                var productID = ""
+                
+                if userItem.subscriptionDetails["Type"] == "Yearly" {
+                    productID = "com.hamzabinamin.SportsApple.subscription.yearly"
+                }
+                else {
+                    productID = "com.hamzabinamin.SportsApple.subscription"
+                }
+                
+                if currentDate! < currentTimeZoneExpirationDate! {
+                    print("Subscription Active")
+                    self.showHUD(hud: hud!)
+                    verifySubscriptionForProof(productID: productID, completion: { (response1, message1, subscriptionDetails) in
+                        DispatchQueue.main.async {
+                            self.hideHUD(hud: self.hud!)
+                            if response1 == "failure" {
+                                if message1.contains("Receipt verification failed") {
+                                    self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                                }
+                                else if message1.contains("expired") {
+                                    if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    }
+                                    else {
+                                        self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                            else {
+                                if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                    
+                                    if self.userItem.subscriptionDetails["Expiration Date"] != subscriptionDetails["Expiration Date"] {
+                                        
+                                        self.userItem.subscriptionDetails = subscriptionDetails
+                                        self.showHUD(hud: self.hud!)
+                                        self.updateUser(completion: { (response) in
+                                            DispatchQueue.main.async {
+                                                self.hideHUD(hud: self.hud!)
+                                                if response == "success" {
+                                                    self.goToDailyActivityReportVC()
+                                                }
+                                                else {
+                                                    self.showErrorHUD(text: response)
+                                                }
+                                            }
+                                        })
+                                    }
+                                    else {
+                                        self.goToDailyActivityReportVC()
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                        }
+                    })
+                }
+                else {
+                    print("Subscription not active")
+                    
+                    self.showHUD(hud: hud!)
+                    verifySubscriptionForProof(productID: productID, completion: { (response1, message1, subscriptionDetails) in
+                        DispatchQueue.main.async {
+                            self.hideHUD(hud: self.hud!)
+                            if response1 == "failure" {
+                                if message1.contains("Receipt verification failed") {
+                                    self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                                }
+                                else if message1.contains("expired") {
+                                    if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                    }
+                                    else {
+                                        self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                    }
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                            else {
+                                if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
+                                    self.userItem.subscriptionDetails = subscriptionDetails
+                                    self.showHUD(hud: self.hud!)
+                                    self.updateUser(completion: { (response) in
+                                        DispatchQueue.main.async {
+                                            self.hideHUD(hud: self.hud!)
+                                            if response == "success" {
+                                                self.goToDailyActivityReportVC()
+                                            }
+                                            else {
+                                                self.showErrorHUD(text: response)
+                                            }
+                                        }
+                                    })
+                                }
+                                else {
+                                    self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            else {
+                print("User never subscribed")
+                self.showHUD(hud: hud!)
+                verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
+                    DispatchQueue.main.async {
+                        self.hideHUD(hud: self.hud!)
+                        if response1 == "failure" && response2 == "failure" {
+                            if message1.contains("Receipt verification failed") {
+                                self.alertWithTitle(title: "Error", message: "Couldn't retrieve info from the store")
+                            }
+                            else if message1.contains("expired") || message2.contains("expired") {
+                                print("Used apple id was previously active with another subscription")
+                                self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
+                            }
+                            else {
+                                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                            }
+                        }
+                        else {
+                            print("Used apple id is active with another subscription")
+                            self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
+                        }
+                    }
+                })
+            }
+        /*    self.showHUD(hud: hud!)
             verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
                 DispatchQueue.main.async {
                     self.hideHUD(hud: self.hud!)
@@ -266,7 +702,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.goToDailyActivityReportVC()
                     }
                 }
-            })
+            }) */
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -487,12 +923,28 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         subscriptionDetails["Purchase Date"] = formatter.string(for: formatter.date(from: formatter.string(for: items[0].purchaseDate)!))
                         subscriptionDetails["Original Transaction ID"] = items[0].originalTransactionId
                         
-                    //completion("success", "Product ID is valid until " + "\(expiryDate)")
                     case .expired(let expiryDate, let items):
                         print("\(productID) is expired since \(expiryDate)\n\(items)\n")
                         success1 = "failure"
                         message1 = "Product ID is expired since " + "\(expiryDate)"
-                    //completion("failure", "Product ID is expired since " + "\(expiryDate)")
+                    
+                        if items[0].productId == "com.hamzabinamin.SportsApple.subscription.yearly" {
+                            subscriptionDetails["Type"] = "Yearly"
+                        }
+                        else {
+                            subscriptionDetails["Type"] = "Monthly"
+                        }
+                        
+                        let formatter = DateFormatter()
+                        formatter.timeZone = TimeZone(abbreviation: "UTC")
+                        //formatter.locale = Locale(identifier:"en_US_POSIX")
+                        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                        
+                        subscriptionDetails["Expiration Date"] = formatter.string(for: formatter.date(from: formatter.string(for: items[0].subscriptionExpirationDate)!))
+                        subscriptionDetails["Original Purchase Date"] = formatter.string(for: formatter.date(from: formatter.string(for: items[0].originalPurchaseDate)!))
+                        subscriptionDetails["Purchase Date"] = formatter.string(for: formatter.date(from: formatter.string(for: items[0].purchaseDate)!))
+                        subscriptionDetails["Original Transaction ID"] = items[0].originalTransactionId
+                    
                     case .notPurchased:
                         print("The user has never purchased \(productID)")
                         success1 = "failure"
