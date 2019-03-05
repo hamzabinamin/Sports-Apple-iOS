@@ -74,7 +74,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            if userItem.subscriptionDetails["Type"] != "none" {
+      /*      if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
                 
@@ -224,10 +224,11 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
-            }
+            } */
+             self.goToSummaryReportVC()
         }
         else if indexPath.row == 1 {
-            if userItem.subscriptionDetails["Type"] != "none" {
+         /*   if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
                 
@@ -378,10 +379,11 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
-            }
+            } */
+            self.goToGoalStatusReportVC()
         }
         else if indexPath.row == 2 {
-            if userItem.subscriptionDetails["Type"] != "none" {
+         /*   if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
                 
@@ -532,10 +534,11 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
-            }
+            } */
+            self.goToYearTotalsReportVC()
         }
         else if indexPath.row == 3 {
-            if userItem.subscriptionDetails["Type"] != "none" {
+         /*   if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
                 
@@ -685,7 +688,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
-            }
+            } */
         /*    self.showHUD(hud: hud!)
             verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
                 DispatchQueue.main.async {
@@ -703,7 +706,9 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             }) */
+            self.goToDailyActivityReportVC()
         }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

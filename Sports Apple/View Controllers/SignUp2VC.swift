@@ -155,7 +155,7 @@ class SignUp2VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
         let emailRegEx = "^(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?(?:(?:(?:[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+(?:\\.[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+)*)|(?:\"(?:(?:(?:(?: )*(?:(?:[!#-Z^-~]|\\[|\\])|(?:\\\\(?:\\t|[ -~]))))+(?: )*)|(?: )+)\"))(?:@)(?:(?:(?:[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)(?:\\.[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)*)|(?:\\[(?:(?:(?:(?:(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))\\.){3}(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))))|(?:(?:(?: )*[!-Z^-~])*(?: )*)|(?:[Vv][0-9A-Fa-f]+\\.[-A-Za-z0-9._~!$&'()*+,;=:]+))\\])))(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?$"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         
-        if firstName.count > 0 && lastName.count > 0 && dob.count > 0 && height.count > 0 {
+        if firstName.count > 0 && lastName.count > 0 /*  && dob.count > 0 && height.count > 0 */ {
             
             if trainerEmail.count > 0 && trainerEmail != "none" {
                 if !emailTest.evaluate(with: trainerEmail) {
@@ -204,13 +204,21 @@ class SignUp2VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
     @objc func goNext() {
         let firstName = firstNameTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let lastName = lastNameTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let dob = dobTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let height = heightTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var dob = dobTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        var height = heightTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let trainerEmail = trainerEmailTF.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if validation(firstName: firstName, lastName: lastName, dob: dob, height: height, trainerEmail: trainerEmail) {
             user.firstName = firstName
             user.lastName = lastName
+            
+            if dob.count == 0 {
+                dob = "none"
+            }
+            if height.count == 0 {
+                height = "none"
+            }
+            
             user.dOB = dob
             user.height = height
             

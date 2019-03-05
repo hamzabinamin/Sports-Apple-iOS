@@ -111,7 +111,12 @@ class GoalStatusReportVC: UIViewController {
                             exerciseItem.exerciseID = activity["exerciseID"] as! String
                             exerciseItem.exerciseName = activity["exerciseName"] as! String
                             
-                            if !self.set.contains(where: {($0.exerciseID == exerciseItem.exerciseID || $0.exerciseName == exerciseItem.exerciseName)}) {
+                            exerciseItem.exerciseCount = Float(activity["Count"] as? String ?? "") ?? 0
+                            exerciseItem.exerciseTime = activity["Time"] as? Int ?? 0
+                            exerciseItem.exerciseDistance = Int(activity["Distance"] as? String ?? "") ?? 0
+                            exerciseItem.exerciseWeightAmount = Float(activity["Weight Amount"] as? String ?? "") ?? 0
+                            
+                            if !self.set.contains(where: {(  ( ($0.goalCount != 0 && exerciseItem.exerciseCount != 0) || ($0.goalTime != 0 && exerciseItem.exerciseTime != 0) || ($0.goalDistance != 0 && exerciseItem.exerciseDistance != 0) || ($0.goalWeight != 0 && exerciseItem.exerciseWeightAmount != 0) ) && ($0.exerciseID == exerciseItem.exerciseID || $0.exerciseName == exerciseItem.exerciseName) )}) {
                             /*    if activity["Weight Amount"] != nil {
                                     exerciseItem.exerciseWeightAmount = Int(activity["Weight Amount"] as! String)!
                                     exerciseItem.exerciseSets = Int(activity["Sets"] as! String)!
@@ -222,7 +227,12 @@ class GoalStatusReportVC: UIViewController {
                                 stringRow[9] = String(format: "%02d:%02d", hoursDiff, abs(minutesDiff))
                             }
                             
+                            print("Exercise Time: ", Float(item.exerciseTime))
+                            print("Goal Time: ", Float(item.goalTime))
+                            print("Percentage: ", ((Float(item.exerciseTime) / Float(item.goalTime)) * 100))
                             let percentage = ((Float(item.exerciseTime) / Float(item.goalTime)) * 100)
+                            print("Percentage 2", percentage)
+                            print("Percentage 3", "\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
                             stringRow[10] = "\(percentage.rounded(.toNearestOrAwayFromZero))" + "%"
                         }
@@ -242,6 +252,11 @@ class GoalStatusReportVC: UIViewController {
                                 stringRow[9] = self.numFormatter.string(from: NSNumber(value: (item.goalDistance - item.exerciseDistance)))!
                             }
                             
+                            print("Distance Exercise Date: ", item.date)
+                            print("Distance Exercise ID: ", item.exerciseID)
+                            print("Exercise Distance: ", Float(item.exerciseDistance))
+                            print("Goal Distance: ", Float(item.goalDistance))
+                            print("Percentage Distance: ", ((Float(item.exerciseDistance) / Float(item.goalDistance)) * 100))
                             let percentage = ((Float(item.exerciseDistance) / Float(item.goalDistance)) * 100)
                             row[10] = DataTableValueType.string("\(percentage.rounded(.toNearestOrAwayFromZero))" + "%")
                             stringRow[10] = "\(percentage.rounded(.toNearestOrAwayFromZero))" + "%"

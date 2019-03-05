@@ -257,7 +257,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
                 }
                 let number = numberFormatter.number(from: calories)
                 if let number = number {
-                    caloriesTF.text = "\(Float(number))" + " calories"
+                    caloriesTF.text = "\(Float(truncating: number))" + " calories"
                 }
                 else {
                     print("Didn't accept input: ", number)
@@ -282,7 +282,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
                
                 let number = numberFormatter.number(from: weight)
                 if let number = number {
-                    weightTF.text = "\(Float(number))" + " lbs"
+                    weightTF.text = "\(Float(truncating: number))" + " lbs"
                 }
             }
         }
