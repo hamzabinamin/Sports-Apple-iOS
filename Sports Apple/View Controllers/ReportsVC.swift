@@ -74,7 +74,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-      /*      if userItem.subscriptionDetails["Type"] != "none" {
+            if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
                 
@@ -224,8 +224,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
-            } */
-             self.goToSummaryReportVC()
+            }
+            // self.goToSummaryReportVC()
         }
         else if indexPath.row == 1 {
          /*   if userItem.subscriptionDetails["Type"] != "none" {
@@ -380,7 +380,10 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     }
                 })
             } */
-            self.goToGoalStatusReportVC()
+            //self.goToGoalStatusReportVC()
+            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+            let destVC = storyboard.instantiateViewController(withIdentifier: "IAPVC")
+            self.present(destVC, animated: true, completion: .none)
         }
         else if indexPath.row == 2 {
          /*   if userItem.subscriptionDetails["Type"] != "none" {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A3D53582B79DBC49273BC20 /* Pods_Sports_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */; };
+		F503C3D222302CD20020778F /* IAPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503C3D122302CD20020778F /* IAPVC.swift */; };
 		F5128B1620EFBB0500485F63 /* CalendarCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5128B1520EFBB0500485F63 /* CalendarCVCell.swift */; };
 		F5128B1820EFBBA000485F63 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5128B1720EFBBA000485F63 /* CalendarVC.swift */; };
 		F517813920C42D9B0059B294 /* AddActivityInSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F517813820C42D9B0059B294 /* AddActivityInSession.storyboard */; };
@@ -94,6 +95,7 @@
 		44AA039F68FC685418D5D904 /* Pods-Sports Apple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple.debug.xcconfig"; sourceTree = "<group>"; };
 		82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sports_Apple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DDD9DF0466111C9E549E78 /* Pods-Sports Apple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple.release.xcconfig"; sourceTree = "<group>"; };
+		F503C3D122302CD20020778F /* IAPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPVC.swift; sourceTree = "<group>"; };
 		F5128B1520EFBB0500485F63 /* CalendarCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCVCell.swift; sourceTree = "<group>"; };
 		F5128B1720EFBBA000485F63 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		F517813820C42D9B0059B294 /* AddActivityInSession.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddActivityInSession.storyboard; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				F5128B1720EFBBA000485F63 /* CalendarVC.swift */,
 				F58B3EBD2177906000156BB5 /* YearPopUpVC.swift */,
 				F521C7CA214A9DF5005E2F2B /* PDFPreviewVC.swift */,
+				F503C3D122302CD20020778F /* IAPVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				F543411A20DD03720089A09E /* Constants.swift in Sources */,
 				F565C0AF20C809E000F64B86 /* GoalsItem.swift in Sources */,
 				F536D2C620DE57FF0044B077 /* UserItem.swift in Sources */,
+				F503C3D222302CD20020778F /* IAPVC.swift in Sources */,
 				F5DF29B520BB245D00E3EFF2 /* SignUp1VC.swift in Sources */,
 				F51D96AA20CD8590001AF442 /* SummaryReportVC.swift in Sources */,
 				F565C0AD20C8095100F64B86 /* GoalsVC.swift in Sources */,
