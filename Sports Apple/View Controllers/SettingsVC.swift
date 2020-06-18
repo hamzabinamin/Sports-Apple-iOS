@@ -395,8 +395,11 @@ extension SettingsVC {
                 return alertWithTitle(title: "Purchase Failed", message: "Access to cloud service information is not allowed")
             case .cloudServiceRevoked:
                 return alertWithTitle(title: "Purchase Failed", message: "Access to cloud service information is revoked")
+                
+            default: break
             }
         }
+         return alertWithTitle(title: "Failed", message: "Something went wrong")
     }
     
     func alertForRestorePurchases(result : RestoreResults) -> UIAlertController {

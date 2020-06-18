@@ -54,12 +54,17 @@ class GoalStatusReportVC: UIViewController {
     }
     
     func setupViews() {
+        print("Inside GoalStatusReportVC's setupViews")
         hud = self.createLoadingHUD()
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoUserPoolsSignInProviderKey)
         self.dataTable = SwiftDataTable(dataSource: self)
-        self.dataTableConfig = DataTableConfiguration()
+        
+        let configuration = DataTableConfiguration()
+       // configuration.fixedColumns = .init(leftColumns: 1, rightColumns: 0)
+        
+        self.dataTableConfig = configuration
         self.dataTableConfig?.highlightedAlternatingRowColors = [UIColor.red]
         
 
@@ -67,6 +72,8 @@ class GoalStatusReportVC: UIViewController {
         //self.dataTable.frame.origin.x = self.view.frame.origin.x
         //self.dataTable.frame.origin.y = 600
         self.dataTable.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.dataTable.delegate = self
         
         //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
         self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -525,4 +532,13 @@ extension GoalStatusReportVC: SwiftDataTableDataSource {
         print("Got inside highlight")
         return UIColor.red
     }
+    
+    
+}
+
+extension GoalStatusReportVC: SwiftDataTableDelegate {
+    @objc func fixedColumns(for dataTable: SwiftDataTable) -> DataTableFixedColumnType {
+        return .init(leftColumns: 1) 
+    }
+    
 }

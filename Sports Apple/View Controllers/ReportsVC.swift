@@ -74,6 +74,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
+            self.goToSummaryReportVC()
+            return
             if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
@@ -113,7 +115,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                                 else if message1.contains("expired") {
                                     if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
-                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        self.goToIAPVC()
                                     }
                                     else {
                                        self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
@@ -166,7 +169,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                                 else if message1.contains("expired") {
                                     if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
-                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        self.goToIAPVC()
                                     }
                                     else {
                                         self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
@@ -215,7 +219,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
                             }
                             else {
-                                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                self.goToIAPVC()
                             }
                         }
                         else {
@@ -225,10 +230,13 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     }
                 })
             }
-            // self.goToSummaryReportVC()
+           //  self.goToSummaryReportVC()
         }
         else if indexPath.row == 1 {
-         /*   if userItem.subscriptionDetails["Type"] != "none" {
+            self.goToGoalStatusReportVC()
+            return
+            
+            if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
                 
@@ -268,7 +276,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                                 else if message1.contains("expired") {
                                     if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
-                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        self.goToIAPVC()
                                     }
                                     else {
                                         self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
@@ -321,7 +330,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                                 else if message1.contains("expired") {
                                     if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
-                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        self.goToIAPVC()
                                     }
                                     else {
                                         self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
@@ -370,7 +380,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
                             }
                             else {
-                                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                self.goToIAPVC()
                             }
                         }
                         else {
@@ -379,14 +390,14 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
-            } */
-            //self.goToGoalStatusReportVC()
-            let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
-            let destVC = storyboard.instantiateViewController(withIdentifier: "IAPVC")
-            self.present(destVC, animated: true, completion: .none)
+            }
+         //   self.goToGoalStatusReportVC()
         }
         else if indexPath.row == 2 {
-         /*   if userItem.subscriptionDetails["Type"] != "none" {
+            self.goToYearTotalsReportVC()
+            return
+            
+            if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
                 
@@ -426,7 +437,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                                 else if message1.contains("expired") {
                                     if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
-                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        self.goToIAPVC()
                                     }
                                     else {
                                         self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
@@ -479,7 +491,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                                 else if message1.contains("expired") {
                                     if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
-                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        self.goToIAPVC()
                                     }
                                     else {
                                         self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
@@ -528,7 +541,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
                             }
                             else {
-                                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                self.goToIAPVC()
                             }
                         }
                         else {
@@ -537,11 +551,13 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
-            } */
-            self.goToYearTotalsReportVC()
+            }
+          //  self.goToYearTotalsReportVC()
         }
         else if indexPath.row == 3 {
-         /*   if userItem.subscriptionDetails["Type"] != "none" {
+            self.goToDailyActivityReportVC()
+            return 
+            if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
                 let expirationDate =  userItem.subscriptionDetails["Expiration Date"]
                 
@@ -580,7 +596,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                                 else if message1.contains("expired") {
                                     if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
-                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        self.goToIAPVC()
                                     }
                                     else {
                                         self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
@@ -633,7 +650,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 }
                                 else if message1.contains("expired") {
                                     if self.userItem.subscriptionDetails["Original Transaction ID"] == subscriptionDetails["Original Transaction ID"] {
-                                        self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                        self.goToIAPVC()
                                     }
                                     else {
                                         self.alertWithTitle(title: "Error", message: "Your subscription is not associated with this apple id")
@@ -682,7 +700,8 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 self.alertWithTitle(title: "Error", message: "This apple id is already being used with another profile")
                             }
                             else {
-                                self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                //self.alertWithOptions(title: "Subscription Required", message: "You need to subscribe to access this feature")
+                                self.goToIAPVC()
                             }
                         }
                         else {
@@ -691,7 +710,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 })
-            } */
+            }
         /*    self.showHUD(hud: hud!)
             verifySubscription(productIDs: productIDsArray, completion: { (response1, response2, message1, message2, subscriptionDetails) in
                 DispatchQueue.main.async {
@@ -709,7 +728,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             }) */
-            self.goToDailyActivityReportVC()
+           // self.goToDailyActivityReportVC()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -749,6 +768,15 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
+    func goToIAPVC() {
+        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        let destVC = storyboard.instantiateViewController(withIdentifier: "IAPVC") as! IAPVC
+        destVC.user = self.user
+        destVC.userItem = self.userItem
+        self.present(destVC, animated: true, completion: .none)
+    }
+    
     func updateUser(completion: @escaping (_ message: String) -> Void) {
         self.showHUD(hud: self.hud!)
         self.user.createUser(userId: self.userItem.userID, firstName: self.userItem.firstName, lastName: self.userItem.lastName, trainerEmail: self.userItem.trainerEmail, biceps: self.userItem.biceps, calves: self.userItem.calves, chest: self.userItem.chest, dOB: self.userItem.dOB, forearms: self.userItem.forearms, height: self.userItem.height, hips: self.userItem.hips, location: self.userItem.location, neck: self.userItem.neck, thighs: self.userItem.thighs, waist: self.userItem.waist, weight: self.userItem.weight, wrist: self.userItem.wrist, subscriptionDetails: self.userItem.subscriptionDetails, completion: { (response) in
@@ -770,7 +798,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func verifySubscription(productIDs: [String], completion: @escaping (_ success1: String, _ success2: String, _ message1: String, _ message2: String, _ subscriptionDetails: [String: String]) -> Void) {
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedSecret)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
+        SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: false) { result in
             switch result {
             case .success(let receipt):
 
@@ -893,7 +921,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func verifySubscriptionForProof(productID: String, completion: @escaping (_ success1: String, _ message1: String, _ subscriptionDetails: [String: String]) -> Void) {
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedSecret)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
+        SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: false) { result in
             switch result {
             case .success(let receipt):
                 
