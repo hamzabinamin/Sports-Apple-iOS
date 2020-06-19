@@ -516,6 +516,11 @@ extension DailyActivityReportVC: SwiftDataTableDataSource {
 
 extension DailyActivityReportVC: SwiftDataTableDelegate {
    @objc func dataTable(_ dataTable: SwiftDataTable, widthForColumnAt index: Int) -> CGFloat {
-        return 150.0
+        
+        return 100.0
+    }
+    
+    @objc func fixedColumns(for dataTable: SwiftDataTable) -> DataTableFixedColumnType {
+        return .init(leftColumns: 2)
     }
 }

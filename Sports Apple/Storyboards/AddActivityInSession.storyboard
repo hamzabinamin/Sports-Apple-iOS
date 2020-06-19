@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iai-qN-QSp">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iai-qN-QSp">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Avenir.ttc">
-            <string>Avenir-Book</string>
-            <string>Avenir-Light</string>
-            <string>Avenir-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Activity-->
         <scene sceneID="eKW-SS-sjO">
@@ -40,15 +30,16 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Activities" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2XY-t0-ssY">
-                                <rect key="frame" x="134.5" y="40" width="106" height="24"/>
+                                <rect key="frame" x="134.5" y="20" width="106" height="24"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Qv-qG-WY2">
-                                <rect key="frame" x="326" y="25" width="34" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Qv-qG-WY2">
+                                <rect key="frame" x="305" y="5" width="55" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="LC0-VX-LQP"/>
+                                    <constraint firstAttribute="height" constant="30" id="LC0-VX-LQP"/>
+                                    <constraint firstAttribute="width" constant="55" id="g3y-GU-r1j"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                 <state key="normal" title="Save">
@@ -59,16 +50,16 @@
                                 <rect key="frame" x="0.0" y="121" width="375" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activities" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhr-pQ-so5">
-                                        <rect key="frame" x="15" y="7" width="335" height="25"/>
+                                        <rect key="frame" x="15" y="7.5" width="335" height="25"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCd-dN-L71">
-                                        <rect key="frame" x="335" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="334" y="7" width="26" height="26"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="tU2-V5-Xym"/>
-                                            <constraint firstAttribute="width" constant="25" id="vym-GW-GHp"/>
+                                            <constraint firstAttribute="height" constant="26" id="tU2-V5-Xym"/>
+                                            <constraint firstAttribute="width" constant="26" id="vym-GW-GHp"/>
                                         </constraints>
                                         <state key="normal" image="Add"/>
                                     </button>
@@ -113,11 +104,11 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="171"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0uC-6j-5GX" id="sVz-fs-UIX">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="170.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="171"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5vi-ne-fm0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="170.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="171"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 KG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Uh-L5-q8t">
                                                             <rect key="frame" x="44" y="15" width="62" height="30.5"/>
@@ -132,7 +123,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Sets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LBC-hP-FHX">
-                                                            <rect key="frame" x="15" y="100.5" width="120" height="25"/>
+                                                            <rect key="frame" x="15" y="101" width="120" height="25"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -144,7 +135,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Reps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pm-dm-qhA">
-                                                            <rect key="frame" x="15" y="130.5" width="130" height="25"/>
+                                                            <rect key="frame" x="15" y="131" width="130" height="25"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -219,7 +210,7 @@
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add activities to your session" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRZ-7w-dEQ">
-                                <rect key="frame" x="55" y="320.5" width="265.5" height="27.5"/>
+                                <rect key="frame" x="55" y="320" width="265.5" height="27.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -273,17 +264,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="jnV-U6-RR1">
-                                <rect key="frame" x="15" y="65" width="345" height="557"/>
+                                <rect key="frame" x="15" y="45" width="345" height="577"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKh-sf-fIW">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unv-Uv-HtN">
-                                <rect key="frame" x="35" y="90" width="305" height="487"/>
+                                <rect key="frame" x="35" y="70" width="305" height="527"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Card Stack" translatesAutoresizingMaskIntoConstraints="NO" id="Gdo-Q2-OLe">
-                                        <rect key="frame" x="0.0" y="0.0" width="305" height="487"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="305" height="527"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwq-eJ-9dO">
                                         <rect key="frame" x="93" y="35" width="119" height="25"/>
@@ -292,7 +283,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMK-gm-nhk">
-                                        <rect key="frame" x="19" y="100" width="267" height="287"/>
+                                        <rect key="frame" x="19" y="100" width="267" height="327"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3y-ia-b0L">
                                                 <rect key="frame" x="0.0" y="0.0" width="267" height="705"/>
@@ -305,7 +296,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="6am-mn-8oJ"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -337,7 +327,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="jf5-Lf-jpv"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -368,7 +357,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="e60-0k-WVx"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -399,7 +387,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="uNb-ks-gyY"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             </textField>
@@ -430,7 +417,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="ItQ-3X-I5m"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
@@ -461,7 +447,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="gaB-ER-HHd"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
@@ -492,7 +477,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="ReQ-qp-liv"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             </textField>
@@ -523,7 +507,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="xqZ-0b-DVK"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -554,7 +537,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="geZ-Pn-MRW"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -659,7 +641,7 @@
                                         </constraints>
                                     </scrollView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLO-hN-eFg">
-                                        <rect key="frame" x="19" y="427" width="267" height="40"/>
+                                        <rect key="frame" x="19" y="467" width="267" height="40"/>
                                         <color key="backgroundColor" red="0.46666666670000001" green="0.88235294119999996" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="U2x-hP-WSn"/>
@@ -730,13 +712,13 @@
     <resources>
         <image name="Activity" width="30" height="30"/>
         <image name="Activity Header" width="53" height="62"/>
-        <image name="Add" width="42" height="42"/>
+        <image name="Add" width="42.5" height="42.5"/>
         <image name="Back" width="32" height="32"/>
         <image name="Background" width="375" height="812"/>
         <image name="Card Stack" width="333" height="422"/>
-        <image name="Comment" width="42" height="42"/>
+        <image name="Comment" width="42.5" height="42.5"/>
         <image name="Header" width="375" height="182"/>
-        <image name="List" width="42" height="42"/>
+        <image name="List" width="42.5" height="42.5"/>
         <image name="Measurement" width="39" height="39"/>
         <image name="Round Rectangle" width="285" height="50"/>
     </resources>
