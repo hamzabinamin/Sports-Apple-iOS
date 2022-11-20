@@ -309,6 +309,7 @@ class DailyActivityReportVC: UIViewController {
                     self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                     self.array.sort(by: { self.formatter.date(from: $0._date!)?.compare(self.formatter.date(from: ($1._date)!)!) == .orderedDescending})
                     var storeItem = Activity()
+                    print("Store Item Date: ", self.array.first?._date)
                     storeItem?._date = self.array.first?._date
                     let labelDate = self.formatter.date(from: (storeItem?._date)!)
                     self.formatter.dateFormat = "MMM d, yyyy"

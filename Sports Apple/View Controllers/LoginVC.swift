@@ -35,7 +35,7 @@ class LoginVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         if pool.currentUser()?.getSession() != nil {
+        if pool?.currentUser()?.getSession() != nil {
             print("Session there")
          
         }
@@ -149,7 +149,7 @@ class LoginVC: UIViewController {
 
     func processUser() {
         if (self.user == nil) {
-            self.user = self.pool.currentUser()
+            self.user = self.pool!.currentUser()
         }
         DispatchQueue.main.async {
             self.hideHUD(hud: self.hud!)

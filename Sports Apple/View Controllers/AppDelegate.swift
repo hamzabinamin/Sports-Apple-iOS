@@ -18,7 +18,7 @@ let userPoolID = "us-east-1_TavWWBZtI"
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     class func defaultUserPool() -> AWSCognitoIdentityUserPool {
-        return AWSCognitoIdentityUserPool(forKey: userPoolID)
+        return AWSCognitoIdentityUserPool(forKey: userPoolID) ?? AWSCognitoIdentityUserPool()
     }
 
     var window: UIWindow?
@@ -31,6 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        if #available(iOS 13.0, *) {
+            window!.overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.placeholderColor = .black
         
@@ -95,14 +100,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        return AWSMobileClient.sharedInstance().interceptApplication(
+        return AWSMobileClient.default().interceptApplication(
             application, didFinishLaunchingWithOptions:
             launchOptions)
         //return true
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return AWSMobileClient.sharedInstance().interceptApplication(
+        return AWSMobileClient.default().interceptApplication(
             application, open: url,
             sourceApplication: sourceApplication,
             annotation: annotation)

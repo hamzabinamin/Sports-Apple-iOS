@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A3D53582B79DBC49273BC20 /* Pods_Sports_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */; };
+		158F11804CD484E8D967B6E3 /* Pods_Sports_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA9B04982547DB8F047E271 /* Pods_Sports_Apple.framework */; };
 		F503C3D222302CD20020778F /* IAPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503C3D122302CD20020778F /* IAPVC.swift */; };
 		F5128B1620EFBB0500485F63 /* CalendarCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5128B1520EFBB0500485F63 /* CalendarCVCell.swift */; };
 		F5128B1820EFBBA000485F63 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5128B1720EFBBA000485F63 /* CalendarVC.swift */; };
@@ -92,9 +92,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		44AA039F68FC685418D5D904 /* Pods-Sports Apple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple.debug.xcconfig"; sourceTree = "<group>"; };
-		82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sports_Apple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5DDD9DF0466111C9E549E78 /* Pods-Sports Apple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple.release.xcconfig"; sourceTree = "<group>"; };
+		4EA9B04982547DB8F047E271 /* Pods_Sports_Apple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sports_Apple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AED2DC421A72F57CD3832C22 /* Pods-Sports Apple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.release.xcconfig"; path = "Target Support Files/Pods-Sports Apple/Pods-Sports Apple.release.xcconfig"; sourceTree = "<group>"; };
+		E79069718CF9AE2E91542E5C /* Pods-Sports Apple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sports Apple.debug.xcconfig"; path = "Target Support Files/Pods-Sports Apple/Pods-Sports Apple.debug.xcconfig"; sourceTree = "<group>"; };
+		F4124D3828B62BC80008E51E /* AWSCognitoIdentityProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSCognitoIdentityProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D3A28B62BF50008E51E /* AWSAuthCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSAuthCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D3C28B62BF50008E51E /* AWSAuthUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSAuthUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D3E28B62BF50008E51E /* AWSCognito.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSCognito.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D4028B62BF50008E51E /* AWSCognitoIdentityProviderASF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSCognitoIdentityProviderASF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D4228B62BF50008E51E /* AWSCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D4428B62BF50008E51E /* AWSDynamoDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSDynamoDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D4628B62BF50008E51E /* AWSMobileClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSMobileClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D4828B62BF50008E51E /* AWSS3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSS3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4124D4A28B62BF50008E51E /* AWSUserPoolsSignIn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSUserPoolsSignIn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F503C3D122302CD20020778F /* IAPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPVC.swift; sourceTree = "<group>"; };
 		F5128B1520EFBB0500485F63 /* CalendarCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCVCell.swift; sourceTree = "<group>"; };
 		F5128B1720EFBBA000485F63 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
@@ -185,30 +195,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A3D53582B79DBC49273BC20 /* Pods_Sports_Apple.framework in Frameworks */,
 				F53D0BA421C93C0A00D02FBD /* StoreKit.framework in Frameworks */,
+				158F11804CD484E8D967B6E3 /* Pods_Sports_Apple.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B36C17C2ADC8755F49BFCB90 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E79069718CF9AE2E91542E5C /* Pods-Sports Apple.debug.xcconfig */,
+				AED2DC421A72F57CD3832C22 /* Pods-Sports Apple.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C1BE996EEB0EA1539F1E4C88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4124D3A28B62BF50008E51E /* AWSAuthCore.framework */,
+				F4124D3C28B62BF50008E51E /* AWSAuthUI.framework */,
+				F4124D3E28B62BF50008E51E /* AWSCognito.framework */,
+				F4124D4028B62BF50008E51E /* AWSCognitoIdentityProviderASF.framework */,
+				F4124D4228B62BF50008E51E /* AWSCore.framework */,
+				F4124D4428B62BF50008E51E /* AWSDynamoDB.framework */,
+				F4124D4628B62BF50008E51E /* AWSMobileClient.framework */,
+				F4124D4828B62BF50008E51E /* AWSS3.framework */,
+				F4124D4A28B62BF50008E51E /* AWSUserPoolsSignIn.framework */,
+				F4124D3828B62BC80008E51E /* AWSCognitoIdentityProvider.framework */,
 				F53D0BA321C93C0A00D02FBD /* StoreKit.framework */,
-				82C060469D962B6AF0552506 /* Pods_Sports_Apple.framework */,
+				4EA9B04982547DB8F047E271 /* Pods_Sports_Apple.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D5A5C8D190AF9C1A541ACFB9 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				44AA039F68FC685418D5D904 /* Pods-Sports Apple.debug.xcconfig */,
-				D5DDD9DF0466111C9E549E78 /* Pods-Sports Apple.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		F5128B1420EFBAF100485F63 /* CollectionView Cells */ = {
@@ -280,8 +300,8 @@
 			children = (
 				F541B7C2209C49930053C9DB /* Sports Apple */,
 				F541B7C1209C49930053C9DB /* Products */,
-				D5A5C8D190AF9C1A541ACFB9 /* Pods */,
 				C1BE996EEB0EA1539F1E4C88 /* Frameworks */,
+				B36C17C2ADC8755F49BFCB90 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -404,11 +424,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F541B7D2209C49930053C9DB /* Build configuration list for PBXNativeTarget "Sports Apple" */;
 			buildPhases = (
-				697E716EAED3C2AA3022D760 /* [CP] Check Pods Manifest.lock */,
+				FAE308B78325BFF48E32662C /* [CP] Check Pods Manifest.lock */,
 				F541B7BC209C49930053C9DB /* Sources */,
 				F541B7BD209C49930053C9DB /* Frameworks */,
 				F541B7BE209C49930053C9DB /* Resources */,
-				E97306DF7DBBDE4A07360D79 /* [CP] Embed Pods Frameworks */,
+				61DFEED80092096A176BE508 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -426,7 +446,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "Hamza Amin";
 				TargetAttributes = {
 					F541B7BF209C49930053C9DB = {
@@ -495,31 +515,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		697E716EAED3C2AA3022D760 /* [CP] Check Pods Manifest.lock */ = {
+		61DFEED80092096A176BE508 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sports Apple-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E97306DF7DBBDE4A07360D79 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Sports Apple/Pods-Sports Apple-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthUI/AWSAuthUI.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
@@ -562,7 +564,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sports Apple/Pods-Sports Apple-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sports Apple/Pods-Sports Apple-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FAE308B78325BFF48E32662C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sports Apple-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -676,6 +700,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -701,7 +726,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -735,6 +760,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -754,7 +780,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -764,13 +790,15 @@
 		};
 		F541B7D3209C49930053C9DB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44AA039F68FC685418D5D904 /* Pods-Sports Apple.debug.xcconfig */;
+			baseConfigurationReference = E79069718CF9AE2E91542E5C /* Pods-Sports Apple.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TD2T97QU5N;
+				EXCLUDED_ARCHS = "";
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Sports Apple/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamzabinamin.SportsApple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -781,13 +809,14 @@
 		};
 		F541B7D4209C49930053C9DB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5DDD9DF0466111C9E549E78 /* Pods-Sports Apple.release.xcconfig */;
+			baseConfigurationReference = AED2DC421A72F57CD3832C22 /* Pods-Sports Apple.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TD2T97QU5N;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Sports Apple/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamzabinamin.SportsApple;
 				PRODUCT_NAME = "$(TARGET_NAME)";

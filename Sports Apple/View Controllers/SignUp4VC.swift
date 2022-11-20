@@ -443,7 +443,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                         }
                         
                         if response.result != nil {
-                            print(response.result!.description)
+                            print(response.result!)
                             self.updateUser()
                         }
                         else {
@@ -477,7 +477,7 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                     if let error = task.error as NSError? {
                         DispatchQueue.main.async {
                             self?.hideHUD(hud: (self?.hud!)!)
-                            
+                        
                         }
                         if error.code == 13 {
                             self?.showErrorHUD(text: "Password must be of 8 or more characters")
@@ -496,9 +496,9 @@ class SignUp4VC: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UI
                         if (result.user.confirmedStatus != AWSCognitoIdentityUserStatus.confirmed) {
                             print("User not confirmed")
                             //UtilityFunctions.saveUserDefaults(value: (self?.user)!)
-                            self?.sentTo = (result.codeDeliveryDetails?.destination)!
+                         //   self?.sentTo = (result.codeDeliveryDetails?.destination)!
                             self?.store = result.user
-                            self?.user.userID = result.userSub!
+                          //  self?.user.userID = result.user
                             self?.saveUser(storedUser: (self?.user)!)
                         } else {
                             print("Got in else")

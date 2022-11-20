@@ -35,7 +35,7 @@ class LogOutVC: UIViewController {
     
     @objc func logout() {
         
-        if let currentUser = pool.currentUser() {
+        if let currentUser = pool?.currentUser() {
             currentUser.signOut()
             self.dismiss(animated: true, completion: {
                 NotificationCenter.default.post(name: .showLoginVC, object: nil)
