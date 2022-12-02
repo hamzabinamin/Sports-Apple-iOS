@@ -283,6 +283,7 @@ class SessionActivitiesVC: UIViewController, UITableViewDelegate, UITableViewDat
                         self.showSuccessHUD(text: "Session updated")
                         self.dismiss(animated: true, completion: nil)
                         NotificationCenter.default.post(name: .refreshActivity3, object: nil)
+                       // self.dismiss(animated: true, completion: nil)
                     }
                 }
                 else {

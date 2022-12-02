@@ -72,7 +72,7 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+   /* func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             if userItem.subscriptionDetails["Type"] != "none" {
                 print("User has subscribed before")
@@ -719,6 +719,23 @@ class ReportsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }) */
            // self.goToDailyActivityReportVC()
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    } */
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            self.goToSummaryReportVC()
+        }
+        else if indexPath.row == 1 {
+            self.goToGoalStatusReportVC()
+        }
+        else if indexPath.row == 2 {
+            self.goToYearTotalsReportVC()
+        }
+        else if indexPath.row == 3 {
+            self.goToDailyActivityReportVC()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)

@@ -41,7 +41,7 @@ class GoalStatusReportVC: UIViewController {
     
     let headerTitles = ["Activity", "Cumulative Goal", "Year-to-Date", "Weight Goal", "Max Weight",
                         "Distance Goal", "Total Distance", "Time Goal", "Max Time", "To Meet Goal",
-                        "Pct%", "To Do Per Day", "Projected"]
+                        "Pct%", "To Do Per Day", "Projected", "Avg Per Day"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,9 +166,9 @@ class GoalStatusReportVC: UIViewController {
                         var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                                  DataTableValueType.string(""), DataTableValueType.string(""),
                                                  DataTableValueType.string(""), DataTableValueType.string(""),
-                                                 DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                                                 DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
                         
-                        var stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", ""]
+                        var stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", "", ""]
                         
                         row[0] = DataTableValueType.string(item.exerciseName)
                         stringRow[0] = item.exerciseName
@@ -282,6 +282,11 @@ class GoalStatusReportVC: UIViewController {
                                 row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: self.totalCalories))!)
                                 stringRow[2] = self.numFormatter.string(from: NSNumber(value: self.totalCalories))!
                                 
+                                let avgPerDay = (Float(self.totalCalories) / Float(self.daysPastInYear))
+                                
+                                row[13] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: avgPerDay))!)
+                                stringRow[13] = self.numFormatter.string(from: NSNumber(value: avgPerDay))!
+                                
                                 var meetGoal = (item.goalCount - self.totalCalories)
                                 
                                 if meetGoal < 0 {
@@ -329,6 +334,12 @@ class GoalStatusReportVC: UIViewController {
                                 row[2] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: item.exerciseCount))!)
                                 stringRow[2] = self.numFormatter.string(from: NSNumber(value: item.exerciseCount))!
                                 
+                                let avgPerDay = (Float(item.exerciseCount) / Float(self.daysPastInYear))
+                                
+                                row[13] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: avgPerDay))!)
+                                stringRow[13] = self.numFormatter.string(from: NSNumber(value: avgPerDay))!
+                                
+                                
                                 var meetGoal = (item.goalCount - item.exerciseCount)
                                 
                                 if meetGoal < 0 {
@@ -370,8 +381,8 @@ class GoalStatusReportVC: UIViewController {
                     let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""),
-                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
-                    let stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", ""]
+                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                    let stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", "", ""]
                     
                     self.dataRows.append(row)
                     self.stringArray.append(stringRow)
@@ -447,8 +458,8 @@ class GoalStatusReportVC: UIViewController {
                     let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""),
                                              DataTableValueType.string(""), DataTableValueType.string(""),
-                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
-                    let stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", ""]
+                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                    let stringRow: [String] = ["", "", "", "", "", "", "", "" , "", "", "", "", "", ""]
                     
                     self.dataRows.append(row)
                     self.stringArray.append(stringRow)
@@ -460,6 +471,7 @@ class GoalStatusReportVC: UIViewController {
     
     public func addDataSourceAfter(){
         self.dataSource = self.dataRows
+        self.dataTable.delegate = self
         self.dataTable.reload()
     }
     
@@ -480,10 +492,10 @@ class GoalStatusReportVC: UIViewController {
         
         
         
-        try! csv.write(row: ["Activity", "Cumulative Goal", "Year-to-Date", "Weight Goal", "Max Weight", "Distance Goal", "Total Distance", "Time Goal", "Max Time", "To Meet Goal", "Pct%", "To Do Per Day", "Projected"])
+        try! csv.write(row: ["Activity", "Cumulative Goal", "Year-to-Date", "Weight Goal", "Max Weight", "Distance Goal", "Total Distance", "Time Goal", "Max Time", "To Meet Goal", "Pct%", "To Do Per Day", "Projected", "Avg Per Day"])
         
         for row in stringArray {
-            try! csv.write(row: [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12]])
+            try! csv.write(row: [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13]])
         }
         
         csv.stream.close()
@@ -510,7 +522,7 @@ extension GoalStatusReportVC: SwiftDataTableDataSource {
     }
     
     public func numberOfColumns(in: SwiftDataTable) -> Int {
-        return 13
+        return 14
     }
     
     func numberOfRows(in: SwiftDataTable) -> Int {
@@ -524,5 +536,13 @@ extension GoalStatusReportVC: SwiftDataTableDataSource {
     public func dataTable(_ dataTable: SwiftDataTable, highlightedColorForRowIndex at: Int) -> UIColor {
         print("Got inside highlight")
         return UIColor.red
+    }
+}
+
+
+extension GoalStatusReportVC: SwiftDataTableDelegate {
+    @objc func fixedColumns(for dataTable: SwiftDataTable) -> DataTableFixedColumnType {
+        // and return the object here
+        return .init(leftColumns: 1) // freeze the first two columns
     }
 }

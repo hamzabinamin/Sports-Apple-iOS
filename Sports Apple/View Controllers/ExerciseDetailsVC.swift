@@ -963,6 +963,12 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func dismissVCAfterSomeTime() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     func validation(type: String, weight: String, reps: String, sets: String, count: String, time: String, distance: String) -> Bool {
         
         if exerciseID.count > 0 {
@@ -1110,6 +1116,7 @@ class ExerciseDetailsVC: UIViewController, UITextFieldDelegate, UITextViewDelega
                                 if response == "success" {
                                     self.showSuccessHUD(text: "Activity updated")
                                     NotificationCenter.default.post(name: .updateExercise, object: nil)
+                                    self.dismissVCAfterSomeTime()
                                 }
                                 else {
                                     self.showErrorHUD(text: response)

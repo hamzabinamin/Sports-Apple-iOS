@@ -32,7 +32,7 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     let inchesSymbol = "lbs"
     let caloriesSymbol = "calories"
     let session: Activity = Activity()
-    var oldSession:Activity = Activity()
+    var oldSession: Activity = Activity()
     let user: User = User()
     var date = Date()
     let formatter = DateFormatter()
@@ -348,6 +348,12 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
         return true
     }
     
+    func dismissVCAfterSomeTime() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @objc func confirmDate(notification: Notification) {
         if let date = notification.object as? [Date] {
             self.date = date.first!
@@ -427,7 +433,8 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
                         self.hideHUD(hud: self.hud!)
                         if response == "success" {
                             self.showSuccessHUD(text: "Session updated")
-                             NotificationCenter.default.post(name: .refreshActivity2, object: nil)
+                            NotificationCenter.default.post(name: .refreshActivity2, object: nil)
+                            self.dismissVCAfterSomeTime() 
                         }
                         else {
                             self.showErrorHUD(text: response)
@@ -466,6 +473,4 @@ class AddSessionVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
     @objc func back() {
         self.dismiss(animated: true, completion: nil)
     }
-
-
 }
