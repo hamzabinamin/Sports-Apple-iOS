@@ -37,7 +37,7 @@ class DailyActivityReportVC: UIViewController {
     var oneDate = false
     var totalCalories: Float = 0
     var totalWeight: Float = 0
-    let headerTitles = ["Date", "Exercise", "Weight", "Reps", "Sets", "Count", "Distance", "Time", "Comment"]
+    let headerTitles = ["Date", "Exercise", "Weight", "Reps", "Sets", "Count", "Distance", "Time", "Comment", "Calories", "Location", "Session Comment"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,8 +111,8 @@ class DailyActivityReportVC: UIViewController {
                             self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                             
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
-                                DataTableValueType.string(""), DataTableValueType.string("")]
-                            var stringRow = ["", "", "", "", "", "", "", "", ""]
+                                DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                            var stringRow = ["", "", "", "", "", "", "", "", "", "", "", ""]
                             
                             let dateStore = self.formatter.date(from: item._date!)
                             
@@ -160,6 +160,15 @@ class DailyActivityReportVC: UIViewController {
                             row[8] = DataTableValueType.string(activity["Exercise Comment"] as! String)
                             stringRow[8] = activity["Exercise Comment"] as! String
                             
+                            row[9] = DataTableValueType.string(String(item._calories?.floatValue ?? 0))
+                            stringRow[9] = String(item._calories?.floatValue ?? 0)
+                            
+                            row[10] = DataTableValueType.string(item._location ?? "")
+                            stringRow[10] = item._location ?? ""
+                            
+                            row[11] = DataTableValueType.string(item._workoutComment ?? "")
+                            stringRow[11] = item._workoutComment ?? ""
+                            
                             print("Comment: ", activity["Exercise Comment"] as! String)
                             
                             self.dataRows.append(row)
@@ -175,8 +184,8 @@ class DailyActivityReportVC: UIViewController {
                 DispatchQueue.main.async {
                     self.dataRows.removeAll()
                     let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
-                                             DataTableValueType.string(""), DataTableValueType.string("")]
-                    let stringRow = ["", "", "", "", "", "", "", "", ""]
+                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                    let stringRow = ["", "", "", "", "", "", "", "", "", "", "", ""]
                     
                     self.dataRows.append(row)
                     self.stringArray.append(stringRow)
@@ -209,8 +218,8 @@ class DailyActivityReportVC: UIViewController {
             print("Response: " + response)
             if response == "success" {
                 DispatchQueue.main.async {
+                    print("responseArray: ", responseArray)
                     self.array = responseArray
-                    
                     //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                     self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                     
@@ -222,8 +231,8 @@ class DailyActivityReportVC: UIViewController {
                             self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                             
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
-                                                     DataTableValueType.string(""), DataTableValueType.string("")]
-                            var stringRow = ["", "", "", "", "", "", "", "", ""]
+                                                     DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                            var stringRow = ["", "", "", "", "", "", "", "", "", "", "", ""]
                             let dateStore = self.formatter.date(from: item._date!)
                             
                             //self.formatter.dateFormat = "MM/dd/yyyy"
@@ -269,6 +278,15 @@ class DailyActivityReportVC: UIViewController {
                             }
                             row[8] = DataTableValueType.string(activity["Exercise Comment"] as! String)
                             
+                            row[9] = DataTableValueType.string(String(item._calories?.floatValue ?? 0))
+                            stringRow[9] = String(item._calories?.floatValue ?? 0)
+                            
+                            row[10] = DataTableValueType.string(item._location ?? "")
+                            stringRow[10] = item._location ?? ""
+                            
+                            row[11] = DataTableValueType.string(item._workoutComment ?? "")
+                            stringRow[11] = item._workoutComment ?? ""
+                            
                             print("Comment: ", activity["Exercise Comment"] as! String)
                         
                             self.dataRows.append(row)
@@ -284,8 +302,8 @@ class DailyActivityReportVC: UIViewController {
                 DispatchQueue.main.async {
                    self.dataRows.removeAll()
                    let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
-                                             DataTableValueType.string(""), DataTableValueType.string("")]
-                   let stringRow = ["", "", "", "", "", "", "", "", ""]
+                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                   let stringRow = ["", "", "", "", "", "", "", "", "", "", "", ""]
                    self.dataRows.append(row)
                    self.stringArray.append(stringRow)
                    self.addDataSourceAfter()
@@ -313,6 +331,7 @@ class DailyActivityReportVC: UIViewController {
             print("Response: " + response)
             if response == "success" {
                 DispatchQueue.main.async {
+                    print("responseArray: ", responseArray)
                     self.array = responseArray
                     //self.formatter.dateFormat = "MM/dd/yyyy h:mm a"
                     self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -351,8 +370,8 @@ class DailyActivityReportVC: UIViewController {
                             self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                             
                             var row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
-                                                     DataTableValueType.string(""), DataTableValueType.string("")]
-                            var stringRow = ["", "", "", "", "", "", "", "", ""]
+                                                     DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                            var stringRow = ["", "", "", "", "", "", "", "", "", "", "", ""]
                             let dateStore = self.formatter.date(from: item._date!)
                             
                             //self.formatter.dateFormat = "MM/dd/yyyy"
@@ -400,6 +419,15 @@ class DailyActivityReportVC: UIViewController {
                             row[8] = DataTableValueType.string(activity["Exercise Comment"] as! String)
                             stringRow[8] = activity["Exercise Comment"] as! String
                             
+                            row[9] = DataTableValueType.string(String(item._calories?.floatValue ?? 0))
+                            stringRow[9] = String(item._calories?.floatValue ?? 0)
+                            
+                            row[10] = DataTableValueType.string(item._location ?? "")
+                            stringRow[10] = item._location ?? ""
+                            
+                            row[11] = DataTableValueType.string(item._workoutComment ?? "")
+                            stringRow[11] = item._workoutComment ?? ""
+                            
                             print("Comment: ", activity["Exercise Comment"] as! String)
                         
                             self.dataRows.append(row)
@@ -416,8 +444,8 @@ class DailyActivityReportVC: UIViewController {
                 DispatchQueue.main.async {
                     self.dataRows.removeAll()
                     let row: DataTableRow = [DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""),
-                                             DataTableValueType.string(""), DataTableValueType.string("")]
-                    let stringRow = ["", "", "", "", "", "", "", "", ""]
+                                             DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string(""), DataTableValueType.string("")]
+                    let stringRow = ["", "", "", "", "", "", "", "", "", "", "", ""]
                     self.dataRows.append(row)
                     self.stringArray.append(stringRow)
                     self.addDataSourceAfter()
@@ -453,11 +481,11 @@ class DailyActivityReportVC: UIViewController {
         let stream = OutputStream(toFileAtPath: (path?.path)!, append: false)!
         let csv = try! CSVWriter(stream: stream)
         
-        try! csv.write(row: ["Date", "Exercise", "Weight", "Reps", "Sets", "Count", "Distance", "Time", "Comment"])
+        try! csv.write(row: ["Date", "Exercise", "Weight", "Reps", "Sets", "Count", "Distance", "Time", "Comment", "Calories", "Location", "Session Comment"])
         
         for row in stringArray {
             print("row[8]: ", row[8])
-            try! csv.write(row: [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]])
+            try! csv.write(row: [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]])
         }
         
         csv.stream.close()
@@ -517,7 +545,7 @@ extension DailyActivityReportVC: SwiftDataTableDataSource {
     }
     
     public func numberOfColumns(in: SwiftDataTable) -> Int {
-        return 8
+        return 12
     }
     
     func numberOfRows(in: SwiftDataTable) -> Int {
