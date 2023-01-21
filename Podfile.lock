@@ -1,0 +1,95 @@
+PODS:
+  - AWSAuthCore (2.19.1):
+    - AWSCore (= 2.19.1)
+  - AWSAuthUI (2.19.1):
+    - AWSAuthCore (= 2.19.1)
+    - AWSCore (= 2.19.1)
+  - AWSCognito (2.19.1):
+    - AWSCore (= 2.19.1)
+  - AWSCognitoIdentityProvider (2.19.1):
+    - AWSCognitoIdentityProviderASF (= 2.19.1)
+    - AWSCore (= 2.19.1)
+  - AWSCognitoIdentityProviderASF (2.19.1)
+  - AWSCore (2.19.1)
+  - AWSDynamoDB (2.19.1):
+    - AWSCore (= 2.19.1)
+  - AWSMobileClient (2.19.1):
+    - AWSAuthCore (= 2.19.1)
+    - AWSCognitoIdentityProvider (= 2.19.1)
+    - AWSCognitoIdentityProviderASF (= 2.19.1)
+    - AWSCore (= 2.19.1)
+  - AWSS3 (2.19.1):
+    - AWSCore (= 2.19.1)
+  - AWSUserPoolsSignIn (2.19.1):
+    - AWSAuthCore (= 2.19.1)
+    - AWSCognitoIdentityProvider (= 2.19.1)
+    - AWSCore (= 2.19.1)
+  - CSV.swift (2.4.3)
+  - IQKeyboardManagerSwift (6.5.10)
+  - JGProgressHUD (2.2)
+  - JTAppleCalendar (7.1.5)
+  - PDFGenerator (3.1.0)
+  - SwiftDataTables (0.8.2)
+  - SwiftyJSON (5.0.1)
+  - SwiftyStoreKit (0.16.1)
+
+DEPENDENCIES:
+  - AWSAuthUI
+  - AWSCognito
+  - AWSDynamoDB
+  - AWSMobileClient
+  - AWSS3
+  - AWSUserPoolsSignIn
+  - CSV.swift
+  - IQKeyboardManagerSwift
+  - JGProgressHUD
+  - JTAppleCalendar (= 7.1.5)
+  - PDFGenerator
+  - SwiftDataTables
+  - SwiftyJSON
+  - SwiftyStoreKit
+
+SPEC REPOS:
+  trunk:
+    - AWSAuthCore
+    - AWSAuthUI
+    - AWSCognito
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSDynamoDB
+    - AWSMobileClient
+    - AWSS3
+    - AWSUserPoolsSignIn
+    - CSV.swift
+    - IQKeyboardManagerSwift
+    - JGProgressHUD
+    - JTAppleCalendar
+    - PDFGenerator
+    - SwiftDataTables
+    - SwiftyJSON
+    - SwiftyStoreKit
+
+SPEC CHECKSUMS:
+  AWSAuthCore: 387c5e3482edbbb0fe754fa110a2a0203c783432
+  AWSAuthUI: fd6da797f59ef205d94cad9d486296982f146414
+  AWSCognito: f50de600804941d083af37a7568905f31a774727
+  AWSCognitoIdentityProvider: e6932c709d3e0b234128aeb5f2052c9bf1032d8d
+  AWSCognitoIdentityProviderASF: 749f58b75e69f7f0144b9d38539525562b843d34
+  AWSCore: 55c154ae27efc5c98bdc30a0eeea5a35d10a2ab5
+  AWSDynamoDB: c6e7aaf028d4171fe50b9a32fa67ae4c60e9b678
+  AWSMobileClient: b908cada3c35da9cfe5b4ff9947fcf70142495e7
+  AWSS3: 2272253b098d07803af8dd20ce6ce7302bcffb47
+  AWSUserPoolsSignIn: cc80a0050c9f1282812b7d3f52f240f05201739f
+  CSV.swift: d38741b349c067b4a6db42237cb0e2974d21ccac
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  JTAppleCalendar: 2d4f974f9f3c8b4964d51ca1f6e004883c031fbe
+  PDFGenerator: 17d6bc525db0a3fcd156fbf00f9d1b8d5cc75d1e
+  SwiftDataTables: 1c6bd4d477b44b07df86ca22c5ae67c85fe894ff
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
+
+PODFILE CHECKSUM: 456c15140c1568e37bce450e6874ad2274704569
+
+COCOAPODS: 1.11.2
