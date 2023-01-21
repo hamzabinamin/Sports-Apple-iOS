@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Abh-CS-wNa">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Abh-CS-wNa">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Avenir.ttc">
-            <string>Avenir-Book</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Summary ReportVC-->
         <scene sceneID="HJr-6g-PO8">
             <objects>
                 <viewController storyboardIdentifier="SummaryReportVC" id="Abh-CS-wNa" customClass="SummaryReportVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4hQ-Zc-LFm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="wMt-34-9L4">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="106"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="106" id="0Ix-iG-kkH"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v32-MZ-WMy">
-                                <rect key="frame" x="124" y="40" width="127" height="24"/>
+                                <rect key="frame" x="151.66666666666666" y="52" width="126.99999999999997" height="24"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -64,40 +58,50 @@
                                     <constraint firstAttribute="width" constant="25" id="w5z-rb-rYS"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKF-tQ-jBK">
-                                <rect key="frame" x="336" y="25" width="24" height="26"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JcG-cp-tRP" userLabel="Invisible View">
+                                <rect key="frame" x="0.0" y="106" width="430" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="brn-Fm-JXt"/>
-                                    <constraint firstAttribute="height" constant="26" id="scK-Jn-bgi"/>
+                                    <constraint firstAttribute="height" id="cXn-a6-AIK"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKF-tQ-jBK">
+                                <rect key="frame" x="391" y="40" width="24" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="7cR-QY-Vhz"/>
+                                    <constraint firstAttribute="width" constant="24" id="gH7-a2-vaj"/>
                                 </constraints>
                                 <state key="normal" image="Reports White"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6C6-VW-kbs">
-                                <rect key="frame" x="301" y="28" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6C6-VW-kbs">
+                                <rect key="frame" x="356" y="44" width="20" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="EhR-0z-sVV"/>
-                                    <constraint firstAttribute="height" constant="20" id="coX-Nt-5O1"/>
+                                    <constraint firstAttribute="width" constant="20" id="Sq7-fD-nwq"/>
+                                    <constraint firstAttribute="height" constant="20" id="lv2-P5-wCQ"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="Export"/>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="5sE-lj-ElR"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6C6-VW-kbs" firstAttribute="top" secondItem="5sE-lj-ElR" secondAttribute="top" constant="8" id="0kT-gz-hs2"/>
-                            <constraint firstItem="5sE-lj-ElR" firstAttribute="trailing" secondItem="eKF-tQ-jBK" secondAttribute="trailing" constant="15" id="5wl-Mh-rff"/>
                             <constraint firstItem="wMt-34-9L4" firstAttribute="leading" secondItem="5sE-lj-ElR" secondAttribute="leading" id="6pX-cJ-csJ"/>
                             <constraint firstItem="Fw8-u4-RcE" firstAttribute="top" secondItem="4hQ-Zc-LFm" secondAttribute="top" constant="30" id="7se-kk-8Xt"/>
                             <constraint firstItem="wMt-34-9L4" firstAttribute="top" secondItem="4hQ-Zc-LFm" secondAttribute="top" id="84B-Gp-ObM"/>
+                            <constraint firstItem="JcG-cp-tRP" firstAttribute="top" secondItem="wMt-34-9L4" secondAttribute="bottom" id="Oi8-Ni-5O5"/>
                             <constraint firstItem="fhJ-fS-uHJ" firstAttribute="top" secondItem="4hQ-Zc-LFm" secondAttribute="top" constant="45" id="Pxl-Ni-aHl"/>
-                            <constraint firstItem="eKF-tQ-jBK" firstAttribute="top" secondItem="5sE-lj-ElR" secondAttribute="top" constant="5" id="Ua5-W3-QHl"/>
+                            <constraint firstItem="JcG-cp-tRP" firstAttribute="top" secondItem="eKF-tQ-jBK" secondAttribute="bottom" constant="40" id="TVZ-f3-6yH"/>
+                            <constraint firstItem="JcG-cp-tRP" firstAttribute="leading" secondItem="5sE-lj-ElR" secondAttribute="leading" id="UtX-pA-rEk"/>
+                            <constraint firstItem="JcG-cp-tRP" firstAttribute="trailing" secondItem="5sE-lj-ElR" secondAttribute="trailing" id="Vy5-PO-InE"/>
                             <constraint firstItem="wMt-34-9L4" firstAttribute="trailing" secondItem="5sE-lj-ElR" secondAttribute="trailing" id="Wf5-d4-Cr4"/>
-                            <constraint firstItem="v32-MZ-WMy" firstAttribute="centerX" secondItem="4hQ-Zc-LFm" secondAttribute="centerX" id="aZJ-CV-Zr7"/>
-                            <constraint firstItem="v32-MZ-WMy" firstAttribute="top" secondItem="5sE-lj-ElR" secondAttribute="top" constant="20" id="d77-Py-wOv"/>
-                            <constraint firstItem="eKF-tQ-jBK" firstAttribute="leading" secondItem="6C6-VW-kbs" secondAttribute="trailing" constant="15" id="i6Y-VH-3Vp"/>
+                            <constraint firstItem="JcG-cp-tRP" firstAttribute="top" secondItem="6C6-VW-kbs" secondAttribute="bottom" constant="42" id="ZbT-kn-HkL"/>
+                            <constraint firstItem="eKF-tQ-jBK" firstAttribute="leading" secondItem="6C6-VW-kbs" secondAttribute="trailing" constant="15" id="aIV-sL-X6V"/>
+                            <constraint firstItem="JcG-cp-tRP" firstAttribute="top" secondItem="v32-MZ-WMy" secondAttribute="bottom" constant="30" id="fvo-o9-0Nq"/>
+                            <constraint firstItem="5sE-lj-ElR" firstAttribute="trailing" secondItem="eKF-tQ-jBK" secondAttribute="trailing" constant="15" id="hcs-Y4-YT0"/>
                             <constraint firstItem="fhJ-fS-uHJ" firstAttribute="leading" secondItem="5sE-lj-ElR" secondAttribute="leading" constant="49" id="n8a-jY-Ack"/>
                             <constraint firstItem="Fw8-u4-RcE" firstAttribute="leading" secondItem="5sE-lj-ElR" secondAttribute="leading" constant="35" id="s5K-XQ-6cC"/>
+                            <constraint firstItem="v32-MZ-WMy" firstAttribute="centerX" secondItem="4hQ-Zc-LFm" secondAttribute="centerX" id="y0s-Ac-znJ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="5sE-lj-ElR"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="0KC-LM-k32" id="gqu-oU-rAj"/>
@@ -107,7 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXv-QE-ccG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-82.400000000000006" y="58.920539730134934"/>
+            <point key="canvasLocation" x="-83.720930232558132" y="58.58369098712447"/>
         </scene>
     </scenes>
     <resources>
@@ -115,6 +119,9 @@
         <image name="Back" width="32" height="32"/>
         <image name="Export" width="32" height="32"/>
         <image name="Header" width="375" height="182"/>
-        <image name="Reports White" width="42" height="42"/>
+        <image name="Reports White" width="42.666667938232422" height="42.666667938232422"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

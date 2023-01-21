@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Avenir.ttc">
-            <string>Avenir-Book</string>
-            <string>Avenir-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Total Calories ChartVC-->
         <scene sceneID="IT5-nt-6gL">
             <objects>
                 <viewController storyboardIdentifier="TotalCaloriesChartVC" id="xKN-nn-yPT" customClass="TotalCaloriesChartVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OAP-KC-3yu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="oa6-eH-vsg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="106"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="106" id="qD6-eT-8nu"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T. Calories Graph" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3HG-O5-1NB">
-                                <rect key="frame" x="122" y="40" width="131" height="24"/>
+                                <rect key="frame" x="149.66666666666666" y="57" width="130.99999999999997" height="24"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -65,30 +58,40 @@
                                     <constraint firstAttribute="height" constant="25" id="nka-t6-OZd"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ItS-CJ-DS1" userLabel="Invisible View">
+                                <rect key="frame" x="0.0" y="106" width="430" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="Zls-EH-0gr"/>
+                                </constraints>
+                            </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't added any sessions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw9-TM-nXR">
-                                <rect key="frame" x="5" y="320" width="365" height="27.5"/>
+                                <rect key="frame" x="5" y="452.33333333333331" width="420" height="27.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="REg-cX-o5y"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="KCJ-do-26X" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" constant="49" id="8cM-YQ-qc4"/>
+                            <constraint firstItem="3HG-O5-1NB" firstAttribute="centerX" secondItem="OAP-KC-3yu" secondAttribute="centerX" id="9ps-xU-J8D"/>
+                            <constraint firstItem="ItS-CJ-DS1" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" id="BV2-fD-bVz"/>
                             <constraint firstItem="Zw9-TM-nXR" firstAttribute="centerY" secondItem="OAP-KC-3yu" secondAttribute="centerY" id="DSZ-0A-8Y8"/>
-                            <constraint firstItem="3HG-O5-1NB" firstAttribute="centerX" secondItem="OAP-KC-3yu" secondAttribute="centerX" id="IlX-gJ-ska"/>
+                            <constraint firstItem="REg-cX-o5y" firstAttribute="trailing" secondItem="ItS-CJ-DS1" secondAttribute="trailing" id="NJd-w5-Kki"/>
                             <constraint firstItem="oa6-eH-vsg" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" id="Q9b-XC-ccV"/>
                             <constraint firstItem="PhD-uc-YtB" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" constant="35" id="VJS-Rh-LTx"/>
+                            <constraint firstItem="ItS-CJ-DS1" firstAttribute="top" secondItem="3HG-O5-1NB" secondAttribute="bottom" constant="25" id="Vib-v1-cSx"/>
                             <constraint firstItem="PhD-uc-YtB" firstAttribute="top" secondItem="OAP-KC-3yu" secondAttribute="top" constant="30" id="WhN-re-dvl"/>
-                            <constraint firstItem="3HG-O5-1NB" firstAttribute="top" secondItem="REg-cX-o5y" secondAttribute="top" constant="20" id="XBN-Z2-Y7X"/>
                             <constraint firstItem="oa6-eH-vsg" firstAttribute="trailing" secondItem="REg-cX-o5y" secondAttribute="trailing" id="ZwK-8C-FMT"/>
+                            <constraint firstItem="ItS-CJ-DS1" firstAttribute="top" secondItem="oa6-eH-vsg" secondAttribute="bottom" id="bAu-Zs-Kef"/>
                             <constraint firstItem="oa6-eH-vsg" firstAttribute="top" secondItem="OAP-KC-3yu" secondAttribute="top" id="bhQ-TO-lfD"/>
                             <constraint firstItem="REg-cX-o5y" firstAttribute="trailing" secondItem="Zw9-TM-nXR" secondAttribute="trailing" constant="5" id="eP5-7i-L5O"/>
                             <constraint firstItem="KCJ-do-26X" firstAttribute="top" secondItem="OAP-KC-3yu" secondAttribute="top" constant="45" id="mjd-my-3fh"/>
                             <constraint firstItem="Zw9-TM-nXR" firstAttribute="centerX" secondItem="OAP-KC-3yu" secondAttribute="centerX" id="rbt-sQ-z94"/>
                             <constraint firstItem="Zw9-TM-nXR" firstAttribute="leading" secondItem="REg-cX-o5y" secondAttribute="leading" constant="5" id="wVT-fc-Mit"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="REg-cX-o5y"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="gzW-it-2l1" id="E73-yZ-OHl"/>
@@ -104,5 +107,8 @@
         <image name="Activity Header" width="53" height="62"/>
         <image name="Back" width="32" height="32"/>
         <image name="Header" width="375" height="182"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

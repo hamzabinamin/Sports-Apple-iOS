@@ -1,44 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Avenir.ttc">
-            <string>Avenir-Book</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Goal Status ReportVC-->
         <scene sceneID="TnF-js-cry">
             <objects>
                 <viewController storyboardIdentifier="GoalStatusReportVC" id="roX-zr-iQe" customClass="GoalStatusReportVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OZa-Oy-mgq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="Yej-uV-DVW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="106"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="106" id="iDF-pd-Mu3"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QO9-b9-o6D">
-                                <rect key="frame" x="340" y="28" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QO9-b9-o6D">
+                                <rect key="frame" x="395" y="46" width="20" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="IK9-7Q-Nn2"/>
-                                    <constraint firstAttribute="width" constant="20" id="fhJ-Ba-3ts"/>
+                                    <constraint firstAttribute="height" constant="20" id="HIl-Uw-rmo"/>
+                                    <constraint firstAttribute="width" constant="20" id="Q3Y-Mb-d6H"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="Export"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YTD G. S. Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZIJ-5b-fhQ">
-                                <rect key="frame" x="122.5" y="40" width="130" height="24"/>
+                                <rect key="frame" x="150" y="52" width="130" height="24"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -72,22 +66,32 @@
                                     <constraint firstAttribute="bottom" secondItem="Zfe-0b-ih4" secondAttribute="bottom" id="za2-0u-7NA"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZw-is-hWb" userLabel="Invisible View">
+                                <rect key="frame" x="0.0" y="106" width="430" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="mwY-GH-fWN"/>
+                                </constraints>
+                            </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="caG-4x-dSf"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="caG-4x-dSf" firstAttribute="trailing" secondItem="QO9-b9-o6D" secondAttribute="trailing" constant="15" id="170-pK-WaY"/>
+                            <constraint firstItem="cZw-is-hWb" firstAttribute="top" secondItem="Yej-uV-DVW" secondAttribute="bottom" id="1y0-Dc-ZdS"/>
                             <constraint firstItem="Yej-uV-DVW" firstAttribute="top" secondItem="OZa-Oy-mgq" secondAttribute="top" id="6Qw-Wo-ASN"/>
+                            <constraint firstItem="cZw-is-hWb" firstAttribute="top" secondItem="QO9-b9-o6D" secondAttribute="bottom" constant="40" id="7Bk-dn-jJh"/>
+                            <constraint firstItem="caG-4x-dSf" firstAttribute="trailing" secondItem="cZw-is-hWb" secondAttribute="trailing" id="8ct-au-vuS"/>
                             <constraint firstItem="7zk-SZ-me3" firstAttribute="top" secondItem="OZa-Oy-mgq" secondAttribute="top" constant="45" id="BiR-AH-hvU"/>
-                            <constraint firstItem="ZIJ-5b-fhQ" firstAttribute="centerX" secondItem="OZa-Oy-mgq" secondAttribute="centerX" id="CCh-mO-Wrp"/>
+                            <constraint firstItem="cZw-is-hWb" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" id="DfO-5D-wgw"/>
+                            <constraint firstItem="ZIJ-5b-fhQ" firstAttribute="centerX" secondItem="OZa-Oy-mgq" secondAttribute="centerX" id="Iho-9O-G6U"/>
                             <constraint firstItem="Yej-uV-DVW" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" id="MEJ-f9-N5z"/>
                             <constraint firstItem="uVI-xF-aAf" firstAttribute="top" secondItem="OZa-Oy-mgq" secondAttribute="top" constant="30" id="OHf-ij-4s1"/>
                             <constraint firstItem="7zk-SZ-me3" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" constant="49" id="Pbf-h2-CaN"/>
                             <constraint firstItem="uVI-xF-aAf" firstAttribute="leading" secondItem="caG-4x-dSf" secondAttribute="leading" constant="35" id="SmY-yQ-5wJ"/>
-                            <constraint firstItem="QO9-b9-o6D" firstAttribute="top" secondItem="caG-4x-dSf" secondAttribute="top" constant="8" id="m8z-xw-faN"/>
-                            <constraint firstItem="caG-4x-dSf" firstAttribute="trailing" secondItem="QO9-b9-o6D" secondAttribute="trailing" constant="15" id="p4S-SX-agg"/>
-                            <constraint firstItem="ZIJ-5b-fhQ" firstAttribute="top" secondItem="caG-4x-dSf" secondAttribute="top" constant="20" id="tN3-CO-atK"/>
+                            <constraint firstItem="cZw-is-hWb" firstAttribute="top" secondItem="ZIJ-5b-fhQ" secondAttribute="bottom" constant="30" id="byb-fx-mM7"/>
                             <constraint firstItem="Yej-uV-DVW" firstAttribute="trailing" secondItem="caG-4x-dSf" secondAttribute="trailing" id="wZc-AY-bCc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="caG-4x-dSf"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="Zfe-0b-ih4" id="kEz-G6-uZ8"/>
@@ -96,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guZ-cC-lfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-82.400000000000006" y="58.920539730134934"/>
+            <point key="canvasLocation" x="-169" y="3"/>
         </scene>
     </scenes>
     <resources>
@@ -104,5 +108,8 @@
         <image name="Back" width="32" height="32"/>
         <image name="Export" width="32" height="32"/>
         <image name="Header" width="375" height="182"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

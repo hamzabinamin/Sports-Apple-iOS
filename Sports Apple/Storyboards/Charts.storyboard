@@ -1,39 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Avenir.ttc">
-            <string>Avenir-Book</string>
-            <string>Avenir-Light</string>
-            <string>Avenir-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Reports-->
         <scene sceneID="O51-Ux-y1Y">
             <objects>
                 <viewController storyboardIdentifier="ChartsVC" id="KQ4-fx-Tyk" customClass="ChartsVC" customModule="Sports_Apple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t7z-Gg-ZaK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Header" translatesAutoresizingMaskIntoConstraints="NO" id="ZrL-40-SQk">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="106"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="106" id="1jQ-CP-Liu"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Graphs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ke8-Q6-hzH">
-                                <rect key="frame" x="160" y="40" width="55" height="23.5"/>
+                                <rect key="frame" x="187.66666666666666" y="52.666666666666664" width="55" height="23.333333333333336"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -68,40 +58,40 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="146" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CsC-Ma-kcz">
-                                <rect key="frame" x="0.0" y="121" width="375" height="546"/>
+                                <rect key="frame" x="0.0" y="121" width="430" height="777"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="146" id="hzF-tG-qDA" customClass="ReportsTVCell" customModule="Sports_Apple" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="146"/>
+                                        <rect key="frame" x="0.0" y="50" width="430" height="146"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hzF-tG-qDA" id="hHF-wq-bsy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="145.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="430" height="146"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Reports 2" translatesAutoresizingMaskIntoConstraints="NO" id="An7-ub-lTF">
-                                                    <rect key="frame" x="15" y="30" width="88" height="85"/>
+                                                    <rect key="frame" x="15" y="30.666666666666671" width="88" height="85"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="85" id="KYn-C2-hPa"/>
                                                         <constraint firstAttribute="width" constant="88" id="pFl-6E-qgE"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RrG-sn-BVM">
-                                                    <rect key="frame" x="113" y="43" width="182" height="22"/>
+                                                    <rect key="frame" x="113" y="43" width="226" height="22"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euf-vi-hjq">
-                                                    <rect key="frame" x="113" y="65" width="182" height="19.5"/>
+                                                    <rect key="frame" x="113" y="65" width="226" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1H7-hg-iJv">
-                                                    <rect key="frame" x="300" y="0.0" width="75" height="145.5"/>
+                                                    <rect key="frame" x="344" y="0.0" width="86" height="146"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Back" translatesAutoresizingMaskIntoConstraints="NO" id="a8G-sV-l7G">
-                                                            <rect key="frame" x="21.5" y="57" width="32" height="32"/>
+                                                            <rect key="frame" x="27" y="57" width="32" height="32"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.20273023840000001" green="0.54656022790000003" blue="0.80522054430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -139,23 +129,23 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="kAz-L7-fZn"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ke8-Q6-hzH" firstAttribute="top" secondItem="kAz-L7-fZn" secondAttribute="top" constant="20" id="9Qz-XM-9eD"/>
+                            <constraint firstItem="ke8-Q6-hzH" firstAttribute="centerX" secondItem="t7z-Gg-ZaK" secondAttribute="centerX" id="3X0-f8-8Pb"/>
                             <constraint firstItem="kAz-L7-fZn" firstAttribute="trailing" secondItem="CsC-Ma-kcz" secondAttribute="trailing" id="Cvs-fH-AmS"/>
                             <constraint firstItem="pKF-98-6Cc" firstAttribute="top" secondItem="t7z-Gg-ZaK" secondAttribute="top" constant="45" id="FCo-kv-NbQ"/>
                             <constraint firstItem="pKF-98-6Cc" firstAttribute="leading" secondItem="kAz-L7-fZn" secondAttribute="leading" constant="49" id="GgI-D1-qgv"/>
                             <constraint firstItem="ZrL-40-SQk" firstAttribute="trailing" secondItem="kAz-L7-fZn" secondAttribute="trailing" id="Hkq-af-Sp5"/>
                             <constraint firstItem="kAz-L7-fZn" firstAttribute="bottom" secondItem="CsC-Ma-kcz" secondAttribute="bottom" id="Klf-Wt-Ru8"/>
                             <constraint firstItem="hzo-eP-m3k" firstAttribute="top" secondItem="t7z-Gg-ZaK" secondAttribute="top" constant="30" id="LzD-SE-r4B"/>
-                            <constraint firstItem="ke8-Q6-hzH" firstAttribute="centerX" secondItem="t7z-Gg-ZaK" secondAttribute="centerX" id="Mqa-pA-aql"/>
                             <constraint firstItem="hzo-eP-m3k" firstAttribute="leading" secondItem="kAz-L7-fZn" secondAttribute="leading" constant="35" id="QHO-7c-Cv7"/>
                             <constraint firstItem="CsC-Ma-kcz" firstAttribute="leading" secondItem="kAz-L7-fZn" secondAttribute="leading" id="WBi-vd-OXT"/>
+                            <constraint firstItem="CsC-Ma-kcz" firstAttribute="top" secondItem="ke8-Q6-hzH" secondAttribute="bottom" constant="45" id="Zaz-2x-QwM"/>
                             <constraint firstItem="ZrL-40-SQk" firstAttribute="top" secondItem="t7z-Gg-ZaK" secondAttribute="top" id="bS6-ej-tfh"/>
                             <constraint firstItem="CsC-Ma-kcz" firstAttribute="top" secondItem="ZrL-40-SQk" secondAttribute="bottom" constant="15" id="ryk-U8-pu8"/>
                             <constraint firstItem="ZrL-40-SQk" firstAttribute="leading" secondItem="kAz-L7-fZn" secondAttribute="leading" id="t1V-bx-egL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="kAz-L7-fZn"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Reports" image="Reports" id="EeC-k2-YvZ"/>
                     <connections>
