@@ -283,10 +283,11 @@ class GoalStatusReportVC: UIViewController {
                                 stringRow[2] = self.numFormatter.string(from: NSNumber(value: self.totalCalories))!
                                 
                                 let avgPerDay = (Float(self.totalCalories) / Float(self.daysPastInYear))
+                                let avgPerDayStore = String(format: "%.01f", avgPerDay)
                                 
-                                row[13] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: avgPerDay))!)
-                                stringRow[13] = self.numFormatter.string(from: NSNumber(value: avgPerDay))!
-                                
+                                row[13] = DataTableValueType.string(avgPerDayStore)
+                                stringRow[13] = avgPerDayStore
+                            
                                 var meetGoal = (item.goalCount - self.totalCalories)
                                 
                                 if meetGoal < 0 {
@@ -335,10 +336,10 @@ class GoalStatusReportVC: UIViewController {
                                 stringRow[2] = self.numFormatter.string(from: NSNumber(value: item.exerciseCount))!
                                 
                                 let avgPerDay = (Float(item.exerciseCount) / Float(self.daysPastInYear))
+                                let avgPerDayStore = String(format: "%.01f", avgPerDay)
                                 
-                                row[13] = DataTableValueType.string(self.numberFormatter.string(from: NSNumber(value: avgPerDay))!)
-                                stringRow[13] = self.numFormatter.string(from: NSNumber(value: avgPerDay))!
-                                
+                                row[13] = DataTableValueType.string(avgPerDayStore)
+                                stringRow[13] = avgPerDayStore
                                 
                                 var meetGoal = (item.goalCount - item.exerciseCount)
                                 
